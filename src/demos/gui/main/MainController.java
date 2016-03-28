@@ -10,7 +10,7 @@ import com.jfoenix.controls.JFXPopup.PopupVPosition;
 import com.jfoenix.controls.JFXRippler;
 
 import demos.datafx.AnimatedFlowContainer;
-import demos.gui.uicomponents.SelectLevelController;
+import demos.gui.uicomponents.BuildSelectLevelController;
 import io.datafx.controller.FXMLController;
 import io.datafx.controller.flow.Flow;
 import io.datafx.controller.flow.FlowException;
@@ -62,7 +62,7 @@ public class MainController {
 		// create the inner flow and content
 		context = new ViewFlowContext();
 		// set the default controller 
-		Flow innerFlow = new Flow(SelectLevelController.class);
+		Flow innerFlow = new Flow(BuildSelectLevelController.class);
 
 		flowHandler = innerFlow.createHandler(context);
 		context.register("ContentFlowHandler", flowHandler);

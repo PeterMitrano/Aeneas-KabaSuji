@@ -1,7 +1,6 @@
 package demos;
 
 import com.jfoenix.controls.JFXDecorator;
-import com.jfoenix.svg.SVGGlyphLoader;
 
 import demos.gui.main.MainController;
 import io.datafx.controller.flow.Flow;
@@ -22,15 +21,6 @@ public class MainDemo extends Application {
 
 	public void start(Stage stage) throws Exception {
 
-		new Thread(()->{
-			try {
-				SVGGlyphLoader.loadGlyphsFont(MainDemo.class.getResourceAsStream("/resources/fonts/icomoon.svg"),"icomoon.svg");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-		}).start();
-
 		Flow flow = new Flow(MainController.class);
 		DefaultFlowContainer container = new DefaultFlowContainer();
 		flowContext = new ViewFlowContext();
@@ -44,7 +34,7 @@ public class MainDemo extends Application {
 		//		stage.initStyle(StageStyle.UNDECORATED);
 		//		stage.setFullScreen(true);
 		stage.setMinWidth(700);
-		stage.setMinHeight(800);
+		stage.setMinHeight(700);
 		stage.setScene(scene);
 		stage.show();
 

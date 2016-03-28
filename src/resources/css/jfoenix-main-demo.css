@@ -17,6 +17,17 @@
   -fx-text-fill:BLACK;
 }
 
+.h3-label{
+  -fx-font-size:20px;
+  -fx-text-fill:BLACK;
+}
+
+.simple-border{
+  -fx-border-color:#333;
+  -fx-border-width: 4;
+  -fx-border-style: solid;
+}
+
 .side-menu{
 	-fx-padding: 20.0,10.0;
 	-fx-font-size: 15.0;
