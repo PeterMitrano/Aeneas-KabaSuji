@@ -24,6 +24,7 @@
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition?>
 <?import com.jfoenix.controls.JFXRippler?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXPopup?>
 <?import javafx.scene.layout.BorderPane?>
@@ -37,6 +38,8 @@
 			<VBox spacing="20">
 				<JFXToolbar>
 					<leftItems>
+            <JFXButton prefWidth="70" prefHeight="40" buttonType="FLAT" text="Back"
+                style="-fx-text-fill:WHITE;-fx-font-size:12px;"></JFXButton>
 						<Label>KabaSuji</Label>
 					</leftItems>
 					<rightItems>
