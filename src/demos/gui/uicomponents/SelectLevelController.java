@@ -10,8 +10,8 @@ import javafx.scene.layout.Pane;
 
 import javax.annotation.PostConstruct;
 
-@FXMLController(value = "/resources/fxml/ui/Button.fxml" , title = "Material Design Example")
-public class ButtonController {
+@FXMLController(value = "/resources/fxml/ui/SelectLevel.fxml" , title = "Select Level")
+public class SelectLevelController {
 	
 	@FXMLViewFlowContext
 	private ViewFlowContext context;

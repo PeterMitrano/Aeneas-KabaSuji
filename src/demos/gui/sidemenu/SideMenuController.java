@@ -4,7 +4,7 @@ import javax.annotation.PostConstruct;
 
 import com.jfoenix.controls.JFXListView;
 
-import demos.gui.uicomponents.ButtonController;
+import demos.gui.uicomponents.WelcomeController;
 import demos.gui.uicomponents.CheckboxController;
 import demos.gui.uicomponents.ComboBoxController;
 import demos.gui.uicomponents.DialogController;
@@ -111,7 +111,7 @@ public class SideMenuController {
 		sideList.propagateMouseEventsToParent();
 		FlowHandler contentFlowHandler = (FlowHandler) context.getRegisteredObject("ContentFlowHandler");
 		Flow contentFlow = (Flow) context.getRegisteredObject("ContentFlow");
-		bindNodeToController(button, ButtonController.class, contentFlow, contentFlowHandler);
+		bindNodeToController(button, WelcomeController.class, contentFlow, contentFlowHandler);
 		bindNodeToController(checkbox, CheckboxController.class, contentFlow, contentFlowHandler);
 		bindNodeToController(combobox, ComboBoxController.class, contentFlow, contentFlowHandler);
 		bindNodeToController(dialogs, DialogController.class, contentFlow, contentFlowHandler);

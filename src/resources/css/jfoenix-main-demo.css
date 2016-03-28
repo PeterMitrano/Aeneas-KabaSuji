@@ -1,9 +1,20 @@
 /*
- *	Apply google Roboto font to all UI components 
+ *	Apply google Roboto font to all UI components
  */
 
 .root {
-	-fx-font-family: "Roboto";	
+	-fx-font-family: "Roboto";
+}
+
+.level-select-button{
+  -fx-text-fill:BLACK;
+  -fx-background-color:WHITE;
+  -fx-font-size:18px;
+}
+
+.h2-label{
+  -fx-font-size:24px;
+  -fx-text-fill:BLACK;
 }
 
 .side-menu{
@@ -13,13 +24,13 @@
 	-fx-text-fill: #444;
 }
 .title-label{
-	-fx-font-size: 16.0px;
-	-fx-padding	: 14.0px;
+	-fx-font-size: 48.0px;
+	-fx-padding	: 80.0px;
 	-fx-text-fill: rgba(0.0, 0.0, 0.0, 0.87);
 }
 .radio-button-title-label {
 	-fx-font-size: 16.0px;
-	-fx-padding	: 14.0 0.0 -20.0 0.0;	
+	-fx-padding	: 14.0 0.0 -20.0 0.0;
 	-fx-text-fill: rgba(0.0, 0.0, 0.0, 0.87);
 }
 
@@ -30,11 +41,11 @@
  ******************************************************************************/
 
 .jfx-drawer-overlay-pane {
-	-fx-background-color: rgba(0.0,0.0,0.0,0.1)	
+	-fx-background-color: rgba(0.0,0.0,0.0,0.1)
 }
 
 .jfx-drawer-side-pane {
-	-fx-background-color: WHITE;	
+	-fx-background-color: WHITE;
 }
 
 /*******************************************************************************
@@ -44,7 +55,7 @@
  ******************************************************************************/
 
 .jfx-dialog-overlay-pane {
-	-fx-background-color: rgba(0.0,0.0,0.0,0.1); 
+	-fx-background-color: rgba(0.0,0.0,0.0,0.1);
 }
 
 .dialog-trigger{
@@ -61,7 +72,7 @@
 	-fx-font-size: 20.0px;
 	-fx-font-weight: BOLD;
 	-fx-alignment: center-left;
-	-fx-padding: 5.0 0.0 5.0 0.0; 	
+	-fx-padding: 5.0 0.0 5.0 0.0;
 }
 
 .jfx-layout-body .label {
@@ -71,12 +82,12 @@
 }
 
 .jfx-layout-actions {
-	-fx-padding: 10.0px 0.0 0.0 0.0 ;	
+	-fx-padding: 10.0px 0.0 0.0 0.0 ;
 	-fx-alignment: center-right ;
 }
 .dialog-accept{
 	-fx-text-fill: #03A9F4;
-	-fx-font-weight: BOLD; 	
+	-fx-font-weight: BOLD;
 	-fx-padding: 0.7em 0.8em;
 }
 
@@ -104,11 +115,11 @@
 }
 
 .jfx-snackbar-toast {
-	-fx-text-fill: WHITE;	
+	-fx-text-fill: WHITE;
 }
 
 .jfx-snackbar-action {
-	-fx-text-fill: #ff4081;	
+	-fx-text-fill: #ff4081;
 }
 
 /*******************************************************************************
@@ -144,9 +155,9 @@
 
 .icons-badge .badge-pane {
 	-fx-background-color:#ff4081;
-	-fx-background-radius: 23;	
+	-fx-background-radius: 23;
 	-fx-pref-width: 23;
-	-fx-pref-height: 23;	
+	-fx-pref-height: 23;
 	-fx-alignment: center;
 }
 
@@ -174,7 +185,7 @@
 	-fx-pref-width: 30px;
 	-fx-pref-height: 4px;
 	-fx-background-color: #FFF ;
-	-fx-background-radius: 5px;	
+	-fx-background-radius: 5px;
 }
 
 /*******************************************************************************
@@ -246,7 +257,7 @@
 
 .custom-jfx-radio-button .radio {
 	-fx-stroke-width: 2.0px;
-	-fx-fill: transparent;	
+	-fx-fill: transparent;
 }
 
 .custom-jfx-radio-button .dot {
@@ -401,7 +412,7 @@
     -fx-max-width: 300.0;
     -fx-pref-width:300.0;
     -fx-focus-color: #4059A9;
-    -fx-unfocus-color: #4d4d4d;       
+    -fx-unfocus-color: #4d4d4d;
 }
 
 .jfx-text-field:error , .jfx-password-field:error , .jfx-text-area:error {
@@ -436,19 +447,19 @@
 }
 
 .jfx-list-cell:odd:selected .jfx-list-cell-container,
-.jfx-list-cell:even:selected .jfx-list-cell-container { 
+.jfx-list-cell:even:selected .jfx-list-cell-container {
 	-fx-background-color: rgba(0.0,0.0,255.0,0.2);
 }
 
 .jfx-list-cell {
-	-fx-background-insets: 0.0 ; 
-	-fx-text-fill: BLACK; 
+	-fx-background-insets: 0.0 ;
+	-fx-text-fill: BLACK;
 }
-.jfx-list-cell:odd, 
+.jfx-list-cell:odd,
 .jfx-list-cell:even {
 	-fx-background-color:  WHITE;
 }
-.jfx-list-cell:filled:hover { 
+.jfx-list-cell:filled:hover {
 	-fx-text-fill: black;
 }
 
@@ -472,19 +483,19 @@
 }
 
 .custom-jfx-list-view .jfx-list-cell:odd:selected .jfx-list-cell-container,
-.custom-jfx-list-view .jfx-list-cell:even:selected .jfx-list-cell-container { 
+.custom-jfx-list-view .jfx-list-cell:even:selected .jfx-list-cell-container {
 	-fx-background-color: rgba(255,0,0,0.2) ;
 }
 
 .custom-jfx-list-view .jfx-list-cell {
-	-fx-background-insets: 0.0 ; 
-	-fx-text-fill: BLACK; 
+	-fx-background-insets: 0.0 ;
+	-fx-text-fill: BLACK;
 }
-.custom-jfx-list-view .jfx-list-cell:odd, 
+.custom-jfx-list-view .jfx-list-cell:odd,
 .custom-jfx-list-view .jfx-list-cell:even {
 	-fx-background-color:  WHITE;
 }
-.custom-jfx-list-view .jfx-list-cell:filled:hover { 
+.custom-jfx-list-view .jfx-list-cell:filled:hover {
 	-fx-text-fill: black;
 }
 
@@ -493,10 +504,10 @@
   	-fx-cell-horizontal-margin: 0.0;
   	-fx-cell-vertical-margin: 5.0;
   	-fx-expanded : false;
-  	-fx-max-width : 200.0px;   	
+  	-fx-max-width : 200.0px;
   	/* important to hide the list change of height */
   	-fx-background-color:TRANSPARENT;
-  	
+
 }
 .custom-jfx-list-view .jfx-rippler {
 	-fx-rippler-fill : RED;
@@ -547,7 +558,7 @@
 .sublist .scroll-bar:vertical .decrement-button {
     -fx-padding:0;
 }
-.sublist .jfx-list-cell:odd, 
+.sublist .jfx-list-cell:odd,
 .sublist .jfx-list-cell:even {
 	-fx-background-color:  TRANSPARENT;
 }
@@ -556,15 +567,15 @@
 }
 
 .sublist .jfx-list-cell:odd:selected .jfx-list-cell-container,
-.sublist .jfx-list-cell:even:selected .jfx-list-cell-container { 
+.sublist .jfx-list-cell:even:selected .jfx-list-cell-container {
 	-fx-background-color: rgba(255,0,0,0.2) ;
 }
 
 .sublist .jfx-list-cell {
-	-fx-background-insets: 0.0 ; 
-	-fx-text-fill: BLACK; 
+	-fx-background-insets: 0.0 ;
+	-fx-text-fill: BLACK;
 }
-.sublist .jfx-list-cell:odd, 
+.sublist .jfx-list-cell:odd,
 .sublist .jfx-list-cell:even {
 	-fx-background-color:  WHITE;
 }
@@ -605,7 +616,7 @@
 	-fx-pref-width: 80px;
 	-fx-background-radius:80px;
 	-fx-pref-height: 80px;
-	-fx-background-color:transparent; 
+	-fx-background-color:transparent;
 	-fx-selected-color:rgba(66.0,133.0,244.0,0.29885056614875793);
 	-fx-unselected-color:transparent;
 }
@@ -618,7 +629,7 @@
 .toggle-icon2, .toggle-icon3{
 	-fx-pref-width: 50px;
 	-fx-background-radius: 50px;
-	-fx-pref-height: 50px; 
+	-fx-pref-height: 50px;
 	-fx-background-color:transparent ;
 }
 
@@ -756,18 +767,18 @@
 	-fx-cursor: hand;
 }
 .combo-box-popup .list-view .jfx-list-cell:odd:selected .jfx-list-cell-container,
-.combo-box-popup .list-view .jfx-list-cell:even:selected .jfx-list-cell-container { 
+.combo-box-popup .list-view .jfx-list-cell:even:selected .jfx-list-cell-container {
 	-fx-background-color: rgba(0.0,0.0,255.0,0.2);
 }
 .combo-box-popup .list-view .jfx-list-cell {
-	-fx-background-insets: 0.0 ; 
-	-fx-text-fill: BLACK; 
+	-fx-background-insets: 0.0 ;
+	-fx-text-fill: BLACK;
 }
-.combo-box-popup .list-view .jfx-list-cell:odd, 
+.combo-box-popup .list-view .jfx-list-cell:odd,
 .combo-box-popup .list-view .jfx-list-cell:even {
 	-fx-background-color:  WHITE;
 }
-.combo-box-popup .list-view .jfx-list-cell:filled:hover { 
+.combo-box-popup .list-view .jfx-list-cell:filled:hover {
 	-fx-text-fill: black;
 }
 .combo-box-popup .list-view .jfx-list-cell .jfx-rippler {
@@ -833,7 +844,7 @@
 	-fx-padding : 16 0 16 0 ;
 }
 
-.tree-table-view .column-header .arrow, .tree-table-view .column-header .sort-order-dot{ 
+.tree-table-view .column-header .arrow, .tree-table-view .column-header .sort-order-dot{
 	-fx-background-color : #949494;
 }
 
@@ -896,9 +907,9 @@
 
 .tree-table-view .menu-item:focused{
 	-fx-background-color:-fx-tree-table-color;
-	
+
 }
 .tree-table-view .menu-item .label{
 	-fx-padding: 5 0 5 0;
-} 
+}
 

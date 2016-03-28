@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox spacing="30" alignment="TOP_CENTER" fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <Label styleClass="title-label">Welcome</Label>
+    <JFXButton prefWidth="140" prefHeight="50" buttonType="RAISED" text="Play Level"
+        style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"></JFXButton>
+    <JFXButton prefWidth="170" prefHeight="50" buttonType="RAISED" text="View Achievements"
+        style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"></JFXButton>
+    <JFXButton prefWidth="140" prefHeight="50" buttonType="RAISED" text="Build Level"
+        style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"></JFXButton>
+  </children>
+</VBox>
+
