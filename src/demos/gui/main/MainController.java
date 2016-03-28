@@ -45,7 +45,7 @@ public class MainController {
 	
 	@FXML private JFXDrawer drawer;
 	@FXML private JFXPopup toolbarPopup;
-	@FXML private Label exit;
+	@FXML private Label about;
 
 	private FlowHandler flowHandler;
 	private FlowHandler sideMenuFlowHandler;
@@ -82,8 +82,8 @@ public class MainController {
 		});
 
 		// close application
-		exit.setOnMouseClicked((e) -> {
-			Platform.exit();
+		about.setOnMouseClicked((e) -> {
+			System.out.println("about");
 		});
 
 		// create the inner flow and content

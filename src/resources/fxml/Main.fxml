@@ -44,7 +44,7 @@
 								</JFXHamburger>
 							</StackPane>
 						</JFXRippler>
-						<Label>Material Design</Label>
+						<Label>KabaSuji</Label>
 					</leftItems>
 					<rightItems>
 						<JFXRippler fx:id="optionsRippler" maskType="CIRCLE"
@@ -80,16 +80,16 @@
 	<JFXPopup fx:id="toolbarPopup" styleClass="tool-bar-popup">
 		<JFXListView styleClass="option-list-view">
 			<Label>
-				Contact Us
+        Help
 				<graphic>
 					<Icon awesomeIcon="USER" size="1.5em" style=";"
 						styleClass="option-jfx-list-view-icon" />
 				</graphic>
 			</Label>
-			<Label fx:id="exit">
-				Exit
+			<Label fx:id="about">
+        About
 				<graphic>
-					<Icon awesomeIcon="REPLY" size="1.5em" style=";"
+					<Icon awesomeIcon="INFO_CIRCLE" size="1.5em" style=";"
 						styleClass="option-jfx-list-view-icon" />
 				</graphic>
 			</Label>
