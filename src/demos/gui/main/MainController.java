@@ -34,7 +34,8 @@ public class MainController {
 	@FXML private StackPane content;
 	
 	@FXML private StackPane titleBurgerContainer;
-	@FXML private JFXHamburger titleBurger;
+	@FXML
+	private JFXHamburger titleBurger;
 	
 	@FXML private StackPane optionsBurger;	
 	@FXML private JFXRippler optionsRippler;

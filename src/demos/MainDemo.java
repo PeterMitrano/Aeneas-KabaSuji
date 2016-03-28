@@ -31,8 +31,7 @@ public class MainDemo extends Application {
 		scene.getStylesheets().add(MainDemo.class.getResource("/resources/css/jfoenix-fonts.css").toExternalForm());
 		scene.getStylesheets().add(MainDemo.class.getResource("/resources/css/jfoenix-design.css").toExternalForm());
 		scene.getStylesheets().add(MainDemo.class.getResource("/resources/css/jfoenix-main-demo.css").toExternalForm());
-		//		stage.initStyle(StageStyle.UNDECORATED);
-		//		stage.setFullScreen(true);
+
 		stage.setMinWidth(700);
 		stage.setMinHeight(700);
 		stage.setScene(scene);
