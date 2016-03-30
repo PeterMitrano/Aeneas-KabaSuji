@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,44 +14,73 @@
 
 
 <BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
-	xmlns="http://javafx.com/javafx/2.2">
-	<left>
-		<JFXListView prefWidth="100" fx:id="filelist">
-			<Label> ~/.kabasuji/levelbuilder/1.ksb</Label>
-			<Label> ~/.kabasuji/levelbuilder/2.ksb</Label>
-			<Label> ~/.kabasuji/levelbuilder/3.ksb</Label>
-			<Label> ~/.kabasuji/levelbuilder/4.ksb</Label>
-			<Label> ~/some/other/path/to/a/file/builder.ksb</Label>
+    xmlns="http://javafx.com/javafx/2.2">
+  <left>
+    <JFXListView prefWidth="100" fx:id="filelist">
+      <Canvas/>
+      <Canvas/>
+      <Canvas/>
+      <Canvas/>
+      <Canvas/>
 
-		</JFXListView>
-	</left>
-	<center>
-		<VBox alignment="TOP_CENTER">
-			
-			<HBox>
-				<Label styleClass="play-level-number">
-					Level X
-				</Label>
-				 <BorderPane.alignment>TOP_CENTER</BorderPane.alignment>
-				<Icon awesomeIcon="BOLT" size="2em" styleClass="icon" />
-				<JFXButton fx:id="ResetLevelButton" prefWidth="140"
-					prefHeight="50" buttonType="RAISED" text="Reset"
-					style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"></JFXButton>
-			</HBox>
-			<HBox>
-				<Label styleClass="play-level-number">
-				0:00
-				</Label>
-				<Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" />
-				<Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" />
-				<Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" />
-				<Label styleClass="play-level-number">
-				Moves: X
-				</Label>
-			</HBox>
-			<Label prefWidth="500" prefHeight="500" styleClass="simple-border">
-				Preview goes here
-			</Label>
-		</VBox>
-	</center>
+    </JFXListView>
+  </left>
+  <center>
+    <VBox spacing="10" alignment="TOP_CENTER">
+
+      <HBox alignment="CENTER">
+        <VBox.margin>
+          <Insets top="20.0" />
+        </VBox.margin>
+
+        <Label textAlignment="LEFT" styleClass="play-level-number">
+          Level X
+          <HBox.margin>
+            <Insets left="20" />
+          </HBox.margin>
+        </Label>
+
+        <Icon awesomeIcon="BOLT" size="2em" styleClass="icon">
+          <HBox.margin>
+            <Insets right="20" left="0" />
+          </HBox.margin>
+        </Icon>
+        <JFXButton fx:id="ResetLevelButton" prefWidth="100"
+            prefHeight="40" buttonType="RAISED" text="Reset"
+            styleClass="normal-button">
+          <HBox.margin>
+            <Insets right="20" left="20" />
+          </HBox.margin>
+        </JFXButton>
+      </HBox>
+
+      <HBox alignment="CENTER">
+        <Label textAlignment="RIGHT" styleClass="play-level-number" HBox.hgrow="ALWAYS">
+          <HBox.margin>
+            <Insets right="20" left="20" />
+          </HBox.margin>
+          0:00
+        </Label>
+        <HBox>
+          <Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" HBox.hgrow="ALWAYS" />
+          <Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" HBox.hgrow="ALWAYS" />
+          <Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" HBox.hgrow="ALWAYS" />
+          <HBox.margin>
+            <Insets right="20" left="20" />
+          </HBox.margin>
+        </HBox>
+        <Label textAlignment="LEFT" styleClass="play-level-number" HBox.hgrow="ALWAYS">
+          Moves: X
+          <HBox.margin>
+            <Insets right="20" left="20" />
+          </HBox.margin>
+        </Label>
+      </HBox>
+
+      <Label prefWidth="400" prefHeight="400" alignment="TOP_CENTER" styleClass="simple-border">
+        Level Grid goes here
+      </Label>
+
+    </VBox>
+  </center>
 </BorderPane>

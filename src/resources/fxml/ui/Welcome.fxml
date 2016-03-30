@@ -10,12 +10,15 @@
     xmlns="http://javafx.com/javafx/2.2">
   <children>
     <Label styleClass="title-label">Welcome</Label>
-    <JFXButton fx:id="playSelectLevelButton" prefWidth="140" prefHeight="50" buttonType="RAISED" text="Play Level"
-        style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"></JFXButton>
-    <JFXButton fx:id="achievementsButton"  prefWidth="170" prefHeight="50" buttonType="RAISED" text="View Achievements"
-        style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"></JFXButton>
-    <JFXButton fx:id="buildSelectLevelButton" prefWidth="140" prefHeight="50" buttonType="RAISED" text="Build Level"
-        style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"></JFXButton>
+
+    <JFXButton fx:id="playSelectLevelButton" prefWidth="140" prefHeight="50"
+        buttonType="RAISED" text="Play Level" styleClass="normal-button"/>
+
+    <JFXButton fx:id="achievementsButton" prefWidth="170" prefHeight="50"
+        buttonType="RAISED" text="View Achievements" styleClass="normal-button"/>
+
+    <JFXButton fx:id="buildSelectLevelButton" prefWidth="140" prefHeight="50"
+        buttonType="RAISED" text="Build Level" styleClass="normal-button"/>
   </children>
 </VBox>
 

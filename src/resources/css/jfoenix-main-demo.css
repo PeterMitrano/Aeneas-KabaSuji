@@ -28,6 +28,11 @@
   -fx-border-style: solid;
 }
 
+.normal-button{
+  -fx-text-fill:WHITE;
+  -fx-background-color:#5264AE;
+  -fx-font-size:14px;
+}
 
 .play-level-number{
 	-fx-font-size:20px;
