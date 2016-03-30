@@ -31,7 +31,7 @@
 
 .play-level-number{
 	-fx-font-size:20px;
-	
+
 }
 
 .achievement-title{
@@ -156,7 +156,8 @@
  ******************************************************************************/
 
 .icon{
-	-fx-text-fill: #FE774D;
+	-fx-text-fill: #3e3e3e;
+	/*-fx-text-fill: #FE774D;*/
 	-fx-padding: 10.0;
 	-fx-cursor: hand;
 }
