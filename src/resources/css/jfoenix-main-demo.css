@@ -28,10 +28,22 @@
   -fx-border-style: solid;
 }
 
+
 .play-level-number{
 	-fx-font-size:20px;
 	
 }
+
+.achievement-title{
+  -fx-font-size:20px;
+  -fx-text-fill:BLACK;
+}
+
+.achievement-description{
+  -fx-font-size:14px;
+  -fx-text-fill:#888;
+}
+
 .side-menu{
 	-fx-padding: 20.0,10.0;
 	-fx-font-size: 15.0;

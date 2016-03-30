@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXRippler;
 
 import demos.datafx.AnimatedFlowContainer;
 import demos.gui.uicomponents.PlayLevelController;
+import demos.gui.uicomponents.ViewAchievementsController;
 import io.datafx.controller.FXMLController;
 import io.datafx.controller.flow.Flow;
 import io.datafx.controller.flow.FlowException;
@@ -30,25 +31,33 @@ public class MainController {
 	@FXMLViewFlowContext
 	private ViewFlowContext context;
 
-	@FXML private StackPane root;
-	@FXML private StackPane content;
-	
-	@FXML private StackPane titleBurgerContainer;
+	@FXML
+	private StackPane root;
+	@FXML
+	private StackPane content;
+
+	@FXML
+	private StackPane titleBurgerContainer;
 	@FXML
 	private JFXHamburger titleBurger;
-	
-	@FXML private StackPane optionsBurger;	
-	@FXML private JFXRippler optionsRippler;
-	
-	@FXML private JFXDrawer drawer;
-	@FXML private JFXPopup toolbarPopup;
-	@FXML private Label about;
+
+	@FXML
+	private StackPane optionsBurger;
+	@FXML
+	private JFXRippler optionsRippler;
+
+	@FXML
+	private JFXDrawer drawer;
+	@FXML
+	private JFXPopup toolbarPopup;
+	@FXML
+	private Label about;
 
 	private FlowHandler flowHandler;
 
 	@PostConstruct
 	public void init() throws FlowException, VetoException {
-		// init Popup 
+		// init Popup
 		toolbarPopup.setPopupContainer(root);
 		toolbarPopup.setSource(optionsRippler);
 		optionsBurger.setOnMouseClicked((e) -> {
@@ -62,6 +71,7 @@ public class MainController {
 
 		// create the inner flow and content
 		context = new ViewFlowContext();
+
 		// set the default controller 
 		Flow innerFlow = new Flow(PlayLevelController.class);
 
@@ -69,8 +79,8 @@ public class MainController {
 		context.register("ContentFlowHandler", flowHandler);
 		context.register("ContentFlow", innerFlow);
 		context.register("ContentPane", content);
-		content.getChildren().add(flowHandler.start(new AnimatedFlowContainer(Duration.millis(320), ContainerAnimations.SWIPE_LEFT)));
-
+		content.getChildren().add(
+				flowHandler.start(new AnimatedFlowContainer(Duration.millis(320), ContainerAnimations.SWIPE_LEFT)));
 
 	}
 }

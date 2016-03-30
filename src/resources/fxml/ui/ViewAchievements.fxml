@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import de.jensd.fx.fontawesome.Icon?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/2.2">
+  <center>
+    <VBox alignment="TOP_CENTER">
+      <Label styleClass="h2-label">
+        Achievements
+        <VBox.margin>
+          <Insets bottom="100.0" top="40.0" />
+        </VBox.margin>
+      </Label>
+      <GridPane hgap="20" vgap="20" alignment="CENTER">
+        <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <Icon awesomeIcon="SHIELD" size="4em" style=";" styleClass="icon" />
+          <Label styleClass="achievement-title">Defender</Label>
+          <Label styleClass="achievement-description">complete four release levels</Label>
+        </VBox>
+        <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
+          <Icon awesomeIcon="ROCKET" size="4em" style=";" styleClass="icon" />
+          <Label styleClass="achievement-title">Rocket</Label>
+          <Label styleClass="achievement-description">complete four lightening levels</Label>
+        </VBox>
+        <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
+          <Icon awesomeIcon="PUZZLE_PIECE" size="4em" style=";" styleClass="icon" />
+          <Label styleClass="achievement-title">Solver</Label>
+          <Label styleClass="achievement-description">complete four puzzle levels</Label>
+        </VBox>
+        <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+          <Icon awesomeIcon="BOLT" size="4em" style=";" styleClass="icon" />
+          <Label styleClass="achievement-title">Lightening Master</Label>
+          <Label styleClass="achievement-description">complete all lightening levels</Label>
+        </VBox>
+      </GridPane>
+    </VBox>
+  </center>
+</BorderPane>
