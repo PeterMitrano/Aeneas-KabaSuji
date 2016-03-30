@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import de.jensd.fx.fontawesome.Icon?>
+
+
+<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
+	xmlns="http://javafx.com/javafx/2.2">
+	<left>
+		<JFXListView prefWidth="100" fx:id="filelist">
+			<Label> ~/.kabasuji/levelbuilder/1.ksb</Label>
+			<Label> ~/.kabasuji/levelbuilder/2.ksb</Label>
+			<Label> ~/.kabasuji/levelbuilder/3.ksb</Label>
+			<Label> ~/.kabasuji/levelbuilder/4.ksb</Label>
+			<Label> ~/some/other/path/to/a/file/builder.ksb</Label>
+
+		</JFXListView>
+	</left>
+	<center>
+		<VBox alignment="TOP_CENTER">
+			
+			<HBox>
+				<Label styleClass="play-level-number">
+					Level X
+				</Label>
+				 <BorderPane.alignment>TOP_CENTER</BorderPane.alignment>
+				<Icon awesomeIcon="BOLT" size="2em" styleClass="icon" />
+				<JFXButton fx:id="ResetLevelButton" prefWidth="140"
+					prefHeight="50" buttonType="RAISED" text="Reset"
+					style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"></JFXButton>
+			</HBox>
+			<HBox>
+				<Label styleClass="play-level-number">
+				0:00
+				</Label>
+				<Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" />
+				<Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" />
+				<Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" />
+				<Label styleClass="play-level-number">
+				Moves: X
+				</Label>
+			</HBox>
+			<Label prefWidth="500" prefHeight="500" styleClass="simple-border">
+				Preview goes here
+			</Label>
+		</VBox>
+	</center>
+</BorderPane>
