@@ -1,4 +1,6 @@
-package demos.gui.uicomponents;
+package controllers.components;
+
+import javax.annotation.PostConstruct;
 
 import io.datafx.controller.FXMLController;
 import io.datafx.controller.flow.FlowException;
@@ -8,10 +10,8 @@ import io.datafx.controller.util.VetoException;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 
-import javax.annotation.PostConstruct;
-
-@FXMLController(value = "/resources/fxml/ui/PlaySelectLevel.fxml" , title = "Select Level")
-public class PlaySelectLevelController {
+@FXMLController(value = "/resources/fxml/ui/BuildSelectLevel.fxml" , title = "Select Level")
+public class BuildSelectLevelController {
 	
 	@FXMLViewFlowContext
 	private ViewFlowContext context;

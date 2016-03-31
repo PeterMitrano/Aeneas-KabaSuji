@@ -1,8 +1,8 @@
-package demos;
+package main;
 
 import com.jfoenix.controls.JFXDecorator;
 
-import demos.gui.main.MainController;
+import controllers.MainController;
 import io.datafx.controller.flow.Flow;
 import io.datafx.controller.flow.container.DefaultFlowContainer;
 import io.datafx.controller.flow.context.FXMLViewFlowContext;

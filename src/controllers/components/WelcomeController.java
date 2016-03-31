@@ -1,4 +1,4 @@
-package demos.gui.uicomponents;
+package controllers.components;
 
 import javax.annotation.PostConstruct;
 

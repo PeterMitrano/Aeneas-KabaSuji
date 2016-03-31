@@ -1,22 +1,21 @@
-package demos.gui.main;
+package controllers;
 
 import javax.annotation.PostConstruct;
 
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXPopup.PopupHPosition;
 import com.jfoenix.controls.JFXPopup.PopupVPosition;
+
+import controllers.components.PlayLevelController;
+
 import com.jfoenix.controls.JFXRippler;
 
-import demos.datafx.AnimatedFlowContainer;
-import demos.gui.uicomponents.PlayLevelController;
-import demos.gui.uicomponents.ViewAchievementsController;
 import io.datafx.controller.FXMLController;
 import io.datafx.controller.flow.Flow;
 import io.datafx.controller.flow.FlowException;
 import io.datafx.controller.flow.FlowHandler;
 import io.datafx.controller.flow.container.ContainerAnimations;
+import io.datafx.controller.flow.container.DefaultFlowContainer;
 import io.datafx.controller.flow.context.FXMLViewFlowContext;
 import io.datafx.controller.flow.context.ViewFlowContext;
 import io.datafx.controller.util.VetoException;
@@ -37,21 +36,12 @@ public class MainController {
 	private StackPane content;
 
 	@FXML
-	private StackPane titleBurgerContainer;
-	@FXML
-	private JFXHamburger titleBurger;
-
-	@FXML
 	private StackPane optionsBurger;
 	@FXML
 	private JFXRippler optionsRippler;
 
 	@FXML
-	private JFXDrawer drawer;
-	@FXML
 	private JFXPopup toolbarPopup;
-	@FXML
-	private Label about;
 
 	private FlowHandler flowHandler;
 
@@ -64,11 +54,6 @@ public class MainController {
 			toolbarPopup.show(PopupVPosition.TOP, PopupHPosition.RIGHT, -12, 15);
 		});
 
-		// close application
-		about.setOnMouseClicked((e) -> {
-			System.out.println("about");
-		});
-
 		// create the inner flow and content
 		context = new ViewFlowContext();
 
@@ -79,8 +64,7 @@ public class MainController {
 		context.register("ContentFlowHandler", flowHandler);
 		context.register("ContentFlow", innerFlow);
 		context.register("ContentPane", content);
-		content.getChildren().add(
-				flowHandler.start(new AnimatedFlowContainer(Duration.millis(320), ContainerAnimations.SWIPE_LEFT)));
+		content.getChildren().add(flowHandler.start(new DefaultFlowContainer()));
 
 	}
 }
