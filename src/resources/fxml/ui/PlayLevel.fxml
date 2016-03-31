@@ -16,13 +16,7 @@
 <BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
     xmlns="http://javafx.com/javafx/2.2">
   <left>
-    <JFXListView prefWidth="100" fx:id="filelist">
-      <Canvas/>
-      <Canvas/>
-      <Canvas/>
-      <Canvas/>
-      <Canvas/>
-
+    <JFXListView prefWidth="100" fx:id="bullpenListView">
     </JFXListView>
   </left>
   <center>
