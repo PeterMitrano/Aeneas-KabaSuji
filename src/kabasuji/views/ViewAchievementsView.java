@@ -1,6 +1,4 @@
-package controllers.components;
-
-import javax.annotation.PostConstruct;
+package kabasuji.views;
 
 import io.datafx.controller.FXMLController;
 import io.datafx.controller.flow.FlowException;
@@ -10,8 +8,10 @@ import io.datafx.controller.util.VetoException;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 
-@FXMLController(value = "/resources/fxml/ui/PlayLevel.fxml" , title = "Select Level")
-public class PlayLevelController {
+import javax.annotation.PostConstruct;
+
+@FXMLController(value = "/resources/fxml/ui/ViewAchievements.fxml" , title = "View Achievements")
+public class ViewAchievementsView {
 	
 	@FXMLViewFlowContext
 	private ViewFlowContext context;

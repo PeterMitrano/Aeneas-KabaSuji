@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="kabasuji.views.PlaySelectLevelView"
     xmlns="http://javafx.com/javafx/2.2">
   <center>
     <VBox alignment="TOP_CENTER">

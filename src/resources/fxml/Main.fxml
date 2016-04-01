@@ -30,6 +30,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="kabasuji.views.MainView"
 	xmlns="http://javafx.com/javafx/2.2">
 	<BorderPane>
 

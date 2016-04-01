@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="kabasuji.views.BuildSelectLevelView"
     xmlns="http://javafx.com/javafx/2.2">
   <top>
     <Label styleClass="h2-label">

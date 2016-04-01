@@ -14,6 +14,7 @@
 
 
 <BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="kabasuji.views.PlayLevelView"
     xmlns="http://javafx.com/javafx/2.2">
   <left>
     <JFXListView prefWidth="100" fx:id="bullpenListView">

@@ -1,4 +1,4 @@
-package controllers.components;
+package kabasuji.views;
 
 import javax.annotation.PostConstruct;
 
@@ -10,8 +10,8 @@ import io.datafx.controller.util.VetoException;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 
-@FXMLController(value = "/resources/fxml/ui/BuildSelectLevel.fxml" , title = "Select Level")
-public class BuildSelectLevelController {
+@FXMLController(value = "/resources/fxml/ui/PlayLevel.fxml" , title = "Select Level")
+public class PlayLevelView {
 	
 	@FXMLViewFlowContext
 	private ViewFlowContext context;
