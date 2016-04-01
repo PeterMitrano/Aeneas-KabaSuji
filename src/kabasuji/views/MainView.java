@@ -12,9 +12,10 @@ import com.jfoenix.controls.JFXRippler;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import kabasuji.models.Model;
 
 public class MainView implements Initializable {
 
@@ -42,36 +43,33 @@ public class MainView implements Initializable {
   @FXML
   private JFXButton back;
 
-  @FXML
+  private ViewAchievementsView viewAchievementsView;
   private WelcomeView welcomeView;
 
-  @FXML
-  private ViewAchievementsView viewAchievementsView;
-
-  private Stack<Pane> paneStack;
-  private Pane currentPane;
+  private Stack<Node> paneStack;
 
   public MainView() {
-    paneStack = new Stack<Pane>();
+    paneStack = new Stack<Node>();
   }
 
   public void switchToWelcomeView() {
-    currentPane = welcomeView;
-    paneStack.push(currentPane);
+    paneStack.push(welcomeView);
     content.getChildren().clear();
     content.getChildren().add(welcomeView);
   }
 
   public void switchToViewAchievementsView() {
-    currentPane = viewAchievementsView;
-    paneStack.push(currentPane);
+    paneStack.push(viewAchievementsView);
     content.getChildren().clear();
     content.getChildren().add(viewAchievementsView);
   }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    welcomeView = new WelcomeView(this);
+
+    welcomeView = new WelcomeView(this, new Model());
+
+    viewAchievementsView = new ViewAchievementsView(new Model());
 
     // init Popup
     toolbarPopup.setPopupContainer(root);
@@ -84,10 +82,8 @@ public class MainView implements Initializable {
       // unless we're out of places to go back, go at the last pane we
       // were on
       if (!paneStack.isEmpty()) {
-        Pane lastPane = paneStack.pop();
         content.getChildren().clear();
-        content.getChildren().add(lastPane);
-        paneStack.push(currentPane);
+        content.getChildren().add(paneStack.peek());
       }
     });
 
@@ -101,4 +97,5 @@ public class MainView implements Initializable {
 
     switchToWelcomeView();
   }
+
 }

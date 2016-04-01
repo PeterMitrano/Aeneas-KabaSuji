@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 
+import kabasuji.models.Model;
+
 public class WelcomeView extends VBox implements Initializable{
 
 	@FXML
@@ -22,10 +24,9 @@ public class WelcomeView extends VBox implements Initializable{
 	@FXML
 	private JFXButton viewAchievementsButton;
 
-  MainView mainView;
+  private MainView mainView;
 
-
-  public WelcomeView(MainView mainView){
+  public WelcomeView(MainView mainView, Model model){
 
     this.mainView = mainView;
 
@@ -34,10 +35,10 @@ public class WelcomeView extends VBox implements Initializable{
       loader.setRoot(this);
       loader.setController(this);
       loader.load();
-    } catch (IOException e) {
+    }
+    catch (IOException e){
       e.printStackTrace();
     }
-
   }
 
 	@Override
@@ -48,8 +49,7 @@ public class WelcomeView extends VBox implements Initializable{
 		});
 
 		viewAchievementsButton.setOnMouseClicked((e) -> {
-      //change the thing!
-      //transitionController.transition(this,ViewAchievementsView.class);
+      mainView.switchToViewAchievementsView();
 		});
 
 		buildSelectLevelButton.setOnMouseClicked((e) -> {
