@@ -14,7 +14,7 @@ public class ViewAchievementsView extends BorderPane implements Initializable {
 
   ViewAchievementsView(Model model) {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/ui/ViewAchievements.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/ViewAchievements.fxml"));
       loader.setRoot(this);
       loader.setController(this);
       loader.load();

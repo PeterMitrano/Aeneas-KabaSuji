@@ -31,7 +31,7 @@ public class WelcomeView extends VBox implements Initializable{
     this.mainView = mainView;
 
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/ui/Welcome.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/Welcome.fxml"));
       loader.setRoot(this);
       loader.setController(this);
       loader.load();

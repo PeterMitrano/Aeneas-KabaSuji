@@ -11,29 +11,23 @@
 
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
     xmlns="http://javafx.com/javafx/2.2">
-  <top>
-    <Label styleClass="h2-label">
-      Select A Level To Edit
-      <BorderPane.margin>
-        <Insets bottom="40.0" top="40.0" />
-      </BorderPane.margin>
-      <BorderPane.alignment>TOP_CENTER</BorderPane.alignment>
-    </Label>
-  </top>
   <left>
-    <JFXListView prefWidth="300" fx:id="filelist">
+    <JFXListView prefWidth="300" fx:id="fileList">
       <Label> ~/.kabasuji/levelbuilder/1.ksb</Label>
       <Label> ~/.kabasuji/levelbuilder/2.ksb</Label>
       <Label> ~/.kabasuji/levelbuilder/3.ksb</Label>
       <Label> ~/.kabasuji/levelbuilder/4.ksb</Label>
       <Label> ~/some/other/path/to/a/file/builder.ksb</Label>
-      <BorderPane.margin>
-        <Insets left="20.0" bottom="20.0"/>
-      </BorderPane.margin>
     </JFXListView>
   </left>
   <center>
-    <VBox alignment="TOP_CENTER">
+    <VBox spacing="20" alignment="TOP_CENTER">
+      <Label styleClass="h2-label">
+        Select A Level To Build
+        <VBox.margin>
+          <Insets bottom="40.0" top="40.0" />
+        </VBox.margin>
+      </Label>
       <Label styleClass="h3-label">
         Preview
         <VBox.margin>

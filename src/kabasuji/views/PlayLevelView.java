@@ -14,7 +14,7 @@ public class PlayLevelView extends BorderPane implements Initializable {
 
   PlayLevelView(Model model) {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/ui/PlayLevel.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/PlayLevel.fxml"));
       loader.setRoot(this);
       loader.setController(this);
       loader.load();

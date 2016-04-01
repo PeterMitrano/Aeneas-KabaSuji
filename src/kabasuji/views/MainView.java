@@ -15,6 +15,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+
+import kabasuji.models.GameModel;
 import kabasuji.models.Model;
 
 public class MainView implements Initializable {
@@ -83,7 +85,7 @@ public class MainView implements Initializable {
 
     welcomeView = new WelcomeView(this, new Model());
 
-    playSelectLevelView= new PlaySelectLevelView(new Model());
+    playSelectLevelView= new PlaySelectLevelView(new GameModel());
     viewAchievementsView = new ViewAchievementsView(new Model());
     buildSelectLevelView= new BuildSelectLevelView(new Model());
 
