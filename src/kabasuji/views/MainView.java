@@ -106,8 +106,9 @@ public class MainView implements Initializable {
 
     back.setOnMouseClicked((e) -> {
       // unless we're out of places to go back, go at the last pane we
-      // were on
-      if (!paneStack.isEmpty()) {
+      // the current node should always be in the stack,
+      // so only remove and go back if there's multiple things on the stack
+      if (paneStack.size() > 1){
     	  paneStack.pop();
         content.getChildren().clear();
         content.getChildren().add(paneStack.peek());
