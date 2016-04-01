@@ -10,17 +10,28 @@ import com.jfoenix.controls.JFXRippler;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 public class MainView implements Initializable {
+
+  @FXML
+  private StackPane root;
 
   @FXML
   private StackPane content;
 
   @FXML
   private StackPane optionsBurger;
+
   @FXML
   private JFXRippler optionsRippler;
+
+  @FXML
+  private Label about;
+
+  @FXML
+  private Label help;
 
   @FXML
   private JFXPopup toolbarPopup;
@@ -39,6 +50,21 @@ public class MainView implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     welcomeView = new WelcomeView(this);
+
+    // init Popup
+    toolbarPopup.setPopupContainer(root);
+    toolbarPopup.setSource(optionsRippler);
+    optionsBurger.setOnMouseClicked((e) -> {
+      toolbarPopup.show(PopupVPosition.TOP, PopupHPosition.RIGHT, -12, 5);
+    });
+
+    help.setOnMouseClicked((e) -> {
+      System.out.println("Help");
+    });
+
+    about.setOnMouseClicked((e) -> {
+      System.out.println("About");
+    });
 
     switchToWelcomeView();
   }
