@@ -1,25 +1,32 @@
 package kabasuji.views;
 
-import io.datafx.controller.FXMLController;
-import io.datafx.controller.flow.FlowException;
-import io.datafx.controller.flow.context.FXMLViewFlowContext;
-import io.datafx.controller.flow.context.ViewFlowContext;
-import io.datafx.controller.util.VetoException;
-import javafx.application.Platform;
-import javafx.scene.layout.Pane;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import javax.annotation.PostConstruct;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.BorderPane;
 
-@FXMLController(value = "/resources/fxml/ui/PlaySelectLevel.fxml" , title = "Select Level")
-public class PlaySelectLevelView {
-	
-	@FXMLViewFlowContext
-	private ViewFlowContext context;
+import kabasuji.models.Model;
 
-	@PostConstruct
-	public void init() throws FlowException, VetoException {
-		if(((Pane) context.getRegisteredObject("ContentPane")).getChildren().size() > 0)
-			Platform.runLater(()-> ((Pane)((Pane) context.getRegisteredObject("ContentPane")).getChildren().get(0)).getChildren().remove(1));
-	}
+public class PlaySelectLevelView extends BorderPane implements Initializable {
+
+  PlaySelectLevelView(Model model) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/ui/PlaySelectLevel.fxml"));
+      loader.setRoot(this);
+      loader.setController(this);
+      loader.load();
+    }
+    catch (IOException e){
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+
+  }
 
 }

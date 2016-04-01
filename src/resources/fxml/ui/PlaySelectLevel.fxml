@@ -8,8 +8,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="kabasuji.views.PlaySelectLevelView"
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
     xmlns="http://javafx.com/javafx/2.2">
   <center>
     <VBox alignment="TOP_CENTER">
@@ -55,4 +54,4 @@
       </GridPane>
     </VBox>
   </center>
-</BorderPane>
+</fx:root>

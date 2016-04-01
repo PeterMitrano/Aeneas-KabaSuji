@@ -45,6 +45,8 @@ public class MainView implements Initializable {
 
   private ViewAchievementsView viewAchievementsView;
   private WelcomeView welcomeView;
+  private PlaySelectLevelView playSelectLevelView;
+  private BuildSelectLevelView buildSelectLevelView;
 
   private Stack<Node> paneStack;
 
@@ -64,12 +66,26 @@ public class MainView implements Initializable {
     content.getChildren().add(viewAchievementsView);
   }
 
+  public void switchToBuildSelectLevelView() {
+    paneStack.push(buildSelectLevelView);
+    content.getChildren().clear();
+    content.getChildren().add(buildSelectLevelView);
+  }
+
+  public void switchToPlaySelectLevelView() {
+    paneStack.push(playSelectLevelView);
+    content.getChildren().clear();
+    content.getChildren().add(playSelectLevelView);
+  }
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
     welcomeView = new WelcomeView(this, new Model());
 
+    playSelectLevelView= new PlaySelectLevelView(new Model());
     viewAchievementsView = new ViewAchievementsView(new Model());
+    buildSelectLevelView= new BuildSelectLevelView(new Model());
 
     // init Popup
     toolbarPopup.setPopupContainer(root);

@@ -45,7 +45,7 @@ public class WelcomeView extends VBox implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 
 		playSelectLevelButton.setOnMouseClicked((e) -> {
-			System.out.println("play select level");
+      mainView.switchToPlaySelectLevelView();
 		});
 
 		viewAchievementsButton.setOnMouseClicked((e) -> {
@@ -53,7 +53,7 @@ public class WelcomeView extends VBox implements Initializable{
 		});
 
 		buildSelectLevelButton.setOnMouseClicked((e) -> {
-			System.out.println("build select level");
+      mainView.switchToBuildSelectLevelView();
 		});
 	}
 }
