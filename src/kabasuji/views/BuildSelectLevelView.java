@@ -1,27 +1,24 @@
 package kabasuji.views;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import io.datafx.controller.FXMLController;
-import io.datafx.controller.flow.FlowException;
-import io.datafx.controller.flow.context.FXMLViewFlowContext;
-import io.datafx.controller.flow.context.ViewFlowContext;
-import io.datafx.controller.util.VetoException;
-import javafx.application.Platform;
-import javafx.scene.layout.Pane;
+import com.jfoenix.controls.JFXListView;
 
-@FXMLController(value = "/resources/fxml/ui/BuildSelectLevel.fxml", title = "Select Level")
-public class BuildSelectLevelView {
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 
-	@FXMLViewFlowContext
-	private ViewFlowContext context;
+public class BuildSelectLevelView implements Initializable {
 
-	@PostConstruct
-	public void init() throws FlowException, VetoException {
-		if (((Pane) context.getRegisteredObject("ContentPane")).getChildren().size() > 0) {
-			Platform.runLater(() -> ((Pane) ((Pane) context.getRegisteredObject("ContentPane")).getChildren().get(0))
-					.getChildren().remove(1));
-		}
-	}
+  @FXML
+  private JFXListView fileList;
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    fileList.setOnMouseClicked((e) -> {
+      System.out.println("clicked " + fileList.getSelectionModel().getSelectedItem());
+    });
+
+  }
 
 }

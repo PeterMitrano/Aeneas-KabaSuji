@@ -1,25 +1,20 @@
 package kabasuji.views;
 
-import io.datafx.controller.FXMLController;
-import io.datafx.controller.flow.FlowException;
-import io.datafx.controller.flow.context.FXMLViewFlowContext;
-import io.datafx.controller.flow.context.ViewFlowContext;
-import io.datafx.controller.util.VetoException;
 import javafx.application.Platform;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 
-@FXMLController(value = "/resources/fxml/ui/ViewAchievements.fxml" , title = "View Achievements")
-public class ViewAchievementsView {
-	
-	@FXMLViewFlowContext
-	private ViewFlowContext context;
+public class ViewAchievementsView extends BorderPane implements Initializable {
 
-	@PostConstruct
-	public void init() throws FlowException, VetoException {
-		if(((Pane) context.getRegisteredObject("ContentPane")).getChildren().size() > 0)
-			Platform.runLater(()-> ((Pane)((Pane) context.getRegisteredObject("ContentPane")).getChildren().get(0)).getChildren().remove(1));
-	}
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+
+  }
 
 }

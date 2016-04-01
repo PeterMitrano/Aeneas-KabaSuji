@@ -17,9 +17,13 @@ public class WelcomeView extends VBox implements Initializable{
 	private JFXButton playSelectLevelButton;
 
 	@FXML
+	private JFXButton buildSelectLevelButton;
+
+	@FXML
 	private JFXButton viewAchievementsButton;
 
   MainView mainView;
+
 
   public WelcomeView(MainView mainView){
 
@@ -38,14 +42,18 @@ public class WelcomeView extends VBox implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-    System.out.println("init welcome controller");
 
 		playSelectLevelButton.setOnMouseClicked((e) -> {
 			System.out.println("play select level");
 		});
 
 		viewAchievementsButton.setOnMouseClicked((e) -> {
-			System.out.println("ahicevements");
+      //change the thing!
+      //transitionController.transition(this,ViewAchievementsView.class);
+		});
+
+		buildSelectLevelButton.setOnMouseClicked((e) -> {
+			System.out.println("build select level");
 		});
 	}
 }

@@ -22,7 +22,7 @@
 			<VBox spacing="20">
 				<JFXToolbar>
 					<leftItems>
-            <JFXButton prefWidth="70" prefHeight="40" buttonType="FLAT" text="Back"
+            <JFXButton fx:id="back" prefWidth="70" prefHeight="40" buttonType="FLAT" text="Back"
                 style="-fx-text-fill:WHITE;-fx-font-size:12px;"></JFXButton>
 						<Label>KabaSuji</Label>
 					</leftItems>
