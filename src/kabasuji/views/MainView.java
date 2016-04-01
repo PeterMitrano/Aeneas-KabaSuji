@@ -49,6 +49,7 @@ public class MainView implements Initializable {
   private WelcomeView welcomeView;
   private PlaySelectLevelView playSelectLevelView;
   private BuildSelectLevelView buildSelectLevelView;
+  private PlayLevelView playLevelView;
 
   private Stack<Node> paneStack;
 
@@ -74,6 +75,12 @@ public class MainView implements Initializable {
     content.getChildren().add(buildSelectLevelView);
   }
 
+  public void switchToPlayLevelView() {
+    paneStack.push(playLevelView);
+    content.getChildren().clear();
+    content.getChildren().add(playLevelView);
+  }
+
   public void switchToPlaySelectLevelView() {
     paneStack.push(playSelectLevelView);
     content.getChildren().clear();
@@ -84,8 +91,9 @@ public class MainView implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     welcomeView = new WelcomeView(this, new Model());
+    playSelectLevelView= new PlaySelectLevelView(this, new GameModel());
 
-    playSelectLevelView= new PlaySelectLevelView(new GameModel());
+    playLevelView = new PlayLevelView(new Model());
     viewAchievementsView = new ViewAchievementsView(new Model());
     buildSelectLevelView= new BuildSelectLevelView(new Model());
 

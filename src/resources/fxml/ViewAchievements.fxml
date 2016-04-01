@@ -2,7 +2,7 @@
 
 <?import javafx.scene.layout.StackPane?>
 <?import com.jfoenix.controls.JFXRippler?>
-<?import de.jensd.fx.fontawesome.Icon?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
@@ -22,23 +22,23 @@
       </Label>
       <GridPane hgap="20" vgap="20" alignment="CENTER">
         <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
-          <Icon awesomeIcon="SHIELD" size="4em" style=";" styleClass="icon" />
+          <FontAwesomeIconView glyphName="SHIELD" size="4em"/>
           <Label styleClass="achievement-title">Defender</Label>
           <Label styleClass="achievement-description">complete four release levels</Label>
         </VBox>
         <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
-          <Icon awesomeIcon="ROCKET" size="4em" style=";" styleClass="icon" />
+          <FontAwesomeIconView glyphName="ROCKET" size="4em"/>
           <Label styleClass="achievement-title">Rocket</Label>
           <Label styleClass="achievement-description">complete four lightening levels</Label>
         </VBox>
         <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
-          <Icon awesomeIcon="PUZZLE_PIECE" size="4em" style=";" styleClass="icon" />
+          <FontAwesomeIconView glyphName="PUZZLE_PIECE" size="4em"/>
           <Label styleClass="achievement-title">Solver</Label>
           <Label styleClass="achievement-description">complete four puzzle levels</Label>
         </VBox>
         <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
-          <Icon awesomeIcon="BOLT" size="4em" style=";" styleClass="icon" />
-          <Label styleClass="achievement-title">Lightening Master</Label>
+          <FontAwesomeIconView glyphName="BOLT" size="4em"/>
+          <Label styleClass="achievement-title">Thor</Label>
           <Label styleClass="achievement-description">complete all lightening levels</Label>
         </VBox>
       </GridPane>

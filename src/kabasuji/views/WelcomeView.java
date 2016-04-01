@@ -24,11 +24,11 @@ public class WelcomeView extends VBox implements Initializable{
 	@FXML
 	private JFXButton viewAchievementsButton;
 
-  private MainView mainView;
+  private MainView parentView;
 
-  public WelcomeView(MainView mainView, Model model){
+  public WelcomeView(MainView parentView, Model model){
 
-    this.mainView = mainView;
+    this.parentView = parentView;
 
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/Welcome.fxml"));
@@ -45,15 +45,15 @@ public class WelcomeView extends VBox implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 
 		playSelectLevelButton.setOnMouseClicked((e) -> {
-      mainView.switchToPlaySelectLevelView();
+      parentView.switchToPlaySelectLevelView();
 		});
 
 		viewAchievementsButton.setOnMouseClicked((e) -> {
-      mainView.switchToViewAchievementsView();
+      parentView.switchToViewAchievementsView();
 		});
 
 		buildSelectLevelButton.setOnMouseClicked((e) -> {
-      mainView.switchToBuildSelectLevelView();
+      parentView.switchToBuildSelectLevelView();
 		});
 	}
 }

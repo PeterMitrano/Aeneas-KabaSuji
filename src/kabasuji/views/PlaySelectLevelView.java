@@ -23,10 +23,14 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
 
   private GameModel gameModel;
 
+  public MainView parentView;
+
   private final int numCols = 5;
 
-  PlaySelectLevelView(GameModel model) {
+  PlaySelectLevelView(MainView parentView, GameModel model) {
     this.gameModel = model;
+    this.parentView = parentView;
+
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/PlaySelectLevel.fxml"));
       loader.setRoot(this);
@@ -56,7 +60,8 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
         button.setButtonType(ButtonType.FLAT);
         button.setText(String.valueOf(levelNumber));
         button.applyCss();
-        button.setOnMouseClicked(new SelectLevelController(gameModel.levels[levelIndex]));
+        button.setOnMouseClicked(
+            new SelectLevelController(this, gameModel.levels[levelIndex]));
 
         levelGrid.add(button, c, r);
       }

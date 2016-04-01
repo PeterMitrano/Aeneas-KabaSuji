@@ -10,10 +10,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.BorderPane?>
-<?import de.jensd.fx.fontawesome.Icon?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="kabasuji.views.PlayLevelView"
     xmlns="http://javafx.com/javafx/2.2">
   <left>
     <JFXListView prefWidth="100" fx:id="bullpenListView">
@@ -34,11 +33,11 @@
           </HBox.margin>
         </Label>
 
-        <Icon awesomeIcon="BOLT" size="2em" styleClass="icon">
+        <FontAwesomeIconView glyphName="BOLT" size="1.5em">
           <HBox.margin>
-            <Insets right="20" left="0" />
+            <Insets right="20" left="5" />
           </HBox.margin>
-        </Icon>
+        </FontAwesomeIconView>
         <JFXButton fx:id="ResetLevelButton" prefWidth="100"
             prefHeight="40" buttonType="RAISED" text="Reset"
             styleClass="normal-button">
@@ -56,9 +55,9 @@
           0:00
         </Label>
         <HBox>
-          <Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" HBox.hgrow="ALWAYS" />
-          <Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" HBox.hgrow="ALWAYS" />
-          <Icon awesomeIcon="STAR_ALT" size="2em" styleClass="icon" HBox.hgrow="ALWAYS" />
+          <FontAwesomeIconView glyphName="STAR" size="2em"/>
+          <FontAwesomeIconView glyphName="STAR" size="2em"/>
+          <FontAwesomeIconView glyphName="STAR" size="2em"/>
           <HBox.margin>
             <Insets right="20" left="20" />
           </HBox.margin>
