@@ -98,6 +98,7 @@ public class MainView implements Initializable {
       // unless we're out of places to go back, go at the last pane we
       // were on
       if (!paneStack.isEmpty()) {
+    	  paneStack.pop();
         content.getChildren().clear();
         content.getChildren().add(paneStack.peek());
       }
