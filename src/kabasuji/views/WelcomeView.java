@@ -44,6 +44,7 @@ public class WelcomeView extends VBox implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+    //should there be a controller for this? It seems a bit excessive.
 		playSelectLevelButton.setOnMouseClicked((e) -> {
       parentView.switchToPlaySelectLevelView();
 		});

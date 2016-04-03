@@ -26,19 +26,19 @@
           <Insets top="20.0" />
         </VBox.margin>
 
-        <Label textAlignment="LEFT" styleClass="play-level-number">
+        <Label fx:id="levelLabel" textAlignment="LEFT" styleClass="play-level-number">
           Level X
           <HBox.margin>
             <Insets left="20" />
           </HBox.margin>
         </Label>
 
-        <FontAwesomeIconView glyphName="BOLT" size="1.5em">
+        <FontAwesomeIconView fx:id="levelTypeIcon" glyphName="BOLT" size="1.5em">
           <HBox.margin>
             <Insets right="20" left="5" />
           </HBox.margin>
         </FontAwesomeIconView>
-        <JFXButton fx:id="ResetLevelButton" prefWidth="100"
+        <JFXButton fx:id="resetLevelButton" prefWidth="100"
             prefHeight="40" buttonType="RAISED" text="Reset"
             styleClass="normal-button">
           <HBox.margin>
@@ -48,7 +48,7 @@
       </HBox>
 
       <HBox alignment="CENTER">
-        <Label textAlignment="RIGHT" styleClass="play-level-number" HBox.hgrow="ALWAYS">
+        <Label fx:id="timeLabel" textAlignment="RIGHT" styleClass="play-level-number" HBox.hgrow="ALWAYS">
           <HBox.margin>
             <Insets right="20" left="20" />
           </HBox.margin>
