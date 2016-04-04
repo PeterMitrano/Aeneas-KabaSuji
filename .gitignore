@@ -6,6 +6,7 @@
 *.class
 
 #eclipse specific
+workbench.xmi
 .metadata/*
 .settings
 
