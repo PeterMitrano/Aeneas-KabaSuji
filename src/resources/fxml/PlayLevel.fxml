@@ -22,67 +22,64 @@
   <center>
     <VBox spacing="10" alignment="TOP_CENTER">
 
-      <HBox alignment="CENTER">
-        <Label fx:id="levelLabel" textAlignment="LEFT" styleClass="play-level-number">
-          Level X
-          <HBox.margin>
-            <Insets left="30" />
-          </HBox.margin>
-        </Label>
+      <VBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color:#d1d1d1;">
+        <BorderPane>
+          <left>
+            <HBox alignment="CENTER_LEFT">
+              <Label fx:id="levelLabel" textAlignment="LEFT" styleClass="play-level-number">
+                Level X
+              </Label>
 
-        <FontAwesomeIconView fx:id="levelTypeIcon" glyphName="BOLT" size="1.5em">
-          <HBox.margin>
-            <Insets right="30" left="5" />
-          </HBox.margin>
-        </FontAwesomeIconView>
+              <FontAwesomeIconView fx:id="levelTypeIcon" glyphName="BOLT" size="1.5em">
+                <HBox.margin>
+                  <Insets left="5"/>
+                </HBox.margin>
+              </FontAwesomeIconView>
 
-        <JFXButton fx:id="hints" text=" Hints" buttonType="RAISED" prefWidth="85" prefHeight="30" styleClass="normal-button">
-          <graphic>
-            <FontAwesomeIconView glyphName="QUESTION_CIRCLE" glyphStyle="-fx-fill:WHITE;" size="1.3em"/>
-          </graphic>
-        </JFXButton>
-
-        <JFXButton fx:id="resetLevelButton" prefWidth="85"
-            prefHeight="30" buttonType="RAISED" text="Reset"
-            styleClass="normal-button">
-          <HBox.margin>
-            <Insets right="30" left="30" />
-          </HBox.margin>
-        </JFXButton>
-
-        <VBox.margin>
-          <Insets top="30" bottom="10"/>
-        </VBox.margin>
-      </HBox>
-
-      <HBox alignment="CENTER">
-        <Label fx:id="timeLabel" textAlignment="RIGHT" styleClass="play-level-number" HBox.hgrow="ALWAYS">
-          <HBox.margin>
-            <Insets right="20" left="20" />
-          </HBox.margin>
-          0:00
-        </Label>
+              <HBox>
+                <FontAwesomeIconView glyphName="STAR" size="2em"/>
+                <FontAwesomeIconView glyphName="STAR" size="2em"/>
+                <FontAwesomeIconView glyphName="STAR" size="2em"/>
+                <HBox.margin>
+                  <Insets left="30"/>
+                </HBox.margin>
+              </HBox>
+            </HBox>
+            <BorderPane.margin>
+              <Insets top="30" left="20" />
+            </BorderPane.margin>
+          </left>
+          <right>
+            <JFXButton fx:id="resetLevelButton" prefWidth="85"
+                prefHeight="30" buttonType="RAISED" text="Reset"
+                styleClass="normal-button">
+              <BorderPane.margin>
+                <Insets right="30" top="30" />
+              </BorderPane.margin>
+            </JFXButton>
+          </right>
+        </BorderPane>
 
         <HBox>
-          <FontAwesomeIconView glyphName="STAR" size="2em"/>
-          <FontAwesomeIconView glyphName="STAR" size="2em"/>
-          <FontAwesomeIconView glyphName="STAR" size="2em"/>
-          <HBox.margin>
-            <Insets right="20" left="20" />
-          </HBox.margin>
+          <Label fx:id="timeLabel" textAlignment="RIGHT" styleClass="play-level-number" HBox.hgrow="ALWAYS">
+            <HBox.margin>
+              <Insets right="20" left="20" />
+            </HBox.margin>
+            0:00
+          </Label>
+
+          <Label textAlignment="LEFT" styleClass="play-level-number" HBox.hgrow="ALWAYS">
+            Moves: X
+            <HBox.margin>
+              <Insets right="20" left="20" />
+            </HBox.margin>
+          </Label>
+
+          <VBox.margin>
+            <Insets top="10" bottom="15"/>
+          </VBox.margin>
         </HBox>
-
-        <Label textAlignment="LEFT" styleClass="play-level-number" HBox.hgrow="ALWAYS">
-          Moves: X
-          <HBox.margin>
-            <Insets right="20" left="20" />
-          </HBox.margin>
-        </Label>
-
-        <VBox.margin>
-          <Insets top="10" bottom="15"/>
-        </VBox.margin>
-      </HBox>
+      </VBox>
 
       <Label prefWidth="400" prefHeight="400" styleClass="simple-border">
         Level Grid goes here
