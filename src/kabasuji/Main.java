@@ -22,9 +22,7 @@ public class Main extends Application {
 
       Scene scene = new Scene(new JFXDecorator(stage, root), 800, 800);
 
-      scene.getStylesheets().add(getClass().getResource("/resources/css/jfoenix-fonts.css").toExternalForm());
-      scene.getStylesheets().add(getClass().getResource("/resources/css/jfoenix-design.css").toExternalForm());
-      scene.getStylesheets().add(getClass().getResource("/resources/css/jfoenix-main-demo.css").toExternalForm());
+      scene.getStylesheets().add(getClass().getResource("/resources/css/kabasuji.css").toExternalForm());
 
       stage.setMinWidth(700);
       stage.setMinHeight(700);

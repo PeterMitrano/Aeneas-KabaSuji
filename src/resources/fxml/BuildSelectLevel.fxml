@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRippler?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.*?>
@@ -13,11 +16,7 @@
     xmlns="http://javafx.com/javafx/2.2">
   <left>
     <JFXListView prefWidth="300" fx:id="fileList">
-      <Label> ~/.kabasuji/levelbuilder/1.ksb</Label>
-      <Label> ~/.kabasuji/levelbuilder/2.ksb</Label>
-      <Label> ~/.kabasuji/levelbuilder/3.ksb</Label>
-      <Label> ~/.kabasuji/levelbuilder/4.ksb</Label>
-      <Label> ~/some/other/path/to/a/file/builder.ksb</Label>
+      <Label> ~/kabasuji/awesome_level.ksb</Label>
     </JFXListView>
   </left>
   <center>
@@ -37,6 +36,16 @@
       <Label prefWidth="300" prefHeight="300" styleClass="simple-border">
         Preview goes here
       </Label>
+      <HBox alignment="BOTTOM_RIGHT">
+        <JFXButton fx:id="editLevel" text=" Edit This Level" buttonType="RAISED" prefWidth="250" prefHeight="75" styleClass="edit-level-button">
+          <graphic>
+            <FontAwesomeIconView glyphName="ARROW_RIGHT" glyphStyle="-fx-fill:#F44336;" size="3em"/>
+          </graphic>
+          <HBox.margin>
+            <Insets bottom="10" right="20"/>
+          </HBox.margin>
+        </JFXButton>
+      </HBox>
     </VBox>
   </center>
 </fx:root>

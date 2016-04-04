@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.materialicons.*?>
+<?import de.jensd.fx.glyphs.*?>
+<?import de.jensd.fx.glyphs.materialdesignicons.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.scene.layout.StackPane?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.layout.VBox?>

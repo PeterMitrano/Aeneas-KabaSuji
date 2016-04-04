@@ -18,7 +18,10 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
   @FXML
   private JFXListView fileList;
 
+  private Model model;
+
   BuildSelectLevelView(Model model) {
+    this.model = model;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/BuildSelectLevel.fxml"));
       loader.setRoot(this);

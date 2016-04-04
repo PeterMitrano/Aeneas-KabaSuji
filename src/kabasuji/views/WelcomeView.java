@@ -6,6 +6,10 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,7 +22,7 @@ public class WelcomeView extends VBox implements Initializable{
 	@FXML
 	private JFXButton playSelectLevelButton;
 
-	@FXML
+  @FXML
 	private JFXButton buildSelectLevelButton;
 
 	@FXML
@@ -56,5 +60,6 @@ public class WelcomeView extends VBox implements Initializable{
 		buildSelectLevelButton.setOnMouseClicked((e) -> {
       parentView.switchToBuildSelectLevelView();
 		});
+
 	}
 }
