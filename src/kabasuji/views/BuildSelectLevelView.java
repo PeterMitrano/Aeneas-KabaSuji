@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 
 import javafx.fxml.FXML;
@@ -18,10 +19,16 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
   @FXML
   private JFXListView fileList;
 
+  @FXML
+  private JFXButton editLevel;
+
   private Model model;
 
-  BuildSelectLevelView(Model model) {
+  private MainView parentView;
+
+  BuildSelectLevelView(MainView parentView, Model model) {
     this.model = model;
+    this.parentView = parentView;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/BuildSelectLevel.fxml"));
       loader.setRoot(this);
@@ -37,6 +44,10 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     fileList.setOnMouseClicked((e) -> {
       System.out.println("selected " + fileList.getSelectionModel().getSelectedItem());
+    });
+
+    editLevel.setOnMouseClicked((e) -> {
+      parentView.switchToBuildLevelView();
     });
 
   }

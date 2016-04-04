@@ -34,7 +34,6 @@
         </VBox.margin>
       </Label>
       <Label prefWidth="300" prefHeight="300" styleClass="simple-border">
-        Preview goes here
       </Label>
       <HBox alignment="BOTTOM_RIGHT">
         <JFXButton fx:id="editLevel" text=" Edit This Level" buttonType="RAISED" prefWidth="250" prefHeight="75" styleClass="edit-level-button">

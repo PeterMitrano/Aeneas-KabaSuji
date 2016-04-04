@@ -16,8 +16,17 @@
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
     xmlns="http://javafx.com/javafx/2.2">
   <left>
-    <JFXListView prefWidth="100" fx:id="bullpenListView">
-    </JFXListView>
+    <StackPane alignment="BOTTOM_LEFT">
+      <JFXListView prefWidth="100" fx:id="bullpenListView">
+      </JFXListView>
+      <JFXRippler fx:id="addPiece" prefWidth="50"
+          prefHeight="50" maskType="CIRCLE" style="-fx-rippler-fill:RED;">
+        <FontAwesomeIconView glyphName="PLUS" size="3em"/>
+        <StackPane.margin>
+          <Insets left="30" bottom="30" />
+        </StackPane.margin>
+      </JFXRippler>
+    </StackPane>
   </left>
   <center>
     <VBox spacing="10" alignment="TOP_CENTER">
@@ -62,10 +71,10 @@
 
         <HBox>
           <!--<Label fx:id="timeLabel" textAlignment="RIGHT" styleClass="level-number" HBox.hgrow="ALWAYS">-->
-            <!--<HBox.margin>-->
-              <!--<Insets right="20" left="20" />-->
-            <!--</HBox.margin>-->
-            <!--Time Remaining 2:16-->
+          <!--<HBox.margin>-->
+          <!--<Insets right="20" left="20" />-->
+          <!--</HBox.margin>-->
+          <!--Time Remaining 2:16-->
           <!--</Label>-->
 
           <Label textAlignment="LEFT" styleClass="level-number" HBox.hgrow="ALWAYS">

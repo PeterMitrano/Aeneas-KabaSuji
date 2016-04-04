@@ -50,6 +50,7 @@ public class MainView implements Initializable {
   private PlaySelectLevelView playSelectLevelView;
   private BuildSelectLevelView buildSelectLevelView;
   private PlayLevelView playLevelView;
+  private BuildLevelView buildLevelView;
 
   private Stack<Node> paneStack;
 
@@ -75,6 +76,13 @@ public class MainView implements Initializable {
     content.getChildren().add(buildSelectLevelView);
   }
 
+  public void switchToBuildLevelView() {
+    paneStack.push(buildLevelView);
+    content.getChildren().clear();
+    content.getChildren().add(buildLevelView);
+
+  }
+
   public void switchToPlayLevelView() {
     paneStack.push(playLevelView);
     content.getChildren().clear();
@@ -94,8 +102,9 @@ public class MainView implements Initializable {
     playSelectLevelView= new PlaySelectLevelView(this, new GameModel());
 
     playLevelView = new PlayLevelView(new Model());
+    buildLevelView = new BuildLevelView(new Model());
     viewAchievementsView = new ViewAchievementsView(new Model());
-    buildSelectLevelView= new BuildSelectLevelView(new Model());
+    buildSelectLevelView= new BuildSelectLevelView(this, new Model());
 
     // init Popup
     toolbarPopup.setPopupContainer(root);
