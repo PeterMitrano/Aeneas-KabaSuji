@@ -13,8 +13,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPopup?>
 
-<StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="kabasuji.views.MainView"
+<fx:root type="javafx.scene.layout.StackPane" fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
 	xmlns="http://javafx.com/javafx/2.2">
 	<BorderPane>
 
@@ -61,4 +60,4 @@
 		</JFXListView>
 	</JFXPopup>
 
-</StackPane>
+</fx:root>

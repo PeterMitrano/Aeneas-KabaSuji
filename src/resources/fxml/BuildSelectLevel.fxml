@@ -15,9 +15,20 @@
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
     xmlns="http://javafx.com/javafx/2.2">
   <left>
-    <JFXListView prefWidth="300" fx:id="fileList">
-      <Label> ~/kabasuji/awesome_level.ksb</Label>
-    </JFXListView>
+    <StackPane alignment="BOTTOM_LEFT">
+      <JFXListView prefWidth="300" fx:id="fileList">
+        <Label> ~/kabasuji/awesome_level.ksb</Label>
+      </JFXListView>
+      <JFXButton fx:id="openFile" prefWidth="50"
+          prefHeight="50" style="-fx-rippler-fill:#FFCDD2;-fx-background-color:#F44336;">
+        <graphic>
+          <FontAwesomeIconView glyphName="FILE" size="3em"/>
+        </graphic>
+        <StackPane.margin>
+          <Insets left="10" bottom="10" />
+        </StackPane.margin>
+      </JFXButton>
+    </StackPane>
   </left>
   <center>
     <VBox spacing="20" alignment="TOP_CENTER">

@@ -1,5 +1,6 @@
 package kabasuji.views;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Stack;
@@ -11,18 +12,20 @@ import com.jfoenix.controls.JFXPopup.PopupVPosition;
 import com.jfoenix.controls.JFXRippler;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import kabasuji.models.GameModel;
 import kabasuji.models.Model;
 
-public class MainView implements Initializable {
+public class MainView extends StackPane implements Initializable {
 
   @FXML
-  private StackPane root;
+  public StackPane root;
 
   @FXML
   private StackPane content;
@@ -54,8 +57,21 @@ public class MainView implements Initializable {
 
   private Stack<Node> paneStack;
 
-  public MainView() {
+  Stage stage;
+
+  public MainView(Stage stage) {
+
+    this.stage = stage;
     paneStack = new Stack<Node>();
+
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/Main.fxml"));
+      loader.setRoot(this);
+      loader.setController(this);
+      loader.load();
+    } catch (IOException e){
+      e.printStackTrace();
+    }
   }
 
   public void switchToWelcomeView() {

@@ -11,10 +11,8 @@ import com.jfoenix.effects.JFXDepthManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 
 import kabasuji.models.Model;
 
@@ -22,6 +20,9 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
 
   @FXML
   private JFXListView fileList;
+
+  @FXML
+  private JFXButton openFile;
 
   @FXML
   private JFXButton editLevel;
@@ -52,6 +53,12 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
 
     editLevel.setOnMouseClicked((e) -> {
       parentView.switchToBuildLevelView();
+    });
+
+    openFile.setOnMouseClicked((e) -> {
+      FileChooser fileChooser = new FileChooser();
+      fileChooser.setTitle("Open Resource File");
+      fileChooser.showOpenDialog(parentView.stage);
     });
 
     JFXDepthManager.setDepth(fileList, 1);
