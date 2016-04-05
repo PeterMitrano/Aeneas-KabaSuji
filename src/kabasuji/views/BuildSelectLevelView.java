@@ -6,11 +6,15 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.effects.JFXDepthManager;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 
 import kabasuji.models.Model;
 
@@ -49,6 +53,8 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
     editLevel.setOnMouseClicked((e) -> {
       parentView.switchToBuildLevelView();
     });
+
+    JFXDepthManager.setDepth(fileList, 1);
 
   }
 

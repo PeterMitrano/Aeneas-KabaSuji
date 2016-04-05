@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.effects.JFXDepthManager;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
@@ -48,6 +49,8 @@ public class PlayLevelView extends BorderPane implements Initializable {
     resetLevelButton.setOnMouseClicked((e) -> {
       System.out.println("reset");
     });
+
+    JFXDepthManager.setDepth(bullpenListView, 1);
   }
 
 }
