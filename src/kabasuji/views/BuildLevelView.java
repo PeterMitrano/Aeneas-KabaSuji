@@ -2,7 +2,7 @@ package kabasuji.views;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -16,14 +16,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.RectangleBuilder;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
-import kabasuji.models.Model;
+import kabasuji.models.Level;
+import kabasuji.models.Piece;
+import kabasuji.models.Square;
 
 public class BuildLevelView extends BorderPane implements Initializable {
 
@@ -36,7 +35,15 @@ public class BuildLevelView extends BorderPane implements Initializable {
   @FXML
   private FontAwesomeIconView levelTypeIcon;
 
-  BuildLevelView(Model model) {
+  @FXML
+  private VBox centerBox;
+
+  BoardView boardView;
+
+  Level levelModel;
+
+  BuildLevelView(Level levelModel) {
+    this.levelModel = levelModel;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/BuildLevel.fxml"));
       loader.setRoot(this);
@@ -51,26 +58,30 @@ public class BuildLevelView extends BorderPane implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     JFXDepthManager.setDepth(bullpenListView, 1);
 
-    // add a piece to the bullpen as an example
-    AnchorPane piecePane = new AnchorPane();
-    piecePane.setPrefSize(96,96);
+    List<Pane> values = new ArrayList<Pane>();
 
-    Rectangle square1 = RectangleBuilder.create().width(16).height(16).x(0).y(0).fill(Color.BLUE).build();
-    Rectangle square2 = RectangleBuilder.create().width(16).height(16).x(16).y(0).fill(Color.BLUE).build();
-    Rectangle square3 = RectangleBuilder.create().width(16).height(16).x(16).y(16).fill(Color.BLUE).build();
-    Rectangle square4 = RectangleBuilder.create().width(16).height(16).x(0).y(16).fill(Color.BLUE).build();
-    Rectangle square5 = RectangleBuilder.create().width(16).height(16).x(0).y(32).fill(Color.BLUE).build();
-    Rectangle square6 = RectangleBuilder.create().width(16).height(16).x(32).y(16).fill(Color.BLUE).build();
+    Piece[] pieces = new Piece[1];
+    pieces[0] = new Piece();
+    pieces[0].squares[0] = new Square(0,0);
+    pieces[0].squares[1] = new Square(1,0);
+    pieces[0].squares[2] = new Square(1,1);
+    pieces[0].squares[3] = new Square(1,2);
+    pieces[0].squares[4] = new Square(1,3);
+    pieces[0].squares[5] = new Square(1,4);
 
-    piecePane.getChildren().add(square1);
-    piecePane.getChildren().add(square2);
-    piecePane.getChildren().add(square3);
-    piecePane.getChildren().add(square4);
-    piecePane.getChildren().add(square5);
-    piecePane.getChildren().add(square6);
+    int S = 16;
+    for (Piece pieceModel : pieces) {
 
-    List<AnchorPane> values = Arrays.asList(piecePane);
+      // add a piece to the bullpen as an example
+      Pane piecePane = new Pane();
+      PieceView pieceView = new PieceView(pieceModel);
+      piecePane.getChildren().add(pieceView);
+      values.add(piecePane);
+    }
+
     bullpenListView.setItems(FXCollections.observableList(values));
-  }
 
+    boardView = new BoardView(levelModel.board);
+    centerBox.getChildren().add(boardView);
+  }
 }

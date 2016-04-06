@@ -3,16 +3,16 @@ package kabasuji.controllers;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-import kabasuji.models.LevelModel;
+import kabasuji.models.Level;
 import kabasuji.views.PlaySelectLevelView;
 
 // @brief Handles a button press on one button in the level select view
 public class SelectLevelController implements EventHandler<MouseEvent> {
 
-  LevelModel levelModel;
+  Level levelModel;
   PlaySelectLevelView view;
 
-  public SelectLevelController(PlaySelectLevelView view, LevelModel levelModel){
+  public SelectLevelController(PlaySelectLevelView view, Level levelModel){
     this.levelModel = levelModel;
     this.view = view;
   }

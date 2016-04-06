@@ -16,11 +16,10 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 
 import kabasuji.controllers.SelectLevelController;
 import kabasuji.models.GameModel;
-import kabasuji.models.LevelModel;
+import kabasuji.models.Level;
 
 public class PlaySelectLevelView extends BorderPane implements Initializable {
 
@@ -59,7 +58,7 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
       for (int c = 0; c < numCols; c++) {
         int levelIndex = numCols * r + c;
         int levelNumber = levelIndex + 1;
-        LevelModel level = gameModel.levels[levelIndex];
+        Level level = gameModel.levels[levelIndex];
 
         JFXButton button = new JFXButton();
 
@@ -71,6 +70,7 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
         button.setOnMouseClicked(new SelectLevelController(this, level));
 
         HBox stars = new HBox();
+        stars.setMouseTransparent(true);
         stars.setAlignment(Pos.BOTTOM_CENTER);
         stars.setSpacing(2);
         for (int i = 0; i < level.starsEarned; i++) {
@@ -81,13 +81,9 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
           stars.getChildren().add(star);
         }
 
-        StackPane levelPane = new StackPane();
-        levelPane.getChildren().add(button);
-        levelPane.getChildren().add(stars);
-
-        levelGrid.add(levelPane, c, r);
+        levelGrid.add(button, c, r);
+        levelGrid.add(stars, c, r);
       }
     }
-
   }
 }

@@ -1,14 +1,16 @@
 package kabasuji.models;
 
+import kabasuji.models.Level;;
+
 public class GameModel {
 
   public int numLevels = 15;
-  public LevelModel[] levels;
+  public Level[] levels;
 
   public GameModel() {
-    levels = new LevelModel[numLevels];
+    levels = new Level[numLevels];
     for (int i = 0; i < numLevels; i++) {
-      LevelModel l = new LevelModel();
+      Level l = new Level();
       l.levelNumber = i + 1;
       levels[i] = l;
     }

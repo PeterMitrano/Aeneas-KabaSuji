@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXRippler?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.HBox?>
@@ -16,7 +17,7 @@
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
     xmlns="http://javafx.com/javafx/2.2">
   <left>
-    <JFXListView prefWidth="100" fx:id="bullpenListView">
+    <JFXListView prefWidth="115" fx:id="bullpenListView">
     </JFXListView>
   </left>
   <center>

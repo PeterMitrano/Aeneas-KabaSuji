@@ -20,6 +20,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import kabasuji.models.GameModel;
+import kabasuji.models.Level;
 import kabasuji.models.Model;
 
 public class MainView extends StackPane implements Initializable {
@@ -118,7 +119,7 @@ public class MainView extends StackPane implements Initializable {
     playSelectLevelView= new PlaySelectLevelView(this, new GameModel());
 
     playLevelView = new PlayLevelView(new Model());
-    buildLevelView = new BuildLevelView(new Model());
+    buildLevelView = new BuildLevelView(new Level());
     viewAchievementsView = new ViewAchievementsView(new Model());
     buildSelectLevelView= new BuildSelectLevelView(this, new Model());
 
