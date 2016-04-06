@@ -7,16 +7,14 @@ import kabasuji.models.Square;
 
 public class PieceView extends Pane {
 
-  public static final int SIZE = 16;// in pixels
-
   Piece pieceModel;
 
-  public PieceView(Piece pieceModel){
+  public PieceView(Piece pieceModel, int squareSize) {
     this.pieceModel = pieceModel;
-    for (Square s : pieceModel.squares){
-      SquareView view = new SquareView(s);
-      view.setX(s.dRow * SIZE);
-      view.setY(s.dCol * SIZE);
+    for (Square s : pieceModel.squares) {
+      SquareView view = new SquareView(s, squareSize);
+      view.setX(s.dRow * squareSize);
+      view.setY(s.dCol * squareSize);
       getChildren().add(view);
     }
   }

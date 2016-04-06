@@ -7,15 +7,16 @@ import kabasuji.models.Square;
 
 public class SquareView extends Rectangle {
 
-  public static final int SIZE = 16;//in pixels
+  public int size = 16;// in pixels
 
   Square squareModel;
 
-  public SquareView(Square squareModel){
+  public SquareView(Square squareModel, int size) {
+    this.size = size;
     this.squareModel = squareModel;
-    setWidth(SIZE);
-    setHeight(SIZE);
+    setWidth(size);
+    setHeight(size);
     setFill(Color.BLUE);
+    setStroke(Color.BLACK);
   }
 }
-
