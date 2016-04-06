@@ -118,7 +118,7 @@ public class MainView extends StackPane implements Initializable {
     welcomeView = new WelcomeView(this, new Model());
     playSelectLevelView= new PlaySelectLevelView(this, new GameModel());
 
-    playLevelView = new PlayLevelView(new Model());
+    playLevelView = new PlayLevelView(new Level());
     buildLevelView = new BuildLevelView(new Level());
     viewAchievementsView = new ViewAchievementsView(new Model());
     buildSelectLevelView= new BuildSelectLevelView(this, new Model());

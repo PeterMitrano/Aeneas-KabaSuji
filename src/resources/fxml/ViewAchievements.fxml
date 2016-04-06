@@ -29,7 +29,7 @@
         <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
           <FontAwesomeIconView glyphName="ROCKET" size="4em"/>
           <Label styleClass="achievement-title">Rocket</Label>
-          <Label styleClass="achievement-description">complete four lightening levels</Label>
+          <Label styleClass="achievement-description">complete four lightning levels</Label>
         </VBox>
         <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
           <FontAwesomeIconView glyphName="PUZZLE_PIECE" size="4em"/>
@@ -39,7 +39,7 @@
         <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <FontAwesomeIconView glyphName="BOLT" size="4em"/>
           <Label styleClass="achievement-title">Thor</Label>
-          <Label styleClass="achievement-description">complete all lightening levels</Label>
+          <Label styleClass="achievement-description">complete all lightning levels</Label>
         </VBox>
       </GridPane>
     </VBox>
