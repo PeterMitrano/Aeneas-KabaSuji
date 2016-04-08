@@ -1,11 +1,10 @@
-package kabasuji.views;
+package main.java.views;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.effects.JFXDepthManager;
 
@@ -20,34 +19,32 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import kabasuji.models.Level;
-import kabasuji.models.Piece;
-import kabasuji.models.Square;
+import main.java.models.Level;
+import main.java.models.Piece;
+import main.java.models.Square;
 
-public class PlayLevelView extends BorderPane implements Initializable {
-
-  @FXML
-  private JFXButton resetLevelButton;
+public class BuildLevelView extends BorderPane implements Initializable {
 
   @FXML
-  private JFXListView bullpenListView;
+  private JFXListView<Pane> bullpenListView;
 
   @FXML
   private Label levelLabel;
 
   @FXML
-  private VBox centerBox;
-
-  @FXML
   private FontAwesomeIconView levelTypeIcon;
 
-  private BoardView boardView;
-  private Level levelModel;
+  @FXML
+  private VBox centerBox;
 
-  PlayLevelView(Level levelModel) {
+  BoardView boardView;
+
+  Level levelModel;
+
+  BuildLevelView(Level levelModel) {
     this.levelModel = levelModel;
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/PlayLevel.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/fxml/BuildLevel.fxml"));
       loader.setRoot(this);
       loader.setController(this);
       loader.load();
@@ -58,10 +55,6 @@ public class PlayLevelView extends BorderPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    resetLevelButton.setOnMouseClicked((e) -> {
-      System.out.println("reset");
-    });
-
     JFXDepthManager.setDepth(bullpenListView, 1);
 
     ArrayList<Pane> values = new ArrayList<Pane>();
@@ -70,10 +63,10 @@ public class PlayLevelView extends BorderPane implements Initializable {
     pieces[0] = new Piece();
     pieces[0].squares[0] = new Square(0, 0);
     pieces[0].squares[1] = new Square(1, 0);
-    pieces[0].squares[2] = new Square(2, 1);
-    pieces[0].squares[3] = new Square(2, 2);
-    pieces[0].squares[4] = new Square(1, 1);
-    pieces[0].squares[5] = new Square(1, 2);
+    pieces[0].squares[2] = new Square(1, 1);
+    pieces[0].squares[3] = new Square(1, 2);
+    pieces[0].squares[4] = new Square(1, 3);
+    pieces[0].squares[5] = new Square(1, 4);
 
     int S = 16;
     for (Piece pieceModel : pieces) {
@@ -85,11 +78,11 @@ public class PlayLevelView extends BorderPane implements Initializable {
       values.add(piecePane);
     }
 
-    boardView = new BoardView(levelModel.board.squares);
     bullpenListView.setItems(FXCollections.observableList(values));
+
+    boardView = new BoardView(levelModel.board.squares);
     centerBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
   }
-
 }

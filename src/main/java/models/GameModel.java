@@ -1,6 +1,6 @@
-package kabasuji.models;
+package main.java.models;
 
-import kabasuji.models.Level;;
+import main.java.models.Level;;
 
 public class GameModel {
 

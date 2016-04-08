@@ -1,9 +1,9 @@
-package kabasuji.views;
+package main.java.views;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import kabasuji.models.Board;
-import kabasuji.models.Square;
+import main.java.models.Board;
+import main.java.models.Square;
 
 class BoardView extends Pane {
 

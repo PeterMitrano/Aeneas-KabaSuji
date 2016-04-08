@@ -1,4 +1,4 @@
-package kabasuji.views;
+package main.java.views;
 
 import java.io.IOException;
 import java.net.URL;
@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,10 +15,9 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-
-import kabasuji.controllers.SelectLevelController;
-import kabasuji.models.GameModel;
-import kabasuji.models.Level;
+import main.java.controllers.SelectLevelController;
+import main.java.models.GameModel;
+import main.java.models.Level;
 
 public class PlaySelectLevelView extends BorderPane implements Initializable {
 
@@ -37,7 +35,7 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
     this.parentView = parentView;
 
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/PlaySelectLevel.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/fxml/PlaySelectLevel.fxml"));
       loader.setRoot(this);
       loader.setController(this);
       loader.load();

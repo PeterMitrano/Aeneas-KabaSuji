@@ -1,4 +1,4 @@
-package kabasuji.models;
+package main.java.models;
 
 public class Board {
 

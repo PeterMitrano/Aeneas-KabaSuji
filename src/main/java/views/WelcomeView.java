@@ -1,4 +1,4 @@
-package kabasuji.views;
+package main.java.views;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,8 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
-
-import kabasuji.models.Model;
+import main.java.models.Model;
 
 public class WelcomeView extends VBox implements Initializable{
 
@@ -35,7 +34,7 @@ public class WelcomeView extends VBox implements Initializable{
     this.parentView = parentView;
 
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/Welcome.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/fxml/Welcome.fxml"));
       loader.setRoot(this);
       loader.setController(this);
       loader.load();

@@ -1,9 +1,8 @@
-package kabasuji.views;
+package main.java.views;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import kabasuji.models.Square;
+import main.java.models.Square;
 
 public class SquareView extends Rectangle {
 

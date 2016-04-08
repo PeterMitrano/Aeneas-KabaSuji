@@ -1,4 +1,4 @@
-package kabasuji.views;
+package main.java.views;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,10 +18,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-import kabasuji.models.GameModel;
-import kabasuji.models.Level;
-import kabasuji.models.Model;
+import main.java.models.GameModel;
+import main.java.models.Level;
+import main.java.models.Model;
 
 public class MainView extends StackPane implements Initializable {
 
@@ -66,7 +65,7 @@ public class MainView extends StackPane implements Initializable {
     paneStack = new Stack<Node>();
 
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/Main.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/fxml/Main.fxml"));
       loader.setRoot(this);
       loader.setController(this);
       loader.load();

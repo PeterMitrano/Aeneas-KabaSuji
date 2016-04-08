@@ -1,6 +1,9 @@
 # vim
 *.swp
 
+# gradle
+gradle
+
 # java specific
 *.bak
 *.class

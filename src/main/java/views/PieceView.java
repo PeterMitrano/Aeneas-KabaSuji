@@ -1,9 +1,8 @@
-package kabasuji.views;
+package main.java.views;
 
 import javafx.scene.layout.Pane;
-
-import kabasuji.models.Piece;
-import kabasuji.models.Square;
+import main.java.models.Piece;
+import main.java.models.Square;
 
 public class PieceView extends Pane {
 

@@ -1,4 +1,4 @@
-package kabasuji.views;
+package main.java.views;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,8 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
-
-import kabasuji.models.Model;
+import main.java.models.Model;
 
 public class BuildSelectLevelView extends BorderPane implements Initializable {
 
@@ -35,7 +34,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
     this.model = model;
     this.parentView = parentView;
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/BuildSelectLevel.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/fxml/BuildSelectLevel.fxml"));
       loader.setRoot(this);
       loader.setController(this);
       loader.load();
