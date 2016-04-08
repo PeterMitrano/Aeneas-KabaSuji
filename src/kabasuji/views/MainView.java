@@ -49,6 +49,7 @@ public class MainView extends StackPane implements Initializable {
   @FXML
   private JFXButton back;
 
+ 
   private ViewAchievementsView viewAchievementsView;
   private WelcomeView welcomeView;
   private PlaySelectLevelView playSelectLevelView;
