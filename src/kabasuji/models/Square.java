@@ -1,14 +1,16 @@
 package kabasuji.models;
 
 public class Square {
-  public int dRow, dCol;
-  public static final int SIZE = 30; // in pixels
+  int dRow, dCol;
 
   public Square(int dRow, int dCol) {
     this.dRow = dRow;
     this.dCol = dCol;
   }
-
-  public Square() {
-  }
+  
+  public int getRow() { return dRow; }
+  public int getCol() { return dCol; }
+  
+  public void setRow(int row) { dRow = row; }
+  public void setCol(int col) { dCol = col; }
 }
