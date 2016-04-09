@@ -19,7 +19,7 @@ public class ReturnToMainMenuController implements EventHandler<MouseEvent> {
 
   @Override
   public void handle(MouseEvent event) {
-    view.parentView.switchToMainView();
+    view.parentView.switchToWelcomeView();
   }
 
 }

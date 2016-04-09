@@ -12,7 +12,7 @@ public class ViewAboutController implements EventHandler<MouseEvent> {
   MainView view;
 
   public ViewAboutController(MainView view, String aboutText){
-    this.levelModel = levelModel;
+    this.aboutText = aboutText;
     this.view = view;
   }
 

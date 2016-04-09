@@ -4,7 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 import kabasuji.models.Level;
-import kabasuji.views.PlaySelectLevelView;
+import kabasuji.views.PlayLevelView;
 
 // I'm thinking that because this class will need to handle so many different
 // events, we should not bother inheriting from EventHandler and instead
@@ -14,14 +14,14 @@ import kabasuji.views.PlaySelectLevelView;
 // have switch statements in handle() depending on the MouseEvent...
 public class BoardController implements EventHandler<MouseEvent> {
 
-  public class BoardLogic {
+  public static class BoardLogic {
     boolean isEditor;
     boolean canRemovePieces;
     boolean peristentPieces;
-    public static BoardLogic editorLogic();
-    public static BoardLogic puzzleLogic();
-    public static BoardLogic lightningLogic();
-    public static BoardLogic releaseLogic();
+    public static BoardLogic editorLogic() {return new BoardLogic(); }
+    public static BoardLogic puzzleLogic() {return new BoardLogic(); }
+    public static BoardLogic lightningLogic()  {return new BoardLogic(); }
+    public static BoardLogic releaseLogic() {return new BoardLogic(); }
   }
 
   Level levelModel;
@@ -36,8 +36,6 @@ public class BoardController implements EventHandler<MouseEvent> {
 
   @Override
   public void handle(MouseEvent event) {
-    System.out.println("enter level " + levelModel.levelNumber);
-    view.parentView.switchToPlayLevelView();
   }
 
 }
