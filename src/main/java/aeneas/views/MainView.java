@@ -133,13 +133,12 @@ public class MainView extends StackPane implements Initializable {
     optionsBurger.setOnMouseClicked((e) -> {
       toolbarPopup.show(PopupVPosition.TOP, PopupHPosition.RIGHT, -12, 5);
     });
-
     back.setOnMouseClicked((e) -> {
       // unless we're out of places to go back, go at the last pane we
       // the current node should always be in the stack,
       // so only remove and go back if there's multiple things on the stack
       if (paneStack.size() > 1){
-    	  paneStack.pop();
+        paneStack.pop();
         content.getChildren().clear();
         content.getChildren().add(paneStack.peek());
       }
