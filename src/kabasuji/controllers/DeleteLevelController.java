@@ -3,8 +3,9 @@ package kabasuji.controllers;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
+import kabasuji.models.Model;
 import kabasuji.models.Level;
-import kabasuji.views.PlaySelectLevelView;
+import kabasuji.views.BuildSelectLevelView;
 
 public class DeleteLevelController implements EventHandler<MouseEvent> {
   Model model;
@@ -19,8 +20,6 @@ public class DeleteLevelController implements EventHandler<MouseEvent> {
 
   @Override
   public void handle(MouseEvent event) {
-    System.out.println("enter level " + levelModel.levelNumber);
-    view.parentView.switchToPlayLevelView();
   }
 
 }

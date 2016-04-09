@@ -11,8 +11,8 @@ public class ViewHelpController implements EventHandler<MouseEvent> {
   MainView view;
 
   public ViewHelpController(MainView view, String helpText){
-    this.levelModel = levelModel;
     this.helpText = helpText;
+    this.view = view;
   }
 
   @Override

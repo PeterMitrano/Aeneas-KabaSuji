@@ -4,22 +4,22 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 import kabasuji.models.Level;
-import kabasuji.views.PlaySelectLevelView;
+import kabasuji.views.PlayLevelView;
 
 public class BullpenController implements EventHandler<MouseEvent> {
 
-  class BullpenLogic {
+  public static class BullpenLogic {
     boolean isEditor;
     boolean canChangePieceType;
     boolean changeNumPieces;
-    public static BullpenLogic editorLogic();
-    public static BullpenLogic puzzleLogic();
-    public static BullpenLogic lightningLogic();
-    public static BullpenLogic releaseLogic();
+    public static BullpenLogic editorLogic() {return new BullpenLogic();}
+    public static BullpenLogic puzzleLogic() {return new BullpenLogic();}
+    public static BullpenLogic lightningLogic() {return new BullpenLogic();}
+    public static BullpenLogic releaseLogic() {return new BullpenLogic();}
   }
 
   Level levelModel;
-  PlaySelectLevelView view;
+  PlayLevelView view;
   BullpenLogic logic;
 
   public BullpenController(PlayLevelView view, Level levelModel, BullpenLogic logic){
@@ -30,8 +30,6 @@ public class BullpenController implements EventHandler<MouseEvent> {
 
   @Override
   public void handle(MouseEvent event) {
-    System.out.println("enter level " + levelModel.levelNumber);
-    view.parentView.switchToPlayLevelView();
   }
 
 }

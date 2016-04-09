@@ -3,8 +3,8 @@ package kabasuji.controllers;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-import kabasuji.models.Level;
-import kabasuji.views.PlaySelectLevelView;
+import kabasuji.models.Model;
+import kabasuji.views.MainView;
 
 public class ViewSelectBuildLevelsController implements EventHandler<MouseEvent> {
 
