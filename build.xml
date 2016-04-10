@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="KabaSuji" default="compile" >
+
+  <target name="clean">
+    <delete dir="build"/>
+  </target>
+
+  <target name="compile">
+    <mkdir dir="build/classes"/>
+    <javac srcdir="src" destdir="build/classes" includeantruntime="false">
+      <classpath>
+        <pathelement path="lib/jfoenix.jar"/>
+        <pathelement path="lib/fontawesomefx-8.10-SNAPSHOT.jar"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="jar">
+    <mkdir dir="build/jar"/>
+    <jar destfile="build/jar/KabaSuji.jar" basedir="build/classes">
+			<zipgroupfileset dir="lib" includes="jfoenix.jar" />
+			<zipgroupfileset dir="lib" includes="fontawesomefx-8.10-SNAPSHOT.jar" />
+      <fileset dir="src"/>
+			<manifest>
+        <attribute name="Main-Class" value="kabasuji.Main"/>
+    </manifest>
+    </jar>
+  </target>
+
+  <target name="run">
+    <java jar="build/jar/KabaSuji.jar" fork="true"/>
+  </target>
+
+</project>
