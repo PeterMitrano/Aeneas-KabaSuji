@@ -16,7 +16,7 @@
     </javac>
   </target>
 
-  <target name="jar">
+  <target name="jar" depends="compile">
     <mkdir dir="build/jar"/>
     <jar destfile="build/jar/KabaSuji.jar" basedir="build/classes">
 			<zipgroupfileset dir="lib" includes="jfoenix.jar" />
@@ -28,7 +28,7 @@
     </jar>
   </target>
 
-  <target name="run">
+  <target name="run" depends="jar">
     <java jar="build/jar/KabaSuji.jar" fork="true"/>
   </target>
 
