@@ -7,7 +7,7 @@ import kabasuji.models.Square;
 
 public class SquareView extends Rectangle {
 
-  public int size = 16;// in pixels
+  public int size;
 
   Square squareModel;
 

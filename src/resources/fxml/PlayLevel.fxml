@@ -21,7 +21,7 @@
     </JFXListView>
   </left>
   <center>
-    <VBox fx:id="centerBox" spacing="10" alignment="TOP_CENTER">
+    <VBox spacing="10" alignment="TOP_CENTER">
 
       <VBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color:#d1d1d1;">
         <BorderPane>
@@ -88,6 +88,8 @@
           </VBox.margin>
         </HBox>
       </VBox>
+
+      <HBox fx:id="centerBox" alignment="CENTER"></HBox>
 
     </VBox>
   </center>
