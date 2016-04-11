@@ -1,13 +1,13 @@
-package kabasuji.controllers;
+package aeneas.controllers;
+
+import aeneas.views.MainView;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-import kabasuji.views.MainView;
-
 // @brief Handles a button press on one button in the level select view
 public class ViewAchievementsController implements EventHandler<MouseEvent> {
-  
+
   class Achievement{}
 
   Achievement[] achievements;

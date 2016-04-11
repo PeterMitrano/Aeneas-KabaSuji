@@ -1,12 +1,15 @@
-package kabasuji.controllers;
+package aeneas.controllers;
+
+import aeneas.models.Level;
+import aeneas.views.PlaySelectLevelView;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-import kabasuji.models.Level;
-import kabasuji.views.PlaySelectLevelView;
-
-// @brief Handles a button press on one button in the level select view
+// Honestly, this may not be worth it; the back button seems fine as is
+// and I'm not sure whether we will ever need to actually add anything
+// to the back button (but if people think that we will, then we can
+// actually use this class).
 public class ReturnToMainMenuController implements EventHandler<MouseEvent> {
 
   Level levelModel;

@@ -11,7 +11,9 @@ import com.jfoenix.effects.JFXDepthManager;
 import aeneas.models.Level;
 import aeneas.models.Piece;
 import aeneas.models.Square;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

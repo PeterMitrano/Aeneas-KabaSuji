@@ -1,11 +1,11 @@
-package kabasuji.controllers;
+package aeneas.controllers;
+
+import aeneas.models.Level;
+import aeneas.models.Model;
+import aeneas.views.BuildSelectLevelView;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-
-import kabasuji.models.Model;
-import kabasuji.models.Level;
-import kabasuji.views.BuildSelectLevelView;
 
 public class DeleteLevelController implements EventHandler<MouseEvent> {
   Model model;

@@ -1,10 +1,10 @@
-package kabasuji.controllers;
+package aeneas.controllers;
+
+import aeneas.models.Model;
+import aeneas.views.MainView;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-
-import kabasuji.models.Model;
-import kabasuji.views.MainView;
 
 public class ViewSelectBuildLevelsController implements EventHandler<MouseEvent> {
 
@@ -18,6 +18,7 @@ public class ViewSelectBuildLevelsController implements EventHandler<MouseEvent>
 
   @Override
   public void handle(MouseEvent event) {
+    view.switchToBuildSelectLevelView();
   }
 
 }

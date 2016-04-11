@@ -8,7 +8,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.effects.JFXDepthManager;
 
+import aeneas.controllers.StartBuildLevelController;
 import aeneas.models.Model;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -50,9 +52,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
       System.out.println("selected " + fileList.getSelectionModel().getSelectedItem());
     });
 
-    editLevel.setOnMouseClicked((e) -> {
-      parentView.switchToBuildLevelView();
-    });
+    editLevel.setOnMouseClicked(new StartBuildLevelController(parentView, null));
 
     openFile.setOnMouseClicked((e) -> {
       FileChooser fileChooser = new FileChooser();

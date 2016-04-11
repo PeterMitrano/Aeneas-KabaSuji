@@ -9,10 +9,13 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.effects.JFXDepthManager;
 
+import aeneas.controllers.SelectLevelController;
 import aeneas.models.Level;
 import aeneas.models.Piece;
 import aeneas.models.Square;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,10 +44,12 @@ public class PlayLevelView extends BorderPane implements Initializable {
   @FXML
   private FontAwesomeIconView levelTypeIcon;
 
+  private MainView parentView;
+
   private BoardView boardView;
   private Level levelModel;
 
-  PlayLevelView(Level levelModel) {
+  PlayLevelView(MainView parentView, Level levelModel) {
     this.levelModel = levelModel;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("PlayLevel.fxml"));
@@ -59,7 +64,8 @@ public class PlayLevelView extends BorderPane implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     resetLevelButton.setOnMouseClicked((e) -> {
-      System.out.println("reset");
+      SelectLevelController c = new SelectLevelController(parentView, null);
+      c.resetLevel();
     });
 
     JFXDepthManager.setDepth(bullpenListView, 1);
@@ -75,7 +81,7 @@ public class PlayLevelView extends BorderPane implements Initializable {
       new Square(1, 1),
       new Square(1, 2),
     });
-    
+
     int S = 16;
     for (Piece pieceModel : pieces) {
 

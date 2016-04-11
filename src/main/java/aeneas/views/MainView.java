@@ -12,10 +12,13 @@ import com.jfoenix.controls.JFXPopup.PopupHPosition;
 import com.jfoenix.controls.JFXPopup.PopupVPosition;
 import com.jfoenix.controls.JFXRippler;
 
+import aeneas.controllers.ViewAboutController;
+import aeneas.controllers.ViewHelpController;
 import aeneas.models.Bullpen;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -50,13 +53,14 @@ public class MainView extends StackPane implements Initializable {
   @FXML
   private JFXButton back;
 
- 
+
   private ViewAchievementsView viewAchievementsView;
   private WelcomeView welcomeView;
   private PlaySelectLevelView playSelectLevelView;
   private BuildSelectLevelView buildSelectLevelView;
   private PlayLevelView playLevelView;
   private BuildLevelView buildLevelView;
+  private Model model;
 
   private Stack<Node> paneStack;
 
@@ -116,16 +120,17 @@ public class MainView extends StackPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    model = new Model();
 
-    welcomeView = new WelcomeView(this, new Model());
-    playSelectLevelView= new PlaySelectLevelView(this, new Model());
+    welcomeView = new WelcomeView(this, model);
+    playSelectLevelView= new PlaySelectLevelView(this, model);
 
     Bullpen bullpen = new Bullpen(new ArrayList<>());
     Level l = new PuzzleLevel(bullpen);
-    playLevelView = new PlayLevelView(l);
+    playLevelView = new PlayLevelView(this, l);
     buildLevelView = new BuildLevelView(l);
-    viewAchievementsView = new ViewAchievementsView(new Model());
-    buildSelectLevelView= new BuildSelectLevelView(this, new Model());
+    viewAchievementsView = new ViewAchievementsView(model);
+    buildSelectLevelView= new BuildSelectLevelView(this, model);
 
     // init Popup
     toolbarPopup.setPopupContainer(root);
@@ -144,13 +149,9 @@ public class MainView extends StackPane implements Initializable {
       }
     });
 
-    help.setOnMouseClicked((e) -> {
-      System.out.println("Help");
-    });
+    help.setOnMouseClicked(new ViewHelpController(this, model.helpString));
 
-    about.setOnMouseClicked((e) -> {
-      System.out.println("About");
-    });
+    about.setOnMouseClicked(new ViewAboutController(this, model.aboutString));
 
     switchToWelcomeView();
   }

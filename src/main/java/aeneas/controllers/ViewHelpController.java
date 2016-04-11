@@ -1,9 +1,9 @@
-package kabasuji.controllers;
+package aeneas.controllers;
+
+import aeneas.views.MainView;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-
-import kabasuji.views.MainView;
 
 public class ViewHelpController implements EventHandler<MouseEvent> {
 
@@ -17,6 +17,7 @@ public class ViewHelpController implements EventHandler<MouseEvent> {
 
   @Override
   public void handle(MouseEvent event) {
+    System.out.println(helpText);
   }
 
 }

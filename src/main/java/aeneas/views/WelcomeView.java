@@ -6,7 +6,11 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import aeneas.controllers.ViewAchievementsController;
+import aeneas.controllers.ViewSelectBuildLevelsController;
+import aeneas.controllers.ViewSelectPlayLevelsController;
 import aeneas.models.Model;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,17 +48,13 @@ public class WelcomeView extends VBox implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 
     //should there be a controller for this? It seems a bit excessive.
-		playSelectLevelButton.setOnMouseClicked((e) -> {
-      parentView.switchToPlaySelectLevelView();
-		});
+		viewAchievementsButton.setOnMouseClicked(
+		        new ViewAchievementsController(parentView, null));
 
-		viewAchievementsButton.setOnMouseClicked((e) -> {
-      parentView.switchToViewAchievementsView();
-		});
+		playSelectLevelButton.setOnMouseClicked(
+		        new ViewSelectPlayLevelsController(parentView, null));
 
-		buildSelectLevelButton.setOnMouseClicked((e) -> {
-      parentView.switchToBuildSelectLevelView();
-		});
+		buildSelectLevelButton.setOnMouseClicked(new ViewSelectBuildLevelsController(parentView, null));
 
 	}
 }
