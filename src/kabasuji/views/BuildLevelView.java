@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.effects.JFXDepthManager;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
