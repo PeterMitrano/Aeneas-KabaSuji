@@ -1,5 +1,5 @@
 package kabasuji.controllers;
-import kabasuji.models.GameModel;
+import kabasuji.models.Model;
 import kabasuji.models.Level;
 
 /**
@@ -12,7 +12,7 @@ public class ChangeLevelTypeMove implements IMove {
   
   Level level;
   
-  GameModel model;
+  Model model;
   
   int type;
 
@@ -23,7 +23,7 @@ public class ChangeLevelTypeMove implements IMove {
    * @param model The game model that holds the level being changed
    * @param type the type of the level to be changed to
    */
-  public ChangeLevelTypeMove(Level level, GameModel model, int type) {
+  public ChangeLevelTypeMove(Level level, Model model, int type) {
     this.level = level;
     this.model = model;
     this.type = type;
