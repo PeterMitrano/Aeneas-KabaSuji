@@ -11,9 +11,9 @@ import kabasuji.models.LightningLevel;
 public class SetTimeMove implements IMove {
   
   
-  LightingLevel level;
+  LightningLevel level;
   
-  int time
+  int time;
   
   /**
    * Constructor

@@ -1,6 +1,6 @@
 package kabasuji.controllers;
 import kabasuji.models.Level;
-import kabasuji.models.PlacedPiece;
+import kabasuji.models.Piece;
 
 /**
  * Move action to rotate a piece
@@ -11,7 +11,7 @@ import kabasuji.models.PlacedPiece;
 public class RotateMove implements IMove {
   
   
-  PlacedPiece piece;
+  Piece piece;
   
   /**
    * Constructor
