@@ -1,5 +1,4 @@
 package kabasuji.controllers;
-import kabasuji.models.Level;
 import kabasuji.models.Piece;
 
 /**

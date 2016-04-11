@@ -1,23 +1,28 @@
 package kabasuji.controllers;
-import kabasuji.models.Piece;
+import kabasuji.models.PuzzleLevel;
 
 /**
- * Move action to rotate a piece
+ * Move action to set the allotted moves for a puzzle level
+ * For use in the builder
  * 
  * @author Logan
  *
  */
-public class RotateMove implements IMove {
+public class SetMovesMove implements IMove {
   
   
-  Piece piece;
+  PuzzleLevel level;
+  
+  int moves;
   
   /**
    * Constructor
-   * @param piece The piece that is to be rotated
+   * @param level the level that is being edited
+   * @param moves the amount of moves to set the level too
    */
-  public RotateMove(Piece piece) {
-    this.piece = piece;
+  public SetMovesMove(PuzzleLevel level, int moves) {
+    this.level = level;
+    this.moves = moves;
   }
   
   @Override

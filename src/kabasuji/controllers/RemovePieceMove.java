@@ -1,22 +1,28 @@
 package kabasuji.controllers;
+import kabasuji.models.Level;
 import kabasuji.models.Piece;
 
 /**
- * Move action to rotate a piece
- * 
+ * Move action to remove a piece from the level
  * @author Logan
  *
  */
-public class RotateMove implements IMove {
+public class RemovePieceMove implements IMove {
   
+  
+  Level level;
   
   Piece piece;
   
+
   /**
    * Constructor
-   * @param piece The piece that is to be rotated
+   * 
+   * @param level The level that is currently being edited
+   * @param piece The piece that is being removed
    */
-  public RotateMove(Piece piece) {
+  public RemovePieceMove(Level level, Piece piece) {
+    this.level = level;
     this.piece = piece;
   }
   
