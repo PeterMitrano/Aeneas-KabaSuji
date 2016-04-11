@@ -67,14 +67,15 @@ public class PlayLevelView extends BorderPane implements Initializable {
     ArrayList<Pane> values = new ArrayList<Pane>();
 
     Piece[] pieces = new Piece[1];
-    pieces[0] = new Piece();
-    pieces[0].squares[0] = new Square(0, 0);
-    pieces[0].squares[1] = new Square(1, 0);
-    pieces[0].squares[2] = new Square(2, 1);
-    pieces[0].squares[3] = new Square(2, 2);
-    pieces[0].squares[4] = new Square(1, 1);
-    pieces[0].squares[5] = new Square(1, 2);
-
+    pieces[0] = new Piece(new Square[]{
+      new Square(0, 0),
+      new Square(1, 0),
+      new Square(2, 1),
+      new Square(2, 2),
+      new Square(1, 1),
+      new Square(1, 2),
+    });
+    
     int S = 16;
     for (Piece pieceModel : pieces) {
 
@@ -85,7 +86,7 @@ public class PlayLevelView extends BorderPane implements Initializable {
       values.add(piecePane);
     }
 
-    boardView = new BoardView(levelModel.board.squares);
+    boardView = new BoardView(levelModel.getBoard());
     bullpenListView.setItems(FXCollections.observableList(values));
     centerBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);

@@ -11,10 +11,10 @@ public class PieceView extends Pane {
 
   public PieceView(Piece pieceModel, int squareSize) {
     this.pieceModel = pieceModel;
-    for (Square s : pieceModel.squares) {
-      SquareView view = new SquareView(s, squareSize);
-      view.setX(s.dRow * squareSize);
-      view.setY(s.dCol * squareSize);
+    for (Square s : pieceModel.getSquares()) {
+      SquareView view = new SquareView(squareSize);
+      view.setX(s.getRow() * squareSize);
+      view.setY(s.getCol() * squareSize);
       getChildren().add(view);
     }
   }
