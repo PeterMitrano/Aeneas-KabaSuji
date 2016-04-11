@@ -20,7 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import kabasuji.models.Bullpen;
-import kabasuji.models.GameModel;
+import kabasuji.models.Model;
 import kabasuji.models.Level;
 import kabasuji.models.Model;
 import kabasuji.models.PuzzleLevel;
@@ -118,7 +118,7 @@ public class MainView extends StackPane implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     welcomeView = new WelcomeView(this, new Model());
-    playSelectLevelView= new PlaySelectLevelView(this, new GameModel());
+    playSelectLevelView= new PlaySelectLevelView(this, new Model());
 
     Bullpen bullpen = new Bullpen(new ArrayList<>());
     Level l = new PuzzleLevel(bullpen);
