@@ -18,7 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 import kabasuji.controllers.SelectLevelController;
-import kabasuji.models.GameModel;
+import kabasuji.models.Model;
 import kabasuji.models.Level;
 
 public class PlaySelectLevelView extends BorderPane implements Initializable {
@@ -26,13 +26,13 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
   @FXML
   private GridPane levelGrid;
 
-  private GameModel gameModel;
+  private Model gameModel;
 
   public MainView parentView;
 
   private final int numCols = 5;
 
-  PlaySelectLevelView(MainView parentView, GameModel model) {
+  PlaySelectLevelView(MainView parentView, Model model) {
     this.gameModel = model;
     this.parentView = parentView;
 
@@ -58,7 +58,7 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
       for (int c = 0; c < numCols; c++) {
         int levelIndex = numCols * r + c;
         int levelNumber = levelIndex + 1;
-        Level level = gameModel.levels[levelIndex];
+        Level level = gameModel.levels.get(levelIndex);
 
         JFXButton button = new JFXButton();
 
