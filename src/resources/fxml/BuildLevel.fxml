@@ -16,6 +16,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
     xmlns="http://javafx.com/javafx/2.2">
@@ -50,6 +51,9 @@
 										<RadioButton text="Lightening" toggleGroup="$levelType"/>
 										<RadioButton text="Release" toggleGroup="$levelType"/>
 								</children>
+						</VBox>
+						<VBox spacing="4">
+								<JFXDatePicker defaultColor="#3f51b5" showTime="true"></JFXDatePicker>
 						</VBox>
             <HBox.margin>
               <Insets right="20" left="20" />

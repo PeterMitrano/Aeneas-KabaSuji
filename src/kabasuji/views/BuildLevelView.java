@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.effects.JFXDepthManager;
 
@@ -36,6 +37,9 @@ public class BuildLevelView extends BorderPane implements Initializable {
 
   @FXML
   private VBox centerBox;
+  
+  @FXML
+  private JFXDatePicker timeSetter;
 
   BoardView boardView;
 
