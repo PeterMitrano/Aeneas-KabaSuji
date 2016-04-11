@@ -2,6 +2,7 @@ package kabasuji.views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
@@ -18,10 +19,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
+import kabasuji.models.Bullpen;
 import kabasuji.models.GameModel;
 import kabasuji.models.Level;
 import kabasuji.models.Model;
+import kabasuji.models.PuzzleLevel;
 
 public class MainView extends StackPane implements Initializable {
 
@@ -118,8 +120,10 @@ public class MainView extends StackPane implements Initializable {
     welcomeView = new WelcomeView(this, new Model());
     playSelectLevelView= new PlaySelectLevelView(this, new GameModel());
 
-    playLevelView = new PlayLevelView(new Level());
-    buildLevelView = new BuildLevelView(new Level());
+    Bullpen bullpen = new Bullpen(new ArrayList<>());
+    Level l = new PuzzleLevel(bullpen);
+    playLevelView = new PlayLevelView(l);
+    buildLevelView = new BuildLevelView(l);
     viewAchievementsView = new ViewAchievementsView(new Model());
     buildSelectLevelView= new BuildSelectLevelView(this, new Model());
 

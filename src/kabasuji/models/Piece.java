@@ -13,11 +13,8 @@ public class Piece {
   
   Square squares[];
 
-  public Piece(){
-    squares = new Square[6];
-    for (int i=0;i<6;i++){
-    	squares[i] = new Square();
-    }
+  public Piece(Square[] squares) {
+    this.squares = squares;
   }
   
   public void flip(Axis axis) {
@@ -34,5 +31,9 @@ public class Piece {
   
   public void rotate(Dir direction) {
     
+  }
+  
+  public Square[] getSquares() { 
+    return squares; 
   }
 }

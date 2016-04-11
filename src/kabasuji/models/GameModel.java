@@ -1,5 +1,7 @@
 package kabasuji.models;
 
+import java.util.ArrayList;
+
 import kabasuji.models.Level;;
 
 public class GameModel {
@@ -8,37 +10,38 @@ public class GameModel {
   public Level[] levels;
   
   Level activeLevel;
-  //?<Achievement> achievements;
+  ArrayList<Achievement> achievements;
   //ArrayList<IMove> undoStack;
   //ArrayList<IMove> redoStack;
 
   public GameModel() {
     levels = new Level[numLevels];
     for (int i = 0; i < numLevels; i++) {
-      Level l = new Level();
+      Bullpen b = new Bullpen(new ArrayList<>());
+      Level l = new PuzzleLevel(b);
       l.levelNumber = i + 1;
       levels[i] = l;
     }
   }
   
-  void selectLevel(Level level) {
+  public void selectLevel(Level level) {
   }
   
-  void setActiveLevel(Level level) {
+  public void setActiveLevel(Level level) {
   }
 
-  void changeScreen(/**/) {
+  public void changeScreen(/**/) {
   }
   
-  void updateStats() {
+  public void updateStats() {
     
   }
   
-  boolean undoLastMove() {
+  public boolean undoLastMove() {
     return false;
   }
   
-  boolean redoLastMove() {
+  public boolean redoLastMove() {
     return false;
   }
 }

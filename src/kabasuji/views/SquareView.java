@@ -9,11 +9,11 @@ public class SquareView extends Rectangle {
 
   public int size = 16;// in pixels
 
-  Square squareModel;
+  //Square squareModel;
 
-  public SquareView(Square squareModel, int size) {
+  public SquareView(int size) {
     this.size = size;
-    this.squareModel = squareModel;
+    //this.squareModel = squareModel;
     setWidth(size);
     setHeight(size);
     setFill(Color.BLUE);
