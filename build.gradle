@@ -10,7 +10,7 @@ apply plugin: 'application'
 apply plugin: 'jacoco'
 
 //for application plugin
-mainClassName = "main.java.Main"
+mainClassName = "aeneas.Main"
 
 dependencies {
   compile files('lib/fontawesomefx-8.10-SNAPSHOT.jar', 'lib/jfoenix.jar')
@@ -20,7 +20,7 @@ dependencies {
 
 jar {
   manifest {
-    attributes 'Main-Class': 'main.java.Main'
+    attributes 'Main-Class': 'aeneas.Main'
   }
 }
 
