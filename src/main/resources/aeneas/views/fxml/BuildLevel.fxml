@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import main.java.views.BoardView?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/2.2">
+  <left>
+    <StackPane alignment="BOTTOM_LEFT">
+      <JFXListView prefWidth="115" fx:id="bullpenListView">
+      </JFXListView>
+      <JFXButton fx:id="addPiece" prefWidth="50"
+          prefHeight="50" style="-fx-rippler-fill:#FFCDD2;-fx-background-color:#F44336;">
+        <graphic>
+          <FontAwesomeIconView glyphName="PLUS" size="3em"/>
+        </graphic>
+        <StackPane.margin>
+          <Insets left="10" bottom="10" />
+        </StackPane.margin>
+      </JFXButton>
+    </StackPane>
+  </left>
+  <center>
+    <VBox fx:id="centerBox" spacing="10" alignment="TOP_CENTER">
+
+      <VBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color:#d1d1d1;">
+        <HBox>
+          <VBox fx:id="levelTypeBox" spacing="10">
+            <Label textAlignment="RIGHT" text="Type"/>
+						<VBox spacing="4">
+								<fx:define>
+										<ToggleGroup fx:id="levelType"/>
+								</fx:define>
+								<children>
+										<RadioButton text="Puzzle" toggleGroup="$levelType"/>
+										<RadioButton text="Lightening" toggleGroup="$levelType"/>
+										<RadioButton text="Release" toggleGroup="$levelType"/>
+								</children>
+						</VBox>
+            <HBox.margin>
+              <Insets right="20" left="20" />
+            </HBox.margin>
+          </VBox>
+          <VBox fx:id="levelTypeBox" spacing="10">
+						<Label fx:id="movesLabel" text="Moves"/>
+						<Spinner prefWidth="70" min="0" max="20" initialValue="10">
+							<editable>true</editable>
+						</Spinner>
+					</VBox>
+
+          <VBox.margin>
+            <Insets top="10" bottom="15"/>
+          </VBox.margin>
+        </HBox>
+      </VBox>
+
+    </VBox>
+  </center>
+</fx:root>
