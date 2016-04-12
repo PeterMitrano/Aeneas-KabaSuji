@@ -22,19 +22,19 @@ public class Main extends Application {
   }
 
   public static void main(String[] args) {
-//    JFrame x = new JFrame("HelloWorldSwing");
-//    x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//    JLabel label = new JLabel("ARE YOU HAPPY NOW?!?!");
-//    x.getContentPane().add(label);
-//    x.setLocation(500, 500);
-//    x.setSize(500, 300);
-//    x.setVisible(true);
-//    try {
-//      Thread.sleep(10000);
-//    } catch (InterruptedException e) {
-//    }
-//    x.setVisible(false);
-//    x.dispose();
+    JFrame x = new JFrame("HelloWorldSwing");
+    x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    JLabel label = new JLabel("ARE YOU HAPPY NOW?!?!");
+    x.getContentPane().add(label);
+    x.setLocation(500, 500);
+    x.setSize(500, 300);
+    x.setVisible(true);
+    try {
+      Thread.sleep(10000);
+    } catch (InterruptedException e) {
+    }
+    x.setVisible(false);
+    x.dispose();
     launch(args);
   }
 }
