@@ -6,6 +6,14 @@ import kabasuji.models.Level;;
 
 public class Model {
 
+  public static final String aboutText = "KabaSuji is a brilliant new puzzle game. "
+      + "It is the visionary work of Dr. George T Heineman, "
+      + "and has been judiciously implemented by Peter Mitrano, "
+      + "James Kuszmaul, Joseph Martin, Logan Tutt, and Garrison Hefter.";
+  public static final String helpText = "To begin playing the game, select a level that is unlocked. "
+      + "To begin editing a level, select and existing level from the list or create a new one. "
+      + "Achievements can also be viewed with the 'View Achievements' button.";
+
   public int numLevels = 15;
   public ArrayList<Level> levels;
   

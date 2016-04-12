@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialog.DialogTransition;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXPopup.PopupHPosition;
 import com.jfoenix.controls.JFXPopup.PopupVPosition;
@@ -20,7 +23,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import kabasuji.models.Bullpen;
-import kabasuji.models.Model;
 import kabasuji.models.Level;
 import kabasuji.models.Model;
 import kabasuji.models.PuzzleLevel;
@@ -51,7 +53,15 @@ public class MainView extends StackPane implements Initializable {
   @FXML
   private JFXButton back;
 
- 
+  @FXML
+  private JFXDialog dialog;
+
+  @FXML private JFXDialogLayout dialogLayout;
+
+  @FXML
+  private JFXButton accept;
+
+
   private ViewAchievementsView viewAchievementsView;
   private WelcomeView welcomeView;
   private PlaySelectLevelView playSelectLevelView;
@@ -146,12 +156,28 @@ public class MainView extends StackPane implements Initializable {
       }
     });
 
+    dialog.setTransitionType(DialogTransition.CENTER);
+
     help.setOnMouseClicked((e) -> {
       System.out.println("Help");
+      dialogLayout.getHeading().clear();
+      dialogLayout.getBody().clear();
+      dialogLayout.setHeading(new Label("Help"));
+      dialogLayout.setBody(new Label(Model.helpText));
+      dialog.show(this);
+    });
+
+    accept.setOnMouseClicked((e) -> {
+      dialog.close();
     });
 
     about.setOnMouseClicked((e) -> {
       System.out.println("About");
+      dialogLayout.getHeading().clear();
+      dialogLayout.getBody().clear();
+      dialogLayout.setHeading(new Label("About"));
+      dialogLayout.setBody(new Label(Model.aboutText));
+      dialog.show(this);
     });
 
     switchToWelcomeView();
