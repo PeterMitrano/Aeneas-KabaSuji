@@ -2,10 +2,12 @@ package aeneas;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.border.EmptyBorder;
 
 import com.jfoenix.controls.JFXDecorator;
 
 import aeneas.views.MainView;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -22,20 +24,23 @@ public class Main extends Application {
   }
 
   public static void main(String[] args) {
-    JFrame x = new JFrame("HelloWorldSwing");
-    x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    JLabel label = new JLabel("Aeneas Kabasuji, made by Peter Mitrano, Joesph Martin,\n"
-        + "James Kuszmaul, Logan Tutt, and Garrison Hefter");
-    x.getContentPane().add(label);
-    x.setLocation(500, 500);
-    x.setSize(500, 300);
-    x.setVisible(true);
+    //best splash screen ever
+    JFrame frame = new JFrame("HelloWorldSwing");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    JLabel label = new JLabel("<html>Aeneas Kabasuji, made by Peter Mitrano, Joesph Martin,<br>"
+        + "James Kuszmaul, Logan Tutt, and Garrison Hefter</html>");
+    frame.getContentPane().add(label);
+    frame.setLocation(500, 500);
+    frame.setSize(300, 300);
+    frame.setVisible(true);
     try {
-      Thread.sleep(10000);
+      Thread.sleep(4000);
     } catch (InterruptedException e) {
     }
-    x.setVisible(false);
-    x.dispose();
+    frame.setVisible(false);
+    frame.dispose();
+
+    //start the legitimate application!
     launch(args);
   }
 }
