@@ -1,9 +1,9 @@
-package kabasuji.controllers;
+package aeneas.controllers;
+
+import aeneas.views.MainView;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-
-import kabasuji.views.MainView;
 
 // @brief Handles displaying help text on button text.
 public class ViewAboutController implements EventHandler<MouseEvent> {
