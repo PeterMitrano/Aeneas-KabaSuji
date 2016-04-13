@@ -28,7 +28,7 @@ public class Main extends Application {
     JFrame frame = new JFrame("HelloWorldSwing");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     JLabel label = new JLabel("<html>Aeneas Kabasuji, made by Peter Mitrano, Joesph Martin,<br>"
-        + "James Kuszmaul, Logan Tutt, and Garrison Hefter<html>");
+        + "James Kuszmaul, Logan Tutt, and Garrison Hefter</html>");
     frame.getContentPane().add(label);
     frame.setLocation(500, 500);
     frame.setSize(300, 300);
