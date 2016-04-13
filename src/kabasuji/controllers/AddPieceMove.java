@@ -1,6 +1,6 @@
 package kabasuji.controllers;
 import kabasuji.models.Level;
-import kabasuji.models.PlacedPiece;
+import kabasuji.models.Piece;
 
 /**
  * Move action to add a piece to a level
@@ -14,14 +14,14 @@ public class AddPieceMove implements IMove {
   
   Level level;
   
-  PlacedPiece piece;
+  Piece piece;
   
   /**
    * Constructor
    * @param level the level that is being played
    * @param piece the piece to add
    */
-  public AddPieceMove(Level level, PlacedPiece piece) {
+  public AddPieceMove(Level level, Piece piece) {
     this.level = level;
     this.piece = piece;
   }

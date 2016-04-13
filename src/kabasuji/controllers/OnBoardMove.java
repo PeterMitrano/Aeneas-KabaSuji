@@ -1,5 +1,5 @@
 package kabasuji.controllers;
-import kabasuji.models.Level;
+import kabasuji.models.Board;
 import kabasuji.models.PlacedPiece;
 
 /**
@@ -11,7 +11,7 @@ import kabasuji.models.PlacedPiece;
 public class OnBoardMove implements IMove {
   
   
-  Level level;
+  Board board;
   
   PlacedPiece piece;
   
@@ -25,8 +25,8 @@ public class OnBoardMove implements IMove {
    * @param row the row to move the piece too
    * @param col the column to move the piece to
    */
-  public OnBoardMove(Level level, PlacedPiece piece, int row, int col) {
-    this.level = level;
+  public OnBoardMove(Board board, PlacedPiece piece, int row, int col) {
+    this.board = board;
     this.piece = piece;
     this.row = row;
     this.col = col;
