@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
 import com.jfoenix.effects.JFXDepthManager;
 
 import aeneas.controllers.SelectLevelController;
@@ -16,16 +15,22 @@ import aeneas.models.Square;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class PlayLevelView extends BorderPane implements Initializable {
 
@@ -33,7 +38,7 @@ public class PlayLevelView extends BorderPane implements Initializable {
   private JFXButton resetLevelButton;
 
   @FXML
-  private JFXListView bullpenListView;
+  private VBox bullpen;
 
   @FXML
   private Label levelLabel;
@@ -68,33 +73,45 @@ public class PlayLevelView extends BorderPane implements Initializable {
       c.resetLevel();
     });
 
-    JFXDepthManager.setDepth(bullpenListView, 1);
+    JFXDepthManager.setDepth(bullpen, 1);
 
     ArrayList<Pane> values = new ArrayList<Pane>();
 
-    Piece[] pieces = new Piece[1];
-    pieces[0] = new Piece(new Square[]{
-      new Square(0, 0),
-      new Square(1, 0),
-      new Square(2, 1),
-      new Square(2, 2),
-      new Square(1, 1),
-      new Square(1, 2),
+    Piece testPiece = new Piece(new Square[] { new Square(0, 0), new Square(1, 0), new Square(2, 1), new Square(2, 2),
+        new Square(1, 1), new Square(1, 2), });
+
+    // add a piece to the bullpen as an example
+    Pane piecePane = new Pane();
+    PieceView pieceView = new PieceView(testPiece, 16);
+    pieceView.setId("PieceView_" + System.currentTimeMillis());
+    piecePane.getChildren().add(pieceView);
+
+    values.add(piecePane);
+
+    pieceView.setOnDragDetected((MouseEvent event) -> {
+      Dragboard db = pieceView.startDragAndDrop(TransferMode.MOVE);
+      ClipboardContent content = new ClipboardContent();
+
+      // Store the node ID in order to know what is dragged.
+      content.putString(pieceView.getId());
+
+      db.setContent(content);
+
+      SnapshotParameters snapshotParameters = new SnapshotParameters();
+      snapshotParameters.setFill(Color.TRANSPARENT);
+
+      PieceView fullSizedPieceView = new PieceView(testPiece, BoardView.SQUARE_SIZE);
+
+      Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
+      db.setDragView(snapshotImage);
+
+      event.consume();
     });
 
-    int S = 16;
-    for (Piece pieceModel : pieces) {
-
-      // add a piece to the bullpen as an example
-      Pane piecePane = new Pane();
-      PieceView pieceView = new PieceView(pieceModel, 16);
-      piecePane.getChildren().add(pieceView);
-      values.add(piecePane);
-    }
-
     boardView = new BoardView(levelModel.getBoard());
-    bullpenListView.setItems(FXCollections.observableList(values));
-    centerBox.setMargin(boardView, new Insets(10, 10, 10, 10));
+    bullpen.getChildren().add(piecePane);
+    bullpen.setAlignment(Pos.TOP_CENTER);
+    VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
   }
