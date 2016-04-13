@@ -92,8 +92,8 @@ public class PlayLevelView extends BorderPane implements Initializable {
       Dragboard db = pieceView.startDragAndDrop(TransferMode.MOVE);
       ClipboardContent content = new ClipboardContent();
 
-      // Store the node ID in order to know what is dragged.
-      content.putString(pieceView.getId());
+      //this is what we use to get the object on the other end
+      content.putString(pieceView.toString());
 
       db.setContent(content);
 
