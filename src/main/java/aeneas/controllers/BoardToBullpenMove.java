@@ -1,31 +1,30 @@
-package kabasuji.controllers;
-import kabasuji.models.Level;
-import kabasuji.models.Piece;
+package aeneas.controllers;
+import aeneas.models.Level;
+import aeneas.models.PlacedPiece;
 
 /**
- * Move action to remove a piece from the level
+ * Move action  to move a piece from the board to the bullpen
+ *
  * @author Logan
  *
  */
-public class RemovePieceMove implements IMove {
-  
-  
+public class BoardToBullpenMove implements IMove {
+
+
   Level level;
-  
-  Piece piece;
-  
+
+  PlacedPiece piece;
 
   /**
    * Constructor
-   * 
-   * @param level The level that is currently being edited
-   * @param piece The piece that is being removed
+   * @param level the level that is being played
+   * @param piece the piece to move
    */
-  public RemovePieceMove(Level level, Piece piece) {
+  public BoardToBullpenMove(Level level, PlacedPiece piece) {
     this.level = level;
     this.piece = piece;
   }
-  
+
   @Override
   public boolean execute() {
     // TODO Auto-generated method stub

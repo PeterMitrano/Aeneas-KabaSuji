@@ -1,30 +1,31 @@
-package kabasuji.controllers;
-import kabasuji.models.LightningLevel;
+package aeneas.controllers;
+import aeneas.models.ReleaseLevel;
+import aeneas.models.ReleaseNumber;
 
 /**
- * Move action to set the allotted time for a lightning level
+ * Move action to remove a release number from the board
  * For use in the builder
- * 
+ *
  * @author Logan
  *
  */
-public class SetTimeMove implements IMove {
-  
-  
-  LightningLevel level;
-  
-  int time;
-  
+public class RemoveNumMove implements IMove {
+
+
+  ReleaseLevel level;
+
+  ReleaseNumber num;
+
   /**
    * Constructor
    * @param level the level that is being played
-   * @param time the amount of time to set the level too
+   * @param num the ReleaseNUmber to remove
    */
-  public SetTimeMove(LightningLevel level, int time) {
+  public RemoveNumMove(ReleaseLevel level, ReleaseNumber num) {
     this.level = level;
-    this.time = time;
+    this.num = num;
   }
-  
+
   @Override
   public boolean execute() {
     // TODO Auto-generated method stub

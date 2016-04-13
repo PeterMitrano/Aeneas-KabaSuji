@@ -1,20 +1,20 @@
-package kabasuji.controllers;
-import kabasuji.models.Board;
-import kabasuji.models.PlacedPiece;
+package aeneas.controllers;
+import aeneas.models.Board;
+import aeneas.models.PlacedPiece;
 
 /**
  * Move action to move a piece from one location to another on the board
- * 
+ *
  * @author Logan
  *
  */
 public class OnBoardMove implements IMove {
-  
-  
+
+
   Board board;
-  
+
   PlacedPiece piece;
-  
+
   int row;
   int col;
 
@@ -31,7 +31,7 @@ public class OnBoardMove implements IMove {
     this.row = row;
     this.col = col;
   }
-  
+
   @Override
   public boolean execute() {
     // TODO Auto-generated method stub

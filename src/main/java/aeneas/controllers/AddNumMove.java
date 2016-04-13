@@ -1,31 +1,31 @@
-package kabasuji.controllers;
-import kabasuji.models.Level;
-import kabasuji.models.Piece;
+package aeneas.controllers;
+import aeneas.models.ReleaseLevel;
+import aeneas.models.ReleaseNumber;
 
 /**
- * Move action to add a piece to a level
+ * Move action to add a number to a releae board
  * For use in the builder
- * 
+ *
  * @author Logan
  *
  */
-public class AddPieceMove implements IMove {
-  
-  
-  Level level;
-  
-  Piece piece;
-  
+public class AddNumMove implements IMove {
+
+
+  ReleaseLevel level;
+
+  ReleaseNumber num;
+
   /**
    * Constructor
    * @param level the level that is being played
-   * @param piece the piece to add
+   * @param num the ReleaseNumber to be added
    */
-  public AddPieceMove(Level level, Piece piece) {
+  public AddNumMove(ReleaseLevel level, ReleaseNumber num) {
     this.level = level;
-    this.piece = piece;
+    this.num = num;
   }
-  
+
   @Override
   public boolean execute() {
     // TODO Auto-generated method stub

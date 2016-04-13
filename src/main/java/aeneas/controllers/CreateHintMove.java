@@ -1,6 +1,6 @@
-package kabasuji.controllers;
-import kabasuji.models.Level;
-import kabasuji.models.PlacedPiece;
+package aeneas.controllers;
+import aeneas.models.Level;
+import aeneas.models.PlacedPiece;
 
 /**
  * Move action to create a new hint
@@ -8,21 +8,21 @@ import kabasuji.models.PlacedPiece;
  *
  */
 public class CreateHintMove implements IMove {
-  
-  
+
+
   Level level;
-  
+
   PlacedPiece piece;
-  
+
   int row;
   int col;
 
   /**
    * Constructor
-   * 
+   *
    * @param level The level that is currently being played
    * @param piece The piece that is being used to make the hint
-   * @param row The row to place the piece in 
+   * @param row The row to place the piece in
    * @param col The column to place the piece in
    */
   public CreateHintMove(Level level, PlacedPiece piece, int row, int col) {
@@ -31,7 +31,7 @@ public class CreateHintMove implements IMove {
     this.row = row;
     this.col = col;
   }
-  
+
   @Override
   public boolean execute() {
     // TODO Auto-generated method stub

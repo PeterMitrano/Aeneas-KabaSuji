@@ -1,25 +1,25 @@
-package kabasuji.controllers;
-import kabasuji.models.Piece;
+package aeneas.controllers;
+import aeneas.models.Piece;
 
 /**
- * Move action to rotate a piece
- * 
+ * Move action to flip a piece
+ *
  * @author Logan
  *
  */
-public class RotateMove implements IMove {
-  
-  
+public class FlipMove implements IMove {
+
+
   Piece piece;
-  
+
   /**
    * Constructor
-   * @param piece The piece that is to be rotated
+   * @param piece The piece that is to be flipped
    */
-  public RotateMove(Piece piece) {
+  public FlipMove(Piece piece) {
     this.piece = piece;
   }
-  
+
   @Override
   public boolean execute() {
     // TODO Auto-generated method stub

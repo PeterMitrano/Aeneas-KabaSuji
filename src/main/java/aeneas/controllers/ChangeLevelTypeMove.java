@@ -1,6 +1,6 @@
-package kabasuji.controllers;
-import kabasuji.models.Model;
-import kabasuji.models.Level;
+package aeneas.controllers;
+import aeneas.models.Level;
+import aeneas.models.Model;
 
 /**
  * Move action to change the type of a level
@@ -8,17 +8,17 @@ import kabasuji.models.Level;
  *
  */
 public class ChangeLevelTypeMove implements IMove {
-  
-  
+
+
   Level level;
-  
+
   Model model;
-  
+
   int type;
 
   /**
    * Constructor
-   * 
+   *
    * @param level The level that is currently being played
    * @param model The game model that holds the level being changed
    * @param type the type of the level to be changed to
@@ -28,7 +28,7 @@ public class ChangeLevelTypeMove implements IMove {
     this.model = model;
     this.type = type;
   }
-  
+
   @Override
   public boolean execute() {
     // TODO Auto-generated method stub
