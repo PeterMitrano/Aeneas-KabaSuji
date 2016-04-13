@@ -1,0 +1,43 @@
+repositories {
+  jcenter()
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'jacoco'
+
+//for application plugin
+mainClassName = "aeneas.Main"
+
+dependencies {
+  compile files('lib/fontawesomefx-8.10-SNAPSHOT.jar', 'lib/jfoenix.jar')
+    runtime files('lib/fontawesomefx-8.10-SNAPSHOT.jar', 'lib/jfoenix.jar')
+    testCompile "junit:junit:4.12"
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'aeneas.Main'
+  }
+}
+
+test {
+    afterTest { desc, result ->
+        println "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled true
+        html.enabled true
+    }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.9'
+}
