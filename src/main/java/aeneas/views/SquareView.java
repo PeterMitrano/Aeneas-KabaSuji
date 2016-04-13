@@ -1,5 +1,6 @@
 package aeneas.views;
 
+import javafx.scene.input.DragEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
