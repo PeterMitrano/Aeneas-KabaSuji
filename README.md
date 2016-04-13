@@ -22,4 +22,3 @@ If you just want to use it as a java project
 
  - file > import > existing project
  - Run as Java Application
-

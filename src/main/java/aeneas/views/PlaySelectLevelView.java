@@ -10,7 +10,9 @@ import com.jfoenix.controls.JFXButton.ButtonType;
 import aeneas.controllers.SelectLevelController;
 import aeneas.models.Level;
 import aeneas.models.Model;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -65,7 +67,7 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
         button.setButtonType(ButtonType.FLAT);
         button.setText(String.valueOf(levelNumber));
         button.applyCss();
-        button.setOnMouseClicked(new SelectLevelController(this, level));
+        button.setOnMouseClicked(new SelectLevelController(parentView, level));
 
         HBox stars = new HBox();
         stars.setMouseTransparent(true);
