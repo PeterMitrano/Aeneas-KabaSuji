@@ -1,6 +1,6 @@
 package aeneas.models;
 
-public class PuzzleBoard extends Board {
+public class PuzzleBoard extends Board implements java.io.Serializable {
 
   @Override
   public int getStarsEarned() {

@@ -2,7 +2,7 @@ package aeneas.models;
 
 import java.util.ArrayList;
 
-public abstract class Board {
+public abstract class Board implements java.io.Serializable {
 
   public static final int SIZE = 12;
 
@@ -17,7 +17,7 @@ public abstract class Board {
       }
     }
   }
-  
+
   /**
    * Adds the given piece to the board, if valid.
    * @param piece The piece to add to the board.
@@ -26,7 +26,7 @@ public abstract class Board {
   public boolean addPiece(PlacedPiece piece) {
     return false;
   }
-  
+
   /**
    * Removes the given piece from the board, if possible
    * @param piece The piece to be removed
@@ -35,7 +35,7 @@ public abstract class Board {
   public boolean removePiece(PlacedPiece piece) {
     return false;
   }
-  
+
   /**
    * Gets the piece at the specified position (if there is one)
    * @param row The row coordinate
@@ -45,7 +45,7 @@ public abstract class Board {
   public Piece getPieceAtLocation(int row, int col) {
     return null;
   }
-  
+
   /**
    * Test if the given piece would intersect a piece on the board
    * @param piece The piece to test intersection for
@@ -54,6 +54,6 @@ public abstract class Board {
   public boolean intersects(PlacedPiece piece) {
     return false;
   }
-  
+
   public abstract int getStarsEarned();
 }

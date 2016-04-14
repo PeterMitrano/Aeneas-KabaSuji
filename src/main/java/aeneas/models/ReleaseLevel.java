@@ -2,17 +2,17 @@ package aeneas.models;
 
 import java.util.ArrayList;
 
-public class ReleaseLevel extends Level {
+public class ReleaseLevel extends Level implements java.io.Serializable {
   public static final String helpText = "";
-  
+
   ReleaseBoard board;
   ArrayList<ReleaseNumber> numbers;
-  
+
   public ReleaseLevel(Bullpen bullpen, ArrayList<ReleaseNumber> numbers) {
     super(bullpen);
     this.numbers = numbers;
   }
-  
+
   @Override
   public boolean isComplete() {
     // TODO Auto-generated method stub
