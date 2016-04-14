@@ -1,6 +1,6 @@
 package aeneas.models;
 
-public class PuzzleLevel extends Level {
+public class PuzzleLevel extends Level implements java.io.Serializable {
   public static final String helpText = "";
 
   public PuzzleLevel(Bullpen bullpen) {

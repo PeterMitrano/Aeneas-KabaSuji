@@ -2,7 +2,7 @@ package aeneas.models;
 
 import javafx.scene.paint.Color;
 
-public class ReleaseNumber {
+public class ReleaseNumber implements java.io.Serializable {
   /** row coordinate */
   int row;
   /** Column coordinate */
@@ -11,12 +11,12 @@ public class ReleaseNumber {
   Color color;
   /** Value of this number */
   int val;
-  
+
   public int getRow() { return row; }
   public int getCol() { return col; }
   public Color getColor() { return color; }
   public int getValue() { return val; }
-  
+
 
   public void setRow(int row) { this.row = row; }
   public void setCol(int col) { this.col = col; }

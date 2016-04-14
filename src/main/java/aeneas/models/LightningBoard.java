@@ -1,6 +1,6 @@
 package aeneas.models;
 
-public class LightningBoard extends Board {
+public class LightningBoard extends Board implements java.io.Serializable {
 
   @Override
   public int getStarsEarned() {
