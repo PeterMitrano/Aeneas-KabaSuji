@@ -4,7 +4,6 @@ import aeneas.models.Board;
 
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -41,15 +40,6 @@ class BoardView extends Pane {
       }
       event.setDropCompleted(success);
       event.consume();
-    });
-
-    this.setOnDragOver((DragEvent event) -> {
-        event.acceptTransferModes(TransferMode.MOVE);
-        event.consume();
-    });
-
-    this.setOnMouseClicked((e) -> {
-      System.out.println("click");
     });
   }
 }
