@@ -1,8 +1,8 @@
 package aeneas.models;
 
-public class LightningLevel extends Level {
+public class LightningLevel extends Level implements java.io.Serializable {
   public static final String helpText = "";
-  
+
   LightningBoard board;
   int allowedTime;
 
@@ -10,7 +10,7 @@ public class LightningLevel extends Level {
     super(bullpen);
     this.allowedTime = allowedTime;
   }
-  
+
   @Override
   public boolean isComplete() {
     // TODO Auto-generated method stub

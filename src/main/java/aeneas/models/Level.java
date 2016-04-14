@@ -1,6 +1,6 @@
 package aeneas.models;
 
-public abstract class Level {
+public abstract class Level implements java.io.Serializable {
   Bullpen bullpen;
 
   public int levelNumber;
