@@ -92,6 +92,10 @@ public class MainView extends StackPane implements Initializable {
     }
   }
 
+  public BuildLevelView getBuildLevelView() {
+    return buildLevelView;
+  }
+
   public void switchToWelcomeView() {
     paneStack.push(welcomeView);
     content.getChildren().clear();
@@ -139,7 +143,7 @@ public class MainView extends StackPane implements Initializable {
     Bullpen bullpen = new Bullpen(new ArrayList<>());
     Level l = new PuzzleLevel(bullpen);
     playLevelView = new PlayLevelView(this, l);
-    buildLevelView = new BuildLevelView(l);
+    buildLevelView = new BuildLevelView(this, l);
     viewAchievementsView = new ViewAchievementsView(model);
     buildSelectLevelView= new BuildSelectLevelView(this, model);
 

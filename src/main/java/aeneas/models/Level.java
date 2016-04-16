@@ -1,5 +1,6 @@
 package aeneas.models;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -60,9 +61,9 @@ public abstract class Level implements java.io.Serializable {
 
   /**
    * Saves the level to a file.
-   * @param file The file name to save to.
+   * @param file The file to save to.
    */
-  public void save(String file) throws IOException {
+  public void save(File file) throws IOException {
     try (FileOutputStream saveFile = new FileOutputStream(file);
          ObjectOutputStream out = new ObjectOutputStream(saveFile);) {
       out.writeObject(this);
@@ -73,10 +74,10 @@ public abstract class Level implements java.io.Serializable {
 
   /**
    * Constructs a level from a file.
-   * @param file The file name to load from.
+   * @param file The file to load from.
    * @return The level that was read; null if the read failed.
    */
-  public static Level loadLevel(String file) throws IOException {
+  public static Level loadLevel(File file) throws IOException {
     Level level;
     try (FileInputStream loadFile = new FileInputStream(file);
          ObjectInputStream in = new ObjectInputStream(loadFile);){

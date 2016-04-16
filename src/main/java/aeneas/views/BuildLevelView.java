@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.effects.JFXDepthManager;
@@ -13,6 +14,7 @@ import com.jfoenix.effects.JFXDepthManager;
 import aeneas.models.Level;
 import aeneas.models.Piece;
 import aeneas.models.Square;
+import aeneas.controllers.SaveLevelController;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
@@ -40,16 +42,18 @@ public class BuildLevelView extends BorderPane implements Initializable {
 
   @FXML
   private VBox centerBox;
-  
+
   @FXML
   private JFXDatePicker timeSetter;
 
   BoardView boardView;
 
   Level levelModel;
+  MainView parentView;
 
-  BuildLevelView(Level levelModel) {
+  BuildLevelView(MainView parentView, Level levelModel) {
     this.levelModel = levelModel;
+    this.parentView = parentView;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("BuildLevel.fxml"));
       loader.setRoot(this);
@@ -92,6 +96,9 @@ public class BuildLevelView extends BorderPane implements Initializable {
     centerBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
+
+    this.lookup("#saveButton").setOnMouseClicked(
+        new SaveLevelController(parentView.stage, levelModel));
 
   }
 }
