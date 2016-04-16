@@ -1,5 +1,6 @@
 package aeneas.views;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 
 public class MainView extends StackPane implements Initializable {
 
@@ -180,6 +182,18 @@ public class MainView extends StackPane implements Initializable {
           dialogLayout, model.aboutString));
 
     switchToWelcomeView();
+  }
+
+  public File showSaveDialog() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save Level");
+    return fileChooser.showSaveDialog(stage);
+  }
+
+  public File showOpenDialog() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Existing Level");
+    return fileChooser.showOpenDialog(stage);
   }
 
 }

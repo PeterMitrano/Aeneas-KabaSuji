@@ -101,7 +101,7 @@ public class BuildLevelView extends BorderPane implements Initializable {
     centerBox.getChildren().add(boardView);
 
     saveButton.setOnMouseClicked(
-        new SaveLevelController(parentView.stage, levelModel));
+        new SaveLevelController(parentView, levelModel));
 
   }
 }
