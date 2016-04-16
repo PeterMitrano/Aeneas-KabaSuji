@@ -1,6 +1,10 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
 script: ./gradlew build test jacocoTestReport javadocs
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
+- .travis-scripts/push-javadocs-to-gh-pages.sh
+env:
+  global:
+    secure: m2IYgjDi/zSc9RdZu6XizBHGAxphtHJ22nsr1LNwbgSeA4coMv7rooTSJ+bwrheWquQp0I4AmKisLmCKGztVjHooRy27geRy09pvBhcOuxmOiTcrpmxPr35rRtbp6KlGnN9mhXL4Mi94Kj5oE8Ik6zI369MsN62HIN99rlVpTi1j8Csal3JFawYkRxASThh20jlaZE7/0+fxO2q4FpnUPPDPfshf7izsDIYV5qcyTjfH16ueP60lEUFVoIcyfqTEWwIneWAraAaiztAn41TsXyLVRTYWsVz/BwVY18x377e7QhnIE53P5Sls4af0WOiSTzwc3L3OlM0gMJFq2DoD0TtOHyWAgqGWYH0xU3PMMT2NJ8qc/nkx1lmQ2KLBceJxaCMhTnd0bwVepwKLZAN9+FfqEljXpEykd2rQ8MxifmCmzMaRdpuY1hx4aX/gZLVIzQsnBb2xN3z+xccwJyO9ntRqSPDvJS1xO9lDCKDPDoi3KEGRqr9xWd/5r3no9tXuCdzG88orFScWvOCkSC/z2AW5yY3aHLFXD+S2DMk8wKqQIrtqTKHJqkVuK+n5I0t3RZA3/US4Kfwo/dUhm2dA5xsOdQvq2i1Bfmj5SOX3j6Bfkd9jkATdNLPy4qFbCogtyQ6f4UOmTa+1jGzYldb1Re32vbfJ22JhmMVRGYsL4yY=
