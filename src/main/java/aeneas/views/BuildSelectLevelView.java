@@ -64,6 +64,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open Existing Level");
       File loadFile = fileChooser.showOpenDialog(parentView.stage);
+      if (loadFile == null) return;
       try {
         Level loadLevel = Level.loadLevel(loadFile);
         parentView.getBuildLevelView().levelModel = loadLevel;

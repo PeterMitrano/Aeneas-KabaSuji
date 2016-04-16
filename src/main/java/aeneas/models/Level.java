@@ -61,7 +61,7 @@ public abstract class Level implements java.io.Serializable {
 
   /**
    * Saves the level to a file.
-   * @param file The file to save to.
+   * @param file The file to save to. Should not be null
    */
   public void save(File file) throws IOException {
     try (FileOutputStream saveFile = new FileOutputStream(file);

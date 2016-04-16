@@ -26,6 +26,7 @@ public class SaveLevelController implements EventHandler<MouseEvent> {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Save Level");
     File saveFile = fileChooser.showSaveDialog(mainStage);
+    if (saveFile == null) return;
     try {
       levelModel.save(saveFile);
     } catch (IOException i) {

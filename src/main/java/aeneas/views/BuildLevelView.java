@@ -46,6 +46,9 @@ public class BuildLevelView extends BorderPane implements Initializable {
   @FXML
   private JFXDatePicker timeSetter;
 
+  @FXML
+  private JFXButton saveButton;
+
   BoardView boardView;
 
   Level levelModel;
@@ -97,7 +100,7 @@ public class BuildLevelView extends BorderPane implements Initializable {
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
 
-    this.lookup("#saveButton").setOnMouseClicked(
+    saveButton.setOnMouseClicked(
         new SaveLevelController(parentView.stage, levelModel));
 
   }
