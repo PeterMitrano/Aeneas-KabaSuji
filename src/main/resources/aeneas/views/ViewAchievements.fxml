@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/2.2">
+  <center>
+    <VBox alignment="TOP_CENTER">
+      <Label styleClass="h2-label">
+        Achievements
+        <VBox.margin>
+          <Insets bottom="100.0" top="40.0" />
+        </VBox.margin>
+      </Label>
+      <GridPane hgap="20" vgap="20" alignment="CENTER">
+        <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <FontAwesomeIconView glyphName="SHIELD" size="4em"/>
+          <Label styleClass="achievement-title">Defender</Label>
+          <Label styleClass="achievement-description">complete four release levels</Label>
+        </VBox>
+        <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
+          <FontAwesomeIconView glyphName="ROCKET" size="4em"/>
+          <Label styleClass="achievement-title">Rocket</Label>
+          <Label styleClass="achievement-description">complete four lightning levels</Label>
+        </VBox>
+        <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
+          <FontAwesomeIconView glyphName="PUZZLE_PIECE" size="4em"/>
+          <Label styleClass="achievement-title">Solver</Label>
+          <Label styleClass="achievement-description">complete four puzzle levels</Label>
+        </VBox>
+        <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+          <FontAwesomeIconView glyphName="BOLT" size="4em"/>
+          <Label styleClass="achievement-title">Thor</Label>
+          <Label styleClass="achievement-description">complete all lightning levels</Label>
+        </VBox>
+      </GridPane>
+    </VBox>
+  </center>
+</fx:root>

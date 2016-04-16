@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/2.2">
+  <left>
+    <StackPane alignment="BOTTOM_LEFT">
+      <JFXListView prefWidth="300" fx:id="fileList">
+        <Label fx:id="createNewLevelLabel" styleClass="create_new_level_label">Create New Level</Label>
+      </JFXListView>
+      <JFXButton fx:id="openFile" prefWidth="50"
+          prefHeight="50" style="-fx-rippler-fill:#FFCDD2;-fx-background-color:#F44336;">
+        <graphic>
+          <FontAwesomeIconView glyphName="FILE" size="3em"/>
+        </graphic>
+        <StackPane.margin>
+          <Insets left="10" bottom="10" />
+        </StackPane.margin>
+      </JFXButton>
+    </StackPane>
+  </left>
+  <center>
+    <VBox spacing="20" alignment="TOP_CENTER">
+      <Label styleClass="h2-label">
+        Select A Level To Build
+        <VBox.margin>
+          <Insets bottom="40.0" top="40.0" />
+        </VBox.margin>
+      </Label>
+      <Label styleClass="h3-label">
+        Preview
+        <VBox.margin>
+          <Insets bottom="20.0"/>
+        </VBox.margin>
+      </Label>
+      <Label prefWidth="300" prefHeight="300" styleClass="simple-border">
+      </Label>
+      <HBox alignment="BOTTOM_RIGHT">
+        <JFXButton fx:id="editLevel" text=" Edit This Level" buttonType="RAISED" prefWidth="250" prefHeight="75" styleClass="edit-level-button">
+          <graphic>
+            <FontAwesomeIconView glyphName="ARROW_RIGHT" glyphStyle="-fx-fill:#F44336;" size="3em"/>
+          </graphic>
+          <HBox.margin>
+            <Insets bottom="10" right="20"/>
+          </HBox.margin>
+        </JFXButton>
+      </HBox>
+    </VBox>
+  </center>
+</fx:root>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPopup?>
+
+<fx:root type="javafx.scene.layout.StackPane" fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
+	xmlns="http://javafx.com/javafx/2.2">
+	<BorderPane>
+
+		<top>
+			<VBox spacing="20">
+				<JFXToolbar>
+					<leftItems>
+            <JFXButton fx:id="back" prefWidth="70" prefHeight="40" buttonType="FLAT" text="Back"
+                style="-fx-text-fill:WHITE;-fx-font-size:12px;"></JFXButton>
+						<Label>KabaSuji</Label>
+					</leftItems>
+					<rightItems>
+						<JFXRippler fx:id="optionsRippler" maskType="CIRCLE"
+							style="-fx-ripple-color:WHITE;">
+							<StackPane fx:id="optionsBurger">
+								<JFXHamburger styleClass="jfx-options-burger">
+								</JFXHamburger>
+							</StackPane>
+						</JFXRippler>
+					</rightItems>
+				</JFXToolbar>
+			</VBox>
+		</top>
+
+		<center>
+      <StackPane fx:id="content" />
+		</center>
+	</BorderPane>
+
+	<JFXPopup fx:id="toolbarPopup" styleClass="tool-bar-popup">
+		<JFXListView styleClass="option-list-view">
+			<Label fx:id="help">
+        Help
+				<graphic>
+          <FontAwesomeIconView glyphName="USER" size="1.5em" styleClass="option-jfx-view-icon"/>
+				</graphic>
+			</Label>
+			<Label fx:id="about">
+        About
+				<graphic>
+          <FontAwesomeIconView glyphName="INFO_CIRCLE" size="1.5em" styleClass="option-jfx-view-icon"/>
+				</graphic>
+			</Label>
+		</JFXListView>
+	</JFXPopup>
+
+
+	<JFXDialog fx:id="dialog">
+		<JFXDialogLayout fx:id="dialogLayout">
+			<heading>
+			</heading>
+			<body>
+			</body>
+			<actions>
+				<JFXButton fx:id="accept" styleClass="dialog-accept">OK
+				</JFXButton>
+			</actions>
+		</JFXDialogLayout>
+	</JFXDialog>
+
+</fx:root>
