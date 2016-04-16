@@ -50,8 +50,8 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
   }
 
   /**
-   * @param location
-   * @param resources
+   * @param location the url to the fxml file loaded
+   * @param resources resources associated with the fxml file
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {

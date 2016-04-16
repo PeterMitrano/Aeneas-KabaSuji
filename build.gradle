@@ -18,6 +18,11 @@ dependencies {
     testCompile "junit:junit:4.12"
 }
 
+task javadocs(type: Javadoc) {
+  source = sourceSets.main.allJava
+  classpath = sourceSets.main.compileClasspath
+}
+
 jar {
   manifest {
     attributes 'Main-Class': 'aeneas.Main'

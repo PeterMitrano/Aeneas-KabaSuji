@@ -46,7 +46,7 @@ public class Model {
 
   /**
    * Not sure why we have this *and* setActiveLevel
-   * @param level
+   * @param level the level to be selected
    */
   public void selectLevel(Level level) {
   }
@@ -60,7 +60,6 @@ public class Model {
 
   /**
    * Switch to the given screen
-   * @param ... will take a screen to go to
    */
   public void changeScreen(/*take argument for screen to go to*/) {
   }

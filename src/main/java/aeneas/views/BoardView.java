@@ -7,11 +7,17 @@ import javafx.scene.paint.Color;
 
 class BoardView extends Pane {
 
+  /** Specifies how many pixels the squares of a piece on the board will be */
   static final int SQUARE_SIZE = 40;
 
   SquareView[][] grid = new SquareView[Board.SIZE][Board.SIZE];
   Board board;
 
+  /**
+   * Initialized the board with grey squares
+   * @param board the board model object.
+   * Eventually this will model object will describe which squares are active
+   */
   public BoardView(Board board) {
     this.board = board;
     for (int i = 0; i < Board.SIZE; i++) {
