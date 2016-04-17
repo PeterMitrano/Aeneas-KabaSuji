@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXRippler?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
@@ -22,8 +18,7 @@
     xmlns="http://javafx.com/javafx/2.2">
   <left>
     <StackPane alignment="BOTTOM_LEFT">
-      <JFXListView prefWidth="115" fx:id="bullpenListView">
-      </JFXListView>
+      <VBox prefWidth="115" fx:id="bullpenBox" spacing="20" alignment="TOP_CENTER"/>
       <JFXButton fx:id="addPiece" prefWidth="50" prefHeight="50"
           style="-fx-rippler-fill:#FFCDD2;-fx-background-color:#F44336;">
         <graphic>

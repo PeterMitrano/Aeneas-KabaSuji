@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXRippler?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
@@ -17,8 +11,7 @@
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
     xmlns="http://javafx.com/javafx/2.2">
   <left>
-    <JFXListView prefWidth="115" fx:id="bullpenListView">
-    </JFXListView>
+    <VBox prefWidth="115" fx:id="bullpenBox" spacing="20" alignment="TOP_CENTER"/>
   </left>
   <center>
     <VBox fx:id="centerBox" spacing="10" alignment="TOP_CENTER">

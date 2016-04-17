@@ -2,6 +2,8 @@ package aeneas.views;
 
 import aeneas.models.Board;
 
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -23,5 +25,27 @@ class BoardView extends Pane {
         this.getChildren().add(grid[i][j]);
       }
     }
+
+    // This handle the drop of a piece on the board
+    this.setOnDragDropped((DragEvent event) -> {
+      Dragboard db = event.getDragboard();
+      boolean success = false;
+
+      // when we create a drag event we gave it a string
+      // so check that this is present
+      if (db.hasString()) {
+
+        // Get an item ID here, which was stored when the drag started.
+        // eventually we will use something better than a string
+        String pieceToString = db.getString();
+        System.out.println("Adding " + pieceToString);
+
+      }
+
+      //this might change we we actually implement it,
+      //such as if they drop it on a square that doesn't exist
+      event.setDropCompleted(success);
+      event.consume();
+    });
   }
 }
