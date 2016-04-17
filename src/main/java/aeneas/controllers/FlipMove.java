@@ -30,7 +30,7 @@ public class FlipMove implements IMove {
       return true;
     }
     return false;
-      
+
   }
 
   @Override
