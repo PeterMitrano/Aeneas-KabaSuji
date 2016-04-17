@@ -19,7 +19,7 @@ public class BullpenView {
 
   Bullpen bullpen;
 
-  private static final int SQUARE_SIZE = 16;
+  static final int SQUARE_SIZE = 16;
 
   ArrayList<Pane> values = new ArrayList<Pane>();
 

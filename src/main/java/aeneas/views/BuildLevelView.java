@@ -6,12 +6,15 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.SaveLevelController;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
+import aeneas.models.PieceFactory;
 import aeneas.models.Square;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -22,11 +25,20 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class BuildLevelView extends StackPane implements Initializable {
+
+  private static final int PIECE_PICKER_SQUARE_SIZE = 12;
+
+  @FXML
+  private JFXDialog piecePickerDialog;
+
+  @FXML
+  private FlowPane piecesPane;
 
   @FXML
   private JFXListView<Pane> bullpenListView;
@@ -96,9 +108,18 @@ public class BuildLevelView extends StackPane implements Initializable {
     saveButton.setOnMouseClicked(
         new SaveLevelController(mainView, levelModel));
 
+    piecePickerDialog.setTransitionType(DialogTransition.CENTER);
+
     addPiece.setOnMouseClicked((e) -> {
       //open dialog to add piece...
       //for now just add a test piece
+
+      piecePickerDialog.show(this);
+
+      for (Piece p : PieceFactory.pieces) {
+        PieceView pView = new PieceView((Pane) this, p, model, PIECE_PICKER_SQUARE_SIZE);
+        piecesPane.getChildren().add(pView);
+      }
     });
   }
 }

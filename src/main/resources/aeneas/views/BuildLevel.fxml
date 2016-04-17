@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.RadioButton?>
@@ -108,4 +111,16 @@
     </VBox>
   </center>
   </BorderPane>
+
+	<JFXDialog fx:id="piecePickerDialog">
+		<JFXDialogLayout>
+			<heading>
+        <Label>Pick a Piece</Label>
+			</heading>
+			<body>
+        <FlowPane fx:id="piecesPane" prefWrapLength="300" hgap="20" vgap="20">
+        </FlowPane>
+			</body>
+		</JFXDialogLayout>
+	</JFXDialog>
 </fx:root>
