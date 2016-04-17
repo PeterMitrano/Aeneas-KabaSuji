@@ -17,6 +17,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -29,7 +32,16 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
   private Model gameModel;
 
   @FXML
+  private ScrollPane scrollpane;
+
+  @FXML
   private GridPane customLevelGrid;
+
+  @FXML
+  private Label levelLabel;
+
+  @FXML
+  private Label customLevelLabel;
 
   public MainView parentView;
 
@@ -71,6 +83,9 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
         customLevelGrid.add(stars, c, r);
       }
     }
+
+    scrollpane.setHbarPolicy(ScrollBarPolicy.NEVER);
+    scrollpane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
   }
 
   private JFXButton makeLevelButton(int levelNumber, boolean locked) {
