@@ -30,7 +30,17 @@ public class Piece implements java.io.Serializable {
   }
 
   public void rotate(Dir direction) {
-
+    for(Square s : squares) {
+      switch(direction) {
+      case CLOCKWISE:
+        s.setCol(-s.getRow());
+        s.setRow(s.getCol());
+        break;
+      case COUNTERCLOCKWISE:
+        s.setCol(s.getRow());
+        s.setRow(-s.getCol());
+      }
+    }
   }
 
   public Square[] getSquares() {
