@@ -1,7 +1,7 @@
 .level-select-button{
   -fx-text-fill:BLACK;
-  -fx-background-color:WHITE;
-  -fx-font-size:18px;
+  -fx-background-color: #9b59b6;
+  -fx-font-size:24px;
 }
 
 .level-select-button .jfx-rippler {
@@ -9,7 +9,7 @@
 }
 
 .locked-level-select-button {
-  -fx-background-color:GRAY;
+  -fx-background-color: GRAY;
 }
 
 .locked-level-select-button .jfx-rippler {
@@ -124,7 +124,7 @@
 	-fx-alignment: center-right ;
 }
 .dialog-accept{
-	-fx-text-fill: #03A9F4;
+	-fx-text-fill: BLACK;
 	-fx-font-weight: BOLD;
 	-fx-padding: 0.7em 0.8em;
 }

@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialog.DialogTransition;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXPopup.PopupHPosition;
 import com.jfoenix.controls.JFXPopup.PopupVPosition;
@@ -52,6 +55,14 @@ public class MainView extends StackPane implements Initializable {
 
   @FXML
   private JFXButton back;
+
+  @FXML
+  private JFXDialog dialog;
+
+  @FXML private JFXDialogLayout dialogLayout;
+
+  @FXML
+  private JFXButton accept;
 
 
   private ViewAchievementsView viewAchievementsView;
@@ -149,9 +160,20 @@ public class MainView extends StackPane implements Initializable {
       }
     });
 
-    help.setOnMouseClicked(new ViewHelpController(this, model.helpString));
+    dialog.setTransitionType(DialogTransition.CENTER);
 
-    about.setOnMouseClicked(new ViewAboutController(this, model.aboutString));
+    help.setOnMouseClicked((e) -> {
+    });
+
+    accept.setOnMouseClicked((e) -> {
+      dialog.close();
+    });
+
+    // we need to add these back eventually
+    help.setOnMouseClicked(new ViewHelpController(this, dialog,
+          dialogLayout, model.helpString));
+    about.setOnMouseClicked(new ViewAboutController(this, dialog,
+          dialogLayout, model.aboutString));
 
     switchToWelcomeView();
   }

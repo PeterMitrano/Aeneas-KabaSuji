@@ -7,6 +7,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import com.jfoenix.controls.JFXToolbar?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXRippler?>
@@ -59,5 +61,19 @@
 			</Label>
 		</JFXListView>
 	</JFXPopup>
+
+
+	<JFXDialog fx:id="dialog">
+		<JFXDialogLayout fx:id="dialogLayout">
+			<heading>
+			</heading>
+			<body>
+			</body>
+			<actions>
+				<JFXButton fx:id="accept" styleClass="dialog-accept">OK
+				</JFXButton>
+			</actions>
+		</JFXDialogLayout>
+	</JFXDialog>
 
 </fx:root>
