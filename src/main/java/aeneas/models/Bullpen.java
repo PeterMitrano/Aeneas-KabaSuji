@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * A bullpen is a list of pieces available to the player.
- * 
+ *
  * @author Joseph Martin
  */
 public class Bullpen implements java.io.Serializable {
@@ -29,8 +29,8 @@ public class Bullpen implements java.io.Serializable {
    * Adds a piece to he bullpen
    * @param piece the piece to add
    */
-  void addPiece(Piece piece) {
-    pieces.add(piece);
+  public void addPiece(Piece piece) {
+    this.pieces.add(piece);
   }
 
   /**
@@ -38,7 +38,14 @@ public class Bullpen implements java.io.Serializable {
    * @param piece the piece to remove.
    * @return true if piece was found and removed, false otherwise.
    */
-  boolean removePiece(Piece piece) {
-    return pieces.remove(piece);
+  public boolean removePiece(Piece piece) {
+    return this.pieces.remove(piece);
+  }
+
+  /**
+   * @return the pieces
+   */
+  public ArrayList<Piece> getPieces() {
+    return pieces;
   }
 }

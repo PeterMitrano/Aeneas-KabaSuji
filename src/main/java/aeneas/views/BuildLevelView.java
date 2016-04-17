@@ -22,17 +22,20 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class BuildLevelView extends BorderPane implements Initializable {
+public class BuildLevelView extends StackPane implements Initializable {
 
   @FXML
   private JFXListView<Pane> bullpenListView;
 
   @FXML
   private Label levelLabel;
+
+  @FXML
+  private JFXButton addPiece;
 
   @FXML
   private FontAwesomeIconView levelTypeIcon;
@@ -93,5 +96,9 @@ public class BuildLevelView extends BorderPane implements Initializable {
     saveButton.setOnMouseClicked(
         new SaveLevelController(mainView, levelModel));
 
+    addPiece.setOnMouseClicked((e) -> {
+      //open dialog to add piece...
+      //for now just add a test piece
+    });
   }
 }

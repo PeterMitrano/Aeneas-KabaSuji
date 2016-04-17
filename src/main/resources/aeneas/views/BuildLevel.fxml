@@ -17,8 +17,9 @@
 <?import javafx.collections.*?>
 
 
-<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
-  xmlns="http://javafx.com/javafx/2.2">
+<fx:root type="javafx.scene.layout.StackPane" xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/2.2">
+  <BorderPane>
   <left>
     <StackPane alignment="BOTTOM_LEFT">
       <VBox prefWidth="115" fx:id="bullpenBox" spacing="20"
@@ -52,7 +53,7 @@
                 <RadioButton text="Release" toggleGroup="$levelType" />
               </children>
             </VBox>
-            
+
             <HBox.margin>
               <Insets right="20" left="20" />
             </HBox.margin>
@@ -106,4 +107,5 @@
       </VBox>
     </VBox>
   </center>
+  </BorderPane>
 </fx:root>
