@@ -79,7 +79,7 @@ public class PieceView extends Pane {
           }
         }
         if(move != null && move.execute()){
-          //model.addNewMove(move);
+          model.addNewMove(move);
           System.out.println("move done");
           refresh();
         }

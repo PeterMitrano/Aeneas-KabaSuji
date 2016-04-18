@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 
 import aeneas.controllers.SelectLevelController;
 import aeneas.models.Level;
+import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.Square;
 
@@ -45,9 +46,11 @@ public class PlayLevelView extends BorderPane implements Initializable {
   private BullpenView bullpenView;
   private BoardView boardView;
   private Level levelModel;
+  private Model model;
 
-  PlayLevelView(MainView parentView, Level levelModel) {
+  PlayLevelView(MainView parentView, Level levelModel, Model model) {
     this.levelModel = levelModel;
+    this.model = model;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("PlayLevel.fxml"));
       loader.setRoot(this);
@@ -75,7 +78,7 @@ public class PlayLevelView extends BorderPane implements Initializable {
           new Square(1, 1),
           new Square(1, 2), });
 
-    bullpenView.addPiece(testPiece);
+    bullpenView.addPiece(testPiece, model);
 
     boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.jfoenix.effects.JFXDepthManager;
 
+import aeneas.models.Model;
 import aeneas.models.Piece;
 
 import javafx.geometry.Pos;
@@ -24,9 +25,9 @@ class BullpenView {
     bullpenBox.setAlignment(Pos.TOP_CENTER);
   }
 
-  void addPiece(Piece piece){
+  void addPiece(Piece piece, Model model){
     Pane piecePane = new Pane();
-    PieceView pieceView = new PieceView(piece, null, SQUARE_SIZE);
+    PieceView pieceView = new PieceView(piece, model, SQUARE_SIZE);
     pieceView.setId(piece.toString()); //this relies on all instances having different to strings
     piecePane.getChildren().add(pieceView);
     values.add(piecePane);

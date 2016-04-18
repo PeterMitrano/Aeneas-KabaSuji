@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.effects.JFXDepthManager;
 
 import aeneas.models.Level;
+import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.Square;
 import aeneas.controllers.SaveLevelController;
@@ -53,11 +54,13 @@ public class BuildLevelView extends BorderPane implements Initializable {
   private JFXButton saveButton;
 
   BoardView boardView;
+  Model model;
   Level levelModel;
   MainView parentView;
   BullpenView bullpenView;
 
-  BuildLevelView(MainView parentView, Level levelModel) {
+  BuildLevelView(MainView parentView, Level levelModel, Model model) {
+    this.model = model;
     this.levelModel = levelModel;
     this.parentView = parentView;
     try {
@@ -84,7 +87,7 @@ public class BuildLevelView extends BorderPane implements Initializable {
     });
 
 
-    bullpenView.addPiece(testPiece);
+    bullpenView.addPiece(testPiece, model);
 
     boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
