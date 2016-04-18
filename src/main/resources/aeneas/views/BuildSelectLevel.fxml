@@ -22,7 +22,7 @@
       <JFXButton fx:id="openFile" prefWidth="50"
           prefHeight="50" style="-fx-rippler-fill:#FFCDD2;-fx-background-color:#F44336;">
         <graphic>
-          <FontAwesomeIconView glyphName="FILE" size="3em"/>
+          <FontAwesomeIconView glyphName="FOLDER_OPEN" size="3em"/>
         </graphic>
         <StackPane.margin>
           <Insets left="10" bottom="10" />
