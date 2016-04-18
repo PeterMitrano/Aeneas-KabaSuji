@@ -15,7 +15,7 @@ if [ "$TRAVIS_REPO_SLUG" == "Cheddarpuffs/Aeneas-KabaSuji" ] && [ "$TRAVIS_JDK_V
   ./gradlew javadocs
   git add --all .
   git commit -m "Lastest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
-  git push -f origin gh-pages
+  git push origin gh-pages
 
   echo -e "Published Javadoc to gh-pages.\n"
 
