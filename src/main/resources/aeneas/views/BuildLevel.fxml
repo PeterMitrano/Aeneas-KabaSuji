@@ -74,14 +74,14 @@
             <Insets top="10" bottom="15" />
           </VBox.margin>
           <VBox fx:id="sizing" spacing="10" alignment="TOP_LEFT">
-            <HBox spacing="5" alignment="CENTER_LEFT">
+            <HBox spacing="5" alignment="CENTER_RIGHT">
               <Label fx:id="movesLabel" text="Rows" />
               <Spinner prefWidth="70" min="0" max="12"
                 initialValue="12">
                 <editable>true</editable>
               </Spinner>
             </HBox>
-            <HBox spacing="5" alignment="CENTER_LEFT">
+            <HBox spacing="5" alignment="CENTER_RIGHT">
               <Label fx:id="movesLabel" text="Columns" />
               <Spinner prefWidth="70" min="0" max="12"
                 initialValue="12">
