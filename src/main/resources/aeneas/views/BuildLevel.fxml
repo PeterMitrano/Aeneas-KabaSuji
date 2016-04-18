@@ -69,10 +69,17 @@
               </Spinner>
             </HBox>
             <JFXColorPicker minWidth="100"></JFXColorPicker>
+<<<<<<< HEAD
+=======
+            <JFXButton fx:id="saveButton" prefWidth="85"
+              prefHeight="30" buttonType="RAISED" text="Save"
+              styleClass="normal-button" />
+>>>>>>> refs/remotes/origin/master
           </VBox>
           <VBox.margin>
             <Insets top="10" bottom="15" />
           </VBox.margin>
+<<<<<<< HEAD
           <VBox>
             <JFXButton fx:id="createHint" prefWidth="85"
               prefHeight="30" buttonType="RAISED" text="New Hint"
@@ -88,6 +95,23 @@
             <JFXButton fx:id="redoButton" prefWidth="85"
               prefHeight="30" buttonType="RAISED" text="Redo"
               styleClass="normal-button" />
+=======
+          <VBox fx:id="sizing" spacing="10" alignment="TOP_LEFT">
+            <HBox spacing="5" alignment="CENTER_LEFT">
+              <Label fx:id="movesLabel" text="Rows" />
+              <Spinner prefWidth="70" min="0" max="12"
+                initialValue="12">
+                <editable>true</editable>
+              </Spinner>
+            </HBox>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+              <Label fx:id="movesLabel" text="Columns" />
+              <Spinner prefWidth="70" min="0" max="12"
+                initialValue="12">
+                <editable>true</editable>
+              </Spinner>
+            </HBox>
+>>>>>>> refs/remotes/origin/master
           </VBox>
         </HBox>
       </VBox>
