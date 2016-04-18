@@ -52,23 +52,24 @@
                 <RadioButton text="Release" toggleGroup="$levelType" />
               </children>
             </VBox>
-            <VBox spacing="4">
-              <JFXDatePicker defaultColor="#3f51b5"
-                showTime="true"></JFXDatePicker>
-            </VBox>
+            
             <HBox.margin>
               <Insets right="20" left="20" />
             </HBox.margin>
           </VBox>
           <VBox fx:id="movesSelect" spacing="10">
-            <HBox spacing="5" alignment="CENTER">
+            <HBox spacing="5" alignment="CENTER_LEFT">
               <Label fx:id="movesLabel" text="Moves" />
               <Spinner prefWidth="70" min="0" max="20"
                 initialValue="10">
                 <editable>true</editable>
               </Spinner>
             </HBox>
-            <JFXColorPicker minWidth="100"></JFXColorPicker>
+            <JFXColorPicker prefWidth="110"></JFXColorPicker>
+            <VBox spacing="4" alignment="CENTER_LEFT">
+              <JFXDatePicker defaultColor="#3f51b5"
+                showTime="true" prefWidth="120"></JFXDatePicker>
+            </VBox>
           </VBox>
           <VBox.margin>
             <Insets top="10" bottom="15" />
