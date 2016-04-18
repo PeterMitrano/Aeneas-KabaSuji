@@ -2,10 +2,7 @@ package aeneas.views;
 
 import com.jfoenix.controls.JFXPopup;
 
-import aeneas.controllers.FlipMove;
-import aeneas.controllers.IMove;
 import aeneas.controllers.ManipulatePieceController;
-import aeneas.controllers.RotateMove;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.Piece.Axis;
