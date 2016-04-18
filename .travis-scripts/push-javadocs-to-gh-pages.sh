@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ "$TRAVIS_REPO_SLUG" == "Cheddarpuffs/Aeneas-Kabasuji" ]; then echo "correct repo slug"; fi
+if [ "$TRAVIS_REPO_SLUG" == "Cheddarpuffs/Aeneas-KabaSuji" ]; then echo "correct repo slug"; fi
 if [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ]; then echo "correct jdk version"; fi
 if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "correct PR"; fi
 if [ "$TRAVIS_BRANCH" == "master" ]; then echo "correct branch"; fi
 
-if [ "$TRAVIS_REPO_SLUG" == "Cheddarpuffs/Aeneas-Kabasuji" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+if [ "$TRAVIS_REPO_SLUG" == "Cheddarpuffs/Aeneas-KabaSuji" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
 
   echo "regenerating javadocs"
 
