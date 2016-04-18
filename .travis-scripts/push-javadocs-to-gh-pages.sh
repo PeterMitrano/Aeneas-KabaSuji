@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$TRAVIS_REPO_SLUG" == "Cheddarpuffs/Aeneas-KabaSuji" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+if [ "$TRAVIS_REPO_SLUG" == "$REPO_NAME" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
 
   echo "regenerating javadocs"
 
@@ -8,7 +8,7 @@ if [ "$TRAVIS_REPO_SLUG" == "Cheddarpuffs/Aeneas-KabaSuji" ] && [ "$TRAVIS_JDK_V
   cd $HOME
   git config --global user.email "travis@travis-ci.org"
   git config --global user.name "travis-ci"
-  git clone --branch=gh-pages https://${GH_TOKEN}@github.com/PeterMitrano/Aeneas-Kabasuji gh-pages
+  git clone --branch=gh-pages "https://${GH_TOKEN}@github.com/${REPO_NAME}" gh-pages
 
   # Commit and Push the Changes
   cd gh-pages
