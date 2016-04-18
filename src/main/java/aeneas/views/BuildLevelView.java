@@ -41,6 +41,9 @@ public class BuildLevelView extends BorderPane implements Initializable {
   private FontAwesomeIconView levelTypeIcon;
 
   @FXML
+  private VBox bullpenBox;
+
+  @FXML
   private VBox centerBox;
 
   @FXML
@@ -50,9 +53,9 @@ public class BuildLevelView extends BorderPane implements Initializable {
   private JFXButton saveButton;
 
   BoardView boardView;
-
   Level levelModel;
   MainView parentView;
+  BullpenView bullpenView;
 
   BuildLevelView(MainView parentView, Level levelModel) {
     this.levelModel = levelModel;
@@ -69,12 +72,9 @@ public class BuildLevelView extends BorderPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    JFXDepthManager.setDepth(bullpenListView, 1);
+    bullpenView = new BullpenView(bullpenBox);
 
-    ArrayList<Pane> values = new ArrayList<Pane>();
-
-    Piece[] pieces = new Piece[1];
-    pieces[0] = new Piece(new Square[] {
+    Piece testPiece = new Piece(new Square[] {
         new Square(0, 0),
         new Square(1, 0),
         new Square(1, 1),
@@ -83,20 +83,11 @@ public class BuildLevelView extends BorderPane implements Initializable {
         new Square(1, 4),
     });
 
-    int S = 16;
-    for (Piece pieceModel : pieces) {
 
-      // add a piece to the bullpen as an example
-      Pane piecePane = new Pane();
-      PieceView pieceView = new PieceView(pieceModel, 16);
-      piecePane.getChildren().add(pieceView);
-      values.add(piecePane);
-    }
-
-    bullpenListView.setItems(FXCollections.observableList(values));
+    bullpenView.addPiece(testPiece);
 
     boardView = new BoardView(levelModel.getBoard());
-    centerBox.setMargin(boardView, new Insets(10, 10, 10, 10));
+    VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
 
