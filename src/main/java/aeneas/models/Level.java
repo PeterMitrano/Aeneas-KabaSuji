@@ -26,6 +26,19 @@ public abstract class Level implements java.io.Serializable {
   }
 
   /**
+   * Copy constructor.
+   * Does not actually copy the Bullpen, just passes along
+   * the reference.
+   */
+  public Level(Level src) {
+    this.bullpen = src.bullpen;
+    this.levelNumber = src.levelNumber;
+    this.starsEarned = src.starsEarned;
+    this.prebuilt = src.prebuilt;
+    this.locked = src.locked;
+  }
+
+  /**
    * Check if the level is done
    * @return true if the level is complete, false otherwise.
    */

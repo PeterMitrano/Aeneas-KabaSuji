@@ -12,12 +12,16 @@ import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.effects.JFXDepthManager;
 
 import aeneas.models.Level;
+import aeneas.models.LightningLevel;
 import aeneas.models.Piece;
+import aeneas.models.PuzzleLevel;
+import aeneas.models.ReleaseLevel;
 import aeneas.models.Square;
 import aeneas.controllers.SaveLevelController;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +29,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -51,6 +59,15 @@ public class BuildLevelView extends BorderPane implements Initializable {
 
   @FXML
   private JFXButton saveButton;
+
+  @FXML
+  private ToggleGroup levelType;
+
+  @FXML
+  private JFXDatePicker timerSelect;
+
+  @FXML
+  private Spinner movesSelect;
 
   BoardView boardView;
   Level levelModel;
@@ -94,5 +111,20 @@ public class BuildLevelView extends BorderPane implements Initializable {
     saveButton.setOnMouseClicked(
         new SaveLevelController(parentView, levelModel));
 
+    levelType.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov,
+                Toggle toggle, Toggle new_toggle) -> {
+      String levelType = ((RadioButton)new_toggle).getText();
+      switch (levelType) {
+        case "Puzzle":
+          levelModel = new PuzzleLevel(levelModel);
+          break;
+        case "Lightning":
+          levelModel = new LightningLevel(levelModel);
+          break;
+        case "Release":
+          levelModel = new ReleaseLevel(levelModel);
+          break;
+      }
+    });
   }
 }

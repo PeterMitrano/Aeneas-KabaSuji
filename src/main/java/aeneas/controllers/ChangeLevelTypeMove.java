@@ -4,15 +4,11 @@ import aeneas.models.Model;
 
 /**
  * Move action to change the type of a level
- * @author Logan
- *
  */
 public class ChangeLevelTypeMove implements IMove {
 
-
   Level level;
-
-  Model model;
+  Level oldLevel;
 
   int type;
 
@@ -25,7 +21,6 @@ public class ChangeLevelTypeMove implements IMove {
    */
   public ChangeLevelTypeMove(Level level, Model model, int type) {
     this.level = level;
-    this.model = model;
     this.type = type;
   }
 

@@ -3,6 +3,8 @@ package aeneas.models;
 public class PuzzleLevel extends Level implements java.io.Serializable {
   public static final String helpText = "";
 
+  PuzzleBoard board;
+
   public PuzzleLevel(Bullpen bullpen) {
     super(bullpen);
   }
@@ -11,7 +13,9 @@ public class PuzzleLevel extends Level implements java.io.Serializable {
     super(bullpen, prebuilt);
   }
 
-  PuzzleBoard board;
+  public PuzzleLevel(Level src) {
+    super(src);
+  }
 
   @Override
   public boolean isComplete() {

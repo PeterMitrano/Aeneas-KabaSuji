@@ -13,6 +13,10 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
     this.numbers = numbers;
   }
 
+  public ReleaseLevel(Level src) {
+    super(src);
+  }
+
   @Override
   public boolean isComplete() {
     // TODO Auto-generated method stub
