@@ -34,7 +34,7 @@ public class Main extends Application {
     frame.setSize(300, 300);
     frame.setVisible(true);
     try {
-      Thread.sleep(4000);
+      Thread.sleep(400);
     } catch (InterruptedException e) {
     }
     frame.setVisible(false);

@@ -1,5 +1,12 @@
 package aeneas.models;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public abstract class Level implements java.io.Serializable {
   Bullpen bullpen;
 
@@ -50,5 +57,39 @@ public abstract class Level implements java.io.Serializable {
 
   public void lock() {
     this.locked = true;
+  }
+
+  /**
+   * Saves the level to a file.
+   * @param file The file to save to. Should not be null
+   */
+  public void save(File file) throws IOException {
+    try (FileOutputStream saveFile = new FileOutputStream(file);
+         ObjectOutputStream out = new ObjectOutputStream(saveFile);) {
+      out.writeObject(this);
+    } catch (IOException i) {
+      throw i;
+    }
+  }
+
+  /**
+   * Constructs a level from a file.
+   * @param file The file to load from.
+   * @return The level that was read; null if the read failed.
+   */
+  public static Level loadLevel(File file) throws IOException {
+    Level level;
+    try (FileInputStream loadFile = new FileInputStream(file);
+         ObjectInputStream in = new ObjectInputStream(loadFile);){
+      level = (Level)in.readObject();
+    } catch (IOException i) {
+      throw i;
+    } catch (ClassNotFoundException c) {
+      // Something very bad has happened.
+      // May as well fail silently, then.
+      return null;
+    }
+
+    return level;
   }
 }
