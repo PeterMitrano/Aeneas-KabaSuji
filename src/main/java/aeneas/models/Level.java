@@ -4,7 +4,7 @@ public abstract class Level implements java.io.Serializable {
   Bullpen bullpen;
 
   public int levelNumber;
-  public int starsEarned = 2;
+  public int starsEarned;
   boolean prebuilt;
 
   private boolean locked;
@@ -12,6 +12,7 @@ public abstract class Level implements java.io.Serializable {
   public Level(Bullpen bullpen, boolean prebuilt) {
     this.bullpen = bullpen;
     this.prebuilt = prebuilt;
+    this.starsEarned = 0;
   }
 
   public Level(Bullpen bullpen) {
@@ -29,6 +30,8 @@ public abstract class Level implements java.io.Serializable {
    * @return The board used by this level.
    */
   public abstract Board getBoard();
+
+  public abstract int getStarsEarned();
 
   /**
    * @return the prebuilt
