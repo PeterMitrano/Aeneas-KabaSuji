@@ -15,14 +15,15 @@
 <?import com.jfoenix.controls.JFXColorPicker?>
 
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
-    xmlns="http://javafx.com/javafx/2.2">
+  xmlns="http://javafx.com/javafx/2.2">
   <left>
     <StackPane alignment="BOTTOM_LEFT">
       <VBox prefWidth="115" fx:id="bullpenBox" spacing="20" alignment="TOP_CENTER"/>
       <JFXButton fx:id="addPiece" prefWidth="50" prefHeight="50"
-          style="-fx-rippler-fill:#FFCDD2;-fx-background-color:#F44336;">
+        style="-fx-rippler-fill:#FFCDD2;-fx-background-color:#F44336;">
         <graphic>
-          <FontAwesomeIconView glyphName="PLUS" size="3em" />
+          <FontAwesomeIconView glyphName="PLUS"
+            size="3em" />
         </graphic>
         <StackPane.margin>
           <Insets left="10" bottom="10" />
@@ -48,7 +49,8 @@
               </children>
             </VBox>
             <VBox spacing="4">
-              <JFXDatePicker defaultColor="#3f51b5" showTime="true"></JFXDatePicker>
+              <JFXDatePicker defaultColor="#3f51b5"
+                showTime="true"></JFXDatePicker>
             </VBox>
             <HBox.margin>
               <Insets right="20" left="20" />
@@ -57,18 +59,35 @@
           <VBox fx:id="movesSelect" spacing="10">
             <HBox spacing="5" alignment="CENTER">
               <Label fx:id="movesLabel" text="Moves" />
-              <Spinner prefWidth="70" min="0" max="20" initialValue="10">
+              <Spinner prefWidth="70" min="0" max="20"
+                initialValue="10">
                 <editable>true</editable>
               </Spinner>
             </HBox>
             <JFXColorPicker minWidth="100"></JFXColorPicker>
-            <JFXButton fx:id="saveButton" prefWidth="85" prefHeight="30"
-                buttonType="RAISED" text="Save" styleClass="normal-button" />
+            <JFXButton fx:id="saveButton" prefWidth="85"
+              prefHeight="30" buttonType="RAISED" text="Save"
+              styleClass="normal-button" />
           </VBox>
-
           <VBox.margin>
             <Insets top="10" bottom="15" />
           </VBox.margin>
+          <VBox fx:id="sizing" spacing="10" alignment="TOP_LEFT">
+            <HBox spacing="5" alignment="CENTER_LEFT">
+              <Label fx:id="movesLabel" text="Rows" />
+              <Spinner prefWidth="70" min="0" max="12"
+                initialValue="12">
+                <editable>true</editable>
+              </Spinner>
+            </HBox>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+              <Label fx:id="movesLabel" text="Columns" />
+              <Spinner prefWidth="70" min="0" max="12"
+                initialValue="12">
+                <editable>true</editable>
+              </Spinner>
+            </HBox>
+          </VBox>
         </HBox>
       </VBox>
 

@@ -1,5 +1,6 @@
 package aeneas.views;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 
 public class MainView extends StackPane implements Initializable {
 
@@ -92,6 +94,10 @@ public class MainView extends StackPane implements Initializable {
     }
   }
 
+  public BuildLevelView getBuildLevelView() {
+    return buildLevelView;
+  }
+
   public void switchToWelcomeView() {
     paneStack.push(welcomeView);
     content.getChildren().clear();
@@ -139,7 +145,7 @@ public class MainView extends StackPane implements Initializable {
     Bullpen bullpen = new Bullpen(new ArrayList<>());
     Level l = new PuzzleLevel(bullpen);
     playLevelView = new PlayLevelView(this, l);
-    buildLevelView = new BuildLevelView(l);
+    buildLevelView = new BuildLevelView(this, l);
     viewAchievementsView = new ViewAchievementsView(model);
     buildSelectLevelView= new BuildSelectLevelView(this, model);
 
@@ -176,6 +182,18 @@ public class MainView extends StackPane implements Initializable {
           dialogLayout, model.aboutString));
 
     switchToWelcomeView();
+  }
+
+  public File showSaveDialog() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save Level");
+    return fileChooser.showSaveDialog(stage);
+  }
+
+  public File showOpenDialog() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Existing Level");
+    return fileChooser.showOpenDialog(stage);
   }
 
 }

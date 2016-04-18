@@ -20,7 +20,7 @@ public class OnBoardMove implements IMove {
 
   /**
    * Constructor
-   * @param level the level being played
+   * @param board the board the piece is being played on
    * @param piece the piece being moved
    * @param row the row to move the piece too
    * @param col the column to move the piece to
