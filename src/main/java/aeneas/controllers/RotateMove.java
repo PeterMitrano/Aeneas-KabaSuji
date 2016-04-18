@@ -25,8 +25,11 @@ public class RotateMove implements IMove {
 
   @Override
   public boolean execute() {
-    piece.rotate(direction);
-    return true;
+    if(isValid()){
+      piece.rotate(direction);
+      return true;
+    }
+    return false;
   }
 
   @Override

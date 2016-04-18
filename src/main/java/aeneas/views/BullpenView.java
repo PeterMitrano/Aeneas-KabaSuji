@@ -26,7 +26,7 @@ class BullpenView {
 
   void addPiece(Piece piece){
     Pane piecePane = new Pane();
-    PieceView pieceView = new PieceView(piece, SQUARE_SIZE);
+    PieceView pieceView = new PieceView(piece, null, SQUARE_SIZE);
     pieceView.setId(piece.toString()); //this relies on all instances having different to strings
     piecePane.getChildren().add(pieceView);
     values.add(piecePane);

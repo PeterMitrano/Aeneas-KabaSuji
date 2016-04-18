@@ -1,6 +1,8 @@
 package aeneas.models;
 
-import java.util.ArrayList;;
+import java.util.ArrayList;
+
+import aeneas.controllers.IMove;;
 
 public class Model {
 
@@ -87,5 +89,9 @@ public class Model {
    */
   public boolean redoLastMove() {
     return false;
+  }
+  
+  public void addNewMove(IMove move){
+    
   }
 }

@@ -12,38 +12,65 @@ public class Piece implements java.io.Serializable {
   }
 
   Square squares[];
+  private int width;
+  private int height;
+  
 
   public Piece(Square[] squares) {
     this.squares = squares;
+    width = 0;
+    height = 0;
+    for (Square s : squares){
+      if(s.getCol() > width)
+        width = s.getCol();
+      if(s.getRow() > height)
+        height = s.getRow();
+    }
+    width++;
+    height++;
+    
   }
 
   public void flip(Axis axis) {
     for(Square s : squares) {
       switch(axis) {
       case VERTICAL:
-        s.setCol(-s.getCol());
+        s.setCol(-s.getCol()+getWidth()-1);
         break;
       case HORIZONTAL:
-        s.setRow(-s.getRow());
+        s.setRow(-s.getRow()+getHeight()-1);
       }
     }
   }
 
   public void rotate(Dir direction) {
     for(Square s : squares) {
+      int row = s.getRow();
+      int col = s.getCol();
       switch(direction) {
       case CLOCKWISE:
-        s.setCol(-s.getRow());
-        s.setRow(s.getCol());
+        s.setCol(-row+getHeight()-1);
+        s.setRow(col);
         break;
       case COUNTERCLOCKWISE:
-        s.setCol(s.getRow());
-        s.setRow(-s.getCol());
+        s.setCol(row);
+        s.setRow(-col+getWidth()-1);
       }
     }
+    int temp = height;
+    height = width;
+    width = temp;
   }
 
   public Square[] getSquares() {
     return squares;
+  }
+  
+  public int getWidth(){
+    return width;
+  }
+  
+  public int getHeight(){
+    return height;
   }
 }

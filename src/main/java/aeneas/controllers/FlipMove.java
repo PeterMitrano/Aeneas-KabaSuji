@@ -25,8 +25,12 @@ public class FlipMove implements IMove {
 
   @Override
   public boolean execute() {
-    piece.flip(axis);
-    return true;
+    if(isValid()){
+      piece.flip(axis);
+      return true;
+    }
+    return false;
+      
   }
 
   @Override
