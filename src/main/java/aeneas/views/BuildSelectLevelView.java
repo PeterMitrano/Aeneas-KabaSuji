@@ -1,6 +1,7 @@
 package aeneas.views;
 
 import java.io.IOException;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -10,6 +11,7 @@ import com.jfoenix.effects.JFXDepthManager;
 
 import aeneas.controllers.StartBuildLevelController;
 import aeneas.models.Model;
+import aeneas.models.Level;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,9 +61,14 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
     editLevel.setOnMouseClicked(new StartBuildLevelController(parentView, null));
 
     openFile.setOnMouseClicked((e) -> {
-      FileChooser fileChooser = new FileChooser();
-      fileChooser.setTitle("Open Existing Level");
-      fileChooser.showOpenDialog(parentView.stage);
+      File loadFile = parentView.showOpenDialog();
+      if (loadFile == null) return;
+      try {
+        Level loadLevel = Level.loadLevel(loadFile);
+        parentView.getBuildLevelView().levelModel = loadLevel;
+      } catch (IOException i) {
+        System.out.println("Error occurred opening file.");
+      }
     });
 
     createNewLevelLabel.setOnMouseClicked((e) -> {
