@@ -13,74 +13,84 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXColorPicker?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.collections.*?>
+
 
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
-	xmlns="http://javafx.com/javafx/2.2">
-	<left>
-		<StackPane alignment="BOTTOM_LEFT">
-			<VBox prefWidth="115" fx:id="bullpenBox" spacing="20" alignment="TOP_CENTER" />
-			<JFXButton fx:id="addPiece" prefWidth="50" prefHeight="50"
-				style="-fx-rippler-fill:#FFCDD2;-fx-background-color:#F44336;">
-				<graphic>
-					<FontAwesomeIconView glyphName="PLUS" size="3em" />
-				</graphic>
-				<StackPane.margin>
-					<Insets left="10" bottom="10" />
-				</StackPane.margin>
-			</JFXButton>
-		</StackPane>
-	</left>
-	<center>
-		<VBox fx:id="centerBox" spacing="10" alignment="TOP_CENTER">
+  xmlns="http://javafx.com/javafx/2.2">
+  <left>
+    <StackPane alignment="BOTTOM_LEFT">
+      <VBox prefWidth="115" fx:id="bullpenBox" spacing="20"
+        alignment="TOP_CENTER" />
+      <JFXButton fx:id="addPiece" prefWidth="50" prefHeight="50"
+        style="-fx-rippler-fill:#FFCDD2;-fx-background-color:#F44336;">
+        <graphic>
+          <FontAwesomeIconView glyphName="PLUS"
+            size="3em" />
+        </graphic>
+        <StackPane.margin>
+          <Insets left="10" bottom="10" />
+        </StackPane.margin>
+      </JFXButton>
+    </StackPane>
+  </left>
+  <center>
+    <VBox fx:id="centerBox" spacing="10" alignment="TOP_CENTER">
 
-			<VBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color:#d1d1d1;">
-				<HBox spacing="20">
-					<VBox fx:id="levelTypeBox" spacing="10">
-						<Label textAlignment="RIGHT" text="Type" />
-						<VBox spacing="4">
-							<fx:define>
-								<ToggleGroup fx:id="levelType" />
-							</fx:define>
-							<children>
-								<RadioButton text="Puzzle" toggleGroup="$levelType" />
-								<RadioButton text="Lightening" toggleGroup="$levelType" />
-								<RadioButton text="Release" toggleGroup="$levelType" />
-							</children>
-						</VBox>
-						<VBox spacing="4">
-							<JFXDatePicker defaultColor="#3f51b5" showTime="true"></JFXDatePicker>
-						</VBox>
-						<HBox.margin>
-							<Insets right="20" left="20" />
-						</HBox.margin>
-					</VBox>
-					<VBox fx:id="movesSelect" spacing="10">
-						<HBox spacing="5" alignment="CENTER">
-							<Label fx:id="movesLabel" text="Moves" />
-							<Spinner prefWidth="70" min="0" max="20" initialValue="10">
-								<editable>true</editable>
-							</Spinner>
-						</HBox>
-						<JFXColorPicker minWidth="100"></JFXColorPicker>
-					</VBox>
-					<VBox.margin>
-						<Insets top="10" bottom="15" />
-					</VBox.margin>
-					<VBox>
-						<JFXButton fx:id="createHint" prefWidth="85" prefHeight="30"
-							buttonType="RAISED" text="New Hint" styleClass="normal-button" />
-					</VBox>
-					<VBox spacing="4">
-						<JFXButton fx:id="saveButton" prefWidth="85" prefHeight="30"
-							buttonType="RAISED" text="Save" styleClass="normal-button" />
-						<JFXButton fx:id="undoButton" prefWidth="85" prefHeight="30"
-							buttonType="RAISED" text="Undo" styleClass="normal-button" />
-						<JFXButton fx:id="redoButton" prefWidth="85" prefHeight="30"
-							buttonType="RAISED" text="Redo" styleClass="normal-button" />
-					</VBox>
-				</HBox>
-			</VBox>
-
-		</VBox>
-	</center>
+      <VBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color:#d1d1d1;">
+        <HBox spacing="20">
+          <VBox fx:id="levelTypeBox" spacing="10">
+            <Label textAlignment="RIGHT" text="Type" />
+            <VBox spacing="4">
+              <fx:define>
+                <ToggleGroup fx:id="levelType" />
+              </fx:define>
+              <children>
+                <RadioButton text="Puzzle" toggleGroup="$levelType" />
+                <RadioButton text="Lightening" toggleGroup="$levelType" />
+                <RadioButton text="Release" toggleGroup="$levelType" />
+              </children>
+            </VBox>
+            <VBox spacing="4">
+              <JFXDatePicker defaultColor="#3f51b5"
+                showTime="true"></JFXDatePicker>
+            </VBox>
+            <HBox.margin>
+              <Insets right="20" left="20" />
+            </HBox.margin>
+          </VBox>
+          <VBox fx:id="movesSelect" spacing="10">
+            <HBox spacing="5" alignment="CENTER">
+              <Label fx:id="movesLabel" text="Moves" />
+              <Spinner prefWidth="70" min="0" max="20"
+                initialValue="10">
+                <editable>true</editable>
+              </Spinner>
+            </HBox>
+            <JFXColorPicker minWidth="100"></JFXColorPicker>
+          </VBox>
+          <VBox.margin>
+            <Insets top="10" bottom="15" />
+          </VBox.margin>
+          <VBox>
+            <JFXButton fx:id="createHint" prefWidth="85"
+              prefHeight="30" buttonType="RAISED" text="New Hint"
+              styleClass="normal-button" />
+          </VBox>
+          <VBox spacing="4">
+            <JFXButton fx:id="saveButton" prefWidth="85"
+              prefHeight="30" buttonType="RAISED" text="Save"
+              styleClass="normal-button" />
+            <JFXButton fx:id="undoButton" prefWidth="85"
+              prefHeight="30" buttonType="RAISED" text="Undo"
+              styleClass="normal-button" />
+            <JFXButton fx:id="redoButton" prefWidth="85"
+              prefHeight="30" buttonType="RAISED" text="Redo"
+              styleClass="normal-button" />
+          </VBox>
+        </HBox>
+      </VBox>
+    </VBox>
+  </center>
 </fx:root>
