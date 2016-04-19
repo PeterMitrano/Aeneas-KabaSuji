@@ -14,7 +14,7 @@ public class Piece implements java.io.Serializable {
   Square squares[];
   private int width;
   private int height;
-  
+
 
   public Piece(Square[] squares) {
     this.squares = squares;
@@ -28,7 +28,7 @@ public class Piece implements java.io.Serializable {
     }
     width++;
     height++;
-    
+
   }
 
   public void flip(Axis axis) {
@@ -39,6 +39,7 @@ public class Piece implements java.io.Serializable {
         break;
       case HORIZONTAL:
         s.setRow(-s.getRow()+getHeight()-1);
+        break;
       }
     }
   }
@@ -55,6 +56,7 @@ public class Piece implements java.io.Serializable {
       case COUNTERCLOCKWISE:
         s.setCol(row);
         s.setRow(-col+getWidth()-1);
+        break;
       }
     }
     int temp = height;
@@ -65,11 +67,11 @@ public class Piece implements java.io.Serializable {
   public Square[] getSquares() {
     return squares;
   }
-  
+
   public int getWidth(){
     return width;
   }
-  
+
   public int getHeight(){
     return height;
   }

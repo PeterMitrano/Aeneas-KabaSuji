@@ -1,7 +1,9 @@
 package aeneas.views;
 
+import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXTextArea;
 
 import aeneas.controllers.FlipMove;
 import aeneas.controllers.IMove;
@@ -11,6 +13,7 @@ import aeneas.models.Piece;
 import aeneas.models.Square;
 import aeneas.models.Piece.Axis;
 import aeneas.models.Piece.Dir;
+import javafx.geometry.Insets;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -20,6 +23,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
@@ -76,6 +80,8 @@ public class PieceView extends Pane {
     
     
     //callback for handling clicks on pieces
+    //single click rotates CW, Shift-click rotates CCW
+    //ctrl-click flips across vertical axis, shift-ctrl-click flips across horizontal axis
     this.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
       if(!inBullpen)
         return;
@@ -111,9 +117,11 @@ public class PieceView extends Pane {
     
     
     //create labels for popup
-    JFXListView<Label> content = new JFXListView<Label>();
+    VBox content = new VBox();
+    content.setPadding(new Insets(5, 10, 5, 5));
+    content.setSpacing(5);
     
-    Label rotateCW = new Label("rotate CW");
+    Label rotateCW = new Label("Rotate CW");
     rotateCW.setOnMouseClicked((MouseEvent event) ->{
       IMove move = new RotateMove(pieceModel, Dir.CLOCKWISE);
       if(move != null && move.execute()){
@@ -121,9 +129,9 @@ public class PieceView extends Pane {
         refresh();
       }
     });
-    content.getItems().add(rotateCW);
+    content.getChildren().add(rotateCW);
     
-    Label rotateCCW = new Label("rotate CCW");
+    Label rotateCCW = new Label("Rotate CCW");
     rotateCCW.setOnMouseClicked((MouseEvent event) ->{
       IMove move = new RotateMove(pieceModel, Dir.COUNTERCLOCKWISE);
       if(move != null && move.execute()){
@@ -131,7 +139,7 @@ public class PieceView extends Pane {
         refresh();
       }
     });
-    content.getItems().add(rotateCCW);
+    content.getChildren().add(rotateCCW);
     
     Label flipVert = new Label("Flip Vert");
     flipVert.setOnMouseClicked((MouseEvent event) ->{
@@ -141,7 +149,8 @@ public class PieceView extends Pane {
         refresh();
       }
     });
-    content.getItems().add(flipVert);
+    content.getChildren().add(flipVert);
+    
     
     Label flipHorz = new Label("Flip Horz");
     flipHorz.setOnMouseClicked((MouseEvent event) ->{
@@ -151,7 +160,7 @@ public class PieceView extends Pane {
         refresh();
       }
     });
-    content.getItems().add(flipHorz);
+    content.getChildren().add(flipHorz);
     
     piecePopup = new JFXPopup((Pane)this.getParent(),content);
     piecePopup.setSource(this);   
@@ -174,8 +183,8 @@ public class PieceView extends Pane {
     this.getChildren().clear();
     for (Square s : pieceModel.getSquares()) {
       SquareView view = new SquareView(squareSize);
-      view.setX(s.getRow() * squareSize);
-      view.setY(s.getCol() * squareSize);
+      view.setX(s.getCol() * squareSize);
+      view.setY(s.getRow() * squareSize);
       getChildren().add(view);
     }
   }
