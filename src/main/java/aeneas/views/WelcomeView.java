@@ -6,9 +6,6 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import aeneas.controllers.ViewAchievementsController;
-import aeneas.controllers.ViewSelectBuildLevelsController;
-import aeneas.controllers.ViewSelectPlayLevelsController;
 import aeneas.models.Model;
 
 import javafx.fxml.FXML;
@@ -27,11 +24,11 @@ public class WelcomeView extends VBox implements Initializable{
 	@FXML
 	private JFXButton viewAchievementsButton;
 
-  private MainView parentView;
+  private MainView mainView;
 
-  public WelcomeView(MainView parentView, Model model){
+  public WelcomeView(MainView mainView, Model model){
 
-    this.parentView = parentView;
+    this.mainView = mainView;
 
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("Welcome.fxml"));
@@ -48,13 +45,17 @@ public class WelcomeView extends VBox implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 
     //should there be a controller for this? It seems a bit excessive.
-		viewAchievementsButton.setOnMouseClicked(
-		        new ViewAchievementsController(parentView, null));
+		viewAchievementsButton.setOnMouseClicked((e) -> {
+      mainView.switchToViewAchievementsView();
+    });
 
-		playSelectLevelButton.setOnMouseClicked(
-		        new ViewSelectPlayLevelsController(parentView, null));
+		playSelectLevelButton.setOnMouseClicked((e) -> {
+      mainView.switchToPlaySelectLevelView();
+    });
 
-		buildSelectLevelButton.setOnMouseClicked(new ViewSelectBuildLevelsController(parentView, null));
+		buildSelectLevelButton.setOnMouseClicked((e) -> {
+      mainView.switchToBuildSelectLevelView();
+    });
 
 	}
 }
