@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 /**
- * @brief Handles a button press on one button in the play select view
+ * Handles a button press on one button in the play select view.
  * 
  * @author Joseph Martin
  */
