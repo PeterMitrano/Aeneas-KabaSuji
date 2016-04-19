@@ -16,6 +16,29 @@ public abstract class Level implements java.io.Serializable {
 
   private boolean locked;
 
+  public enum LevelType {
+    PUZZLE ("Puzzle"),
+    LIGHTNING ("Lightning"),
+    RELEASE ("Release");
+
+    private final String name;
+    LevelType(String name) {
+      this.name = name;
+    }
+
+    public static LevelType fromString(String name) {
+      switch (name) {
+        case "Puzzle":
+          return PUZZLE;
+        case "Lightning":
+          return LIGHTNING;
+        case "Release":
+          return RELEASE;
+      }
+      return PUZZLE;
+    }
+  }
+
   public Level(Bullpen bullpen, boolean prebuilt) {
     this.bullpen = bullpen;
     this.prebuilt = prebuilt;
@@ -105,4 +128,9 @@ public abstract class Level implements java.io.Serializable {
 
     return level;
   }
+
+  /**
+   * Get the level type without doing lots of instanceof's.
+   */
+  public abstract LevelType getLevelType();
 }

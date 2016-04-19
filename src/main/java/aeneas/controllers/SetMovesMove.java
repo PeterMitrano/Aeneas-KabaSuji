@@ -1,46 +1,70 @@
 package aeneas.controllers;
+import aeneas.models.Level;
+import aeneas.models.Level.LevelType;
 import aeneas.models.PuzzleLevel;
+import aeneas.models.ReleaseLevel;
 
 /**
  * Move action to set the allotted moves for a puzzle level
- * For use in the builder
+ * For use in the builder.
  *
  * @author Logan
- *
+ * @author jbkuszmaul
  */
 public class SetMovesMove implements IMove {
 
+  Level level;
 
-  PuzzleLevel level;
-
-  int moves;
+  int oldMoves;
+  int newMoves;
 
   /**
    * Constructor
    * @param level the level that is being edited
    * @param moves the amount of moves to set the level too
    */
-  public SetMovesMove(PuzzleLevel level, int moves) {
+  public SetMovesMove(Level level, int moves) {
     this.level = level;
-    this.moves = moves;
+    this.newMoves = moves;
   }
 
   @Override
   public boolean execute() {
-    // TODO Auto-generated method stub
-    return false;
+    if (!isValid()) return false;
+    switch (level.getLevelType()) {
+      case PUZZLE:
+        PuzzleLevel p = (PuzzleLevel)level;
+        oldMoves = p.getAllowedMoves();
+        p.setAllowedMoves(newMoves);
+        break;
+      case RELEASE:
+        ReleaseLevel r = (ReleaseLevel)level;
+        oldMoves = r.getAllowedMoves();
+        r.setAllowedMoves(newMoves);
+        break;
+    }
+    return true;
   }
 
   @Override
   public boolean undo() {
-    // TODO Auto-generated method stub
-    return false;
+    if (!isValid()) return false;
+    switch (level.getLevelType()) {
+      case PUZZLE:
+        PuzzleLevel p = (PuzzleLevel)level;
+        p.setAllowedMoves(oldMoves);
+        break;
+      case RELEASE:
+        ReleaseLevel r = (ReleaseLevel)level;
+        r.setAllowedMoves(oldMoves);
+        break;
+    }
+    return true;
   }
 
   @Override
   public boolean isValid() {
-    // TODO Auto-generated method stub
-    return false;
+    return level.getLevelType() != LevelType.LIGHTNING;
   }
 
 }

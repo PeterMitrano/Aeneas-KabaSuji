@@ -43,9 +43,9 @@
                 <ToggleGroup fx:id="levelType" />
               </fx:define>
               <children>
-                <RadioButton text="Puzzle" toggleGroup="$levelType" />
-                <RadioButton text="Lightning" toggleGroup="$levelType" />
-                <RadioButton text="Release" toggleGroup="$levelType" />
+                <RadioButton fx:id="PuzzleRadio" text="Puzzle" toggleGroup="$levelType" />
+                <RadioButton fx:id="LightningRadio" text="Lightning" toggleGroup="$levelType" />
+                <RadioButton fx:id="ReleaseRadio" text="Release" toggleGroup="$levelType" />
               </children>
             </VBox>
             <VBox spacing="4">

@@ -65,13 +65,14 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
       if (loadFile == null) return;
       try {
         Level loadLevel = Level.loadLevel(loadFile);
-        parentView.getBuildLevelView().levelModel = loadLevel;
+        parentView.getBuildLevelView().setLevel(loadLevel);
       } catch (IOException i) {
         System.out.println("Error occurred opening file.");
       }
     });
 
     createNewLevelLabel.setOnMouseClicked((e) -> {
+      parentView.getBuildLevelView().setLevel(null);
       parentView.switchToBuildLevelView();
     });
 

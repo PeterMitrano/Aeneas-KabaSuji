@@ -28,4 +28,9 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
     return board;
   }
 
+  @Override
+  public LevelType getLevelType() { return LevelType.RELEASE; }
+
+  public void setAllowedMoves(int moves) {};
+  public int getAllowedMoves() { return 3; }
 }
