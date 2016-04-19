@@ -2,6 +2,11 @@ package aeneas.models;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a board (which keeps track of its pieces, hints, and the shape of the board).
+ * 
+ * @author Joseph Martin
+ */
 public abstract class Board implements java.io.Serializable {
 
   public static final int SIZE = 12;
@@ -11,6 +16,8 @@ public abstract class Board implements java.io.Serializable {
   ArrayList<PlacedPiece> hints;
 
   public Board() {
+    pieces = new ArrayList<>();
+    hints = new ArrayList<>();
     for (int i=0;i<SIZE;i++){
       for (int j=0;j<SIZE;j++){
         squares[i][j] = true;
@@ -62,6 +69,7 @@ public abstract class Board implements java.io.Serializable {
     // If the piece overlaps an existing piece, placement not valid
     if(intersects(piece)) return false;
     // Otherwise placement is valid
+    pieces.add(piece);
     return true;
   }
 

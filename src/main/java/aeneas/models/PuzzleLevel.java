@@ -1,5 +1,9 @@
 package aeneas.models;
 
+/**
+ * 
+ * @author Joseph Martin
+ */
 public class PuzzleLevel extends Level implements java.io.Serializable {
   public static final String helpText = "";
 
@@ -16,9 +20,7 @@ public class PuzzleLevel extends Level implements java.io.Serializable {
 
   @Override
   public int getStarsEarned() {
-    int currentStars = Math.max(0, 3 - bullpen.pieces.size());
-    this.starsEarned = Math.max(this.starsEarned, currentStars);
-    return this.starsEarned;
+    return Math.max(0, 3 - bullpen.pieces.size());
   }
 
   @Override

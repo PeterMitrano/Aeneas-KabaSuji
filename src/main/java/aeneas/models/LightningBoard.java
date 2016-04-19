@@ -1,5 +1,9 @@
 package aeneas.models;
 
+/**
+ * A Subclass of board with functionality specific to lightning mode.
+ * @author Joseph Martin
+ */
 public class LightningBoard extends Board implements java.io.Serializable {
   boolean coveredSquares[][];
   
@@ -14,7 +18,22 @@ public class LightningBoard extends Board implements java.io.Serializable {
     }
   }
   
-  int numCoveredSquares() {
+  @Override
+  public boolean addPiece(PlacedPiece piece) {
+    if(super.addPiece(piece)) {
+      // Mark the squares as covered
+      for(Square s : piece.getSquares()) {
+        coveredSquares[s.getRow()][s.getCol()] = true;
+      }
+      // Remove the piece
+      removePiece(piece);
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  public int numCoveredSquares() {
     int count = 0;
     
     for(int j = 0; j < SIZE; j++) {

@@ -1,5 +1,9 @@
 package aeneas.models;
 
+/**
+ * 
+ * @author Joseph Martin
+ */
 public class ReleaseNumber implements java.io.Serializable {
   public enum Color {
     RED,

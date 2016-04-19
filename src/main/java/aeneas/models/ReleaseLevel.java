@@ -2,6 +2,10 @@ package aeneas.models;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Joseph Martin
+ */
 public class ReleaseLevel extends Level implements java.io.Serializable {
   public static final String helpText = "";
 
@@ -34,9 +38,7 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
   
   @Override
   public int getStarsEarned() {
-    int currentStars = Math.max(0, 3-numCoveredNumberSets());
-    this.starsEarned = Math.max(this.starsEarned, currentStars);
-    return this.starsEarned;
+    return Math.max(0, 3-numCoveredNumberSets());
   }
 
   @Override

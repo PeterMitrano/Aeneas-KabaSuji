@@ -1,5 +1,9 @@
 package aeneas.models;
 
+/**
+ * 
+ * @author Joseph Martin
+ */
 public class Piece implements java.io.Serializable {
   public enum Axis {
     VERTICAL,
