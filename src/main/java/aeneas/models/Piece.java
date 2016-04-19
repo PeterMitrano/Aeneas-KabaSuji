@@ -14,6 +14,7 @@ public class Piece implements java.io.Serializable {
   Square squares[];
   private int width;
   private int height;
+  public boolean inBullpen;
 
 
   public Piece(Square[] squares) {
@@ -28,7 +29,8 @@ public class Piece implements java.io.Serializable {
     }
     width++;
     height++;
-
+    //this should be removed once the actual adding of pieces is implemented
+    inBullpen = true;
   }
 
   public void flip(Axis axis) {
