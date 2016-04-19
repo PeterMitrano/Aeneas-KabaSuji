@@ -1,5 +1,7 @@
 package aeneas.models;
 
+/** achievements are locked or unlocked, and a name
+ */
 public class Achievement implements java.io.Serializable {
   boolean unlocked;
   String name;
