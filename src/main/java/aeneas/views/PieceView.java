@@ -1,5 +1,8 @@
 package aeneas.views;
 
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXPopup;
+
 import aeneas.controllers.FlipMove;
 import aeneas.controllers.IMove;
 import aeneas.controllers.RotateMove;
@@ -8,7 +11,14 @@ import aeneas.models.Piece;
 import aeneas.models.Square;
 import aeneas.models.Piece.Axis;
 import aeneas.models.Piece.Dir;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -16,10 +26,16 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class PieceView extends Pane {
 
+  private JFXPopup piecePopup;
+  
+  
+  
   Piece pieceModel;
   Model model;
   int squareSize;
@@ -31,7 +47,7 @@ public class PieceView extends Pane {
     this.model = model;
     this.squareSize = squareSize;
     inBullpen = true;
-    refresh();
+    
 
     // callback for when drags are initiated
     this.setOnDragDetected((MouseEvent event) -> {
@@ -55,9 +71,8 @@ public class PieceView extends Pane {
 
       event.consume();
     });
-
+    
     this.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-      System.out.println("got mouse event");
       if(!inBullpen)
         return;
       if(event.getButton().equals(MouseButton.PRIMARY)){
@@ -70,7 +85,7 @@ public class PieceView extends Pane {
             move = new FlipMove(pieceModel, Axis.VERTICAL);
           }
         }
-        else if(event.getClickCount() % 2 == 0 ){
+        else {
           if(event.isShiftDown()){
             move = new RotateMove(pieceModel, Dir.COUNTERCLOCKWISE);
           }
@@ -80,11 +95,68 @@ public class PieceView extends Pane {
         }
         if(move != null && move.execute()){
           model.addNewMove(move);
-          System.out.println("move done");
           refresh();
         }
+      }else if(event.getButton().equals(MouseButton.SECONDARY)){
+          piecePopup.setPopupContainer((Pane)this.getParent());
+          piecePopup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, squareSize *1.5, squareSize*1.5);
       }
     });
+    
+    
+    
+    JFXListView<Label> content = new JFXListView<Label>();
+    
+    Label rotateCW = new Label("rotate CW");
+    rotateCW.setOnMouseClicked((MouseEvent event) ->{
+      IMove move = new RotateMove(pieceModel, Dir.CLOCKWISE);
+      if(move != null && move.execute()){
+        model.addNewMove(move);
+        refresh();
+      }
+    });
+    content.getItems().add(rotateCW);
+    
+    Label rotateCCW = new Label("rotate CCW");
+    rotateCCW.setOnMouseClicked((MouseEvent event) ->{
+      IMove move = new RotateMove(pieceModel, Dir.COUNTERCLOCKWISE);
+      if(move != null && move.execute()){
+        model.addNewMove(move);
+        refresh();
+      }
+    });
+    content.getItems().add(rotateCCW);
+    
+    Label flipVert = new Label("Flip Vert");
+    flipVert.setOnMouseClicked((MouseEvent event) ->{
+      IMove move = new FlipMove(pieceModel, Axis.VERTICAL);
+      if(move != null && move.execute()){
+        model.addNewMove(move);
+        refresh();
+      }
+    });
+    content.getItems().add(flipVert);
+    
+    Label flipHorz = new Label("Flip Horz");
+    flipHorz.setOnMouseClicked((MouseEvent event) ->{
+      IMove move = new FlipMove(pieceModel, Axis.HORIZONTAL);
+      if(move != null && move.execute()){
+        model.addNewMove(move);
+        refresh();
+      }
+    });
+    content.getItems().add(flipHorz);
+    
+    piecePopup = new JFXPopup((Pane)this.getParent(),content);
+    piecePopup.setSource(this);   
+    getChildren().add(piecePopup);
+    content.setOnMouseExited((e) -> {
+      piecePopup.close();
+      
+      
+    });
+    refresh();
+    
   }
   
   
