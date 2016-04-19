@@ -9,7 +9,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.effects.JFXDepthManager;
 
-import aeneas.controllers.StartBuildLevelController;
 import aeneas.models.Model;
 import aeneas.models.Level;
 
@@ -35,11 +34,11 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
 
   private Model model;
 
-  private MainView parentView;
+  private MainView mainView;
 
-  BuildSelectLevelView(MainView parentView, Model model) {
+  BuildSelectLevelView(MainView mainView, Model model) {
     this.model = model;
-    this.parentView = parentView;
+    this.mainView = mainView;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("BuildSelectLevel.fxml"));
       loader.setRoot(this);
@@ -58,22 +57,24 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
       System.out.println("selected " + fileList.getSelectionModel().getSelectedItem());
     });
 
-    editLevel.setOnMouseClicked(new StartBuildLevelController(parentView, null));
+    editLevel.setOnMouseClicked((e) -> {
+      mainView.switchToBuildLevelView();
+    });
 
     openFile.setOnMouseClicked((e) -> {
-      File loadFile = parentView.showOpenDialog();
+      File loadFile = mainView.showOpenDialog();
       if (loadFile == null) return;
       try {
         Level loadLevel = Level.loadLevel(loadFile);
-        parentView.getBuildLevelView().setLevel(loadLevel);
+        mainView.getBuildLevelView().setLevel(loadLevel);
       } catch (IOException i) {
         System.out.println("Error occurred opening file.");
       }
     });
 
     createNewLevelLabel.setOnMouseClicked((e) -> {
-      parentView.getBuildLevelView().setLevel(null);
-      parentView.switchToBuildLevelView();
+      mainView.getBuildLevelView().setLevel(null);
+      mainView.switchToBuildLevelView();
     });
 
     JFXDepthManager.setDepth(fileList, 1);
