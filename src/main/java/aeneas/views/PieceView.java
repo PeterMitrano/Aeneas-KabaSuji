@@ -11,14 +11,8 @@ import aeneas.models.Piece;
 import aeneas.models.Square;
 import aeneas.models.Piece.Axis;
 import aeneas.models.Piece.Dir;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -26,10 +20,12 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
+/**
+ * View class for displaying a Piece
+ * 
+ */
 public class PieceView extends Pane {
 
   private JFXPopup piecePopup;
@@ -42,11 +38,17 @@ public class PieceView extends Pane {
   
   boolean inBullpen;
 
+  /**
+   * Constructor
+   * @param pieceModel The Piece that this view displays
+   * @param model The model that is being used
+   * @param squareSize The size of a single square in the piece
+   */
   public PieceView(Piece pieceModel, Model model, int squareSize) {
     this.pieceModel = pieceModel;
     this.model = model;
     this.squareSize = squareSize;
-    inBullpen = true;
+    inBullpen = true; //this should be removed once the actual adding of pieces is implemented
     
 
     // callback for when drags are initiated
@@ -72,11 +74,14 @@ public class PieceView extends Pane {
       event.consume();
     });
     
+    
+    //callback for handling clicks on pieces
     this.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
       if(!inBullpen)
         return;
       if(event.getButton().equals(MouseButton.PRIMARY)){
         IMove move = null;
+        //control click to flip
         if(event.isControlDown()){
           if(event.isShiftDown()){
             move = new FlipMove(pieceModel, Axis.HORIZONTAL);
@@ -85,6 +90,7 @@ public class PieceView extends Pane {
             move = new FlipMove(pieceModel, Axis.VERTICAL);
           }
         }
+        //click to rotate
         else {
           if(event.isShiftDown()){
             move = new RotateMove(pieceModel, Dir.COUNTERCLOCKWISE);
@@ -104,7 +110,7 @@ public class PieceView extends Pane {
     });
     
     
-    
+    //create labels for popup
     JFXListView<Label> content = new JFXListView<Label>();
     
     Label rotateCW = new Label("rotate CW");
@@ -150,17 +156,21 @@ public class PieceView extends Pane {
     piecePopup = new JFXPopup((Pane)this.getParent(),content);
     piecePopup.setSource(this);   
     getChildren().add(piecePopup);
+    
+    //close popup when mouse leaves
     content.setOnMouseExited((e) -> {
-      piecePopup.close();
-      
-      
+      piecePopup.close();     
     });
+    
+    
     refresh();
     
   }
   
-  
-  private void refresh(){
+  /**
+   * Refreshes the view to match the stored piece
+   */
+  public void refresh(){
     this.getChildren().clear();
     for (Square s : pieceModel.getSquares()) {
       SquareView view = new SquareView(squareSize);
