@@ -111,10 +111,8 @@ public class BuildLevelView extends StackPane implements Initializable {
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
 
     addPiece.setOnMouseClicked((e) -> {
-      //open dialog to add piece...
-      //for now just add a test piece
-
       piecePickerDialog.show(this);
+      piecesPane.getChildren().clear();
 
       for (Piece p : PieceFactory.pieces) {
         PieceView pView = new PieceView((Pane) this, p, model, PIECE_PICKER_SQUARE_SIZE);
