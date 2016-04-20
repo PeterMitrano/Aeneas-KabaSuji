@@ -21,7 +21,7 @@ public class ChangeLevelTypeMove implements IMove {
    * Constructor
    *
    * @param level The level that is currently being played
-   * @param model The game model that holds the level being changed
+   * @param view The build level view.
    * @param type the type of the level to be changed to
    */
   public ChangeLevelTypeMove(Level level, BuildLevelView view, LevelType type) {
