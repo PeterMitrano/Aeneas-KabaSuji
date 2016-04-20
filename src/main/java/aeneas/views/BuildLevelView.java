@@ -10,12 +10,13 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXListView;
 
+import aeneas.controllers.BullpenController;
+import aeneas.controllers.BullpenController.BullpenLogic;
 import aeneas.controllers.SaveLevelController;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
-import aeneas.models.Square;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
@@ -69,6 +70,7 @@ public class BuildLevelView extends StackPane implements Initializable {
   Level levelModel;
   MainView mainView;
   BullpenView bullpenView;
+  BullpenController controller;
 
   BuildLevelView(MainView mainView, Level levelModel, Model model) {
     this.model = model;
@@ -86,21 +88,11 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    bullpenView = new BullpenView(bullpenBox, this);
+    this.bullpenView = new BullpenView(bullpenBox, (Pane) this);
+    this.controller = new BullpenController(levelModel.getBullpen(),
+        bullpenView, BullpenLogic.editorLogic());
 
-    Piece testPiece = new Piece(new Square[] {
-        new Square(0, 0),
-        new Square(1, 0),
-        new Square(1, 1),
-        new Square(1, 2),
-        new Square(1, 3),
-        new Square(1, 4),
-    });
-
-
-    bullpenView.addPiece(testPiece, model);
-
-    boardView = new BoardView(levelModel.getBoard());
+    this.boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
@@ -114,9 +106,13 @@ public class BuildLevelView extends StackPane implements Initializable {
       piecePickerDialog.show(this);
       piecesPane.getChildren().clear();
 
-      for (Piece p : PieceFactory.pieces) {
-        PieceView pView = new PieceView((Pane) this, p, model, PIECE_PICKER_SQUARE_SIZE);
+      for (Piece pieceModel : PieceFactory.pieces) {
+        PieceView pView = new PieceView((Pane) this, pieceModel, model, PIECE_PICKER_SQUARE_SIZE);
         piecesPane.getChildren().add(pView);
+
+        pView.setOnMouseClicked((click) -> {
+          controller.addPiece(pieceModel);
+        });
       }
     });
   }

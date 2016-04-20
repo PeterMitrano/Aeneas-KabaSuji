@@ -1,7 +1,8 @@
 package aeneas.controllers;
 
-import aeneas.models.Level;
-import aeneas.views.PlayLevelView;
+import aeneas.models.Bullpen;
+import aeneas.models.Piece;
+import aeneas.views.BullpenView;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -41,23 +42,31 @@ public class BullpenController implements EventHandler<MouseEvent> {
     }
   }
 
-  Level levelModel;
+  Bullpen bullpenModel;
+  BullpenView bullpenView;
   BullpenLogic logic;
 
-  public BullpenController(Level levelModel, BullpenLogic logic) {
-    this.levelModel = levelModel;
+  public BullpenController(Bullpen bullpenModel, BullpenView bullpenView, BullpenLogic logic) {
+    this.bullpenModel = bullpenModel;
+    this.bullpenView = bullpenView;
     this.logic = logic;
   }
 
   @Override
   public void handle(MouseEvent event) {
-    if (logic.canAddNewPiece) {
-      //levelModel.getBullpen().addPiece();
-    }
+  }
 
-    //this should be on Drop
+  public void returnPiece(Piece pieceModel) {
     if (logic.canReturnPiece) {
+      bullpenModel.addPiece(pieceModel);
+      bullpenView.refresh();
     }
   }
 
+  public void addPiece(Piece pieceModel) {
+    if (logic.canAddNewPiece) {
+      bullpenModel.addPiece(pieceModel);
+      bullpenView.refresh();
+    }
+  }
 }
