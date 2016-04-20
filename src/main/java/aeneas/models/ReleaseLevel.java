@@ -2,6 +2,8 @@ package aeneas.models;
 
 import java.util.ArrayList;
 
+import javafx.scene.paint.Color;
+
 /**
  * 
  * @author Joseph Martin
@@ -17,7 +19,7 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
     this.numbers = numbers;
   }
   
-  private boolean numberSetIsCovered(ReleaseNumber.Color color) {
+  private boolean numberSetIsCovered(Color color) {
     for(ReleaseNumber n : numbers) {
       if(n.color == color && board.getPieceAtLocation(n.row, n.col) != null) {
         return false;
@@ -29,9 +31,9 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
   
   int numCoveredNumberSets() {
     int count = 0;
-    count += numberSetIsCovered(ReleaseNumber.Color.RED) ? 1 : 0;
-    count += numberSetIsCovered(ReleaseNumber.Color.GREEN) ? 1 : 0;
-    count += numberSetIsCovered(ReleaseNumber.Color.BLUE) ? 1 : 0;
+    count += numberSetIsCovered(ReleaseNumber.color1) ? 1 : 0;
+    count += numberSetIsCovered(ReleaseNumber.color2) ? 1 : 0;
+    count += numberSetIsCovered(ReleaseNumber.color3) ? 1 : 0;
 
     return count;
   }

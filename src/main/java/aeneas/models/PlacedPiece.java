@@ -28,7 +28,7 @@ public class PlacedPiece {
     Square[] pieceSquares = piece.getSquares();
     Square[] placedSquares = new Square[pieceSquares.length];
     for(int i = 0; i < pieceSquares.length; i++) {
-      placedSquares[i] = new Square(row+pieceSquares[i].getRow(), col+pieceSquares[i].getCol());
+      placedSquares[i] = new Square(row+pieceSquares[i].getRow(), col+pieceSquares[i].getCol(),piece.getColor());
     }
 
     return placedSquares;

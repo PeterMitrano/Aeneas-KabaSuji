@@ -1,5 +1,7 @@
 package aeneas.models;
 
+import javafx.scene.paint.Color;
+
 /**
  *
  * @author Joseph Martin
@@ -19,13 +21,20 @@ public class Piece implements java.io.Serializable {
   private int width;
   private int height;
   public boolean inBullpen;
+  private Color color;
 
+  
+  public Piece(Square[]squares){
+    this(squares, Color.BLUE);
+  }
 
-  public Piece(Square[] squares) {
+  public Piece(Square[] squares, Color color) {
     this.squares = squares;
+    this.color = color;
     width = 0;
     height = 0;
     for (Square s : squares){
+      s.setColor(color);
       if(s.getCol() > width)
         width = s.getCol();
       if(s.getRow() > height)
@@ -81,4 +90,6 @@ public class Piece implements java.io.Serializable {
   public int getHeight(){
     return height;
   }
+  
+  public Color getColor(){ return color;}
 }
