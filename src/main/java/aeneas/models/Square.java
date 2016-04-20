@@ -1,5 +1,9 @@
 package aeneas.models;
 
+/**
+ * 
+ * @author Joseph Martin
+ */
 public class Square implements java.io.Serializable {
   int dRow, dCol;
 
