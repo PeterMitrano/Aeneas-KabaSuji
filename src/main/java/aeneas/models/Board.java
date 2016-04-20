@@ -112,4 +112,16 @@ public abstract class Board implements java.io.Serializable {
 
     return false;
   }
+  
+  /**
+   * Gets all the pieces currently on the board
+   * @return The list of pieces on the board.
+   */
+  public ArrayList<PlacedPiece> getPieces() { return pieces; }
+  
+  /**
+   * Gets the list of hints currently on the board
+   * @return The list of hints on the board.
+   */
+  public ArrayList<PlacedPiece> getHints() { return hints; }
 }
