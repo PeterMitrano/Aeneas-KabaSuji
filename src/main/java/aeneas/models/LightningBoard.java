@@ -22,7 +22,7 @@ public class LightningBoard extends Board implements java.io.Serializable {
   public boolean addPiece(PlacedPiece piece) {
     if(super.addPiece(piece)) {
       // Mark the squares as covered
-      for(Square s : piece.getSquares()) {
+      for(Square s : piece.getSquaresInBoardFrame()) {
         coveredSquares[s.getRow()][s.getCol()] = true;
       }
       // Remove the piece

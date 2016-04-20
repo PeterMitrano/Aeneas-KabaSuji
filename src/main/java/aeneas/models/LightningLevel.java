@@ -17,7 +17,9 @@ public class LightningLevel extends Level implements java.io.Serializable {
 
   @Override
   public int getStarsEarned() {
-    return Math.max(0, 3 - (board.numValidSquares()-board.numCoveredSquares()+5)/6);
+    int numSquaresUncovered = board.numValidSquares()-board.numCoveredSquares();
+    // Divide by 6, rounding up, then subtract from 3, and restrict to >0.
+    return Math.max(0, 3 - (numSquaresUncovered+5)/6);
   }
 
   @Override

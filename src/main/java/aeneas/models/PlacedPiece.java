@@ -24,7 +24,7 @@ public class PlacedPiece {
    * then this will return an array containing  a square with row=8, col=10.
    * @return The list of squares
    */
-  public Square[] getSquares() {
+  public Square[] getSquaresInBoardFrame() {
     Square[] pieceSquares = piece.getSquares();
     Square[] placedSquares = new Square[pieceSquares.length];
     for(int i = 0; i < pieceSquares.length; i++) {
@@ -39,7 +39,7 @@ public class PlacedPiece {
    * @return True if the piece intersects the specified coordinate, false otherwise.
    */
   public boolean intersects(int row, int col) {
-    for(Square s : getSquares()) {
+    for(Square s : getSquaresInBoardFrame()) {
       if(s.getRow() == row || s.getCol() == col) {
         return true;
       }
@@ -53,7 +53,7 @@ public class PlacedPiece {
    * @return True if the two pieces intersect, false otherwise.
    */
   public boolean intersects(PlacedPiece other) {
-    for(Square s : getSquares()) {
+    for(Square s : getSquaresInBoardFrame()) {
       if(other.intersects(s.getRow(), s.getCol())) {
         return true;
       }

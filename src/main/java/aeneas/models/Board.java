@@ -63,7 +63,7 @@ public abstract class Board implements java.io.Serializable {
   public boolean addPiece(PlacedPiece piece) {
     // If any of the squares of the piece are at an invalid location,
     // piece placement not valid
-    for(Square s : piece.getSquares()) {
+    for(Square s : piece.getSquaresInBoardFrame()) {
       if(!locationValid(s)) return false;
     }
     // If the piece overlaps an existing piece, placement not valid
