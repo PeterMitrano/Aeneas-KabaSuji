@@ -19,9 +19,10 @@ public class SetMovesMove implements IMove {
   int newMoves;
 
   /**
-   * Constructor
+   * Constructor.
+   *
    * @param level the level that is being edited
-   * @param moves the amount of moves to set the level too
+   * @param moves the amount of moves to set the level too. Positive.
    */
   public SetMovesMove(Level level, int moves) {
     this.level = level;
@@ -64,7 +65,8 @@ public class SetMovesMove implements IMove {
 
   @Override
   public boolean isValid() {
-    return level.getLevelType() != LevelType.LIGHTNING;
+    return level != null && newMoves >= 0 &&
+           level.getLevelType() != LevelType.LIGHTNING;
   }
 
 }

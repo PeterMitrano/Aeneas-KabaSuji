@@ -32,19 +32,19 @@ public class SetTimeMove implements IMove {
     if (!isValid()) return false;
     oldTime = level.getAllowedTime();
     level.setAllowedTime(newTime);
-    return false;
+    return true;
   }
 
   @Override
   public boolean undo() {
     if (!isValid()) return false;
     level.setAllowedTime(oldTime);
-    return false;
+    return true;
   }
 
   @Override
   public boolean isValid() {
-    return true;
+    return level != null;
   }
 
 }
