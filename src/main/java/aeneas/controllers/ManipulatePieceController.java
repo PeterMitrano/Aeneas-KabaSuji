@@ -6,14 +6,15 @@ import aeneas.models.Piece.Axis;
 import aeneas.models.Piece.Dir;
 import aeneas.views.PieceView;
 
+import javafx.animation.RotateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-
+import javafx.util.Duration;
 
 /**
- * single click rotates CW, Shift-click rotates CCW
- * ctrl-click flips across vertical axis, shift-ctrl-click flips across horizontal axis
+ * single click rotates CW, Shift-click rotates CCW ctrl-click flips across
+ * vertical axis, shift-ctrl-click flips across horizontal axis
  */
 public class ManipulatePieceController implements EventHandler<MouseEvent> {
 
@@ -58,7 +59,19 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
     IMove move = new RotateMove(pieceModel, dir);
     if (move != null && move.execute()) {
       model.addNewMove(move);
-      pieceView.refresh();
+      //pieceView.refresh();
+      RotateTransition rotateTransition = new RotateTransition(
+					Duration.millis(500), pieceView);
+      rotateTransition.setCycleCount(1);
+
+			if (dir == Dir.CLOCKWISE) {
+        rotateTransition.setByAngle(90f);
+      }
+      else {
+        rotateTransition.setByAngle(-90f);
+      }
+
+      rotateTransition.play();
     }
   }
 
