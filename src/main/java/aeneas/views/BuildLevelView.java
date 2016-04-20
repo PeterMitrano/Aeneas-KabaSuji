@@ -10,8 +10,8 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXListView;
 
-import aeneas.controllers.BullpenController;
-import aeneas.controllers.BullpenController.BullpenLogic;
+import aeneas.controllers.AddPieceMove;
+import aeneas.controllers.IMove;
 import aeneas.controllers.SaveLevelController;
 import aeneas.models.Level;
 import aeneas.models.Model;
@@ -70,7 +70,6 @@ public class BuildLevelView extends StackPane implements Initializable {
   Level levelModel;
   MainView mainView;
   BullpenView bullpenView;
-  BullpenController controller;
 
   BuildLevelView(MainView mainView, Level levelModel, Model model) {
     this.model = model;
@@ -89,8 +88,6 @@ public class BuildLevelView extends StackPane implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.bullpenView = new BullpenView(bullpenBox, (Pane) this);
-    this.controller = new BullpenController(levelModel.getBullpen(),
-        bullpenView, BullpenLogic.editorLogic());
 
     this.boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
@@ -111,7 +108,10 @@ public class BuildLevelView extends StackPane implements Initializable {
         piecesPane.getChildren().add(pView);
 
         pView.setOnMouseClicked((click) -> {
-          controller.addPiece(pieceModel);
+          IMove move = new AddPieceMove(levelModel.getBullpen(), pieceModel);
+          if (move.execute()){
+            bullpenView.refresh(model, levelModel.getBullpen());
+          }
         });
       }
     });

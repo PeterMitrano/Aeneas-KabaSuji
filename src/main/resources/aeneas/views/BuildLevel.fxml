@@ -26,10 +26,10 @@
   <BorderPane>
   <left>
     <VBox alignment="BOTTOM_LEFT">
-      <ScrollPane fitToWidth="true" style="-fx-background-color:transparent;">
+      <ScrollPane fx:id="scrollpane" fitToWidth="true" style="-fx-background-color:transparent;">
           <VBox prefWidth="115" fx:id="bullpenBox" spacing="20" alignment="TOP_CENTER" />
       </ScrollPane>
-      <JFXButton fx:id="addPiece" prefWidth="50" prefHeight="50" styleClass="action-button">
+      <JFXButton fx:id="addPiece" minWidth="50" minHeight="50" styleClass="action-button">
         <graphic>
           <FontAwesomeIconView glyphName="PLUS" size="2em" />
         </graphic>

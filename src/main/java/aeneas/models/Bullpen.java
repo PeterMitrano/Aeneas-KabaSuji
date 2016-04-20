@@ -8,21 +8,79 @@ import java.util.ArrayList;
  * @author Joseph Martin
  */
 public class Bullpen implements java.io.Serializable {
+
+  /**
+   * @return the logic
+   */
+  public BullpenLogic getLogic() {
+    return logic;
+  }
+
+  public static class BullpenLogic {
+    private boolean canReturnPiece;
+    private boolean canAddNewPiece;
+
+    public static BullpenLogic editorLogic() {
+      BullpenLogic b = new BullpenLogic();
+      b.canAddNewPiece = true;
+      b.canReturnPiece = true;
+      return b;
+    }
+
+    public static BullpenLogic puzzleLogic() {
+      BullpenLogic b = new BullpenLogic();
+      b.canAddNewPiece = false;
+      b.canReturnPiece = true;
+      return b;
+    }
+
+    public static BullpenLogic lightningLogic() {
+      BullpenLogic b = new BullpenLogic();
+      b.canAddNewPiece = false;
+      b.canReturnPiece = false;
+      return b;
+    }
+
+    public static BullpenLogic releaseLogic() {
+      BullpenLogic b = new BullpenLogic();
+      b.canAddNewPiece = false;
+      b.canReturnPiece = false;
+      return b;
+    }
+
+    /**
+     * @return the canReturnPiece
+     */
+    public boolean isCanReturnPiece() {
+      return canReturnPiece;
+    }
+
+    /**
+     * @return the canAddNewPiece
+     */
+    public boolean isCanAddNewPiece() {
+      return canAddNewPiece;
+    }
+  }
+
   ArrayList<Piece> pieces;
+  BullpenLogic logic;
 
   /**
    * Construct a bullpen with an empty list of pieces.
    */
-  public Bullpen() {
+  public Bullpen(BullpenLogic logic) {
     this.pieces = new ArrayList<Piece>();
+    this.logic = logic;
   }
 
   /**
    * Construct a bullpen with the given list of pieces
    * @param pieces The initial list of pieces for the bullpen to contain.
    */
-  public Bullpen(ArrayList<Piece> pieces) {
+  public Bullpen(BullpenLogic logic, ArrayList<Piece> pieces) {
     this.pieces = pieces;
+    this.logic = logic;
   }
 
   /**

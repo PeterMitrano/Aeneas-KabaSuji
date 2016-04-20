@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 public class BullpenView {
 
   VBox bullpenBox;
-  Pane levelView ;
+  Pane levelView;
 
   static final int SQUARE_SIZE = 16;
 
@@ -33,7 +33,7 @@ public class BullpenView {
 
     bullpenBox.getChildren().clear();
 
-    for (int i=0; i < bullpen.getPieces().size(); i++ ) {
+    for (int i=bullpen.getPieces().size() - 1; i >= 0; i-- ) {
       Piece piece = bullpen.getPieces().get(i);
       Pane piecePane = new Pane();
       PieceView pieceView = new PieceView(levelView, piece, model, SQUARE_SIZE);
