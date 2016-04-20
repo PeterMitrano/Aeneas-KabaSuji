@@ -25,29 +25,26 @@
     xmlns="http://javafx.com/javafx/2.2">
   <BorderPane>
   <left>
-    <ScrollPane fitToWidth="true" fitToHeight="true">
-      <StackPane alignment="BOTTOM_LEFT">
-        <VBox prefWidth="115" fx:id="bullpenBox" spacing="20"
-          alignment="TOP_CENTER" />
-        <JFXButton fx:id="addPiece" prefWidth="50" prefHeight="50"
-            styleClass="action-button">
-          <graphic>
-            <FontAwesomeIconView glyphName="PLUS"
-              size="2em" />
-          </graphic>
-          <StackPane.margin>
-            <Insets left="10" bottom="10" />
-          </StackPane.margin>
-        </JFXButton>
-      </StackPane>
-    </ScrollPane>
+    <VBox alignment="BOTTOM_LEFT">
+      <ScrollPane fitToWidth="true" style="-fx-background-color:transparent;">
+          <VBox prefWidth="115" fx:id="bullpenBox" spacing="20" alignment="TOP_CENTER" />
+      </ScrollPane>
+      <JFXButton fx:id="addPiece" prefWidth="50" prefHeight="50" styleClass="action-button">
+        <graphic>
+          <FontAwesomeIconView glyphName="PLUS" size="2em" />
+        </graphic>
+        <VBox.margin>
+          <Insets left="10" bottom="10" top="10" right="10"/>
+        </VBox.margin>
+      </JFXButton>
+    </VBox>
   </left>
   <center>
     <VBox fx:id="centerBox" spacing="10" alignment="TOP_CENTER">
 
       <VBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color:#d1d1d1;">
         <HBox spacing="20">
-          <VBox fx:id="levelTypeBox" spacing="10">
+          <VBox fx:id="levelTypeBox" spacing="10" style="border:none;">
             <Label textAlignment="RIGHT" text="Type" />
             <VBox spacing="4">
               <fx:define>
