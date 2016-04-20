@@ -9,7 +9,7 @@ public class PlacedPiece {
   Piece piece;
   int row, col;
 
-  PlacedPiece(Piece piece, int row, int col) {
+  public PlacedPiece(Piece piece, int row, int col) {
     this.piece = piece;
     this.row = row;
     this.col = col;
@@ -40,7 +40,7 @@ public class PlacedPiece {
    */
   public boolean intersects(int row, int col) {
     for(Square s : getSquaresInBoardFrame()) {
-      if(s.getRow() == row || s.getCol() == col) {
+      if(s.getRow() == row && s.getCol() == col) {
         return true;
       }
     }

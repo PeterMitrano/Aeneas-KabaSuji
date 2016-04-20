@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import aeneas.controllers.SelectLevelController;
 import aeneas.models.Level;
 import aeneas.models.Piece;
+import aeneas.models.PlacedPiece;
 import aeneas.models.Square;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -76,6 +77,9 @@ public class PlayLevelView extends BorderPane implements Initializable {
           new Square(1, 2), });
 
     bullpenView.addPiece(testPiece);
+
+    PlacedPiece testPlacedPiece = new PlacedPiece(testPiece,5,5);
+    levelModel.getBoard().addPiece(testPlacedPiece);
 
     boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));

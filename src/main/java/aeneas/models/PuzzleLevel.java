@@ -11,10 +11,12 @@ public class PuzzleLevel extends Level implements java.io.Serializable {
   
   public PuzzleLevel(Bullpen bullpen) {
     super(bullpen);
+    board = new PuzzleBoard();
   }
 
   public PuzzleLevel(Bullpen bullpen, boolean prebuilt) {
     super(bullpen, prebuilt);
+    board = new PuzzleBoard();
   }
   
 
