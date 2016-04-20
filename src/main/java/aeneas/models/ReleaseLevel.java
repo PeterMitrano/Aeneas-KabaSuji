@@ -3,7 +3,7 @@ package aeneas.models;
 import java.util.ArrayList;
 
 /**
- * 
+ *
  * @author Joseph Martin
  */
 public class ReleaseLevel extends Level implements java.io.Serializable {
@@ -12,21 +12,23 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
   ReleaseBoard board;
   ArrayList<ReleaseNumber> numbers;
 
+  private int moves;
+
   public ReleaseLevel(Bullpen bullpen, ArrayList<ReleaseNumber> numbers) {
     super(bullpen);
     this.numbers = numbers;
   }
-  
+
   private boolean numberSetIsCovered(ReleaseNumber.Color color) {
     for(ReleaseNumber n : numbers) {
       if(n.color == color && board.getPieceAtLocation(n.row, n.col) != null) {
         return false;
       }
     }
-    
+
     return true;
   }
-  
+
   int numCoveredNumberSets() {
     int count = 0;
     count += numberSetIsCovered(ReleaseNumber.Color.RED) ? 1 : 0;
@@ -35,7 +37,7 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
 
     return count;
   }
-  
+
   @Override
   public int getStarsEarned() {
     return Math.max(0, 3-numCoveredNumberSets());
@@ -59,6 +61,6 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
   @Override
   public LevelType getLevelType() { return LevelType.RELEASE; }
 
-  public void setAllowedMoves(int moves) {};
-  public int getAllowedMoves() { return 3; }
+  public void setAllowedMoves(int moves) { this.moves = moves; }
+  public int getAllowedMoves() { return moves; }
 }

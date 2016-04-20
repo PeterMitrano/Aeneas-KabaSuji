@@ -9,6 +9,8 @@ public class PuzzleLevel extends Level implements java.io.Serializable {
 
   PuzzleBoard board;
 
+  private int moves;
+
   public PuzzleLevel(Bullpen bullpen) {
     super(bullpen);
   }
@@ -41,6 +43,6 @@ public class PuzzleLevel extends Level implements java.io.Serializable {
   @Override
   public LevelType getLevelType() { return LevelType.PUZZLE; }
 
-  public void setAllowedMoves(int moves) { }
-  public int getAllowedMoves() { return 3; }
+  public void setAllowedMoves(int moves) { this.moves = moves; }
+  public int getAllowedMoves() { return moves; }
 }
