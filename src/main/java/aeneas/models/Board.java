@@ -24,7 +24,7 @@ public abstract class Board implements java.io.Serializable {
       }
     }
   }
-  
+
   /**
    * Count the number of valid squares on this board
    * @return The number of valid squares.
@@ -33,7 +33,7 @@ public abstract class Board implements java.io.Serializable {
     int count = 0;
     for(int j = 0; j < squares.length; j++) {
       for(int i = 0; i < squares[j].length; i++) {
-         count += squares[j][i] ? 1 : 0;
+        count += squares[j][i] ? 1 : 0;
       }
     }
     return count;
@@ -112,19 +112,19 @@ public abstract class Board implements java.io.Serializable {
 
     return false;
   }
-  
+
   /**
    * Gets all the pieces currently on the board
    * @return The list of pieces on the board.
    */
   public ArrayList<PlacedPiece> getPieces() { return pieces; }
-  
+
   /**
    * Gets the list of hints currently on the board
    * @return The list of hints on the board.
    */
   public ArrayList<PlacedPiece> getHints() { return hints; }
-  
+
   /**
    * Gets the state of all squares in the board. A square will be null if no square is there
    * @return A two dimensional array representing the current state of the board

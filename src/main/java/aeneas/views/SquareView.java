@@ -1,9 +1,7 @@
 package aeneas.views;
 
-import aeneas.models.ReleaseNumber;
 import aeneas.models.Square;
 import javafx.scene.control.Label;
-import javafx.scene.input.DragEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -20,14 +18,14 @@ public class SquareView extends StackPane {
 
   //Square squareModel;
 
-  
+
   public SquareView(int size, Square s) {
     this.size = size;
     square = new Rectangle();
     //this.squareModel = squareModel;
     square.setWidth(size);
     square.setHeight(size);
-    
+
     square.setStroke(Color.BLACK);
     this.getChildren().add(square);
     if(s != null){
@@ -41,7 +39,7 @@ public class SquareView extends StackPane {
       square.setFill(Color.GRAY);
     }
   }
-  
+
   public void setColor(Color color){
     square.setFill(color);
   }

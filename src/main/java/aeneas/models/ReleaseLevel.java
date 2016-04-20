@@ -7,20 +7,22 @@ import javafx.scene.paint.Color;
 /**
  * 
  * @author Joseph Martin
+ * @author Logan Tutt
  */
 public class ReleaseLevel extends Level implements java.io.Serializable {
   public static final String helpText = "";
 
   ReleaseBoard board;
-  ArrayList<ReleaseNumber> numbers;
+  
 
   public ReleaseLevel(Bullpen bullpen, ArrayList<ReleaseNumber> numbers) {
     super(bullpen);
-    this.numbers = numbers;
+    board = new ReleaseBoard(numbers);
+    
   }
   
   private boolean numberSetIsCovered(Color color) {
-    for(ReleaseNumber n : numbers) {
+    for(ReleaseNumber n : board.numbers) {
       if(n.color == color && board.getPieceAtLocation(n.row, n.col) != null) {
         return false;
       }

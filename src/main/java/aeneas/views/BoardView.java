@@ -3,6 +3,7 @@ package aeneas.views;
 
 import aeneas.models.Board;
 import aeneas.models.PlacedPiece;
+import aeneas.models.ReleaseNumber;
 import aeneas.models.Square;
 import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
@@ -12,7 +13,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-class BoardView extends GridPane {
+
+/**
+ * View class to display a board
+ * @author Logan Tutt
+ *
+ */
+public class BoardView extends GridPane {
 
   /** Specifies how many pixels the squares of a piece on the board will be */
   static final int SQUARE_SIZE = 40;
@@ -52,18 +59,15 @@ class BoardView extends GridPane {
       event.consume();
     });
   }
-  
+
   /**
    * Refreshes the view to match the current state of the board
    */
   public void refresh(){
     Square[][] squares = board.getSquares();
     for (int i = 0; i < Board.SIZE; i++) {
-      for (int j = 0; j < Board.SIZE; j++) {
+      for (int j = 0; j < Board.SIZE; j++) {         
         grid[i][j] = new SquareView(SQUARE_SIZE, squares[i][j]);
-        //SquareView tempSquare = new SquareView(SQUARE_SIZE);
-        //grid[i][j].getChildren().add(tempSquare);
-        grid[i][j].getChildren().add(new Label(i+","+j));//temporary test of labels in gridcells
         this.add(grid[i][j], i, j);
       }
     }
