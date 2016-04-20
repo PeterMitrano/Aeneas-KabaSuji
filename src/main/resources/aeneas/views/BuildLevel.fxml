@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXDialogLayout?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.Label?>
@@ -24,20 +25,22 @@
     xmlns="http://javafx.com/javafx/2.2">
   <BorderPane>
   <left>
-    <StackPane alignment="BOTTOM_LEFT">
-      <VBox prefWidth="115" fx:id="bullpenBox" spacing="20"
-        alignment="TOP_CENTER" />
-      <JFXButton fx:id="addPiece" prefWidth="50" prefHeight="50"
-        style="-fx-rippler-fill:#FFCDD2;-fx-background-color:#F44336;">
-        <graphic>
-          <FontAwesomeIconView glyphName="PLUS"
-            size="3em" />
-        </graphic>
-        <StackPane.margin>
-          <Insets left="10" bottom="10" />
-        </StackPane.margin>
-      </JFXButton>
-    </StackPane>
+    <ScrollPane fitToWidth="true" fitToHeight="true">
+      <StackPane alignment="BOTTOM_LEFT">
+        <VBox prefWidth="115" fx:id="bullpenBox" spacing="20"
+          alignment="TOP_CENTER" />
+        <JFXButton fx:id="addPiece" prefWidth="50" prefHeight="50"
+            styleClass="action-button">
+          <graphic>
+            <FontAwesomeIconView glyphName="PLUS"
+              size="2em" />
+          </graphic>
+          <StackPane.margin>
+            <Insets left="10" bottom="10" />
+          </StackPane.margin>
+        </JFXButton>
+      </StackPane>
+    </ScrollPane>
   </left>
   <center>
     <VBox fx:id="centerBox" spacing="10" alignment="TOP_CENTER">
