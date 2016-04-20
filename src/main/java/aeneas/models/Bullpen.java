@@ -16,7 +16,7 @@ public class Bullpen implements java.io.Serializable {
     return logic;
   }
 
-  public static class BullpenLogic {
+  public static class BullpenLogic implements java.io.Serializable {
     private boolean canReturnPiece;
     private boolean canAddNewPiece;
 

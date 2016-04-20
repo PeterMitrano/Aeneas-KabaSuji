@@ -26,7 +26,6 @@ public class BullpenView {
     this.bullpenBox = bullpenBox;
     JFXDepthManager.setDepth(bullpenBox, 1);
     bullpenBox.setAlignment(Pos.TOP_CENTER);
-
   }
 
   public void refresh(Model model, Bullpen bullpen) {
