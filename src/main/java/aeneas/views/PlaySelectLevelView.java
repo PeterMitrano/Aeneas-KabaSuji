@@ -24,6 +24,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+/**
+ * 
+ * @author Joseph Martin
+ */
 public class PlaySelectLevelView extends BorderPane implements Initializable {
 
   @FXML
@@ -73,7 +77,7 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
       int c = (level.levelNumber - 1) % numCols;
       JFXButton button = makeLevelButton(level.levelNumber, level.isLocked());
       button.setOnMouseClicked(new SelectLevelController(parentView, level));
-      HBox stars = makeStars(level.starsEarned);
+      HBox stars = makeStars(gameModel.getStarsForLevel(level));
 
       if (level.isPrebuilt()) {
         levelGrid.add(button, c, r);

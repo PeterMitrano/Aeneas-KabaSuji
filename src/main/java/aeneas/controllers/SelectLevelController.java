@@ -6,7 +6,11 @@ import aeneas.views.MainView;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-// @brief Handles a button press on one button in the play select view
+/**
+ * Handles a button press on one button in the play select view.
+ * 
+ * @author Joseph Martin
+ */
 public class SelectLevelController implements EventHandler<MouseEvent> {
 
   Level levelModel;
@@ -27,6 +31,7 @@ public class SelectLevelController implements EventHandler<MouseEvent> {
   }
 
   public void resetLevel() {
+    levelModel.reset();
     System.out.println("Resetting Level");
   }
 

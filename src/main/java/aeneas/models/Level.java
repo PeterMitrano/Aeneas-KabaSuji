@@ -7,11 +7,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public abstract class Level implements java.io.Serializable {
   Bullpen bullpen;
 
   public int levelNumber;
-  public int starsEarned = 2;
   boolean prebuilt;
 
   private boolean locked;
@@ -48,6 +51,25 @@ public abstract class Level implements java.io.Serializable {
     this(bullpen, true);
   }
 
+  @Override
+  public int hashCode() {
+    return levelNumber;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if(o == null) return false;
+
+    if(o instanceof Level) {
+      Level other = (Level)o;
+      if(other.levelNumber == levelNumber && other.prebuilt == prebuilt) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   /**
    * Copy constructor.
    * Does not actually copy the Bullpen, just passes along
@@ -56,7 +78,6 @@ public abstract class Level implements java.io.Serializable {
   public Level(Level src) {
     this.bullpen = src.bullpen;
     this.levelNumber = src.levelNumber;
-    this.starsEarned = src.starsEarned;
     this.prebuilt = src.prebuilt;
     this.locked = src.locked;
   }
@@ -72,6 +93,8 @@ public abstract class Level implements java.io.Serializable {
    * @return The board used by this level.
    */
   public abstract Board getBoard();
+
+  public abstract int getStarsEarned();
 
   /**
    * @return the prebuilt
@@ -93,6 +116,9 @@ public abstract class Level implements java.io.Serializable {
 
   public void lock() {
     this.locked = true;
+  }
+
+  public void reset() {
   }
 
   /**
