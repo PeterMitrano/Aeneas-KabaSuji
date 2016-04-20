@@ -108,7 +108,7 @@ public class BuildLevelView extends StackPane implements Initializable {
         piecesPane.getChildren().add(pView);
 
         pView.setOnMouseClicked((click) -> {
-          IMove move = new AddPieceMove(levelModel.getBullpen(), pieceModel);
+          IMove move = new AddPieceMove(levelModel.getBullpen(), pieceModel.clone());
           if (move.execute()){
             bullpenView.refresh(model, levelModel.getBullpen());
           }
