@@ -2,23 +2,20 @@ package aeneas.views;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXSpinner;
-import com.jfoenix.effects.JFXDepthManager;
 
+import aeneas.controllers.SaveLevelController;
 import aeneas.models.Level;
+import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.Square;
-import aeneas.controllers.SaveLevelController;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -53,13 +50,15 @@ public class BuildLevelView extends BorderPane implements Initializable {
   private JFXButton saveButton;
 
   BoardView boardView;
+  Model model;
   Level levelModel;
-  MainView parentView;
+  MainView mainView;
   BullpenView bullpenView;
 
-  BuildLevelView(MainView parentView, Level levelModel) {
+  BuildLevelView(MainView mainView, Level levelModel, Model model) {
+    this.model = model;
     this.levelModel = levelModel;
-    this.parentView = parentView;
+    this.mainView = mainView;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("BuildLevel.fxml"));
       loader.setRoot(this);
@@ -72,7 +71,7 @@ public class BuildLevelView extends BorderPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    bullpenView = new BullpenView(bullpenBox);
+    bullpenView = new BullpenView(bullpenBox, this);
 
     Piece testPiece = new Piece(new Square[] {
         new Square(0, 0),
@@ -84,7 +83,7 @@ public class BuildLevelView extends BorderPane implements Initializable {
     });
 
 
-    bullpenView.addPiece(testPiece);
+    bullpenView.addPiece(testPiece, model);
 
     boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
@@ -92,7 +91,7 @@ public class BuildLevelView extends BorderPane implements Initializable {
     centerBox.getChildren().add(boardView);
 
     saveButton.setOnMouseClicked(
-        new SaveLevelController(parentView, levelModel));
+        new SaveLevelController(mainView, levelModel));
 
   }
 }

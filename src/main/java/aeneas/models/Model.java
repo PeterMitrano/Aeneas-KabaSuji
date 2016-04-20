@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
-import aeneas.controllers.IMove;;
+import aeneas.controllers.IMove;
+
 
 /**
  * Top level entity class for KabaSuji.
@@ -22,12 +23,12 @@ public class Model {
 
   public final String helpString = "HELP";
   public final String aboutString = "ABOUT";
-  
+
   public int numLevels = 15;
   public ArrayList<Level> levels;
-  
+
   /** Mapping from levels to how many stars have been earned for that level. */
-  public HashMap<Level, Integer> starsEarned; 
+  public HashMap<Level, Integer> starsEarned;
 
   Level activeLevel;
   ArrayList<Achievement> achievements;
@@ -78,10 +79,10 @@ public class Model {
    */
   public void changeScreen(/*take argument for screen to go to*/) {
   }
-  
+
   /**
    * Gets the number of stars earned for a particular level.
-   * 
+   *
    * @param level The level to get the current number of stars for.
    * @return The number of stars earned for the specified level, or 0 if the level wasn't found
    */
@@ -104,7 +105,7 @@ public class Model {
         // Update achievements screen here
       }
     }
-    
+
     if(activeLevel != null) {
       int stars = activeLevel.getStarsEarned();
       if(getStarsForLevel(activeLevel) < stars) {
@@ -151,5 +152,9 @@ public class Model {
     } else {
       return false;
     }
+  }
+
+  public void addNewMove(IMove move){
+
   }
 }
