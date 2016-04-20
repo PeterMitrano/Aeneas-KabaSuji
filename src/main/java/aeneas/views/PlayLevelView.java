@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 
 import aeneas.controllers.SelectLevelController;
 import aeneas.models.Level;
+import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.Square;
 
@@ -20,6 +21,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class PlayLevelView extends BorderPane implements Initializable {
@@ -39,15 +41,17 @@ public class PlayLevelView extends BorderPane implements Initializable {
   @FXML
   private FontAwesomeIconView levelTypeIcon;
 
-  private MainView parentView;
+  private MainView mainView;
 
 
   private BullpenView bullpenView;
   private BoardView boardView;
   private Level levelModel;
+  private Model model;
 
-  PlayLevelView(MainView parentView, Level levelModel) {
+  PlayLevelView(MainView mainView, Level levelModel, Model model) {
     this.levelModel = levelModel;
+    this.model = model;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("PlayLevel.fxml"));
       loader.setRoot(this);
@@ -60,10 +64,10 @@ public class PlayLevelView extends BorderPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    bullpenView = new BullpenView(bullpenBox);
+    bullpenView = new BullpenView(bullpenBox, (Pane) this);
 
     resetLevelButton.setOnMouseClicked((e) -> {
-      SelectLevelController c = new SelectLevelController(parentView, null);
+      SelectLevelController c = new SelectLevelController(mainView, null);
       c.resetLevel();
     });
 
@@ -75,7 +79,7 @@ public class PlayLevelView extends BorderPane implements Initializable {
           new Square(1, 1),
           new Square(1, 2), });
 
-    bullpenView.addPiece(testPiece);
+    bullpenView.addPiece(testPiece, model);
 
     boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
