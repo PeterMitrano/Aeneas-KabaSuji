@@ -68,6 +68,7 @@ public class Bullpen implements java.io.Serializable {
 
   /**
    * Construct a bullpen with an empty list of pieces.
+   * @param logic the type of logic
    */
   public Bullpen(BullpenLogic logic) {
     this.pieces = new ArrayList<Piece>();
@@ -77,6 +78,7 @@ public class Bullpen implements java.io.Serializable {
   /**
    * Construct a bullpen with the given list of pieces
    * @param pieces The initial list of pieces for the bullpen to contain.
+   * @param logic the type of logic
    */
   public Bullpen(BullpenLogic logic, ArrayList<Piece> pieces) {
     this.pieces = pieces;

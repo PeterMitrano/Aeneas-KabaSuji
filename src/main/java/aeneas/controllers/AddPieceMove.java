@@ -17,16 +17,17 @@ public class AddPieceMove implements IMove {
   /**
    * Constructor
    *
-   * @param level
-   *          the level that is being played
-   * @param piece
-   *          the piece to add
+   * @param bullpen the bullpen that the piece is being added to
+   * @param piece the piece to add
    */
   public AddPieceMove(Bullpen bullpen, Piece piece) {
     this.bullpen = bullpen;
     this.piece = piece;
   }
 
+  /**
+   * @return true on success
+   */
   @Override
   public boolean execute() {
     if (!isValid())
@@ -47,6 +48,9 @@ public class AddPieceMove implements IMove {
     return true;
   }
 
+  /**
+   * @return true on success
+   */
   @Override
   public boolean isValid() {
     if (bullpen == null || piece == null) {
