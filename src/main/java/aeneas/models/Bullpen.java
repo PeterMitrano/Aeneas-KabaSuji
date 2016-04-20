@@ -2,6 +2,11 @@ package aeneas.models;
 
 import java.util.ArrayList;
 
+/**
+ * A bullpen is a list of pieces available to the player.
+ * 
+ * @author Joseph Martin
+ */
 public class Bullpen implements java.io.Serializable {
   ArrayList<Piece> pieces;
 
@@ -25,7 +30,7 @@ public class Bullpen implements java.io.Serializable {
    * @param piece the piece to add
    */
   void addPiece(Piece piece) {
-
+    pieces.add(piece);
   }
 
   /**
@@ -34,6 +39,6 @@ public class Bullpen implements java.io.Serializable {
    * @return true if piece was found and removed, false otherwise.
    */
   boolean removePiece(Piece piece) {
-    return false;
+    return pieces.remove(piece);
   }
 }

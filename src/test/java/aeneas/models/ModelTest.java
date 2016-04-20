@@ -22,4 +22,13 @@ public class ModelTest {
     assertTrue("level count", m.levels.size() > 15);
   }
 
+  @Test
+  public void testStars() {
+    Model m = new Model();
+    Level l = new PuzzleLevel(new Bullpen());
+    assertEquals(m.getStarsForLevel(l), 0);
+    m.setActiveLevel(l);
+    m.updateStats();
+    assertEquals(m.getStarsForLevel(l), 0);
+  }
 }

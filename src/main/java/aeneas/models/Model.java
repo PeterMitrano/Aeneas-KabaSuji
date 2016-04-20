@@ -1,7 +1,15 @@
 package aeneas.models;
 
-import java.util.ArrayList;;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Stack;
 
+import aeneas.controllers.IMove;;
+
+/**
+ * Top level entity class for KabaSuji.
+ * @author Joseph Martin
+ */
 public class Model {
 
   public static final String aboutText = "KabaSuji is a brilliant new puzzle game. "
@@ -12,19 +20,24 @@ public class Model {
       + "To begin editing a level, select and existing level from the list or create a new one. "
       + "Achievements can also be viewed with the 'View Achievements' button.";
 
-  public int numLevels = 15;
-  public ArrayList<Level> levels;
   public final String helpString = "HELP";
   public final String aboutString = "ABOUT";
+  
+  public int numLevels = 15;
+  public ArrayList<Level> levels;
+  
+  /** Mapping from levels to how many stars have been earned for that level. */
+  public HashMap<Level, Integer> starsEarned; 
 
   Level activeLevel;
   ArrayList<Achievement> achievements;
-  //TODO: Add these once we get move classes
-  //ArrayList<IMove> undoStack;
-  //ArrayList<IMove> redoStack;
+  Stack<IMove> undoStack;
+  Stack<IMove> redoStack;
 
   public Model() {
-    levels = new ArrayList<Level>();
+    levels = new ArrayList<>();
+    starsEarned = new HashMap<>();
+    achievements = new ArrayList<>();
     for (int i = 0; i < numLevels; i++) {
       Bullpen b = new Bullpen(new ArrayList<>());
       Level l = new PuzzleLevel(b);
@@ -65,12 +78,39 @@ public class Model {
    */
   public void changeScreen(/*take argument for screen to go to*/) {
   }
+  
+  /**
+   * Gets the number of stars earned for a particular level.
+   * 
+   * @param level The level to get the current number of stars for.
+   * @return The number of stars earned for the specified level, or 0 if the level wasn't found
+   */
+  public int getStarsForLevel(Level level) {
+    Integer stars = starsEarned.get(level);
+    if(stars == null) {
+      return 0;
+    }
+    return stars;
+  }
 
   /**
    * Called to notify that some game state may have changed,
    * so achievements, etc. can be checked and updated.
    */
   public void updateStats() {
+    // Check each achievement for completion
+    for(Achievement a : achievements) {
+      if(a.checkUnlocked(this)) {
+        // Update achievements screen here
+      }
+    }
+    
+    if(activeLevel != null) {
+      int stars = activeLevel.getStarsEarned();
+      if(getStarsForLevel(activeLevel) < stars) {
+        starsEarned.put(activeLevel, stars);
+      }
+    }
   }
 
   /**
@@ -78,7 +118,19 @@ public class Model {
    * @return true if undo was successful, false otherwise
    */
   public boolean undoLastMove() {
-    return false;
+    if(undoStack.size() > 0) {
+      IMove m = undoStack.peek();
+      boolean success = m.undo();
+      if(success) {
+        undoStack.pop();
+        redoStack.add(m);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -86,6 +138,18 @@ public class Model {
    * @return true if redo was successful, false otherwise
    */
   public boolean redoLastMove() {
-    return false;
+    if(redoStack.size() > 0) {
+      IMove m = redoStack.peek();
+      boolean success = m.undo();
+      if(success) {
+        redoStack.pop();
+        undoStack.add(m);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 }

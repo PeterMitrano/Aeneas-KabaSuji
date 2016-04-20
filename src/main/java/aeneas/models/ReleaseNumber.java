@@ -1,8 +1,15 @@
 package aeneas.models;
 
-import javafx.scene.paint.Color;
-
+/**
+ * 
+ * @author Joseph Martin
+ */
 public class ReleaseNumber implements java.io.Serializable {
+  public enum Color {
+    RED,
+    BLUE,
+    GREEN,
+  }
   /** row coordinate */
   int row;
   /** Column coordinate */
