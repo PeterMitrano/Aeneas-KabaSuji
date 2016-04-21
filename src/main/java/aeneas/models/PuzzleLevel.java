@@ -4,7 +4,8 @@ package aeneas.models;
  *
  * @author Joseph Martin
  */
-public class PuzzleLevel extends Level implements java.io.Serializable {
+public class PuzzleLevel extends Level
+    implements java.io.Serializable, Level.LevelWithMoves {
   public static final String helpText = "";
 
   PuzzleBoard board;
@@ -43,6 +44,9 @@ public class PuzzleLevel extends Level implements java.io.Serializable {
   @Override
   public LevelType getLevelType() { return LevelType.PUZZLE; }
 
+  @Override
   public void setAllowedMoves(int moves) { this.moves = moves; }
+
+  @Override
   public int getAllowedMoves() { return moves; }
 }

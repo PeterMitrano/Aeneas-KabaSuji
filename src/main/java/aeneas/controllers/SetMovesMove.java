@@ -1,5 +1,6 @@
 package aeneas.controllers;
 import aeneas.models.Level;
+import aeneas.models.Level.LevelWithMoves;
 import aeneas.models.Level.LevelType;
 import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseLevel;
@@ -13,7 +14,7 @@ import aeneas.models.ReleaseLevel;
  */
 public class SetMovesMove implements IMove {
 
-  Level level;
+  LevelWithMoves level;
 
   int oldMoves;
   int newMoves;
@@ -24,7 +25,7 @@ public class SetMovesMove implements IMove {
    * @param level the level that is being edited
    * @param moves the amount of moves to set the level too. Positive.
    */
-  public SetMovesMove(Level level, int moves) {
+  public SetMovesMove(LevelWithMoves level, int moves) {
     this.level = level;
     this.newMoves = moves;
   }
@@ -32,41 +33,21 @@ public class SetMovesMove implements IMove {
   @Override
   public boolean execute() {
     if (!isValid()) return false;
-    switch (level.getLevelType()) {
-      case PUZZLE:
-        PuzzleLevel p = (PuzzleLevel)level;
-        oldMoves = p.getAllowedMoves();
-        p.setAllowedMoves(newMoves);
-        break;
-      case RELEASE:
-        ReleaseLevel r = (ReleaseLevel)level;
-        oldMoves = r.getAllowedMoves();
-        r.setAllowedMoves(newMoves);
-        break;
-    }
+    oldMoves = level.getAllowedMoves();
+    level.setAllowedMoves(newMoves);
     return true;
   }
 
   @Override
   public boolean undo() {
     if (!isValid()) return false;
-    switch (level.getLevelType()) {
-      case PUZZLE:
-        PuzzleLevel p = (PuzzleLevel)level;
-        p.setAllowedMoves(oldMoves);
-        break;
-      case RELEASE:
-        ReleaseLevel r = (ReleaseLevel)level;
-        r.setAllowedMoves(oldMoves);
-        break;
-    }
+    level.setAllowedMoves(oldMoves);
     return true;
   }
 
   @Override
   public boolean isValid() {
-    return level != null && newMoves >= 0 &&
-           level.getLevelType() != LevelType.LIGHTNING;
+    return level != null && newMoves >= 0;
   }
 
 }

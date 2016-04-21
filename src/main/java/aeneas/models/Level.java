@@ -19,6 +19,11 @@ public abstract class Level implements java.io.Serializable {
 
   private boolean locked;
 
+  public interface LevelWithMoves {
+    public int getAllowedMoves();
+    public void setAllowedMoves(int moves);
+  }
+
   public enum LevelType {
     PUZZLE ("Puzzle"),
     LIGHTNING ("Lightning"),
@@ -28,6 +33,8 @@ public abstract class Level implements java.io.Serializable {
     LevelType(String name) {
       this.name = name;
     }
+
+    public String getName() { return name; }
 
     public static LevelType fromString(String name) {
       switch (name) {

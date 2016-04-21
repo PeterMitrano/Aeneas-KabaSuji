@@ -6,7 +6,8 @@ import java.util.ArrayList;
  *
  * @author Joseph Martin
  */
-public class ReleaseLevel extends Level implements java.io.Serializable {
+public class ReleaseLevel extends Level
+    implements java.io.Serializable, Level.LevelWithMoves {
   public static final String helpText = "";
 
   ReleaseBoard board;
@@ -61,6 +62,9 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
   @Override
   public LevelType getLevelType() { return LevelType.RELEASE; }
 
+  @Override
   public void setAllowedMoves(int moves) { this.moves = moves; }
+
+  @Override
   public int getAllowedMoves() { return moves; }
 }

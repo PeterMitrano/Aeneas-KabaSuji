@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import aeneas.models.Bullpen;
 import aeneas.models.Level;
+import aeneas.models.Level.LevelWithMoves;
 import aeneas.models.LightningLevel;
 import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseLevel;
@@ -23,17 +24,8 @@ public class TestSetMovesMove {
   }
 
   @Test
-  public void testLightningFails() {
-    LightningLevel test = new LightningLevel(null, 0);
-    IMove move = new SetMovesMove(test, 100);
-    assertFalse(move.isValid());
-    assertFalse(move.execute());
-    assertFalse(move.undo());
-  }
-
-  @Test
   public void testNullFails() {
-    Level nullLevel = null;
+    LevelWithMoves nullLevel = null;
     IMove move = new SetMovesMove(nullLevel, 100);
     assertFalse(move.isValid());
     assertFalse(move.execute());

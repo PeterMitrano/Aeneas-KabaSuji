@@ -11,9 +11,12 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.SaveLevelController;
+import aeneas.controllers.SetMovesMove;
+import aeneas.controllers.SetTimeMove;
 import aeneas.models.Bullpen;
 import aeneas.models.Level;
 import aeneas.models.Level.LevelType;
+import aeneas.models.Level.LevelWithMoves;
 import aeneas.models.LightningLevel;
 import aeneas.models.Model;
 import aeneas.models.Piece;
@@ -22,7 +25,6 @@ import aeneas.models.ReleaseLevel;
 import aeneas.models.Square;
 import aeneas.controllers.ChangeLevelTypeMove;
 import aeneas.controllers.IMove;
-import aeneas.controllers.LevelOptionsController;
 import aeneas.controllers.SaveLevelController;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -76,13 +78,11 @@ public class BuildLevelView extends BorderPane implements Initializable {
   private ToggleGroup levelType;
 
   @FXML
-  private Toggle PuzzleRadio;
-
+  private RadioButton puzzleRadio;
   @FXML
-  private Toggle LightningRadio;
-
+  private RadioButton lightningRadio;
   @FXML
-  private Toggle ReleaseRadio;
+  private RadioButton releaseRadio;
 
   @FXML
   private JFXDatePicker timerSelect;
@@ -115,6 +115,11 @@ public class BuildLevelView extends BorderPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    // Associate RadioButtons with puzzle types.
+    puzzleRadio.setUserData(Level.LevelType.PUZZLE);
+    releaseRadio.setUserData(Level.LevelType.RELEASE);
+    lightningRadio.setUserData(Level.LevelType.LIGHTNING);
+
     bullpenView = new BullpenView(bullpenBox, this);
 
     Piece testPiece = new Piece(new Square[] {
@@ -140,20 +145,39 @@ public class BuildLevelView extends BorderPane implements Initializable {
     // TODO: Consider moving this to a separate class.
     levelType.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov,
                 Toggle toggle, Toggle new_toggle) -> {
-      String levelName = ((RadioButton)new_toggle).getText();
-      LevelType type = LevelType.fromString(levelName);
+      LevelType type = (LevelType)((RadioButton)new_toggle).getUserData();
       IMove changeMove = new ChangeLevelTypeMove(this.getLevel(), this, type);
       if (changeMove.execute()) {
-        //Model.registerMove(changeMove);
+        model.addNewMove(changeMove);
       }
 
-      (new LevelOptionsController(this)).refreshLevel();
+      IMove move;
+      if (getLevel() instanceof LevelWithMoves) {
+        move = new SetMovesMove((LevelWithMoves)getLevel(), allowedSeconds());
+      } else {
+        move = new SetTimeMove((LightningLevel)getLevel(), allowedSeconds());
+      }
+      if (move.execute()) {
+        model.addNewMove(move);
+      }
     });
 
     // Update the level options whenever the movesSelect spinner
     // is updated.
     movesSelect.valueProperty().addListener((obs, oldValue, newValue) -> {
-      (new LevelOptionsController(this)).refreshLevel();
+      IMove move =
+        new SetMovesMove((LevelWithMoves)getLevel(), getMovesAllowed());
+      if (move.execute()) {
+        model.addNewMove(move);
+      }
+    });
+
+    // Update the level time whenever the timerSelect DatePicker is used.
+    timerSelect.setOnAction((e) -> {
+      IMove move = new SetTimeMove((LightningLevel)getLevel(), allowedSeconds());
+      if (move.execute()) {
+        model.addNewMove(move);
+      }
     });
   }
 
@@ -172,27 +196,28 @@ public class BuildLevelView extends BorderPane implements Initializable {
       levelModel = new LightningLevel(new Bullpen(), 0);
     }
 
-    boolean showMoves = levelModel.getLevelType() != LevelType.LIGHTNING;
+    boolean showMoves = levelModel instanceof LevelWithMoves;
     timerSelect.setVisible(!showMoves);
     movesSelect.setVisible(showMoves);
-    // TODO: Why doesn't this actually hide the movesLabel?
     movesLabel.setVisible(showMoves);
 
     switch (levelModel.getLevelType()) {
       case LIGHTNING:
         int time = ((LightningLevel)levelModel).getAllowedTime();
+        // TODO: Currently, the DatePicker will have the correct internal state
+        // after this, however the time you see (eg, "12:00am") will be wrong.
         timerSelect.setTime(LocalTime.of(time / 60, time % 60));
-        levelType.selectToggle(LightningRadio);
+        levelType.selectToggle(lightningRadio);
         break;
       case PUZZLE:
         movesSelect.valueFactoryProperty().getValue().setValue(
             new Double(((PuzzleLevel)levelModel).getAllowedMoves()));
-        levelType.selectToggle(PuzzleRadio);
+        levelType.selectToggle(puzzleRadio);
         break;
       case RELEASE:
         movesSelect.valueFactoryProperty().getValue().setValue(
             new Double(((ReleaseLevel)levelModel).getAllowedMoves()));
-        levelType.selectToggle(ReleaseRadio);
+        levelType.selectToggle(releaseRadio);
         break;
     }
   }
