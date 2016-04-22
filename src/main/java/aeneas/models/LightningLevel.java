@@ -1,5 +1,8 @@
 package aeneas.models;
 
+import aeneas.views.LevelView;
+import aeneas.views.LightningView;
+
 /**
  * A subclass of level with functionality specific to lightning mode.
  * @author Joseph Martin
@@ -57,4 +60,9 @@ public class LightningLevel extends Level implements java.io.Serializable {
    * @return The time allowed, in seconds.
    */
   public int getAllowedTime() { return allowedTime; }
+
+  @Override
+  public LevelView makeCorrespondingView() {
+    return new LightningView(this);
+  }
 }

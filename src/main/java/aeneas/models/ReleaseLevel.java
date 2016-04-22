@@ -1,6 +1,7 @@
 package aeneas.models;
 
-import java.util.ArrayList;
+import aeneas.views.LevelView;
+import aeneas.views.ReleaseView;
 
 /**
  *
@@ -67,4 +68,9 @@ public class ReleaseLevel extends Level
 
   @Override
   public int getAllowedMoves() { return moves; }
+
+  @Override
+  public LevelView makeCorrespondingView() {
+    return new ReleaseView(this);
+  }
 }

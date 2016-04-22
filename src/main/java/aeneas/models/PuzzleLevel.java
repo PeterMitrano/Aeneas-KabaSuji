@@ -1,5 +1,8 @@
 package aeneas.models;
 
+import aeneas.views.LevelView;
+import aeneas.views.PuzzleView;
+
 /**
  *
  * @author Joseph Martin
@@ -49,4 +52,9 @@ public class PuzzleLevel extends Level
 
   @Override
   public int getAllowedMoves() { return moves; }
+
+  @Override
+  public LevelView makeCorrespondingView() {
+    return new PuzzleView(this);
+  }
 }

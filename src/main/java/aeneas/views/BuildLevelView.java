@@ -1,5 +1,6 @@
 package aeneas.views;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,12 +8,8 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 
-import aeneas.controllers.SaveLevelController;
 import aeneas.models.Level;
-import aeneas.models.Model;
-
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -92,7 +89,17 @@ public class BuildLevelView extends BorderPane implements Initializable {
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
 
-    saveButton.setOnMouseClicked(new SaveLevelController(mainView, levelModel));
+    saveButton.setOnMouseClicked((e) -> {
+      File saveFile = mainView.showSaveDialog();
+      if (saveFile == null) return;
+      try {
+        // We retrieve the current level live, because the current
+        // level will change over time.
+        this.levelModel.save(saveFile);
+      } catch (IOException i) {
+        System.out.println("Error occurred in opening file.");
+      }
+    });
 
     //these views are empty and really only used to get the radio buttons
     for (LevelView view : LevelViewFactory.getViews()) {

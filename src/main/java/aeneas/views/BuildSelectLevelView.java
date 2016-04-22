@@ -13,8 +13,6 @@ import com.jfoenix.effects.JFXDepthManager;
 import aeneas.models.Bullpen;
 import aeneas.models.Level;
 import aeneas.models.LightningLevel;
-import aeneas.models.Model;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -85,7 +83,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
       if (loadFile == null) return;
       try {
         Level newLevel = Level.loadLevel(loadFile);
-        this.levelViewToSwitchTo = new LevelView(newLevel);
+        this.levelViewToSwitchTo = newLevel.makeCorrespondingView();
         String path = loadFile.getAbsolutePath();
         levelMap.put(path, this.levelViewToSwitchTo);
         this.fileList.getItems().add(new Label(path));

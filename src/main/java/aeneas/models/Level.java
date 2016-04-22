@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import aeneas.views.LevelView;
+
 /**
  *
  * @author Joseph Martin
@@ -166,4 +168,6 @@ public abstract class Level implements java.io.Serializable {
    * Get the level type without doing lots of instanceof's.
    */
   public abstract LevelType getLevelType();
+
+  public abstract LevelView makeCorrespondingView();
 }
