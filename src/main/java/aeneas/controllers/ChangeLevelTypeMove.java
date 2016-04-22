@@ -11,50 +11,21 @@ import aeneas.views.BuildLevelView;
  */
 public class ChangeLevelTypeMove implements IMove {
 
-  Level oldLevel;
+  Level newLevel;
 
-  LevelType type;
-
-  BuildLevelView view;
-
-  /**
-   * Constructor
-   *
-   * @param level The level that is currently being played
-   * @param view The build level view.
-   * @param type the type of the level to be changed to
-   */
-  public ChangeLevelTypeMove(Level level, BuildLevelView view, LevelType type) {
-    this.oldLevel = level;
-    this.type = type;
-    this.view = view;
+  public ChangeLevelTypeMove(Level level) {
+    this.newLevel = level;
   }
 
   @Override
   public boolean execute() {
     if (!isValid()) return false;
 
-    Level newLevel = null;
-    switch (type) {
-      case PUZZLE:
-        newLevel = new PuzzleLevel(oldLevel);
-        break;
-      case LIGHTNING:
-        newLevel = new LightningLevel(oldLevel);
-        break;
-      case RELEASE:
-        newLevel = new ReleaseLevel(oldLevel);
-        break;
-    }
-
-    view.setLevel(newLevel);
-
     return true;
   }
 
   @Override
   public boolean undo() {
-    view.setLevel(oldLevel);
     return true;
   }
 

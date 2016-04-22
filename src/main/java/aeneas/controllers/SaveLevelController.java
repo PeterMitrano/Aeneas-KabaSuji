@@ -1,10 +1,10 @@
 package aeneas.controllers;
 
-import aeneas.models.Level;
-import aeneas.views.MainView;
-
 import java.io.File;
 import java.io.IOException;
+
+import aeneas.models.Level;
+import aeneas.views.MainView;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -15,9 +15,11 @@ import javafx.scene.input.MouseEvent;
  */
 public class SaveLevelController implements EventHandler<MouseEvent> {
   MainView view;
+  Level level;
 
-  public SaveLevelController(MainView view){
+  public SaveLevelController(MainView view, Level level){
     this.view = view;
+    this.level = level;
   }
 
   @Override
@@ -27,7 +29,7 @@ public class SaveLevelController implements EventHandler<MouseEvent> {
     try {
       // We retrieve the current level live, because the current
       // level will change over time.
-      view.getBuildLevelView().getLevel().save(saveFile);
+      level.save(saveFile);
     } catch (IOException i) {
       System.out.println("Error occurred in opening file.");
     }

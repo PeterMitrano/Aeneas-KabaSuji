@@ -3,7 +3,6 @@ package aeneas.views;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
@@ -18,10 +17,8 @@ import com.jfoenix.controls.JFXRippler;
 
 import aeneas.controllers.ViewAboutController;
 import aeneas.controllers.ViewHelpController;
-import aeneas.models.Bullpen;
 import aeneas.models.Level;
 import aeneas.models.Model;
-import aeneas.models.PuzzleLevel;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,8 +26,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class MainView extends StackPane implements Initializable {
 
@@ -71,8 +68,6 @@ public class MainView extends StackPane implements Initializable {
   private WelcomeView welcomeView;
   private PlaySelectLevelView playSelectLevelView;
   private BuildSelectLevelView buildSelectLevelView;
-  private PlayLevelView playLevelView;
-  private BuildLevelView buildLevelView;
   private Model model;
 
   private Stack<Node> paneStack;
@@ -94,10 +89,6 @@ public class MainView extends StackPane implements Initializable {
     }
   }
 
-  public BuildLevelView getBuildLevelView() {
-    return buildLevelView;
-  }
-
   public void switchToWelcomeView() {
     paneStack.push(welcomeView);
     content.getChildren().clear();
@@ -116,14 +107,16 @@ public class MainView extends StackPane implements Initializable {
     content.getChildren().add(buildSelectLevelView);
   }
 
-  public void switchToBuildLevelView() {
+  public void switchToBuildLevelView(LevelView levelView) {
+    BuildLevelView buildLevelView = new BuildLevelView(this, levelView);
     paneStack.push(buildLevelView);
     content.getChildren().clear();
     content.getChildren().add(buildLevelView);
 
   }
 
-  public void switchToPlayLevelView() {
+  public void switchToPlayLevelView(Level l) {
+    PlayLevelView playLevelView = new PlayLevelView(this, l, model);
     paneStack.push(playLevelView);
     content.getChildren().clear();
     content.getChildren().add(playLevelView);
@@ -142,12 +135,8 @@ public class MainView extends StackPane implements Initializable {
     welcomeView = new WelcomeView(this, model);
     playSelectLevelView= new PlaySelectLevelView(this, model);
 
-    Bullpen bullpen = new Bullpen(new ArrayList<>());
-    Level l = new PuzzleLevel(bullpen);
-    playLevelView = new PlayLevelView(this, l, model);
-    buildLevelView = new BuildLevelView(this, l, model);
     viewAchievementsView = new ViewAchievementsView(model);
-    buildSelectLevelView= new BuildSelectLevelView(this, model);
+    buildSelectLevelView= new BuildSelectLevelView(this);
 
     // init Popup
     toolbarPopup.setPopupContainer(root);
