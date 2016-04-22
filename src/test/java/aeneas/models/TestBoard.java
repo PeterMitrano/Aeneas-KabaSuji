@@ -57,7 +57,25 @@ public class TestBoard {
     PlacedPiece pp = new PlacedPiece(p, 0, 0);
 
     assertEquals(0, l.numCoveredNumberSets());
+    assertEquals(0, l.getStarsEarned());
+    
     b.addPiece(pp);
     assertEquals(1, l.numCoveredNumberSets());
+    assertEquals(1, l.getStarsEarned());
+
+    
+
+    Piece p2 = new Piece(new Square[] { new Square(0,0) });
+    PlacedPiece pp2 = new PlacedPiece(p2, 1, 0);
+    b.addPiece(pp2);
+    assertEquals(2, l.numCoveredNumberSets());
+    assertEquals(2, l.getStarsEarned());
+
+    Piece p3 = new Piece(new Square[] { new Square(0,0) });
+    PlacedPiece pp3 = new PlacedPiece(p3, 2, 0);
+    b.addPiece(pp3);
+    assertEquals(3, l.numCoveredNumberSets());
+    assertEquals(3, l.getStarsEarned());
+
   }
 }

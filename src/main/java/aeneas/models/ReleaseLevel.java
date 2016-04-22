@@ -37,7 +37,8 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
   
   @Override
   public int getStarsEarned() {
-    return Math.max(0, 3-numCoveredNumberSets());
+    // This would have to change if we added more than 3 sets of numbers
+    return numCoveredNumberSets();
   }
 
   @Override
