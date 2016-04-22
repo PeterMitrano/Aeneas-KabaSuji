@@ -82,6 +82,9 @@ public class Piece implements java.io.Serializable {
   }
 
   @Override
+  /**
+   * deep copy
+   */
   public Piece clone(){
     Square cloneSquares[] = new Square[this.squares.length];
     for (int i=0;i<this.squares.length;i++){

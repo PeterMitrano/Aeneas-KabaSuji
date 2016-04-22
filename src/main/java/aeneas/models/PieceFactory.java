@@ -5,7 +5,7 @@ package aeneas.models;
  * @author Joseph Martin
  */
 public class PieceFactory {
-  public static Piece[] pieces = {
+  private static final Piece[] pieces = {
     new Piece(new Square[] {
       new Square(0,0),
       new Square(1,0),
@@ -287,4 +287,14 @@ public class PieceFactory {
       new Square(3,0)
     }),
   };
+
+  public static Piece[] getPieces() {
+    Piece[] clones = new Piece[pieces.length];
+
+    for (int i=0;i<pieces.length;i++){
+      clones[i] = pieces[i].clone(); //does deep copy
+    }
+
+    return clones;
+  }
 }

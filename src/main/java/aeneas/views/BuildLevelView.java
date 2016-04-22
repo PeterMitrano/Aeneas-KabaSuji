@@ -103,13 +103,14 @@ public class BuildLevelView extends StackPane implements Initializable {
       piecePickerDialog.show(this);
       piecesPane.getChildren().clear();
 
-      for (Piece pieceModel : PieceFactory.pieces) {
+      for (Piece pieceModel : PieceFactory.getPieces()) {
         PieceView pView = new PieceView((Pane) this, pieceModel, model, PIECE_PICKER_SQUARE_SIZE);
         piecesPane.getChildren().add(pView);
 
         pView.setOnMouseClicked((click) -> {
           IMove move = new AddPieceMove(levelModel.getBullpen(), pieceModel.clone());
           if (move.execute()){
+            model.addNewMove(move);
             bullpenView.refresh(model, levelModel.getBullpen());
           }
         });
