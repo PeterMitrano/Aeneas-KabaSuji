@@ -11,18 +11,17 @@ public class ReleaseLevel extends Level
   public static final String helpText = "";
 
   ReleaseBoard board;
-  ArrayList<ReleaseNumber> numbers;
 
   private int moves;
 
-  public ReleaseLevel(Bullpen bullpen, ArrayList<ReleaseNumber> numbers) {
+  public ReleaseLevel(Bullpen bullpen, ReleaseBoard board) {
     super(bullpen);
-    this.numbers = numbers;
+    this.board = board;
   }
 
   private boolean numberSetIsCovered(ReleaseNumber.Color color) {
-    for(ReleaseNumber n : numbers) {
-      if(n.color == color && board.getPieceAtLocation(n.row, n.col) != null) {
+    for(ReleaseNumber n : board.getNumbers()) {
+      if(n.color == color && board.getPieceAtLocation(n.row, n.col) == null) {
         return false;
       }
     }
@@ -41,7 +40,8 @@ public class ReleaseLevel extends Level
 
   @Override
   public int getStarsEarned() {
-    return Math.max(0, 3-numCoveredNumberSets());
+    // This would have to change if we added more than 3 sets of numbers
+    return numCoveredNumberSets();
   }
 
   public ReleaseLevel(Level src) {
