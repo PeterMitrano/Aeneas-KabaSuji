@@ -10,15 +10,14 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
   public static final String helpText = "";
 
   ReleaseBoard board;
-  ArrayList<ReleaseNumber> numbers;
 
-  public ReleaseLevel(Bullpen bullpen, ArrayList<ReleaseNumber> numbers) {
+  public ReleaseLevel(Bullpen bullpen, ReleaseBoard board) {
     super(bullpen);
-    this.numbers = numbers;
+    this.board = board;
   }
   
   private boolean numberSetIsCovered(ReleaseNumber.Color color) {
-    for(ReleaseNumber n : numbers) {
+    for(ReleaseNumber n : board.getNumbers()) {
       if(n.color == color && board.getPieceAtLocation(n.row, n.col) != null) {
         return false;
       }
