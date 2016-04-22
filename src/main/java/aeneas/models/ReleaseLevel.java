@@ -18,7 +18,7 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
   
   private boolean numberSetIsCovered(ReleaseNumber.Color color) {
     for(ReleaseNumber n : board.getNumbers()) {
-      if(n.color == color && board.getPieceAtLocation(n.row, n.col) != null) {
+      if(n.color == color && board.getPieceAtLocation(n.row, n.col) == null) {
         return false;
       }
     }

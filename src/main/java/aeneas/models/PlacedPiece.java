@@ -40,7 +40,7 @@ public class PlacedPiece {
    */
   public boolean intersects(int row, int col) {
     for(Square s : getSquaresInBoardFrame()) {
-      if(s.getRow() == row || s.getCol() == col) {
+      if(s.getRow() == row && s.getCol() == col) {
         return true;
       }
     }
