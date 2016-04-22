@@ -10,16 +10,20 @@ import javafx.scene.paint.Color;
  * @author Logan Tutt
  */
 public class ReleaseBoard extends Board implements java.io.Serializable {
-  
+
   ArrayList<ReleaseNumber> numbers;
-  
+
   public ReleaseBoard(ArrayList<ReleaseNumber> numbers){
     if(numbers == null)
-      numbers = new ArrayList<ReleaseNumber>();
+      this.numbers = new ArrayList<ReleaseNumber>();
     else
       this.numbers = numbers;
+    
+    this.numbers.add(new ReleaseNumber(0, 0, ReleaseNumber.color1, 1));
+    this.numbers.add(new ReleaseNumber(0, 5, ReleaseNumber.color2, 2));
+    this.numbers.add(new ReleaseNumber(5, 5, ReleaseNumber.color3, 3));
   }
-  
+
   @Override
   public Square[][] getSquares(){
     Square[][] squares = super.getSquares();
@@ -30,5 +34,7 @@ public class ReleaseBoard extends Board implements java.io.Serializable {
     return squares;
   }
 
-
+  public ArrayList<ReleaseNumber> getNumbers() {
+    return numbers;
+  }
 }

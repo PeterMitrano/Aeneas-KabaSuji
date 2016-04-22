@@ -30,7 +30,6 @@ public class ReleaseNumber implements java.io.Serializable {
     this.val = val;
   }
 
-
   public int getRow() { return row; }
   public int getCol() { return col; }
   public Color getColor() { return color; }
