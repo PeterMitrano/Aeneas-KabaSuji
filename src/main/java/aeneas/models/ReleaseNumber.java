@@ -10,6 +10,7 @@ public class ReleaseNumber implements java.io.Serializable {
     BLUE,
     GREEN,
   }
+
   /** row coordinate */
   int row;
   /** Column coordinate */
@@ -18,6 +19,13 @@ public class ReleaseNumber implements java.io.Serializable {
   Color color;
   /** Value of this number */
   int val;
+
+  public ReleaseNumber(int row, int col, Color color, int val) {
+    this.row = row;
+    this.col = col;
+    this.color = color;
+    this.val = val;
+  }
 
   public int getRow() { return row; }
   public int getCol() { return col; }
