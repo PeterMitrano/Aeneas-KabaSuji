@@ -26,7 +26,6 @@ public class SelectLevelController implements EventHandler<MouseEvent> {
 
   @Override
   public void handle(MouseEvent event) {
-    System.out.println("enter level " + levelModel.getLevelNumber());
     if (!gameModel.getMetadata(levelModel).isLocked()) {
       view.switchToPlayLevelView(levelModel);
     }
