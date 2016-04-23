@@ -5,6 +5,8 @@ package aeneas.models;
  * @author Joseph Martin
  */
 public class Piece implements java.io.Serializable {
+  private static final long serialVersionUID = 1L;
+
   public enum Axis {
     VERTICAL,
     HORIZONTAL,

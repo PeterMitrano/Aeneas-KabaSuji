@@ -11,8 +11,6 @@ import com.jfoenix.controls.JFXListView;
 import aeneas.controllers.SaveLevelController;
 import aeneas.models.Level;
 import aeneas.models.Model;
-import aeneas.models.Piece;
-import aeneas.models.Square;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
@@ -71,19 +69,7 @@ public class BuildLevelView extends BorderPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    bullpenView = new BullpenView(bullpenBox, this);
-
-    Piece testPiece = new Piece(new Square[] {
-        new Square(0, 0),
-        new Square(1, 0),
-        new Square(1, 1),
-        new Square(1, 2),
-        new Square(1, 3),
-        new Square(1, 4),
-    });
-
-
-    bullpenView.addPiece(testPiece, model);
+    bullpenView = new BullpenView(model, levelModel.getBullpen(), bullpenBox, this);
 
     boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));

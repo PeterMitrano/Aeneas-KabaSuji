@@ -1,12 +1,12 @@
 package aeneas.models;
 
-import java.util.ArrayList;
-
 /**
  * 
  * @author Joseph Martin
  */
 public class ReleaseLevel extends Level implements java.io.Serializable {
+  private static final long serialVersionUID = 1L;
+
   public static final String helpText = "";
 
   ReleaseBoard board;

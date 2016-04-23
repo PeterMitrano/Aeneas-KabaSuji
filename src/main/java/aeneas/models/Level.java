@@ -6,18 +6,43 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 /**
  *
  * @author Joseph Martin
  */
 public abstract class Level implements java.io.Serializable {
+  private static final long serialVersionUID = 1L;
+
   Bullpen bullpen;
 
-  public int levelNumber;
+  transient int levelNumber;
   boolean prebuilt;
 
-  private boolean locked;
+  public int getLevelNumber() {
+    return levelNumber;
+  }
+
+  public static class Metadata implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+
+    int starsEarned;
+    boolean locked;
+
+    public Metadata() { this.starsEarned = 0; this.locked = true; }
+
+    public Metadata(int starsEarned, boolean locked) {
+      this.starsEarned = starsEarned;
+      this.locked = locked;
+    }
+
+    public int getStarsEarned() { return starsEarned; }
+    public boolean isLocked() { return locked; }
+
+    void setStarsEarned(int stars) { starsEarned = stars; }
+    void setLocked(boolean locked) { this.locked = locked; }
+  }
 
   public Level(Bullpen bullpen, boolean prebuilt) {
     this.bullpen = bullpen;
@@ -26,25 +51,6 @@ public abstract class Level implements java.io.Serializable {
 
   public Level(Bullpen bullpen) {
     this(bullpen, true);
-  }
-  
-  @Override
-  public int hashCode() {
-    return levelNumber;
-  }
-  
-  @Override
-  public boolean equals(Object o) {
-    if(o == null) return false;
-    
-    if(o instanceof Level) {
-      Level other = (Level)o;
-      if(other.levelNumber == levelNumber && other.prebuilt == prebuilt) {
-        return true;
-      }
-    }
-    
-    return false;
   }
 
   /**
@@ -66,21 +72,6 @@ public abstract class Level implements java.io.Serializable {
    */
   public boolean isPrebuilt() {
     return prebuilt;
-  }
-
-  /**
-   * @return the locked
-   */
-  public boolean isLocked() {
-    return locked;
-  }
-
-  public void unlock() {
-    this.locked = false ;
-  }
-
-  public void lock() {
-    this.locked = true;
   }
   
   public void reset() {
@@ -118,5 +109,13 @@ public abstract class Level implements java.io.Serializable {
     }
 
     return level;
+  }
+
+  public ArrayList<Piece> getPieces() {
+    return bullpen.pieces;
+  }
+
+  public Bullpen getBullpen() {
+    return bullpen;
   }
 }

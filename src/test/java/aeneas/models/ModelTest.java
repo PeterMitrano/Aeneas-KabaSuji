@@ -17,18 +17,23 @@ public class ModelTest {
   }
 
   @Test
-  public void test() {
+  public void testLevels() {
     Model m = new Model();
-    assertTrue("level count", m.levels.size() > 15);
+    assertFalse(m.getMetadata(m.getLevel(1)).isLocked());
+    assertEquals(0, m.getMetadata(m.getLevel(1)).getStarsEarned());
+    for(int i = 2; i < 15; i++) {
+      assertTrue(m.getMetadata(m.getLevel(i)).isLocked());
+      assertEquals(0, m.getMetadata(m.getLevel(i)).getStarsEarned());
+    }
   }
 
   @Test
   public void testStars() {
     Model m = new Model();
     Level l = new PuzzleLevel(new Bullpen());
-    assertEquals(m.getStarsForLevel(l), 0);
+    assertEquals(m.getMetadata(l).getStarsEarned(), 0);
     m.setActiveLevel(l);
     m.updateStats();
-    assertEquals(m.getStarsForLevel(l), 0);
+    assertEquals(m.getMetadata(l).getStarsEarned(), 0);
   }
 }

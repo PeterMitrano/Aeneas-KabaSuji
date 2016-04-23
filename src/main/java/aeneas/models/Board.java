@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * @author Joseph Martin
  */
 public abstract class Board implements java.io.Serializable {
+  private static final long serialVersionUID = 1L;
 
   public static final int SIZE = 12;
 

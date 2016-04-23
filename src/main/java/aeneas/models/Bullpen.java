@@ -8,6 +8,8 @@ import java.util.ArrayList;
  * @author Joseph Martin
  */
 public class Bullpen implements java.io.Serializable {
+  private static final long serialVersionUID = 1L;
+
   ArrayList<Piece> pieces;
 
   /**
@@ -40,5 +42,9 @@ public class Bullpen implements java.io.Serializable {
    */
   boolean removePiece(Piece piece) {
     return pieces.remove(piece);
+  }
+
+  public ArrayList<Piece> getPieces() {
+    return pieces;
   }
 }
