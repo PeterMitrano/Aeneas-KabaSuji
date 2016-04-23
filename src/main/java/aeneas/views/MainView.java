@@ -127,8 +127,6 @@ public class MainView extends StackPane implements Initializable {
   }
 
   public void switchToPlayLevelView(Level level) {
-    System.out.println("LEVEL: "+level.getLevelNumber());
-    System.out.println("Bullpen"+level.getPieces());
     PlayLevelView playLevelView = new PlayLevelView(this, level, model);
     paneStack.push(playLevelView);
     content.getChildren().clear();
