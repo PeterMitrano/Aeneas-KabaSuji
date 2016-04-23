@@ -32,6 +32,10 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class MainView extends StackPane implements Initializable {
 
   @FXML

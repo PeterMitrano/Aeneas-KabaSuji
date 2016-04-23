@@ -24,6 +24,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class PlayLevelView extends BorderPane implements Initializable {
 
   @FXML

@@ -12,6 +12,10 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 class BullpenView {
 
   VBox bullpenBox;
