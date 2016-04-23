@@ -17,9 +17,13 @@ import com.jfoenix.controls.JFXRippler;
 
 import aeneas.controllers.ViewAboutController;
 import aeneas.controllers.ViewHelpController;
+import aeneas.models.Bullpen;
 import aeneas.models.Level;
+import aeneas.models.LightningLevel;
 import aeneas.models.Model;
-
+import aeneas.models.PuzzleLevel;
+import aeneas.models.ReleaseBoard;
+import aeneas.models.ReleaseLevel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -75,7 +79,6 @@ public class MainView extends StackPane implements Initializable {
   Stage stage;
 
   public MainView(Stage stage) {
-
     this.stage = stage;
     paneStack = new Stack<Node>();
 
@@ -87,6 +90,11 @@ public class MainView extends StackPane implements Initializable {
     } catch (IOException e){
       e.printStackTrace();
     }
+
+    //create the different types of levels
+    LevelViewFactory.addView(new PuzzleView(new PuzzleLevel(new Bullpen())));
+    LevelViewFactory.addView(new LightningView(new LightningLevel(new Bullpen(), 0)));
+    LevelViewFactory.addView(new ReleaseView(new ReleaseLevel(new Bullpen(), new ReleaseBoard(null))));
   }
 
   public void switchToWelcomeView() {

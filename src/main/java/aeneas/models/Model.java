@@ -40,12 +40,6 @@ public class Model {
   Stack<IMove> redoStack;
 
   public Model() {
-    //create the different types of levels
-    LevelViewFactory.addView(new PuzzleView(new PuzzleLevel(new Bullpen())));
-    LevelViewFactory.addView(new LightningView(new LightningLevel(new Bullpen(), 0)));
-    LevelViewFactory.addView(new ReleaseView(new ReleaseLevel(new Bullpen(), new ReleaseBoard(null))));
-
-
     levels = new ArrayList<>();
     starsEarned = new HashMap<>();
     achievements = new ArrayList<>();
