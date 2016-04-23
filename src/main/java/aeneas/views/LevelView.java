@@ -2,6 +2,7 @@ package aeneas.views;
 
 import aeneas.models.Level;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.VBox;
 
@@ -14,6 +15,9 @@ public class LevelView {
   public LevelView(Level levelModel){
     this.levelModel = levelModel;
     panel = new VBox();
+    panel.setAlignment(Pos.TOP_LEFT);
+    panel.setSpacing(10);
+    panel.setMinWidth(125);
     button = new RadioButton();
   }
 

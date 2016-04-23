@@ -18,7 +18,7 @@ public class PuzzleView extends LevelView {
 
     movesLabel = new Label("Moves");
     movesSelect = new Spinner<Integer>(1, 20, 10);
-    movesSelect.prefWidth(70);
+    movesSelect.setPrefWidth(70);
     movesSelect.setEditable(true);
 
     HBox hbox = new HBox();
@@ -27,7 +27,6 @@ public class PuzzleView extends LevelView {
     hbox.getChildren().add(movesLabel);
     hbox.getChildren().add(movesSelect);
 
-    panel.setSpacing(10);
     panel.getChildren().add(hbox);
 
     button = new RadioButton("Puzzle");

@@ -17,10 +17,9 @@ public class ReleaseView extends LevelView {
 
     JFXColorPicker colorSelect = new JFXColorPicker();
     colorSelect.prefWidth(110);
-    
+
     box.getChildren().add(colorSelect);
 
-    panel.setSpacing(10);
     panel.getChildren().add(box);
 
     button = new RadioButton("Release");
