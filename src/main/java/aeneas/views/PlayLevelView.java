@@ -71,8 +71,8 @@ public class PlayLevelView extends BorderPane implements Initializable {
     bullpenView = new BullpenView(model, levelModel.getBullpen(), bullpenBox, (Pane) this);
 
     resetLevelButton.setOnMouseClicked((e) -> {
-      //SelectLevelController c = new SelectLevelController(mainView, null);
-      //c.resetLevel();
+      SelectLevelController c = new SelectLevelController(mainView, model, levelModel);
+      c.resetLevel();
     });
 
     boardView = new BoardView(levelModel.getBoard());
