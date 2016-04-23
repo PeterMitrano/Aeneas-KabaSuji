@@ -45,9 +45,6 @@ public class PuzzleLevel extends Level
   }
 
   @Override
-  public LevelType getLevelType() { return LevelType.PUZZLE; }
-
-  @Override
   public void setAllowedMoves(int moves) { this.moves = moves; }
 
   @Override

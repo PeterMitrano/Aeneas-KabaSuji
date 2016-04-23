@@ -1,9 +1,5 @@
 package aeneas.controllers;
-import aeneas.models.Level;
 import aeneas.models.Level.LevelWithMoves;
-import aeneas.models.Level.LevelType;
-import aeneas.models.PuzzleLevel;
-import aeneas.models.ReleaseLevel;
 
 /**
  * Move action to set the allotted moves for a puzzle level

@@ -1,6 +1,4 @@
 package aeneas.controllers;
-import aeneas.models.Level;
-import aeneas.models.Level.LevelType;
 import aeneas.models.LightningLevel;
 
 /**

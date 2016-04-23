@@ -1,10 +1,5 @@
 package aeneas.controllers;
 import aeneas.models.Level;
-import aeneas.models.Level.LevelType;
-import aeneas.models.LightningLevel;
-import aeneas.models.PuzzleLevel;
-import aeneas.models.ReleaseLevel;
-import aeneas.views.BuildLevelView;
 
 /**
  * Move action to change the type of a level

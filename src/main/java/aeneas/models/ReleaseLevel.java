@@ -61,9 +61,6 @@ public class ReleaseLevel extends Level
   }
 
   @Override
-  public LevelType getLevelType() { return LevelType.RELEASE; }
-
-  @Override
   public void setAllowedMoves(int moves) { this.moves = moves; }
 
   @Override

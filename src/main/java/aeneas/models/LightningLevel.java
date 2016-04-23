@@ -44,9 +44,6 @@ public class LightningLevel extends Level implements java.io.Serializable {
     return board;
   }
 
-  @Override
-  public LevelType getLevelType() { return LevelType.LIGHTNING; }
-
   /**
    * Set the timer for the level.
    * @param seconds The time, in seconds, for the level timer.
