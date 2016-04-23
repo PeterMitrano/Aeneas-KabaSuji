@@ -45,10 +45,6 @@ public class Model {
     achievements = new ArrayList<>();
     index = new LevelIndex();
 
-    System.out.println(index.getLevel(2).getPieces());
-    index.getLevel(2).bullpen.addPiece(new Piece(new Square[] { new Square(0,0), new Square(1,1)}));
-    System.out.println(index.getLevel(2).getPieces());
-
     levelMetadata.put(1, new Level.Metadata(0, false));
   }
 
