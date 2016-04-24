@@ -22,7 +22,7 @@ import aeneas.models.Bullpen;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
-
+import aeneas.models.ReleaseLevel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -143,7 +143,7 @@ public class MainView extends StackPane implements Initializable {
     playSelectLevelView= new PlaySelectLevelView(this, model);
 
     Bullpen bullpen = new Bullpen(new ArrayList<>());
-    Level l = new PuzzleLevel(bullpen);
+    Level l = new ReleaseLevel(bullpen);
     playLevelView = new PlayLevelView(this, l, model);
     buildLevelView = new BuildLevelView(this, l, model);
     viewAchievementsView = new ViewAchievementsView(model);
