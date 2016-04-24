@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import aeneas.models.Bullpen.BullpenLogic;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,7 +27,7 @@ public class SerTest {
 
   @Test
   public void test() {
-    LightningLevel s = new LightningLevel(new Bullpen(), 10);
+    LightningLevel s = new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 10);
     File file = new File("temp_sevel.ksb");
 
     try {

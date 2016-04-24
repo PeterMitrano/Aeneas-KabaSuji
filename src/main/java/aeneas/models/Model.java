@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Stack;
 
 import aeneas.controllers.IMove;
+import aeneas.models.Bullpen.BullpenLogic;
 
 
 /**
@@ -40,7 +41,7 @@ public class Model {
     starsEarned = new HashMap<>();
     achievements = new ArrayList<>();
     for (int i = 0; i < numLevels; i++) {
-      Bullpen b = new Bullpen(new ArrayList<>());
+      Bullpen b = new Bullpen(BullpenLogic.puzzleLogic(), new ArrayList<>());
       Level l = new PuzzleLevel(b);
       l.levelNumber = i + 1;
       l.lock();
@@ -49,7 +50,7 @@ public class Model {
 
     //add custom level for example
     for (int i=0;i<20;i++){
-      Bullpen b = new Bullpen(new ArrayList<>());
+      Bullpen b = new Bullpen(BullpenLogic.puzzleLogic(), new ArrayList<>());
       Level l = new PuzzleLevel(b, false);
       l.prebuilt = false;
       l.levelNumber = i+16;
