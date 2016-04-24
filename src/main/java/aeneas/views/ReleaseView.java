@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 
 public class ReleaseView extends LevelView {
 
+  private static final RadioButton button = new RadioButton("Release");
+
   public ReleaseView(Level levelModel){
     super(levelModel);
 
@@ -22,9 +24,12 @@ public class ReleaseView extends LevelView {
 
     panel.getChildren().add(box);
 
-    button = new RadioButton("Release");
     button.setUserData(this);
   }
 
+  @Override
+  public RadioButton getButton() {
+    return ReleaseView.button;
+  }
 }
 

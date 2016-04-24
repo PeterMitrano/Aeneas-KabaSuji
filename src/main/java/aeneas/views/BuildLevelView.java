@@ -103,14 +103,14 @@ public class BuildLevelView extends BorderPane implements Initializable {
       }
     });
 
-    //these views are empty and really only used to get the radio buttons
-    for (LevelView view : LevelViewFactory.getViews()) {
-      view.getButton().setToggleGroup(levelType);
-      togglesBox.getChildren().add(view.getButton());
+    for (LevelView levelView : LevelViewFactory.getViews()) {
+      levelView.getButton().setToggleGroup(levelType);
+      togglesBox.getChildren().add(levelView.getButton());
     }
 
     //set the right settings got the given level type
     this.settingsBox.getChildren().add(1, this.levelView.getPanel());
+    this.levelView.getButton().setSelected(true);
 
     // Handle changes in the level type.
     // TODO: Consider moving this to a separate class.

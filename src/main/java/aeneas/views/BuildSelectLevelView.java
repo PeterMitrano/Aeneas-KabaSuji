@@ -12,7 +12,8 @@ import com.jfoenix.effects.JFXDepthManager;
 
 import aeneas.models.Bullpen;
 import aeneas.models.Level;
-import aeneas.models.LightningLevel;
+import aeneas.models.PuzzleLevel;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,14 +45,13 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
       loader.setRoot(this);
       loader.setController(this);
       loader.load();
-    }
-    catch (IOException e){
+    } catch (IOException e) {
       e.printStackTrace();
     }
 
-    //create default new level
-    Level defaultLevel = new LightningLevel(new Bullpen(), 10);
-    LevelView defaultLevelView = new LightningView(defaultLevel);
+    // create default new level
+    PuzzleLevel defaultLevel = new PuzzleLevel(new Bullpen());
+    LevelView defaultLevelView = new PuzzleView(defaultLevel);
     levelMap.put("DEFAULT", defaultLevelView);
   }
 
@@ -59,18 +59,21 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     fileList.setOnMouseClicked((e) -> {
-      String path = fileList.getSelectionModel().getSelectedItem().getText();
-      
-      if (path.equals(createNewLevelLabel.getText())) {
-        levelViewToSwitchTo = levelMap.get("DEFAULT");
-        mainView.switchToBuildLevelView(levelViewToSwitchTo);
-      }
-      else {
-      levelViewToSwitchTo = levelMap.get(path);
+      Label l = fileList.getSelectionModel().getSelectedItem();
 
-      if (levelViewToSwitchTo == null){
-        System.out.println("couldn't find file name " + path);
-      }
+      if (l != null) {
+        String path = l.getText();
+
+        if (path.equals(createNewLevelLabel.getText())) {
+          levelViewToSwitchTo = levelMap.get("DEFAULT");
+          mainView.switchToBuildLevelView(levelViewToSwitchTo);
+        } else {
+          levelViewToSwitchTo = levelMap.get(path);
+
+          if (levelViewToSwitchTo == null) {
+            System.out.println("couldn't find file name " + path);
+          }
+        }
       }
     });
 
@@ -80,7 +83,8 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
 
     openFile.setOnMouseClicked((e) -> {
       File loadFile = mainView.showOpenDialog();
-      if (loadFile == null) return;
+      if (loadFile == null)
+        return;
       try {
         Level newLevel = Level.loadLevel(loadFile);
         this.levelViewToSwitchTo = newLevel.makeCorrespondingView();

@@ -6,9 +6,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.VBox;
 
-public class LevelView {
+public abstract class LevelView {
 
-  protected RadioButton button;
   protected VBox panel;
   public Level levelModel;
 
@@ -18,14 +17,6 @@ public class LevelView {
     panel.setAlignment(Pos.TOP_LEFT);
     panel.setSpacing(10);
     panel.setMinWidth(125);
-    button = new RadioButton();
-  }
-
-  /**
-   * @return the button
-   */
-  public RadioButton getButton() {
-    return button;
   }
 
   /**
@@ -34,5 +25,6 @@ public class LevelView {
   public VBox getPanel() {
     return panel;
   }
-
+  
+  public abstract RadioButton getButton();
 }
