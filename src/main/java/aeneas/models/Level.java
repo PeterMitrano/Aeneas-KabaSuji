@@ -56,6 +56,7 @@ public abstract class Level implements java.io.Serializable {
 
   /**
    * Copy constructor.
+   * @param src the level you are copying from
    * Does not actually copy the Bullpen, just passes along
    * the reference.
    */
@@ -108,6 +109,7 @@ public abstract class Level implements java.io.Serializable {
   /**
    * Saves the level to a file.
    * @param file The file to save to. Should not be null
+   * @throws IOException could fail to load file
    */
   public void save(File file) throws IOException {
     try (FileOutputStream saveFile = new FileOutputStream(file);
@@ -121,6 +123,7 @@ public abstract class Level implements java.io.Serializable {
   /**
    * Constructs a level from a file.
    * @param file The file to load from.
+   * @throws IOException could fail to load file
    * @return The level that was read; null if the read failed.
    */
   public static Level loadLevel(File file) throws IOException {

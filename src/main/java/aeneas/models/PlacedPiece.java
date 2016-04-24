@@ -36,6 +36,8 @@ public class PlacedPiece {
 
   /**
    * Tests if the piece intersects a particular coordinate.
+   * @param row the row on which intersection is tested
+   * @param col the col on which intersection is tested
    * @return True if the piece intersects the specified coordinate, false otherwise.
    */
   public boolean intersects(int row, int col) {
@@ -50,6 +52,7 @@ public class PlacedPiece {
 
   /**
    * Tests if the piece intersects another piece.
+   * @param other the piece we check for intersection with
    * @return True if the two pieces intersect, false otherwise.
    */
   public boolean intersects(PlacedPiece other) {

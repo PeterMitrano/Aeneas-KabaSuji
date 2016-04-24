@@ -160,6 +160,7 @@ public class Model {
 
   /**
    * Add new move to the undo stack.
+   * @param move the move to add
    */
   public void addNewMove(IMove move){
 
