@@ -9,25 +9,13 @@ public class PlacedPiece {
   Piece piece;
   int row, col;
 
-  /**
-   * @param piece the piece model
-   * @param row the row on the board, starting at 0
-   * @param col the col on the board, starting at 0
-   */
   PlacedPiece(Piece piece, int row, int col) {
     this.piece = piece;
     this.row = row;
     this.col = col;
   }
 
-  /**
-   * @return the row
-   */
   public int getRow() { return row; }
-
-  /**
-   * @return the col
-   */
   public int getCol() { return col; }
 
   /**
@@ -48,8 +36,6 @@ public class PlacedPiece {
 
   /**
    * Tests if the piece intersects a particular coordinate.
-   * @param row the row on the board, starting at 0
-   * @param col the col on the board, starting at 0
    * @return True if the piece intersects the specified coordinate, false otherwise.
    */
   public boolean intersects(int row, int col) {
@@ -64,7 +50,6 @@ public class PlacedPiece {
 
   /**
    * Tests if the piece intersects another piece.
-   * @param other the piece with which we are checking for intersection
    * @return True if the two pieces intersect, false otherwise.
    */
   public boolean intersects(PlacedPiece other) {

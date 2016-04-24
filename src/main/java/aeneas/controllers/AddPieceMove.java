@@ -1,62 +1,47 @@
 package aeneas.controllers;
-
-import aeneas.models.Bullpen;
+import aeneas.models.Level;
 import aeneas.models.Piece;
 
 /**
- * Move action to add a piece to a level For use in the builder
+ * Move action to add a piece to a level
+ * For use in the builder
  *
  * @author Logan
  *
  */
 public class AddPieceMove implements IMove {
 
+
+  Level level;
+
   Piece piece;
-  Bullpen bullpen;
 
   /**
    * Constructor
-   *
-   * @param bullpen the bullpen that the piece is being added to
+   * @param level the level that is being played
    * @param piece the piece to add
    */
-  public AddPieceMove(Bullpen bullpen, Piece piece) {
-    this.bullpen = bullpen;
+  public AddPieceMove(Level level, Piece piece) {
+    this.level = level;
     this.piece = piece;
   }
 
-  /**
-   * @return true on success
-   */
   @Override
   public boolean execute() {
-    if (!isValid())
-      return false;
-
-    bullpen.addPiece(piece);
-
-    return true;
+    // TODO Auto-generated method stub
+    return false;
   }
 
   @Override
   public boolean undo() {
-    if (!isValid())
-      return false;
-
-    bullpen.removePiece(piece);
-
-    return true;
+    // TODO Auto-generated method stub
+    return false;
   }
 
-  /**
-   * @return true on success
-   */
   @Override
   public boolean isValid() {
-    if (bullpen == null || piece == null) {
-      return false;
-    }
-
-    return bullpen.getLogic().isCanAddNewPiece();
+    // TODO Auto-generated method stub
+    return false;
   }
+
 }

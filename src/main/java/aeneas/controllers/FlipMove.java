@@ -17,7 +17,6 @@ public class FlipMove implements IMove {
   /**
    * Constructor
    * @param piece The piece that is to be flipped
-   * @param axis The axis around which we flip, either verticle or horizontal
    */
   public FlipMove(Piece piece, Axis axis) {
     this.piece = piece;
@@ -31,7 +30,7 @@ public class FlipMove implements IMove {
       return true;
     }
     return false;
-
+      
   }
 
   @Override

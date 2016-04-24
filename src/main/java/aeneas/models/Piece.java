@@ -22,6 +22,7 @@ public class Piece implements java.io.Serializable {
   private int height;
   public boolean inBullpen;
 
+
   public Piece(Square[] squares) {
     this.squares = squares;
     width = 0;
@@ -81,23 +82,5 @@ public class Piece implements java.io.Serializable {
 
   public int getHeight(){
     return height;
-  }
-
-  @Override
-  /**
-   * deep copy
-   */
-  public Piece clone(){
-    Square cloneSquares[] = new Square[this.squares.length];
-    for (int i=0;i<this.squares.length;i++){
-      Square s = this.squares[i];
-      cloneSquares[i] = s.clone();
-    }
-
-    Piece clone = new Piece(cloneSquares);
-    clone.width = this.width;
-    clone.height = this.height;
-    clone.inBullpen = this.inBullpen;
-    return clone;
   }
 }

@@ -68,13 +68,6 @@ public abstract class Level implements java.io.Serializable {
   public abstract int getStarsEarned();
 
   /**
-   * @return the bullpen
-   */
-  public Bullpen getBullpen() {
-    return bullpen;
-  }
-
-  /**
    * @return the prebuilt
    */
   public boolean isPrebuilt() {
@@ -120,5 +113,9 @@ public abstract class Level implements java.io.Serializable {
 
   public ArrayList<Piece> getPieces() {
     return bullpen.pieces;
+  }
+
+  public Bullpen getBullpen() {
+    return bullpen;
   }
 }
