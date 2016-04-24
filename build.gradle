@@ -13,13 +13,10 @@ apply plugin: 'jacoco'
 mainClassName = "aeneas.Main"
 
 dependencies {
-  compile files('lib/fontawesomefx-8.10-SNAPSHOT.jar', 'lib/jfoenix.jar')
-  runtime files('lib/fontawesomefx-8.10-SNAPSHOT.jar', 'lib/jfoenix.jar')
-  testCompile "junit:junit:4.12"
+  compile fileTree(dir: 'lib', include: '*.jar')
 
-  testCompile "org.testfx:testfx-core:4.0.+"
-  testCompile "org.testfx:testfx-junit:4.0.+"
-  testCompile files('lib/fontawesomefx-8.10-SNAPSHOT.jar', 'lib/jfoenix.jar')
+  testCompile "junit:junit:4.12"
+  testCompile fileTree(dir: 'lib', include: '*.jar')
 }
 
 task javadocs(type: Javadoc) {
