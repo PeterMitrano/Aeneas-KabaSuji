@@ -1,7 +1,7 @@
 package aeneas.views;
 
-import java.io.IOException;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,15 +9,14 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.effects.JFXDepthManager;
 
-import aeneas.models.Model;
 import aeneas.models.Level;
+import aeneas.models.Model;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.FileChooser;
 
 public class BuildSelectLevelView extends BorderPane implements Initializable {
 
@@ -32,12 +31,10 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
   @FXML
   private JFXButton editLevel;
 
-  private Model model;
 
   private MainView mainView;
 
   BuildSelectLevelView(MainView mainView, Model model) {
-    this.model = model;
     this.mainView = mainView;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("BuildSelectLevel.fxml"));

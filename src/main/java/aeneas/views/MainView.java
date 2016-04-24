@@ -19,6 +19,7 @@ import com.jfoenix.controls.JFXRippler;
 import aeneas.controllers.ViewAboutController;
 import aeneas.controllers.ViewHelpController;
 import aeneas.models.Bullpen;
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
@@ -146,7 +147,7 @@ public class MainView extends StackPane implements Initializable {
     welcomeView = new WelcomeView(this, model);
     playSelectLevelView= new PlaySelectLevelView(this, model);
 
-    Bullpen bullpen = new Bullpen(new ArrayList<>());
+    Bullpen bullpen = new Bullpen(BullpenLogic.editorLogic(), new ArrayList<>());
     Level l = new PuzzleLevel(bullpen);
     buildLevelView = new BuildLevelView(this, l, model);
     viewAchievementsView = new ViewAchievementsView(model);
@@ -158,6 +159,7 @@ public class MainView extends StackPane implements Initializable {
     optionsBurger.setOnMouseClicked((e) -> {
       toolbarPopup.show(PopupVPosition.TOP, PopupHPosition.RIGHT, -12, 5);
     });
+
     back.setOnMouseClicked((e) -> {
       // unless we're out of places to go back, go at the last pane we
       // the current node should always be in the stack,
