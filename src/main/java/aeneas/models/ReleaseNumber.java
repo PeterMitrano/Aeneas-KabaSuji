@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 public class ReleaseNumber implements java.io.Serializable {
 
   public static Color color1 = Color.RED;
-  public static Color color2 = Color.GREEN;
+  public static Color color2 = Color.BLUEVIOLET;
   public static Color color3 = Color.YELLOW;
 
 

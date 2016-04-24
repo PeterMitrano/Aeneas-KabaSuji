@@ -2,6 +2,8 @@ package aeneas.models;
 
 import java.util.ArrayList;
 
+import javafx.scene.paint.Color;
+
 /**
  * Represents a board (which keeps track of its pieces, hints, and the shape of the board).
  * 
@@ -10,6 +12,8 @@ import java.util.ArrayList;
 public abstract class Board implements java.io.Serializable {
 
   public static final int SIZE = 12;
+
+  public static final Color DEFAULT_COLOR = Color.GRAY;
 
   boolean[][] squares = new boolean[SIZE][SIZE];
   ArrayList<PlacedPiece> pieces;
@@ -134,6 +138,17 @@ public abstract class Board implements java.io.Serializable {
     for (PlacedPiece piece : pieces){
       for(Square s : piece.getSquaresInBoardFrame())
         squares[s.getCol()][s.getRow()] = s;
+    }
+    for (PlacedPiece piece : hints){
+      for(Square s : piece.getSquaresInBoardFrame())
+        squares[s.getCol()][s.getRow()] = s;
+    }
+    for(int i = 0;i<this.squares.length;i++ ){
+      for(int j = 0;j<this.squares.length;j++){
+        if(this.squares[i][j] && squares[i][j] == null){
+          squares[i][j]=new Square(j, i, Board.DEFAULT_COLOR);
+        }
+      }
     }
     return squares;
   }

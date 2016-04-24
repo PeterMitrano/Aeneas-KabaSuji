@@ -18,17 +18,14 @@ public class ReleaseBoard extends Board implements java.io.Serializable {
       this.numbers = new ArrayList<ReleaseNumber>();
     else
       this.numbers = numbers;
-    
-    this.numbers.add(new ReleaseNumber(0, 0, ReleaseNumber.color1, 1));
-    this.numbers.add(new ReleaseNumber(0, 5, ReleaseNumber.color2, 2));
-    this.numbers.add(new ReleaseNumber(5, 5, ReleaseNumber.color3, 3));
+
   }
 
   @Override
   public Square[][] getSquares(){
     Square[][] squares = super.getSquares();
     for(ReleaseNumber num: numbers){
-      if(squares[num.getCol()][num.getRow()] == null)
+      if(squares[num.getCol()][num.getRow()] != null && getPieceAtLocation(num.getRow(), num.getCol()) == null)
         squares[num.getCol()][num.getRow()] = new Square(num.getRow(), num.getCol(), num, Color.GRAY);
     }
     return squares;

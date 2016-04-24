@@ -1,10 +1,12 @@
 package aeneas.views;
 
+
 import aeneas.models.Square;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 
 /**
  * View class to display a single square
@@ -33,10 +35,11 @@ public class SquareView extends StackPane {
       if(s.getNum() != null){
         Label l = new Label(Integer.toString(s.getNum().getValue()));
         l.setTextFill(s.getNum().getColor());
+        l.setFont(new Font(20));
         this.getChildren().add(l);
       }
     }else{
-      square.setFill(Color.GRAY);
+      square.setFill(Color.BLACK);
     }
   }
 
