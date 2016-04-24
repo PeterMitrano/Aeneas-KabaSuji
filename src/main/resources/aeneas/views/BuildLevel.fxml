@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.RadioButton?>
@@ -17,30 +21,30 @@
 <?import javafx.collections.*?>
 
 
-<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
-  xmlns="http://javafx.com/javafx/2.2">
+<fx:root type="javafx.scene.layout.StackPane" xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/2.2">
+  <BorderPane>
   <left>
-    <StackPane alignment="BOTTOM_LEFT">
-      <VBox prefWidth="115" fx:id="bullpenBox" spacing="20"
-        alignment="TOP_CENTER" />
-      <JFXButton fx:id="addPiece" prefWidth="50" prefHeight="50"
-        style="-fx-rippler-fill:#FFCDD2;-fx-background-color:#F44336;">
+    <VBox alignment="BOTTOM_LEFT">
+      <ScrollPane fx:id="scrollpane" fitToWidth="true" style="-fx-background-color:transparent;">
+          <VBox prefWidth="115" fx:id="bullpenBox" spacing="20" alignment="TOP_CENTER" />
+      </ScrollPane>
+      <JFXButton fx:id="addPiece" minWidth="50" minHeight="50" styleClass="action-button">
         <graphic>
-          <FontAwesomeIconView glyphName="PLUS"
-            size="3em" />
+          <FontAwesomeIconView glyphName="PLUS" size="2em" />
         </graphic>
-        <StackPane.margin>
-          <Insets left="10" bottom="10" />
-        </StackPane.margin>
+        <VBox.margin>
+          <Insets left="10" bottom="10" top="10" right="10"/>
+        </VBox.margin>
       </JFXButton>
-    </StackPane>
+    </VBox>
   </left>
   <center>
     <VBox fx:id="centerBox" spacing="10" alignment="TOP_CENTER">
 
       <VBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color:#d1d1d1;">
         <HBox spacing="20">
-          <VBox fx:id="levelTypeBox" spacing="10">
+          <VBox fx:id="levelTypeBox" spacing="10" style="border:none;">
             <Label textAlignment="RIGHT" text="Type" />
             <VBox spacing="4">
               <fx:define>
@@ -52,7 +56,7 @@
                 <RadioButton text="Release" toggleGroup="$levelType" />
               </children>
             </VBox>
-            
+
             <HBox.margin>
               <Insets right="20" left="20" />
             </HBox.margin>
@@ -106,4 +110,17 @@
       </VBox>
     </VBox>
   </center>
+  </BorderPane>
+
+	<JFXDialog fx:id="piecePickerDialog">
+		<JFXDialogLayout>
+			<heading>
+        <Label>Pick a Piece</Label>
+			</heading>
+			<body>
+        <FlowPane fx:id="piecesPane" prefWrapLength="300" hgap="20" vgap="20">
+        </FlowPane>
+			</body>
+		</JFXDialogLayout>
+	</JFXDialog>
 </fx:root>

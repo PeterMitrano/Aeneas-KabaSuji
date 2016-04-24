@@ -13,7 +13,6 @@ import java.util.Stack;
 import aeneas.controllers.IMove;
 import aeneas.models.Level.Metadata;
 
-
 /**
  * Top level entity class for KabaSuji.
  * @author Joseph Martin
