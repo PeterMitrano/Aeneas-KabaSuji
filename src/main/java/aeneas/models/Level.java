@@ -22,9 +22,7 @@ public abstract class Level implements java.io.Serializable {
     return levelNumber;
   }
 
-  public static class Metadata implements java.io.Serializable {
-    private static final long serialVersionUID = 1L;
-
+  public static class Metadata implements java.io.Serializable {L;
     int starsEarned;
     boolean locked;
 
