@@ -14,13 +14,6 @@ import org.junit.Test;
 
 import aeneas.models.Bullpen.BullpenLogic;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 public class SerTest {
 
   @Before
@@ -33,7 +26,7 @@ public class SerTest {
 
   @Test
   public void testPuzzleLevelSerialize() {
-    PuzzleLevel s = new PuzzleLevel(new Bullpen(), false);
+    PuzzleLevel s = new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()), false);
     s.setAllowedMoves(10);
     File file = new File("build/puzzle.ksb");
 
@@ -63,7 +56,7 @@ public class SerTest {
 
   @Test
   public void testLighteningSerialize() {
-    LightningLevel s = new LightningLevel(new Bullpen(), 10);
+    LightningLevel s = new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 10);
     File file = new File("build/lightening.ksb");
 
     try {

@@ -1,16 +1,17 @@
 package aeneas.controllers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import aeneas.models.Bullpen;
-import aeneas.models.Level;
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.models.LightningLevel;
 import aeneas.models.PuzzleLevel;
-import aeneas.models.ReleaseLevel;
 
 public class TestSetTimeMove {
 
@@ -46,7 +47,7 @@ public class TestSetTimeMove {
 
   @Test
   public void testNegativeTime() {
-    PuzzleLevel test = new PuzzleLevel(new Bullpen());
+    PuzzleLevel test = new PuzzleLevel(new Bullpen(BullpenLogic.editorLogic()));
     IMove move = new SetMovesMove(test, -100);
     assertFalse(move.isValid());
     assertFalse(move.execute());

@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import aeneas.models.Bullpen;
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.models.Level;
 import aeneas.models.Level.LevelWithMoves;
 import aeneas.models.LightningLevel;
@@ -36,7 +37,7 @@ public class TestSetMovesMove {
   // fail until the Level models are fully implemented.
   @Test
   public void testPuzzleLevel() {
-    PuzzleLevel test = new PuzzleLevel(new Bullpen());
+    PuzzleLevel test = new PuzzleLevel(new Bullpen(BullpenLogic.editorLogic()));
     int oldMoves = 0, newMoves = 100;
     test.setAllowedMoves(0);
     assertEquals(oldMoves, test.getAllowedMoves());
@@ -50,7 +51,7 @@ public class TestSetMovesMove {
 
   @Test
   public void testReleaseLevel() {
-    ReleaseLevel test = new ReleaseLevel(new Bullpen(), null);
+    ReleaseLevel test = new ReleaseLevel(new Bullpen(BullpenLogic.editorLogic()), null);
     int oldMoves = 0, newMoves = 100;
     test.setAllowedMoves(oldMoves);
     assertEquals(oldMoves, test.getAllowedMoves());
@@ -64,7 +65,7 @@ public class TestSetMovesMove {
 
   @Test
   public void testNegativeMoves() {
-    PuzzleLevel test = new PuzzleLevel(new Bullpen());
+    PuzzleLevel test = new PuzzleLevel(new Bullpen(BullpenLogic.editorLogic()));
     IMove move = new SetMovesMove(test, -100);
     assertFalse(move.isValid());
     assertFalse(move.execute());
