@@ -147,6 +147,11 @@ public class BuildLevelView extends StackPane implements Initializable {
 
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
 
+    //if the user commits to dragging a piece out of the dialog then we close the dialog
+    piecesPane.setOnDragExited((e) -> {
+      piecePickerDialog.close();
+    });
+
     addPiece.setOnMouseClicked((e) -> {
       piecePickerDialog.show(this);
       piecesPane.getChildren().clear();

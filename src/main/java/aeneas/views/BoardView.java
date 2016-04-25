@@ -49,6 +49,7 @@ public class BoardView extends GridPane {
 
     });
 
+    //this is absolutely nessecary
     this.setOnDragOver((DragEvent event) -> {
       event.acceptTransferModes(TransferMode.MOVE);
       event.consume();
