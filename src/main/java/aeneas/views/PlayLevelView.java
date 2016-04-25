@@ -9,12 +9,10 @@ import com.jfoenix.controls.JFXButton;
 import aeneas.controllers.SelectLevelController;
 import aeneas.models.Level;
 import aeneas.models.Model;
-<<<<<<< HEAD
 import aeneas.models.Piece;
 import aeneas.models.PlacedPiece;
 import aeneas.models.Square;
-=======
->>>>>>> f336ea3bd29e59f1fe4b9ac1bd9f43266a6b831c
+
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 

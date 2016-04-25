@@ -90,16 +90,16 @@ public class Piece implements java.io.Serializable {
   public int getHeight(){
     return height;
   }
-  <<<<<<< HEAD
+
 
   public Color getColor(){ return color;}
-  =======
 
-      @Override
-      /**
-       * deep copy
-       */
-      public Piece clone(){
+
+  @Override
+  /**
+   * deep copy
+   */
+  public Piece clone(){
     Square cloneSquares[] = new Square[this.squares.length];
     for (int i=0;i<this.squares.length;i++){
       Square s = this.squares[i];
@@ -112,5 +112,5 @@ public class Piece implements java.io.Serializable {
     clone.inBullpen = this.inBullpen;
     return clone;
   }
-  >>>>>>> f336ea3bd29e59f1fe4b9ac1bd9f43266a6b831c
+
 }
