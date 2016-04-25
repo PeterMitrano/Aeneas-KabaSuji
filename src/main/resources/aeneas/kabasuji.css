@@ -16,6 +16,13 @@
   -fx-rippler-fill: #eee;
 }
 
+.action-button {
+  -fx-rippler-fill:#FFCDD2;
+  -fx-background-color:#F44336;
+  -fx-border-radius:100%;
+  -fx-background-radius:100%;
+}
+
 .h2-label{
   -fx-font-size:24px;
   -fx-text-fill:BLACK;

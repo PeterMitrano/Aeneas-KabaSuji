@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.effects.JFXDepthManager;
 
 import aeneas.models.Bullpen;
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.models.Level;
 import aeneas.models.PuzzleLevel;
 
@@ -50,7 +51,8 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
     }
 
     // create default new level
-    PuzzleLevel defaultLevel = new PuzzleLevel(new Bullpen());
+    Bullpen defaultBullpen  = new Bullpen(BullpenLogic.puzzleLogic());
+    PuzzleLevel defaultLevel = new PuzzleLevel(defaultBullpen);
     LevelView defaultLevelView = new PuzzleView(defaultLevel);
     levelMap.put("DEFAULT", defaultLevelView);
   }

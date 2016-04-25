@@ -6,9 +6,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialog.DialogTransition;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXListView;
 
+import aeneas.controllers.AddPieceMove;
+import aeneas.controllers.IMove;
 import aeneas.models.Level;
+import aeneas.models.Level;
+import aeneas.models.Model;
+import aeneas.models.Piece;
+import aeneas.models.PieceFactory;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
@@ -22,9 +31,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -33,13 +43,24 @@ import javafx.scene.layout.VBox;
  * @author pmitrano
  * @author jbkuszmaul
  */
-public class BuildLevelView extends BorderPane implements Initializable {
+public class BuildLevelView extends StackPane implements Initializable {
+
+  private static final int PIECE_PICKER_SQUARE_SIZE = 12;
+
+  @FXML
+  private JFXDialog piecePickerDialog;
+
+  @FXML
+  private FlowPane piecesPane;
 
   @FXML
   private JFXListView<Pane> bullpenListView;
 
   @FXML
   private Label levelLabel;
+
+  @FXML
+  private JFXButton addPiece;
 
   @FXML
   private FontAwesomeIconView levelTypeIcon;
@@ -67,9 +88,11 @@ public class BuildLevelView extends BorderPane implements Initializable {
   private MainView mainView;
   private BullpenView bullpenView;
   private LevelView levelView;
+  private Model model;
 
-  BuildLevelView(MainView mainView, LevelView levelView) {
+  BuildLevelView(MainView mainView, LevelView levelView, Model model) {
     this.levelView = levelView;
+    this.model = model;
     this.levelModel = levelView.levelModel;
     this.mainView = mainView;
     try {
@@ -93,7 +116,8 @@ public class BuildLevelView extends BorderPane implements Initializable {
 
     saveButton.setOnMouseClicked((e) -> {
       File saveFile = mainView.showSaveDialog();
-      if (saveFile == null) return;
+      if (saveFile == null)
+        return;
       try {
         // We retrieve the current level live, because the current
         // level will change over time.
@@ -108,7 +132,7 @@ public class BuildLevelView extends BorderPane implements Initializable {
       togglesBox.getChildren().add(levelView.getButton());
     }
 
-    //set the right settings got the given level type
+    // set the right settings got the given level type
     this.settingsBox.getChildren().add(1, this.levelView.getPanel());
     this.levelView.getButton().setSelected(true);
 
@@ -118,13 +142,29 @@ public class BuildLevelView extends BorderPane implements Initializable {
         .addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
           if (new_toggle != null) {
             LevelView view = (LevelView) ((RadioButton) new_toggle).getUserData();
-            this.levelModel  = view.levelModel;
+            this.levelModel = view.levelModel;
             this.settingsBox.getChildren().set(1, view.getPanel());
           }
         });
-  }
 
-  public Level getLevel() {
-    return levelModel;
+    piecePickerDialog.setTransitionType(DialogTransition.CENTER);
+
+    addPiece.setOnMouseClicked((e) -> {
+      piecePickerDialog.show(this);
+      piecesPane.getChildren().clear();
+
+      for (Piece pieceModel : PieceFactory.getPieces()) {
+        PieceView pView = new PieceView((Pane) this, pieceModel, model, PIECE_PICKER_SQUARE_SIZE);
+        piecesPane.getChildren().add(pView);
+
+        pView.setOnMouseClicked((click) -> {
+          IMove move = new AddPieceMove(levelModel.getBullpen(), pieceModel.clone());
+          if (move.execute()){
+            model.addNewMove(move);
+            bullpenView.refresh(model, levelModel.getBullpen());
+          }
+        });
+      }
+    });
   }
 }

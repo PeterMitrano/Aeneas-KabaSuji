@@ -1,7 +1,7 @@
 package aeneas.models;
 
 /**
- * 
+ *
  * @author Joseph Martin
  */
 public class Square implements java.io.Serializable {
@@ -17,4 +17,8 @@ public class Square implements java.io.Serializable {
 
   public void setRow(int row) { dRow = row; }
   public void setCol(int col) { dCol = col; }
+
+  public Square clone(){
+    return new Square(this.dRow, this.dCol);
+  }
 }

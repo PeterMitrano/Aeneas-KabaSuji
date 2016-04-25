@@ -17,7 +17,7 @@ public class RotateMove implements IMove {
   /**
    * Constructor
    * @param piece The piece that is to be rotated
-   * @param direction the direction to rotate (CCW, or CW)
+   * @param direction The direction to rotate in, either CW or CCW
    */
   public RotateMove(Piece piece, Dir direction) {
     this.piece = piece;

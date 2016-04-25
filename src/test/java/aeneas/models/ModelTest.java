@@ -7,6 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import aeneas.models.Bullpen.BullpenLogic;
+
 public class ModelTest {
 
   @Before
@@ -26,7 +28,7 @@ public class ModelTest {
   @Test
   public void testStars() {
     Model m = new Model();
-    Level l = new PuzzleLevel(new Bullpen());
+    Level l = new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()));
     assertEquals(m.getStarsForLevel(l), 0);
     m.setActiveLevel(l);
     m.updateStats();

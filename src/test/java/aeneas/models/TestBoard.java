@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import aeneas.models.Bullpen.BullpenLogic;
+
 public class TestBoard {
   @Before
   public void setUp() throws Exception {
@@ -27,10 +29,10 @@ public class TestBoard {
     assertEquals(b.numValidSquares(), 144);
     assertEquals(b.pieces.size(), 1);
     assertTrue(b.intersects(pp));
-    
+
     assertEquals(b.getPieceAtLocation(0, 0), pp);
   }
-  
+
   @Test
   public void testLightning() {
     LightningBoard b = new LightningBoard();
@@ -43,7 +45,7 @@ public class TestBoard {
     assertEquals(b.pieces.size(), 0);
     assertFalse(b.intersects(pp));
   }
-  
+
   @Test
   public void testRelease() {
     ArrayList<ReleaseNumber> numbers = new ArrayList<>();
@@ -51,19 +53,19 @@ public class TestBoard {
     numbers.add(new ReleaseNumber(1, 0, ReleaseNumber.Color.RED, 1));
     numbers.add(new ReleaseNumber(2, 0, ReleaseNumber.Color.GREEN, 1));
     ReleaseBoard b = new ReleaseBoard(numbers);
-    ReleaseLevel l = new ReleaseLevel(new Bullpen(), b);
+    ReleaseLevel l = new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), b);
 
     Piece p = new Piece(new Square[] { new Square(0,0) });
     PlacedPiece pp = new PlacedPiece(p, 0, 0);
 
     assertEquals(0, l.numCoveredNumberSets());
     assertEquals(0, l.getStarsEarned());
-    
+
     b.addPiece(pp);
     assertEquals(1, l.numCoveredNumberSets());
     assertEquals(1, l.getStarsEarned());
 
-    
+
 
     Piece p2 = new Piece(new Square[] { new Square(0,0) });
     PlacedPiece pp2 = new PlacedPiece(p2, 1, 0);
