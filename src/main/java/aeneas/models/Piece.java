@@ -23,7 +23,7 @@ public class Piece implements java.io.Serializable {
   public boolean inBullpen;
   private Color color;
 
-  
+
   public Piece(Square[]squares){
     this(squares, Color.BLUE);
   }
@@ -90,6 +90,27 @@ public class Piece implements java.io.Serializable {
   public int getHeight(){
     return height;
   }
-  
+  <<<<<<< HEAD
+
   public Color getColor(){ return color;}
+  =======
+
+      @Override
+      /**
+       * deep copy
+       */
+      public Piece clone(){
+    Square cloneSquares[] = new Square[this.squares.length];
+    for (int i=0;i<this.squares.length;i++){
+      Square s = this.squares[i];
+      cloneSquares[i] = s.clone();
+    }
+
+    Piece clone = new Piece(cloneSquares);
+    clone.width = this.width;
+    clone.height = this.height;
+    clone.inBullpen = this.inBullpen;
+    return clone;
+  }
+  >>>>>>> f336ea3bd29e59f1fe4b9ac1bd9f43266a6b831c
 }

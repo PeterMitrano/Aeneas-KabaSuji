@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import aeneas.models.Bullpen.BullpenLogic;
+
 public class TestBoard {
   @Before
   public void setUp() throws Exception {
@@ -46,14 +48,12 @@ public class TestBoard {
 
   @Test
   public void testRelease() {
-    //ArrayList<ReleaseNumber> numbers = new ArrayList<>();
 
-    //ReleaseBoard b = new ReleaseBoard(numbers);
-    ReleaseLevel l = new ReleaseLevel(new Bullpen());
+
+    ReleaseLevel l = new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()));
     ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(0, 0, ReleaseNumber.color1, 1));
     ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(1, 0, ReleaseNumber.color2, 1));
     ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(2, 0, ReleaseNumber.color3, 1));
-
 
     Piece p = new Piece(new Square[] { new Square(0,0) });
     PlacedPiece pp = new PlacedPiece(p, 0, 0);
@@ -62,6 +62,7 @@ public class TestBoard {
     assertEquals(0, l.getStarsEarned());
 
     l.getBoard().addPiece(pp);
+
     assertEquals(1, l.numCoveredNumberSets());
     assertEquals(1, l.getStarsEarned());
 

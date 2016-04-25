@@ -2,10 +2,7 @@ package aeneas.views;
 
 import com.jfoenix.controls.JFXPopup;
 
-import aeneas.controllers.FlipMove;
-import aeneas.controllers.IMove;
 import aeneas.controllers.ManipulatePieceController;
-import aeneas.controllers.RotateMove;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.Piece.Axis;
@@ -41,6 +38,7 @@ public class PieceView extends GridPane {
 
   /**
    * Constructor
+   * @param levelView the view for the level in which this piece is displayed
    * @param pieceModel The Piece that this view displays
    * @param model The model that is being used
    * @param squareSize The size of a single square in the piece

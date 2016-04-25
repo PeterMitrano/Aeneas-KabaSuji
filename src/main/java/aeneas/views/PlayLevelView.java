@@ -9,9 +9,12 @@ import com.jfoenix.controls.JFXButton;
 import aeneas.controllers.SelectLevelController;
 import aeneas.models.Level;
 import aeneas.models.Model;
+<<<<<<< HEAD
 import aeneas.models.Piece;
 import aeneas.models.PlacedPiece;
 import aeneas.models.Square;
+=======
+>>>>>>> f336ea3bd29e59f1fe4b9ac1bd9f43266a6b831c
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
@@ -68,9 +71,10 @@ public class PlayLevelView extends BorderPane implements Initializable {
     bullpenView = new BullpenView(bullpenBox, (Pane) this);
 
     resetLevelButton.setOnMouseClicked((e) -> {
-      SelectLevelController c = new SelectLevelController(mainView, null);
+      SelectLevelController c = new SelectLevelController(mainView, levelModel);
       c.resetLevel();
     });
+
 
     Piece testPiece = new Piece(new Square[] {
         new Square(0, 0),
@@ -80,7 +84,8 @@ public class PlayLevelView extends BorderPane implements Initializable {
         new Square(1, 1),
         new Square(1, 2), });
 
-    bullpenView.addPiece(testPiece, model);
+    bullpenView.refresh(model, levelModel.getBullpen());
+
 
     PlacedPiece testPlacedPiece = new PlacedPiece(testPiece,3,5);
     levelModel.getBoard().addPiece(testPlacedPiece);

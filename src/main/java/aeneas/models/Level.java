@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
  * @author Joseph Martin
  */
 public abstract class Level implements java.io.Serializable {
+
   Bullpen bullpen;
 
   public int levelNumber;
@@ -60,6 +61,13 @@ public abstract class Level implements java.io.Serializable {
   public abstract Board getBoard();
 
   public abstract int getStarsEarned();
+
+  /**
+   * @return the bullpen
+   */
+  public Bullpen getBullpen() {
+    return bullpen;
+  }
 
   /**
    * @return the prebuilt
