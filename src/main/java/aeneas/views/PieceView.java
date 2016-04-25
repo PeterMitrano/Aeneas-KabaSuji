@@ -62,7 +62,6 @@ public class PieceView extends GridPane {
     this.setOnDragDetected((MouseEvent event) -> {
       Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
       ClipboardContent content = new ClipboardContent();
-      System.out.println("drag " + pieceModel.toString());
       content.put(Piece.dataFormat, pieceModel);
       db.setContent(content);
 

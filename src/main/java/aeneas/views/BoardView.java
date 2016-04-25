@@ -38,13 +38,13 @@ public class BoardView extends GridPane {
     // This handle the drop of a piece on the board
     this.setOnDragDropped((DragEvent event) -> {
       Dragboard db = event.getDragboard();
+
+      //use this to draw the piece on the board
       Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
-      System.out.println("drop " + pieceModel.toString());
-      boolean success = false;
 
       // this might change we we actually implement it,
       // such as if they drop it on a square that doesn't exist
-      event.setDropCompleted(success);
+      event.setDropCompleted(true);
       event.consume();
 
     });

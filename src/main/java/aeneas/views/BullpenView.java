@@ -71,11 +71,11 @@ public class BullpenView implements ChildDraggedListener {
     });
 
     bullpenBox.setOnDragExited((e) -> {
-      bullpenBox.setStyle(baseStyle + "-fx-background-color:#cbc9e0;");
+      bullpenBox.setStyle(baseStyle);
     });
 
     bullpenBox.setOnDragEntered((e) -> {
-      bullpenBox.setStyle(baseStyle + "-fx-background-color:#9b59b6;");
+      bullpenBox.setStyle(baseStyle + "-fx-background-color:#E2E2E2;");
     });
   }
 
