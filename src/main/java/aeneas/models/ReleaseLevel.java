@@ -14,7 +14,20 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
 
   ReleaseBoard board;
 
+  /**
+   * Constructor
+   * @param bullpen The bullpen to use for this level
+   * @param board The Board to use for this level
+   */
+  public ReleaseLevel(Bullpen bullpen, ReleaseBoard board){
+    super(bullpen);
+    this.board = board;
+  }
 
+  /**
+   * Constructor. Will create a new empty board for this level
+   * @param bullpen The bullpen to use for this level
+   */
   public ReleaseLevel(Bullpen bullpen) {
     super(bullpen);
     this.board = new ReleaseBoard();

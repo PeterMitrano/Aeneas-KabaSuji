@@ -8,7 +8,22 @@ public class PuzzleLevel extends Level implements java.io.Serializable {
   public static final String helpText = "";
 
   PuzzleBoard board;
-  
+
+
+  /**
+   * Constructor
+   * @param bullpen The bullpen to use for this level
+   * @param board The board to use for this level
+   */
+  public PuzzleLevel(Bullpen bullpen, PuzzleBoard board){
+    super(bullpen);
+    this.board = board;
+  }
+
+  /**
+   * Constructor. Will create a new, empty board for this level
+   * @param bullpen The bullpen to use for this level
+   */
   public PuzzleLevel(Bullpen bullpen) {
     super(bullpen);
     board = new PuzzleBoard();
@@ -18,7 +33,7 @@ public class PuzzleLevel extends Level implements java.io.Serializable {
     super(bullpen, prebuilt);
     board = new PuzzleBoard();
   }
-  
+
 
   @Override
   public int getStarsEarned() {

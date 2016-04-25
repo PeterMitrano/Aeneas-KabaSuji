@@ -10,9 +10,28 @@ public class LightningLevel extends Level implements java.io.Serializable {
   LightningBoard board;
   int allowedTime;
 
+  /**
+   * Constructor
+   * @param bullpen The Bullpen to use for this level
+   * @param allowedTime The allowable time for this level
+   * @param board The board to use for this level
+   */
+  public LightningLevel(Bullpen bullpen, int allowedTime, LightningBoard board) {
+    super(bullpen);
+    this.allowedTime = allowedTime;
+    this.board = board;
+  }  
+
+
+  /**
+   * Constructor. Will create a new, empty board for this level
+   * @param bullpen The Bullpen to use for this level
+   * @param allowedTime The allowable time for this level
+   */
   public LightningLevel(Bullpen bullpen, int allowedTime) {
     super(bullpen);
     this.allowedTime = allowedTime;
+    this.board = new LightningBoard();
   }  
 
   @Override
