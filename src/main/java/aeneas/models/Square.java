@@ -41,4 +41,10 @@ public class Square implements java.io.Serializable {
   public Square clone(){
     return new Square(this.dRow, this.dCol, this.num, this.getColor());
   }
+
+
+  @Override
+  public String toString(){
+    return "(" + dRow + "," + dCol + ")";
+  }
 }
