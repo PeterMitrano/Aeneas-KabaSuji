@@ -28,7 +28,7 @@
     <BorderPane>
 			<center>
       <ScrollPane fx:id="scrollpane" fitToWidth="true" style="-fx-background-color:transparent;">
-          <VBox prefWidth="115" fx:id="bullpenBox" spacing="20" alignment="TOP_CENTER" />
+        <VBox prefWidth="115" fx:id="bullpenBox" spacing="20" alignment="TOP_CENTER" />
       </ScrollPane>
 			</center>
 			<bottom>

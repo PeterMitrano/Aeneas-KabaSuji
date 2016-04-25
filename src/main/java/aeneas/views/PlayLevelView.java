@@ -64,24 +64,13 @@ public class PlayLevelView extends BorderPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    bullpenView = new BullpenView(bullpenBox, (Pane) this);
+    bullpenView = new BullpenView(model, bullpenBox, (Pane) this);
 
     resetLevelButton.setOnMouseClicked((e) -> {
       levelModel.reset();
     });
 
-
-    Piece testPiece = new Piece(new Square[] {
-        new Square(0, 0),
-        new Square(1, 0),
-        new Square(2, 1),
-        new Square(2, 2),
-        new Square(1, 1),
-        new Square(1, 2), });
-
-    bullpenView.refresh(model, levelModel.getBullpen());
-
-
+    bullpenView.refresh(levelModel.getBullpen());
 
     boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));

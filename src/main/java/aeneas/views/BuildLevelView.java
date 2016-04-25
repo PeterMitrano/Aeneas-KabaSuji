@@ -106,8 +106,9 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.bullpenView = new BullpenView(bullpenBox, this);
     this.boardView = new BoardView(levelModel.getBoard());
+    this.bullpenView = new BullpenView(model, bullpenBox, (Pane) this);
+
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
@@ -164,7 +165,7 @@ public class BuildLevelView extends StackPane implements Initializable {
           IMove move = new AddPieceMove(levelModel.getBullpen(), pieceModel.clone());
           if (move.execute()){
             model.addNewMove(move);
-            bullpenView.refresh(model, levelModel.getBullpen());
+            bullpenView.refresh(levelModel.getBullpen());
           }
         });
       }
