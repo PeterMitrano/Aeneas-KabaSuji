@@ -40,6 +40,8 @@ public class Model {
     levels = new ArrayList<>();
     starsEarned = new HashMap<>();
     achievements = new ArrayList<>();
+    undoStack = new Stack<IMove>();
+    redoStack = new Stack<IMove>();
     for (int i = 0; i < numLevels; i++) {
       Bullpen b = new Bullpen(BullpenLogic.puzzleLogic(), new ArrayList<>());
       Level l = new PuzzleLevel(b);
@@ -142,7 +144,7 @@ public class Model {
   public boolean redoLastMove() {
     if(redoStack.size() > 0) {
       IMove m = redoStack.peek();
-      boolean success = m.undo();
+      boolean success = m.execute();
       if(success) {
         redoStack.pop();
         undoStack.add(m);
@@ -155,7 +157,13 @@ public class Model {
     }
   }
 
+  /**
+   * Adds a new move to the undo stack.
+   * This will clear all moves in the redo stack
+   * @param move The move to be added
+   */
   public void addNewMove(IMove move){
-
+    redoStack.clear();
+    undoStack.add(move);
   }
 }

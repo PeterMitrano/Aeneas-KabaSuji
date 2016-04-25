@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXListView;
 import aeneas.controllers.AddPieceMove;
 import aeneas.controllers.IMove;
 import aeneas.controllers.SaveLevelController;
+import aeneas.controllers.UndoRedoController;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
@@ -64,6 +65,12 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @FXML
   private JFXButton saveButton;
+  
+  @FXML
+  private JFXButton undoButton;
+  
+  @FXML
+  private JFXButton redoButton;
 
   BoardView boardView;
   Model model;
@@ -83,6 +90,11 @@ public class BuildLevelView extends StackPane implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+  
+  public void refreshAll(){
+    //boardView.refresh;
+    bullpenView.refresh(model, levelModel.getBullpen());
   }
 
   @Override
@@ -116,5 +128,14 @@ public class BuildLevelView extends StackPane implements Initializable {
         });
       }
     });
+    UndoRedoController undoController = new UndoRedoController(this, model);
+    mainView.setOnKeyPressed(undoController );
+    undoButton.setOnMouseClicked((e)-> {
+      undoController.undoMove();
+    });
+    redoButton.setOnMouseClicked((e)-> {
+      undoController.redoMove();
+    });
+    
   }
 }
