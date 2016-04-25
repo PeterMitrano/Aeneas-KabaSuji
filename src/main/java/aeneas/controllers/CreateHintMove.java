@@ -5,7 +5,7 @@ import aeneas.models.PlacedPiece;
 
 /**
  * Move action to create a new hint
- * @author Logan
+ * @author Logan, Garrison
  *
  */
 public class CreateHintMove implements IMove {
@@ -32,20 +32,24 @@ public class CreateHintMove implements IMove {
 
   @Override
   public boolean execute() {
-    // TODO Auto-generated method stub
-    return false;
+   if(isValid()){
+     piece.setHint(true);
+    return true;
+    }
+   else 
+     return false;
   }
 
   @Override
   public boolean undo() {
-    // TODO Auto-generated method stub
+    piece.setHint(false);
     return false;
   }
 
   @Override
   public boolean isValid() {
     // TODO Auto-generated method stub
-    return false;
+    return true;
   }
 
 }

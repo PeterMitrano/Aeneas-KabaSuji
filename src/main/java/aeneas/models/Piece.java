@@ -2,7 +2,7 @@ package aeneas.models;
 
 /**
  *
- * @author Joseph Martin
+ * @author Joseph Martin, Garrison
  */
 public class Piece implements java.io.Serializable {
   public enum Axis {
@@ -19,6 +19,7 @@ public class Piece implements java.io.Serializable {
   private int width;
   private int height;
   public boolean inBullpen;
+  private boolean hint;
 
   public Piece(Square[] squares) {
     this.squares = squares;
@@ -97,5 +98,13 @@ public class Piece implements java.io.Serializable {
     clone.height = this.height;
     clone.inBullpen = this.inBullpen;
     return clone;
+  }
+
+  public boolean isHint() {
+    return hint;
+  }
+
+  public void setHint(boolean hint) {
+    this.hint = hint;
   }
 }
