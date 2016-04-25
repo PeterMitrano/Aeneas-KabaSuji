@@ -1,31 +1,35 @@
 package aeneas.models;
 
-import java.util.ArrayList;
+import aeneas.views.LevelView;
+import aeneas.views.ReleaseView;
 
 /**
- * 
+ *
  * @author Joseph Martin
  */
-public class ReleaseLevel extends Level implements java.io.Serializable {
+public class ReleaseLevel extends Level
+    implements java.io.Serializable, Level.LevelWithMoves {
   public static final String helpText = "";
 
   ReleaseBoard board;
+
+  private int moves;
 
   public ReleaseLevel(Bullpen bullpen, ReleaseBoard board) {
     super(bullpen);
     this.board = board;
   }
-  
+
   private boolean numberSetIsCovered(ReleaseNumber.Color color) {
     for(ReleaseNumber n : board.getNumbers()) {
       if(n.color == color && board.getPieceAtLocation(n.row, n.col) == null) {
         return false;
       }
     }
-    
+
     return true;
   }
-  
+
   int numCoveredNumberSets() {
     int count = 0;
     count += numberSetIsCovered(ReleaseNumber.Color.RED) ? 1 : 0;
@@ -34,11 +38,15 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
 
     return count;
   }
-  
+
   @Override
   public int getStarsEarned() {
     // This would have to change if we added more than 3 sets of numbers
     return numCoveredNumberSets();
+  }
+
+  public ReleaseLevel(Level src) {
+    super(src);
   }
 
   @Override
@@ -52,4 +60,14 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
     return board;
   }
 
+  @Override
+  public void setAllowedMoves(int moves) { this.moves = moves; }
+
+  @Override
+  public int getAllowedMoves() { return moves; }
+
+  @Override
+  public LevelView makeCorrespondingView() {
+    return new ReleaseView(this);
+  }
 }

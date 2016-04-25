@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import aeneas.views.LevelView;
+
 /**
  *
  * @author Joseph Martin
@@ -20,6 +22,11 @@ public abstract class Level implements java.io.Serializable {
 
   private boolean locked;
 
+  public interface LevelWithMoves {
+    public int getAllowedMoves();
+    public void setAllowedMoves(int moves);
+  }
+
   public Level(Bullpen bullpen, boolean prebuilt) {
     this.bullpen = bullpen;
     this.prebuilt = prebuilt;
@@ -28,24 +35,37 @@ public abstract class Level implements java.io.Serializable {
   public Level(Bullpen bullpen) {
     this(bullpen, true);
   }
-  
+
   @Override
   public int hashCode() {
     return levelNumber;
   }
-  
+
   @Override
   public boolean equals(Object o) {
     if(o == null) return false;
-    
+
     if(o instanceof Level) {
       Level other = (Level)o;
       if(other.levelNumber == levelNumber && other.prebuilt == prebuilt) {
         return true;
       }
     }
-    
+
     return false;
+  }
+
+  /**
+   * Copy constructor.
+   * @param src the level you are copying from
+   * Does not actually copy the Bullpen, just passes along
+   * the reference.
+   */
+  public Level(Level src) {
+    this.bullpen = src.bullpen;
+    this.levelNumber = src.levelNumber;
+    this.prebuilt = src.prebuilt;
+    this.locked = src.locked;
   }
 
   /**
@@ -90,13 +110,14 @@ public abstract class Level implements java.io.Serializable {
   public void lock() {
     this.locked = true;
   }
-  
+
   public void reset() {
   }
 
   /**
    * Saves the level to a file.
    * @param file The file to save to. Should not be null
+   * @throws IOException could fail to load file
    */
   public void save(File file) throws IOException {
     try (FileOutputStream saveFile = new FileOutputStream(file);
@@ -110,6 +131,7 @@ public abstract class Level implements java.io.Serializable {
   /**
    * Constructs a level from a file.
    * @param file The file to load from.
+   * @throws IOException could fail to load file
    * @return The level that was read; null if the read failed.
    */
   public static Level loadLevel(File file) throws IOException {
@@ -127,4 +149,6 @@ public abstract class Level implements java.io.Serializable {
 
     return level;
   }
+
+  public abstract LevelView makeCorrespondingView();
 }

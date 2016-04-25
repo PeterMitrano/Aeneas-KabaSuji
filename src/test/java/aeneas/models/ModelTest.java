@@ -1,6 +1,7 @@
 package aeneas.models;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +20,7 @@ public class ModelTest {
   }
 
   @Test
-  public void test() {
+  public void testLevelCount() {
     Model m = new Model();
     assertTrue("level count", m.levels.size() > 15);
   }
