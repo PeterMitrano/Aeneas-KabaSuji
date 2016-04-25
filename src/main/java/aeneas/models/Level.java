@@ -22,7 +22,7 @@ public abstract class Level implements java.io.Serializable {
     return levelNumber;
   }
 
-  public static class Metadata implements java.io.Serializable {L;
+  public static class Metadata implements java.io.Serializable {
     int starsEarned;
     boolean locked;
 
