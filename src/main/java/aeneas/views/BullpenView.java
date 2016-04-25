@@ -51,7 +51,7 @@ public class BullpenView implements ChildDraggedListener {
 
   @Override
   public void onPieceDragged(PieceView pieceView) {
-    System.out.println("removing piece...");
+    System.out.println(bullpenBox.getChildren().remove(pieceView.getParent()));
   }
 
   @Override
