@@ -64,7 +64,7 @@ public class BoardView extends GridPane {
    * Refreshes the view to match the current state of the board
    */
   public void refresh(){
-    Square[][] squares = board.getSquares();
+    Square[][] squares = board.assembleSquares();
     for (int i = 0; i < Board.SIZE; i++) {
       for (int j = 0; j < Board.SIZE; j++) {         
         grid[i][j] = new SquareView(SQUARE_SIZE, squares[i][j]);

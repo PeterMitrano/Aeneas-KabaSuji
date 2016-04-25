@@ -133,7 +133,7 @@ public abstract class Board implements java.io.Serializable {
    * Gets the state of all squares in the board. A square will be null if no square is there
    * @return A two dimensional array representing the current state of the board
    */
-  public Square[][] getSquares(){
+  public Square[][] assembleSquares(){
     Square[][] squares = new Square[SIZE][SIZE];
     for (PlacedPiece piece : pieces){
       for(Square s : piece.getSquaresInBoardFrame())

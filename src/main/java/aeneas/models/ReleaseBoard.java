@@ -29,8 +29,8 @@ public class ReleaseBoard extends Board implements java.io.Serializable {
    * Release numbers are only added to the squares if the square is valid and uncovered
    */
   @Override
-  public Square[][] getSquares(){
-    Square[][] squares = super.getSquares();
+  public Square[][] assembleSquares(){
+    Square[][] squares = super.assembleSquares();
     for(ReleaseNumber num: numbers){
       if(squares[num.getCol()][num.getRow()] != null && getPieceAtLocation(num.getRow(), num.getCol()) == null)
         squares[num.getCol()][num.getRow()] = new Square(num.getRow(), num.getCol(), num, Color.GRAY);
