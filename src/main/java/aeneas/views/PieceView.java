@@ -104,6 +104,12 @@ public class PieceView extends Pane {
       controller.doMove(Axis.HORIZONTAL);
     });
     content.getChildren().add(flipHorz);
+    
+    Label addHint = new Label("Add Hint");
+    addHint.setOnMouseClicked((MouseEvent event) ->{
+      controller.doMove(Axis.VERTICAL);
+    });
+    content.getChildren().add(addHint);
 
     piecePopup = new JFXPopup();
     piecePopup.setSource(this);

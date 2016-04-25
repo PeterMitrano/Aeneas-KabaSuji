@@ -1,5 +1,6 @@
 package aeneas.controllers;
 import aeneas.models.Level;
+import aeneas.models.Piece;
 import aeneas.models.PlacedPiece;
 
 /**
@@ -12,7 +13,7 @@ public class CreateHintMove implements IMove {
 
   Level level;
 
-  PlacedPiece piece;
+  Piece piece;
 
   int row;
   int col;
@@ -25,11 +26,8 @@ public class CreateHintMove implements IMove {
    * @param row The row to place the piece in
    * @param col The column to place the piece in
    */
-  public CreateHintMove(Level level, PlacedPiece piece, int row, int col) {
-    this.level = level;
+  public CreateHintMove(Piece piece) {
     this.piece = piece;
-    this.row = row;
-    this.col = col;
   }
 
   @Override
