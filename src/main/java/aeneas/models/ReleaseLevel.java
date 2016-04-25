@@ -17,7 +17,7 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
 
   public ReleaseLevel(Bullpen bullpen) {
     super(bullpen);
-    this.board = new ReleaseBoard(null);
+    this.board = new ReleaseBoard();
   }
 
   private boolean numberSetIsCovered(Color color) {

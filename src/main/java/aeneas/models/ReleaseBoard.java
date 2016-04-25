@@ -13,14 +13,21 @@ public class ReleaseBoard extends Board implements java.io.Serializable {
 
   ArrayList<ReleaseNumber> numbers;
 
+
+  public ReleaseBoard(){
+    this.numbers = new ArrayList<ReleaseNumber>();
+  }
+
   public ReleaseBoard(ArrayList<ReleaseNumber> numbers){
-    if(numbers == null)
-      this.numbers = new ArrayList<ReleaseNumber>();
-    else
-      this.numbers = numbers;
+    this.numbers = numbers;
 
   }
 
+  
+  /**
+   * Gets all squares on the board, including release numbers.
+   * Release numbers are only added to the squares if the square is valid and uncovered
+   */
   @Override
   public Square[][] getSquares(){
     Square[][] squares = super.getSquares();
