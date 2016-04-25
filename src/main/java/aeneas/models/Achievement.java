@@ -6,8 +6,6 @@ package aeneas.models;
  * @author Joseph Martin
  */
 public abstract class Achievement implements java.io.Serializable {
-  private static final long serialVersionUID = 1L;
-
   boolean unlocked;
   String name;
 

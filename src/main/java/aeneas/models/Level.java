@@ -13,8 +13,6 @@ import java.util.ArrayList;
  * @author Joseph Martin
  */
 public abstract class Level implements java.io.Serializable {
-  private static final long serialVersionUID = 1L;
-
   Bullpen bullpen;
 
   transient int levelNumber;

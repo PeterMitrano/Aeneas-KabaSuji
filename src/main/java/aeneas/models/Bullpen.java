@@ -8,8 +8,6 @@ import java.util.ArrayList;
  * @author Joseph Martin
  */
 public class Bullpen implements java.io.Serializable {
-  private static final long serialVersionUID = 1L;
-
   /**
    * @return the logic
    */

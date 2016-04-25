@@ -5,8 +5,6 @@ package aeneas.models;
  * @author Joseph Martin
  */
 public class LightningBoard extends Board implements java.io.Serializable {
-  private static final long serialVersionUID = 1L;
-
   boolean coveredSquares[][];
 
   public LightningBoard() {

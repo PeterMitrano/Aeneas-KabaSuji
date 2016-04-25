@@ -5,8 +5,6 @@ package aeneas.models;
  * @author Joseph Martin
  */
 public class PuzzleLevel extends Level implements java.io.Serializable {
-  private static final long serialVersionUID = 1L;
-
   public static final String helpText = "";
 
   PuzzleBoard board;
