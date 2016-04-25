@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import com.jfoenix.effects.JFXDepthManager;
 
+import aeneas.controllers.ChildDraggedListener;
 import aeneas.models.Bullpen;
 import aeneas.models.Model;
 import aeneas.models.Piece;
+import aeneas.models.Square;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
@@ -16,7 +18,7 @@ import javafx.scene.layout.VBox;
  *
  * @author Joseph Martin
  */
-public class BullpenView {
+public class BullpenView implements ChildDraggedListener {
 
   VBox bullpenBox;
   Pane levelView;
@@ -40,9 +42,19 @@ public class BullpenView {
       Piece piece = bullpen.getPieces().get(i);
       Pane piecePane = new Pane();
       PieceView pieceView = new PieceView(levelView, piece, model, SQUARE_SIZE);
+      pieceView.setOnChldDraggedListener(this);
       piecePane.getChildren().add(pieceView);
       values.add(piecePane);
       bullpenBox.getChildren().add(piecePane);
     }
+  }
+
+  @Override
+  public void onPieceDragged(PieceView pieceView) {
+    System.out.println("removing piece...");
+  }
+
+  @Override
+  public void onSquareDragged(Square squareView) {
   }
 }

@@ -2,6 +2,7 @@ package aeneas.views;
 
 import com.jfoenix.controls.JFXPopup;
 
+import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.ManipulatePieceController;
 import aeneas.models.Model;
 import aeneas.models.Piece;
@@ -14,7 +15,6 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
@@ -36,6 +36,8 @@ public class PieceView extends GridPane {
   int squareSize;
   Pane levelPane;
   ManipulatePieceController controller;
+
+  private ChildDraggedListener childDraggedListener;
 
   /**
    * Constructor
@@ -69,12 +71,17 @@ public class PieceView extends GridPane {
 
       // create a new piece view just for the dragging so it can have a
       // different size
-      PieceView fullSizedPieceView = new PieceView(levelPane, pieceModel, model, BoardView.SQUARE_SIZE);
+      PieceView fullSizedPieceView =
+        new PieceView(levelPane, pieceModel, model, BoardView.SQUARE_SIZE);
 
       Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
       db.setDragView(snapshotImage);
 
       event.consume();
+
+      if (childDraggedListener != null){
+        childDraggedListener.onPieceDragged(this);
+      }
     });
 
     this.setOnMouseClicked(controller);
@@ -136,6 +143,10 @@ public class PieceView extends GridPane {
       SquareView view = new SquareView(squareSize,s);
       this.add(view, s.getCol(), s.getRow());
     }
+  }
+
+  public void setOnChldDraggedListener(ChildDraggedListener listener) {
+    this.childDraggedListener = listener;
   }
 
 }
