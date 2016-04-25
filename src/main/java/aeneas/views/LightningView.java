@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 
 public class LightningView extends LevelView {
 
-  private static final RadioButton button = new RadioButton("Lightening");
+  private static final RadioButton button = new RadioButton("Lightning");
 
   public LightningView(LightningLevel levelModel){
     super(levelModel);

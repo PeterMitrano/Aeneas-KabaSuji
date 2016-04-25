@@ -55,9 +55,9 @@ public class SerTest {
   }
 
   @Test
-  public void testLighteningSerialize() {
+  public void testLightningSerialize() {
     LightningLevel s = new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 10);
-    File file = new File("build/lightening.ksb");
+    File file = new File("build/lightning.ksb");
 
     try {
       s.save(file);
