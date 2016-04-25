@@ -9,11 +9,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.AddPieceMove;
 import aeneas.controllers.IMove;
-import aeneas.models.Level;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
@@ -93,7 +91,7 @@ public class BuildLevelView extends StackPane implements Initializable {
   BuildLevelView(MainView mainView, LevelView levelView, Model model) {
     this.levelView = levelView;
     this.model = model;
-    this.levelModel = levelView.levelModel;
+    this.levelModel = levelView.getLevelModel();
     this.mainView = mainView;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("BuildLevel.fxml"));
@@ -142,7 +140,7 @@ public class BuildLevelView extends StackPane implements Initializable {
         .addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
           if (new_toggle != null) {
             LevelView view = (LevelView) ((RadioButton) new_toggle).getUserData();
-            this.levelModel = view.levelModel;
+            this.levelModel = view.getLevelModel();
             this.settingsBox.getChildren().set(1, view.getPanel());
           }
         });

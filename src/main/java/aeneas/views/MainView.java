@@ -25,6 +25,7 @@ import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseBoard;
 import aeneas.models.ReleaseLevel;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -93,9 +94,9 @@ public class MainView extends StackPane implements Initializable {
     }
 
     //create the different types of levels
-    LevelViewFactory.addView(new PuzzleView(new PuzzleLevel(new Bullpen())));
-    LevelViewFactory.addView(new LightningView(new LightningLevel(new Bullpen(), 0)));
-    LevelViewFactory.addView(new ReleaseView(new ReleaseLevel(new Bullpen(), new ReleaseBoard(null))));
+    LevelViewFactory.addView(new PuzzleView(new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()))));
+    LevelViewFactory.addView(new LightningView(new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 0)));
+    LevelViewFactory.addView(new ReleaseView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard(null))));
   }
 
   public void switchToWelcomeView() {
@@ -117,7 +118,7 @@ public class MainView extends StackPane implements Initializable {
   }
 
   public void switchToBuildLevelView(LevelView levelView) {
-    BuildLevelView buildLevelView = new BuildLevelView(this, levelView);
+    BuildLevelView buildLevelView = new BuildLevelView(this, levelView, model);
     paneStack.push(buildLevelView);
     content.getChildren().clear();
     content.getChildren().add(buildLevelView);

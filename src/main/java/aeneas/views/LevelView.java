@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 public abstract class LevelView {
 
   protected VBox panel;
-  public Level levelModel;
+  private Level levelModel;
 
   public LevelView(Level levelModel){
     this.levelModel = levelModel;
@@ -25,6 +25,13 @@ public abstract class LevelView {
   public VBox getPanel() {
     return panel;
   }
-  
+
+  /**
+   * @return the levelModel
+   */
+  public Level getLevelModel() {
+    return levelModel;
+  }
+
   public abstract RadioButton getButton();
 }
