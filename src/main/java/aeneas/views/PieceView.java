@@ -17,6 +17,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -25,7 +26,7 @@ import javafx.scene.paint.Color;
  * View class for displaying a Piece
  *
  */
-public class PieceView extends Pane {
+public class PieceView extends GridPane {
 
   private JFXPopup piecePopup;
 
@@ -131,10 +132,8 @@ public class PieceView extends Pane {
   public void refresh(){
     this.getChildren().clear();
     for (Square s : pieceModel.getSquares()) {
-      SquareView view = new SquareView(squareSize);
-      view.setX(s.getCol() * squareSize);
-      view.setY(s.getRow() * squareSize);
-      getChildren().add(view);
+      SquareView view = new SquareView(squareSize,s);
+      this.add(view, s.getCol(), s.getRow());
     }
   }
 

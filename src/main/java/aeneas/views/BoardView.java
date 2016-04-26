@@ -1,17 +1,30 @@
 package aeneas.views;
 
-import aeneas.models.Board;
 
+import aeneas.models.Board;
+import aeneas.models.PlacedPiece;
+import aeneas.models.ReleaseNumber;
+import aeneas.models.Square;
+import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-class BoardView extends Pane {
+
+/**
+ * View class to display a board
+ * @author Logan Tutt
+ *
+ */
+public class BoardView extends GridPane {
 
   /** Specifies how many pixels the squares of a piece on the board will be */
   static final int SQUARE_SIZE = 40;
 
+  //StackPane[][] grid = new StackPane[Board.SIZE][Board.SIZE];
   SquareView[][] grid = new SquareView[Board.SIZE][Board.SIZE];
   Board board;
 
@@ -22,15 +35,7 @@ class BoardView extends Pane {
    */
   public BoardView(Board board) {
     this.board = board;
-    for (int i = 0; i < Board.SIZE; i++) {
-      for (int j = 0; j < Board.SIZE; j++) {
-        grid[i][j] = new SquareView(SQUARE_SIZE);
-        grid[i][j].setX(SQUARE_SIZE * i);
-        grid[i][j].setY(SQUARE_SIZE * j);
-        grid[i][j].setFill(Color.GRAY);
-        this.getChildren().add(grid[i][j]);
-      }
-    }
+    refresh();
 
     // This handle the drop of a piece on the board
     this.setOnDragDropped((DragEvent event) -> {
@@ -53,5 +58,18 @@ class BoardView extends Pane {
       event.setDropCompleted(success);
       event.consume();
     });
+  }
+
+  /**
+   * Refreshes the view to match the current state of the board
+   */
+  public void refresh(){
+    Square[][] squares = board.assembleSquares();
+    for (int i = 0; i < Board.SIZE; i++) {
+      for (int j = 0; j < Board.SIZE; j++) {         
+        grid[i][j] = new SquareView(SQUARE_SIZE, squares[i][j]);
+        this.add(grid[i][j], i, j);
+      }
+    }
   }
 }

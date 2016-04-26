@@ -48,12 +48,12 @@ public class TestBoard {
 
   @Test
   public void testRelease() {
-    ArrayList<ReleaseNumber> numbers = new ArrayList<>();
-    numbers.add(new ReleaseNumber(0, 0, ReleaseNumber.Color.BLUE, 1));
-    numbers.add(new ReleaseNumber(1, 0, ReleaseNumber.Color.RED, 1));
-    numbers.add(new ReleaseNumber(2, 0, ReleaseNumber.Color.GREEN, 1));
-    ReleaseBoard b = new ReleaseBoard(numbers);
-    ReleaseLevel l = new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), b);
+
+
+    ReleaseLevel l = new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()));
+    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(0, 0, ReleaseNumber.color1, 1));
+    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(1, 0, ReleaseNumber.color2, 1));
+    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(2, 0, ReleaseNumber.color3, 1));
 
     Piece p = new Piece(new Square[] { new Square(0,0) });
     PlacedPiece pp = new PlacedPiece(p, 0, 0);
@@ -61,7 +61,8 @@ public class TestBoard {
     assertEquals(0, l.numCoveredNumberSets());
     assertEquals(0, l.getStarsEarned());
 
-    b.addPiece(pp);
+    l.getBoard().addPiece(pp);
+
     assertEquals(1, l.numCoveredNumberSets());
     assertEquals(1, l.getStarsEarned());
 
@@ -69,13 +70,13 @@ public class TestBoard {
 
     Piece p2 = new Piece(new Square[] { new Square(0,0) });
     PlacedPiece pp2 = new PlacedPiece(p2, 1, 0);
-    b.addPiece(pp2);
+    l.getBoard().addPiece(pp2);
     assertEquals(2, l.numCoveredNumberSets());
     assertEquals(2, l.getStarsEarned());
 
     Piece p3 = new Piece(new Square[] { new Square(0,0) });
     PlacedPiece pp3 = new PlacedPiece(p3, 2, 0);
-    b.addPiece(pp3);
+    l.getBoard().addPiece(pp3);
     assertEquals(3, l.numCoveredNumberSets());
     assertEquals(3, l.getStarsEarned());
 
