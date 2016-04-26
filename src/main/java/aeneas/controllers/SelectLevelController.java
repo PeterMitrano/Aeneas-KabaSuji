@@ -9,7 +9,7 @@ import javafx.scene.input.MouseEvent;
 
 /**
  * Handles a button press on one button in the play select view.
- * 
+ *
  * @author Joseph Martin
  */
 public class SelectLevelController implements EventHandler<MouseEvent> {
@@ -28,12 +28,12 @@ public class SelectLevelController implements EventHandler<MouseEvent> {
   public void handle(MouseEvent event) {
     if (!gameModel.getMetadata(levelModel).isLocked()) {
       view.switchToPlayLevelView(levelModel);
+      resetLevel();
     }
   }
 
   public void resetLevel() {
     levelModel.reset();
-    System.out.println("Resetting Level");
   }
 
 }

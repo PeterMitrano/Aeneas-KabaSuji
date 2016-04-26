@@ -19,7 +19,7 @@ public class ModelTest {
   }
 
   @Test
-  public void testLevels() {
+  public void testLevelCount() {
     Model m = new Model();
     assertFalse(m.getMetadata(m.getLevel(1)).isLocked());
     assertEquals(0, m.getMetadata(m.getLevel(1)).getStarsEarned());
