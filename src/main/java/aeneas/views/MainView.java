@@ -15,8 +15,6 @@ import com.jfoenix.controls.JFXPopup.PopupHPosition;
 import com.jfoenix.controls.JFXPopup.PopupVPosition;
 import com.jfoenix.controls.JFXRippler;
 
-import aeneas.controllers.ViewAboutController;
-import aeneas.controllers.ViewHelpController;
 import aeneas.models.Bullpen;
 import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.models.Level;
@@ -163,18 +161,25 @@ public class MainView extends StackPane implements Initializable {
 
     dialog.setTransitionType(DialogTransition.CENTER);
 
-    help.setOnMouseClicked((e) -> {
-    });
-
     accept.setOnMouseClicked((e) -> {
       dialog.close();
     });
 
     // we need to add these back eventually
-    help.setOnMouseClicked(new ViewHelpController(this, dialog,
-        dialogLayout, model.helpString));
-    about.setOnMouseClicked(new ViewAboutController(this, dialog,
-        dialogLayout, model.aboutString));
+    help.setOnMouseClicked((e) -> {
+      dialogLayout.getHeading().clear();
+      dialogLayout.getBody().clear();
+      dialogLayout.setHeading(new Label("Help"));
+      dialogLayout.setBody(new Label(Model.helpText));
+      dialog.show(this);
+    });
+    about.setOnMouseClicked((e) -> {
+      dialogLayout.getHeading().clear();
+      dialogLayout.getBody().clear();
+      dialogLayout.setHeading(new Label("About"));
+      dialogLayout.setBody(new Label(Model.aboutText));
+      dialog.show(this);
+    });
 
     switchToWelcomeView();
   }
