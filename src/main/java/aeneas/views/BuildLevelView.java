@@ -36,15 +36,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
-<<<<<<< HEAD
- *
- * @author Joseph Martin
-=======
  * Display the level builder.
  *
  * @author pmitrano
  * @author jbkuszmaul
->>>>>>> c2034c7bbf52e483f96755e47ea06f7637ba2251
+ * @author Joseph Martin
  */
 public class BuildLevelView extends StackPane implements Initializable {
 
