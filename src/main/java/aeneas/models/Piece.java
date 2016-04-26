@@ -94,6 +94,13 @@ public class Piece implements java.io.Serializable {
 
 
   public Color getColor(){ return Color.web(color);}
+  
+  public void setColor(Color c) {
+    for (Square s : squares){
+      s.setColor(c);
+    }
+   this.color = c.toString();
+  }
 
 
   @Override
@@ -120,6 +127,6 @@ public class Piece implements java.io.Serializable {
 
   public void setHint(boolean hint) {
     this.hint = hint;
+    this.setColor(Color.CORNSILK);
   }
-
-}
+} 

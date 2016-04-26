@@ -108,7 +108,7 @@ public class PieceView extends GridPane {
     
     Label addHint = new Label("Add Hint");
     addHint.setOnMouseClicked((MouseEvent event) ->{
-      controller.doMove(Axis.VERTICAL);
+      controller.addHint();
     });
     content.getChildren().add(addHint);
 
