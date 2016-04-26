@@ -14,7 +14,7 @@ public class PlacedPiece {
    * @param row the row on the board, starting at 0
    * @param col the col on the board, starting at 0
    */
-  PlacedPiece(Piece piece, int row, int col) {
+  public PlacedPiece(Piece piece, int row, int col) {
     this.piece = piece;
     this.row = row;
     this.col = col;
@@ -40,7 +40,7 @@ public class PlacedPiece {
     Square[] pieceSquares = piece.getSquares();
     Square[] placedSquares = new Square[pieceSquares.length];
     for(int i = 0; i < pieceSquares.length; i++) {
-      placedSquares[i] = new Square(row+pieceSquares[i].getRow(), col+pieceSquares[i].getCol());
+      placedSquares[i] = new Square(row+pieceSquares[i].getRow(), col+pieceSquares[i].getCol(),piece.getColor());
     }
 
     return placedSquares;
