@@ -21,7 +21,7 @@ public class Piece implements java.io.Serializable {
   private int width;
   private int height;
   public boolean inBullpen;
-  private Color color;
+  private String color;
 
 
   public Piece(Square[]squares){
@@ -30,7 +30,7 @@ public class Piece implements java.io.Serializable {
 
   public Piece(Square[] squares, Color color) {
     this.squares = squares;
-    this.color = color;
+    this.color = color.toString();
     width = 0;
     height = 0;
     for (Square s : squares){
@@ -92,7 +92,7 @@ public class Piece implements java.io.Serializable {
   }
 
 
-  public Color getColor(){ return color;}
+  public Color getColor(){ return Color.web(color);}
 
 
   @Override

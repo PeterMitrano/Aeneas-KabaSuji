@@ -39,7 +39,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   private boolean numberSetIsCovered(Color color) {
     for(ReleaseNumber n : board.getNumbers()) {
-      if(n.color == color && board.getPieceAtLocation(n.row, n.col) == null) {
+      if(n.getColor().equals(color) && board.getPieceAtLocation(n.row, n.col) == null) {
         return false;
       }
     }

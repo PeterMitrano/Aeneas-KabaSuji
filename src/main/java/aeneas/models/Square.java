@@ -10,13 +10,13 @@ import javafx.scene.paint.Color;
 public class Square implements java.io.Serializable {
   int dRow, dCol;
   ReleaseNumber num;
-  Color color;
+  private String color;
 
   public Square(int dRow,int dCol,ReleaseNumber num, Color color){
     this.dRow = dRow;
     this.dCol = dCol;
     this.num = num;
-    this.color = color;
+    this.color = color.toString();
 
   }
 
@@ -31,14 +31,14 @@ public class Square implements java.io.Serializable {
   public int getRow() { return dRow; }
   public int getCol() { return dCol; }
   public ReleaseNumber getNum() { return num; }
-  public Color getColor() {return color; }
+  public Color getColor() {return Color.web(color); }
 
   public void setRow(int row) { dRow = row; }
   public void setCol(int col) { dCol = col; }
   public void setNum(ReleaseNumber num) { this.num = num; }
-  public void setColor(Color color) {this.color = color; }
+  public void setColor(Color color) {this.color = color.toString(); }
 
   public Square clone(){
-    return new Square(this.dRow, this.dCol, this.num, this.color);
+    return new Square(this.dRow, this.dCol, this.num, this.getColor());
   }
 }

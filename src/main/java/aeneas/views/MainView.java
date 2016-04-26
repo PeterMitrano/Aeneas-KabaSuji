@@ -147,12 +147,6 @@ public class MainView extends StackPane implements Initializable {
 
     welcomeView = new WelcomeView(this, model);
     playSelectLevelView= new PlaySelectLevelView(this, model);
-
-//    Bullpen bullpen = new Bullpen(BullpenLogic.editorLogic(), new ArrayList<>());
-//    Level l = new ReleaseLevel(bullpen);
-//
-//    playLevelView = new PlayLevelView(this, l, model);
-//    buildLevelView = new BuildLevelView(this, l, model);
     viewAchievementsView = new ViewAchievementsView(model);
     buildSelectLevelView= new BuildSelectLevelView(this);
 
