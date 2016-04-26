@@ -1,18 +1,22 @@
 package aeneas.models;
 
-import java.util.ArrayList;
+import aeneas.views.LevelView;
+import aeneas.views.ReleaseView;
 
 import javafx.scene.paint.Color;
 
 /**
- * 
+ *
  * @author Joseph Martin
  * @author Logan Tutt
  */
-public class ReleaseLevel extends Level implements java.io.Serializable {
+public class ReleaseLevel extends Level
+implements java.io.Serializable, Level.LevelWithMoves {
   public static final String helpText = "";
 
   ReleaseBoard board;
+
+  private int moves;
 
   /**
    * Constructor
@@ -58,6 +62,10 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
     return numCoveredNumberSets();
   }
 
+  public ReleaseLevel(Level src) {
+    super(src);
+  }
+
   @Override
   public boolean isComplete() {
     // TODO Auto-generated method stub
@@ -69,4 +77,14 @@ public class ReleaseLevel extends Level implements java.io.Serializable {
     return board;
   }
 
+  @Override
+  public void setAllowedMoves(int moves) { this.moves = moves; }
+
+  @Override
+  public int getAllowedMoves() { return moves; }
+
+  @Override
+  public LevelView makeCorrespondingView() {
+    return new ReleaseView(this);
+  }
 }

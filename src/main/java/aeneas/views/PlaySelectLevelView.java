@@ -72,12 +72,12 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    for (Level level : gameModel.levels) {
-      int r = (level.levelNumber - 1) / numCols;
-      int c = (level.levelNumber - 1) % numCols;
-      JFXButton button = makeLevelButton(level.levelNumber, level.isLocked());
-      button.setOnMouseClicked(new SelectLevelController(parentView, level));
-      HBox stars = makeStars(gameModel.getStarsForLevel(level));
+    for (Level level : gameModel.getLevels()) {
+      int r = (level.getLevelNumber() - 1) / numCols;
+      int c = (level.getLevelNumber() - 1) % numCols;
+      JFXButton button = makeLevelButton(level.getLevelNumber(), gameModel.getMetadata(level).isLocked());
+      button.setOnMouseClicked(new SelectLevelController(parentView, gameModel, level));
+      HBox stars = makeStars(gameModel.getMetadata(level).getStarsEarned());
 
       if (level.isPrebuilt()) {
         levelGrid.add(button, c, r);

@@ -1,12 +1,17 @@
 package aeneas.models;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
 import aeneas.controllers.IMove;
-import aeneas.models.Bullpen.BullpenLogic;
-
+import aeneas.models.Level.Metadata;
 
 /**
  * Top level entity class for KabaSuji.
@@ -25,11 +30,9 @@ public class Model {
   public final String helpString = "HELP";
   public final String aboutString = "ABOUT";
 
-  public int numLevels = 15;
-  public ArrayList<Level> levels;
-
-  /** Mapping from levels to how many stars have been earned for that level. */
-  public HashMap<Level, Integer> starsEarned;
+  /** Mapping from level id to level metadata */
+  HashMap<Integer, Level.Metadata> levelMetadata;
+  LevelIndex index;
 
   Level activeLevel;
   ArrayList<Achievement> achievements;
@@ -37,28 +40,11 @@ public class Model {
   Stack<IMove> redoStack;
 
   public Model() {
-    levels = new ArrayList<>();
-    starsEarned = new HashMap<>();
+    levelMetadata = new HashMap<>();
     achievements = new ArrayList<>();
-    for (int i = 0; i < numLevels; i++) {
-      Bullpen b = new Bullpen(BullpenLogic.puzzleLogic(), new ArrayList<>());
-      Level l = new PuzzleLevel(b);
-      l.levelNumber = i + 1;
-      l.lock();
-      levels.add(l);
-    }
+    index = new LevelIndex();
 
-    //add custom level for example
-    for (int i=0;i<20;i++){
-      Bullpen b = new Bullpen(BullpenLogic.puzzleLogic(), new ArrayList<>());
-      Level l = new PuzzleLevel(b, false);
-      l.prebuilt = false;
-      l.levelNumber = i+16;
-      levels.add(l);
-    }
-
-    //of course level 1 stars unlocked
-    levels.get(0).unlock();
+    levelMetadata.put(1, new Level.Metadata(0, false));
   }
 
   /**
@@ -82,17 +68,27 @@ public class Model {
   }
 
   /**
-   * Gets the number of stars earned for a particular level.
+   * Gets the metadata associated with a level.
    *
-   * @param level The level to get the current number of stars for.
-   * @return The number of stars earned for the specified level, or 0 if the level wasn't found
+   * @param level The level to get metadata for.
+   * @return The metadata for the requested level, or the default metadata if there wasn't an entry for the level.
+   * (default metadata is locked and has 0 stars earned).
    */
-  public int getStarsForLevel(Level level) {
-    Integer stars = starsEarned.get(level);
-    if(stars == null) {
-      return 0;
+  public Level.Metadata getMetadata(Level level) {
+    Level.Metadata m = levelMetadata.get(level.getLevelNumber());
+    if(m == null) {
+      m = new Level.Metadata();
+      levelMetadata.put(level.getLevelNumber(), m);
     }
-    return stars;
+    return m;
+  }
+
+  public Level getLevel(int idx) {
+    return index.getLevel(idx);
+  }
+
+  public Iterable<Level> getLevels() {
+    return index.getLevels();
   }
 
   /**
@@ -109,8 +105,10 @@ public class Model {
 
     if(activeLevel != null) {
       int stars = activeLevel.getStarsEarned();
-      if(getStarsForLevel(activeLevel) < stars) {
-        starsEarned.put(activeLevel, stars);
+      if(getMetadata(activeLevel).getStarsEarned() < stars) {
+        Level.Metadata m = levelMetadata.getOrDefault(activeLevel.getLevelNumber(), new Level.Metadata());
+        m.setStarsEarned(stars);
+        levelMetadata.put(activeLevel.getLevelNumber(), m);
       }
     }
   }
@@ -155,7 +153,34 @@ public class Model {
     }
   }
 
+  /**
+   * Add new move to the undo stack.
+   * @param move the move to add
+   */
   public void addNewMove(IMove move){
 
+  }
+
+  public void saveLevelMetadata(File file) throws IOException {
+    try (FileOutputStream saveFile = new FileOutputStream(file);
+         ObjectOutputStream out = new ObjectOutputStream(saveFile);) {
+      out.writeObject(levelMetadata);
+    } catch (IOException i) {
+      throw i;
+    }
+  }
+
+  public void loadLevelMetadata(File file) throws IOException {
+    try (FileInputStream loadFile = new FileInputStream(file);
+         ObjectInputStream in = new ObjectInputStream(loadFile);){
+      Object o = in.readObject();
+      if(o instanceof HashMap) {
+        this.levelMetadata = (HashMap<Integer, Metadata>) o;
+      }
+    } catch (IOException i) {
+      throw i;
+    } catch (ClassNotFoundException c) {
+    } catch (ClassCastException c) {
+    }
   }
 }

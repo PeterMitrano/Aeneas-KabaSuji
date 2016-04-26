@@ -33,19 +33,19 @@ public class PieceView extends GridPane {
   Piece pieceModel;
   Model model;
   int squareSize;
-  Pane levelView;
+  Pane levelPane;
   ManipulatePieceController controller;
 
   /**
    * Constructor
-   * @param levelView the view for the level in which this piece is displayed
+   * @param levelPane the level view which will be displaying this piece.
    * @param pieceModel The Piece that this view displays
    * @param model The model that is being used
    * @param squareSize The size of a single square in the piece
    */
-  public PieceView(Pane levelView, Piece pieceModel, Model model, int squareSize) {
+  public PieceView(Pane levelPane, Piece pieceModel, Model model, int squareSize) {
     this.pieceModel = pieceModel;
-    this.levelView = levelView;
+    this.levelPane = levelPane;
     this.model = model;
     this.squareSize = squareSize;
     this.controller = new ManipulatePieceController(model, pieceModel, this);
@@ -65,7 +65,7 @@ public class PieceView extends GridPane {
       snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle this
 
       //create a new piece view just for the dragging so it can have a different size
-      PieceView fullSizedPieceView = new PieceView(levelView, pieceModel, model, BoardView.SQUARE_SIZE);
+      PieceView fullSizedPieceView = new PieceView(levelPane, pieceModel, model, BoardView.SQUARE_SIZE);
 
       Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
       db.setDragView(snapshotImage);
@@ -122,7 +122,7 @@ public class PieceView extends GridPane {
   }
 
   public void showPopup(){
-    piecePopup.setPopupContainer(levelView);
+    piecePopup.setPopupContainer(levelPane);
     piecePopup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, squareSize *1.5, squareSize*1.5);
   }
 

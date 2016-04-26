@@ -10,7 +10,6 @@ import javafx.scene.paint.Color;
  * @author Joseph Martin
  */
 public abstract class Board implements java.io.Serializable {
-
   public static final int SIZE = 12;
 
   public static final Color DEFAULT_COLOR = Color.GRAY;

@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * @author Joseph Martin
  */
 public class Bullpen implements java.io.Serializable {
-
   /**
    * @return the logic
    */
