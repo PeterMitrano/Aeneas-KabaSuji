@@ -8,7 +8,10 @@ addons:
     packages:
       - oracle-java8-installer
 
-script: ./gradlew build test jacocoTestReport javadocs
+script:
+  - ./gradlew build
+  - ./gradlew test -i
+  - ./gradlew jacocoTestReport javadocs
 
 before_install:
   - export DISPLAY=:99.0
