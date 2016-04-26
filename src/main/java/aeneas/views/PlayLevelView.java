@@ -22,6 +22,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class PlayLevelView extends BorderPane implements Initializable {
 
   @FXML
@@ -65,12 +69,11 @@ public class PlayLevelView extends BorderPane implements Initializable {
     bullpenView = new BullpenView(bullpenBox, (Pane) this);
 
     resetLevelButton.setOnMouseClicked((e) -> {
-      SelectLevelController c = new SelectLevelController(mainView, levelModel);
+      SelectLevelController c = new SelectLevelController(mainView, model, levelModel);
       c.resetLevel();
     });
 
     bullpenView.refresh(model, levelModel.getBullpen());
-
     boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);

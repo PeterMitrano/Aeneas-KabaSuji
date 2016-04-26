@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * @author Joseph Martin
  */
 public abstract class Board implements java.io.Serializable {
-
   public static final int SIZE = 12;
 
   boolean[][] squares = new boolean[SIZE][SIZE];

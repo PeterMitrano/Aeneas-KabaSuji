@@ -1,50 +1,35 @@
 package aeneas.controllers;
 import aeneas.models.Level;
-import aeneas.models.Model;
 
 /**
  * Move action to change the type of a level
- * @author Logan
- *
  */
 public class ChangeLevelTypeMove implements IMove {
 
+  Level newLevel;
 
-  Level level;
-
-  Model model;
-
-  int type;
-
-  /**
-   * Constructor
-   *
-   * @param level The level that is currently being played
-   * @param model The game model that holds the level being changed
-   * @param type the type of the level to be changed to
-   */
-  public ChangeLevelTypeMove(Level level, Model model, int type) {
-    this.level = level;
-    this.model = model;
-    this.type = type;
+  public ChangeLevelTypeMove(Level level) {
+    this.newLevel = level;
   }
 
   @Override
   public boolean execute() {
-    // TODO Auto-generated method stub
-    return false;
+    if (!isValid()) return false;
+
+    return true;
   }
 
   @Override
   public boolean undo() {
-    // TODO Auto-generated method stub
-    return false;
+    return true;
   }
 
+  /**
+   * This move will always be valid.
+   */
   @Override
   public boolean isValid() {
-    // TODO Auto-generated method stub
-    return false;
+    return true;
   }
 
 }
