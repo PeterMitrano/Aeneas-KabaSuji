@@ -20,6 +20,7 @@ import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.models.Level;
 import aeneas.models.LightningLevel;
 import aeneas.models.Model;
+import aeneas.models.Piece;
 import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseBoard;
 import aeneas.models.ReleaseLevel;
@@ -28,6 +29,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -179,6 +183,23 @@ public class MainView extends StackPane implements Initializable {
       dialogLayout.setHeading(new Label("About"));
       dialogLayout.setBody(new Label(Model.aboutText));
       dialog.show(this);
+    });
+
+    this.setOnDragExited((e) -> {
+      //return a piece to where it came
+      System.out.println("drag exited");
+    });
+
+    this.setOnDragDropped((e) -> {
+      //return a piece to where it came
+      Dragboard db = e.getDragboard();
+      Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
+    });
+
+    //yes, we need this
+    this.setOnDragOver((DragEvent event) -> {
+      event.acceptTransferModes(TransferMode.MOVE);
+      event.consume();
     });
 
     switchToWelcomeView();

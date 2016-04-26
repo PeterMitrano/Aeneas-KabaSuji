@@ -2,23 +2,18 @@ package aeneas.views;
 
 import java.util.ArrayList;
 
-import com.jfoenix.effects.JFXDepthManager;
-
 import aeneas.controllers.ChildDraggedListener;
 import aeneas.models.Bullpen;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.Square;
 
-import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 /**
  *
