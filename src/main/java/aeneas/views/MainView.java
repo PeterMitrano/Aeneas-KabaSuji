@@ -35,6 +35,10 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class MainView extends StackPane implements Initializable {
 
   @FXML
@@ -125,8 +129,8 @@ public class MainView extends StackPane implements Initializable {
 
   }
 
-  public void switchToPlayLevelView(Level l) {
-    PlayLevelView playLevelView = new PlayLevelView(this, l, model);
+  public void switchToPlayLevelView(Level level) {
+    PlayLevelView playLevelView = new PlayLevelView(this, level, model);
     paneStack.push(playLevelView);
     content.getChildren().clear();
     content.getChildren().add(playLevelView);

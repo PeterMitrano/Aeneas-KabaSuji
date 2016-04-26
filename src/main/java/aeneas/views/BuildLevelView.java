@@ -40,6 +40,7 @@ import javafx.scene.layout.VBox;
  *
  * @author pmitrano
  * @author jbkuszmaul
+ * @author Joseph Martin
  */
 public class BuildLevelView extends StackPane implements Initializable {
 
@@ -105,9 +106,8 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    bullpenView = new BullpenView(bullpenBox, this);
-
-    boardView = new BoardView(levelModel.getBoard());
+    this.bullpenView = new BullpenView(bullpenBox, this);
+    this.boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
