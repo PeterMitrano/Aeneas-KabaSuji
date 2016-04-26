@@ -3,26 +3,43 @@ package aeneas.models;
 import aeneas.views.LevelView;
 import aeneas.views.ReleaseView;
 
+import javafx.scene.paint.Color;
+
 /**
  *
  * @author Joseph Martin
+ * @author Logan Tutt
  */
 public class ReleaseLevel extends Level
-    implements java.io.Serializable, Level.LevelWithMoves {
+implements java.io.Serializable, Level.LevelWithMoves {
   public static final String helpText = "";
 
   ReleaseBoard board;
 
   private int moves;
 
-  public ReleaseLevel(Bullpen bullpen, ReleaseBoard board) {
+  /**
+   * Constructor
+   * @param bullpen The bullpen to use for this level
+   * @param board The Board to use for this level
+   */
+  public ReleaseLevel(Bullpen bullpen, ReleaseBoard board){
     super(bullpen);
     this.board = board;
   }
 
-  private boolean numberSetIsCovered(ReleaseNumber.Color color) {
+  /**
+   * Constructor. Will create a new empty board for this level
+   * @param bullpen The bullpen to use for this level
+   */
+  public ReleaseLevel(Bullpen bullpen) {
+    super(bullpen);
+    this.board = new ReleaseBoard();
+  }
+
+  private boolean numberSetIsCovered(Color color) {
     for(ReleaseNumber n : board.getNumbers()) {
-      if(n.color == color && board.getPieceAtLocation(n.row, n.col) == null) {
+      if(n.getColor().equals(color) && board.getPieceAtLocation(n.row, n.col) == null) {
         return false;
       }
     }
@@ -32,9 +49,9 @@ public class ReleaseLevel extends Level
 
   int numCoveredNumberSets() {
     int count = 0;
-    count += numberSetIsCovered(ReleaseNumber.Color.RED) ? 1 : 0;
-    count += numberSetIsCovered(ReleaseNumber.Color.GREEN) ? 1 : 0;
-    count += numberSetIsCovered(ReleaseNumber.Color.BLUE) ? 1 : 0;
+    count += numberSetIsCovered(ReleaseNumber.color1) ? 1 : 0;
+    count += numberSetIsCovered(ReleaseNumber.color2) ? 1 : 0;
+    count += numberSetIsCovered(ReleaseNumber.color3) ? 1 : 0;
 
     return count;
   }

@@ -2,14 +2,17 @@ package aeneas.models;
 
 import java.util.ArrayList;
 
+import javafx.scene.paint.Color;
+
 /**
  * Represents a board (which keeps track of its pieces, hints, and the shape of the board).
  * 
  * @author Joseph Martin
  */
 public abstract class Board implements java.io.Serializable {
-
   public static final int SIZE = 12;
+
+  public static final Color DEFAULT_COLOR = Color.GRAY;
 
   boolean[][] squares = new boolean[SIZE][SIZE];
   ArrayList<PlacedPiece> pieces;
@@ -24,7 +27,7 @@ public abstract class Board implements java.io.Serializable {
       }
     }
   }
-  
+
   /**
    * Count the number of valid squares on this board
    * @return The number of valid squares.
@@ -33,7 +36,7 @@ public abstract class Board implements java.io.Serializable {
     int count = 0;
     for(int j = 0; j < squares.length; j++) {
       for(int i = 0; i < squares[j].length; i++) {
-         count += squares[j][i] ? 1 : 0;
+        count += squares[j][i] ? 1 : 0;
       }
     }
     return count;
@@ -112,16 +115,40 @@ public abstract class Board implements java.io.Serializable {
 
     return false;
   }
-  
+
   /**
    * Gets all the pieces currently on the board
    * @return The list of pieces on the board.
    */
   public ArrayList<PlacedPiece> getPieces() { return pieces; }
-  
+
   /**
    * Gets the list of hints currently on the board
    * @return The list of hints on the board.
    */
   public ArrayList<PlacedPiece> getHints() { return hints; }
+
+  /**
+   * Gets the state of all squares in the board. A square will be null if no square is there
+   * @return A two dimensional array representing the current state of the board
+   */
+  public Square[][] assembleSquares(){
+    Square[][] squares = new Square[SIZE][SIZE];
+    for (PlacedPiece piece : pieces){
+      for(Square s : piece.getSquaresInBoardFrame())
+        squares[s.getCol()][s.getRow()] = s;
+    }
+    for (PlacedPiece piece : hints){
+      for(Square s : piece.getSquaresInBoardFrame())
+        squares[s.getCol()][s.getRow()] = s;
+    }
+    for(int i = 0;i<this.squares.length;i++ ){
+      for(int j = 0;j<this.squares.length;j++){
+        if(this.squares[i][j] && squares[i][j] == null){
+          squares[i][j]=new Square(j, i, Board.DEFAULT_COLOR);
+        }
+      }
+    }
+    return squares;
+  }
 }

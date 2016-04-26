@@ -25,7 +25,6 @@ import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseBoard;
 import aeneas.models.ReleaseLevel;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,6 +34,10 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class MainView extends StackPane implements Initializable {
 
   @FXML
@@ -125,8 +128,8 @@ public class MainView extends StackPane implements Initializable {
 
   }
 
-  public void switchToPlayLevelView(Level l) {
-    PlayLevelView playLevelView = new PlayLevelView(this, l, model);
+  public void switchToPlayLevelView(Level level) {
+    PlayLevelView playLevelView = new PlayLevelView(this, level, model);
     paneStack.push(playLevelView);
     content.getChildren().clear();
     content.getChildren().add(playLevelView);
@@ -169,9 +172,9 @@ public class MainView extends StackPane implements Initializable {
 
     // we need to add these back eventually
     help.setOnMouseClicked(new ViewHelpController(this, dialog,
-          dialogLayout, model.helpString));
+        dialogLayout, model.helpString));
     about.setOnMouseClicked(new ViewAboutController(this, dialog,
-          dialogLayout, model.aboutString));
+        dialogLayout, model.aboutString));
 
     switchToWelcomeView();
   }

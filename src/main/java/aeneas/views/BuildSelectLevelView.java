@@ -51,7 +51,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
     }
 
     // create default new level
-    Bullpen defaultBullpen  = new Bullpen(BullpenLogic.puzzleLogic());
+    Bullpen defaultBullpen  = new Bullpen(BullpenLogic.editorLogic());
     PuzzleLevel defaultLevel = new PuzzleLevel(defaultBullpen);
     LevelView defaultLevelView = new PuzzleView(defaultLevel);
     levelMap.put("DEFAULT", defaultLevelView);

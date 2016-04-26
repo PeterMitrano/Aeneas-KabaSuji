@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import aeneas.views.LevelView;
 
@@ -14,13 +15,32 @@ import aeneas.views.LevelView;
  * @author Joseph Martin
  */
 public abstract class Level implements java.io.Serializable {
-
   Bullpen bullpen;
 
-  public int levelNumber;
+  transient int levelNumber;
   boolean prebuilt;
 
-  private boolean locked;
+  public int getLevelNumber() {
+    return levelNumber;
+  }
+
+  public static class Metadata implements java.io.Serializable {
+    int starsEarned;
+    boolean locked;
+
+    public Metadata() { this.starsEarned = 0; this.locked = true; }
+
+    public Metadata(int starsEarned, boolean locked) {
+      this.starsEarned = starsEarned;
+      this.locked = locked;
+    }
+
+    public int getStarsEarned() { return starsEarned; }
+    public boolean isLocked() { return locked; }
+
+    void setStarsEarned(int stars) { starsEarned = stars; }
+    void setLocked(boolean locked) { this.locked = locked; }
+  }
 
   public interface LevelWithMoves {
     public int getAllowedMoves();
@@ -36,25 +56,6 @@ public abstract class Level implements java.io.Serializable {
     this(bullpen, true);
   }
 
-  @Override
-  public int hashCode() {
-    return levelNumber;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if(o == null) return false;
-
-    if(o instanceof Level) {
-      Level other = (Level)o;
-      if(other.levelNumber == levelNumber && other.prebuilt == prebuilt) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   /**
    * Copy constructor.
    * @param src the level you are copying from
@@ -65,7 +66,6 @@ public abstract class Level implements java.io.Serializable {
     this.bullpen = src.bullpen;
     this.levelNumber = src.levelNumber;
     this.prebuilt = src.prebuilt;
-    this.locked = src.locked;
   }
 
   /**
@@ -95,22 +95,7 @@ public abstract class Level implements java.io.Serializable {
   public boolean isPrebuilt() {
     return prebuilt;
   }
-
-  /**
-   * @return the locked
-   */
-  public boolean isLocked() {
-    return locked;
-  }
-
-  public void unlock() {
-    this.locked = false ;
-  }
-
-  public void lock() {
-    this.locked = true;
-  }
-
+  
   public void reset() {
   }
 
@@ -148,6 +133,10 @@ public abstract class Level implements java.io.Serializable {
     }
 
     return level;
+  }
+
+  public ArrayList<Piece> getPieces() {
+    return bullpen.pieces;
   }
 
   public abstract LevelView makeCorrespondingView();
