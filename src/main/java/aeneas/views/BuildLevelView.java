@@ -27,6 +27,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
@@ -81,6 +82,12 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @FXML
   private VBox togglesBox;
+  
+  @FXML
+  private Spinner<Integer> rowSpinner;
+  
+  @FXML 
+  private Spinner<Integer> columnSpinner;
 
   private BoardView boardView;
   private Level levelModel;
@@ -146,7 +153,39 @@ public class BuildLevelView extends StackPane implements Initializable {
         });
 
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
+    
+    rowSpinner.valueProperty().addListener((observer, old_value, new_value) -> {
+      boolean[][] squares = levelModel.getBoard().getSquares();
+      for (int j=0; j<squares.length; j++){
+        for (int i=0; i<squares[j].length; i++){
+          int width = columnSpinner.getValue();
+          int height = new_value;
+          if(i < width && j < height) {
+            squares[j][i] = true;
+          } else {
+            squares[j][i] = false;
+          }
+        }
+      }
+      boardView.refresh();
+    });
 
+    columnSpinner.valueProperty().addListener((observer, old_value, new_value) -> {
+      boolean[][] squares = levelModel.getBoard().getSquares();
+      for (int j=0; j<squares.length; j++){
+        for (int i=0; i<squares[j].length; i++){
+          int width = new_value;
+          int height = rowSpinner.getValue();
+          if(i < width && j < height) {
+            squares[j][i] = true;
+          } else {
+            squares[j][i] = false;
+          }
+        }
+      }
+      boardView.refresh();
+    });
+    
     addPiece.setOnMouseClicked((e) -> {
       piecePickerDialog.show(this);
       piecesPane.getChildren().clear();
