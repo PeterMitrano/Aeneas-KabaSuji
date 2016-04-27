@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.AddPieceMove;
 import aeneas.controllers.IMove;
+import aeneas.controllers.ToggleTileMove;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
@@ -149,6 +150,15 @@ public class BuildLevelView extends StackPane implements Initializable {
         });
 
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
+    
+    boardView.setSquareClickListener((row, col) -> {
+      IMove m = new ToggleTileMove(levelModel, row, col);
+      if (m.isValid()) {
+        m.execute();
+        model.addNewMove(m);
+        boardView.refresh();
+      }
+    });
 
     //if the user commits to dragging a piece out of the dialog then we close the dialog
     piecesPane.setOnDragExited((e) -> {

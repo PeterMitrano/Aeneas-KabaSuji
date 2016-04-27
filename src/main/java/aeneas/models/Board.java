@@ -151,4 +151,8 @@ public abstract class Board implements java.io.Serializable {
     }
     return squares;
   }
+
+  public boolean[][] getSquares() {
+    return squares;
+  }
 }

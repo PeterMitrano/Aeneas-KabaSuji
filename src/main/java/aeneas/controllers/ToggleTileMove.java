@@ -1,4 +1,5 @@
 package aeneas.controllers;
+import aeneas.models.Board;
 import aeneas.models.Level;
 
 /**
@@ -6,7 +7,7 @@ import aeneas.models.Level;
  * For use in the Builder
  *
  * @author Logan
- *
+ * @author Joseph Martin
  */
 public class ToggleTileMove implements IMove {
 
@@ -32,20 +33,20 @@ public class ToggleTileMove implements IMove {
 
   @Override
   public boolean execute() {
-    // TODO Auto-generated method stub
-    return false;
+    if(!isValid()) return false; 
+    boolean[][] squares = level.getBoard().getSquares();
+    squares[row][col] = !squares[row][col];
+    return true;
   }
 
   @Override
   public boolean undo() {
-    // TODO Auto-generated method stub
-    return false;
+    return execute();
   }
 
   @Override
   public boolean isValid() {
-    // TODO Auto-generated method stub
-    return false;
+    return row < Board.SIZE && col < Board.SIZE;
   }
 
 }
