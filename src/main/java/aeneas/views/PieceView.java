@@ -29,6 +29,13 @@ import javafx.scene.paint.Color;
  */
 public class PieceView extends GridPane {
 
+
+  public interface PieceSource {
+
+    public void returnPiece();
+
+  }
+
   private JFXPopup piecePopup;
 
   Piece pieceModel;
@@ -150,7 +157,7 @@ public class PieceView extends GridPane {
     }
   }
 
-  public void setOnChldDraggedListener(ChildDraggedListener listener) {
+  public void setOnChildDraggedListener(ChildDraggedListener listener) {
     this.childDraggedListener = listener;
   }
 

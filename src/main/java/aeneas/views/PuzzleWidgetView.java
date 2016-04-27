@@ -8,14 +8,14 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
 
-public class PuzzleView extends LevelView {
+public class PuzzleWidgetView extends LevelWidgetView {
 
   static public final RadioButton button = new RadioButton("Puzzle");
 
   private Spinner<Integer> movesSelect;
   private Label movesLabel;
 
-  public PuzzleView(PuzzleLevel levelModel){
+  public PuzzleWidgetView(PuzzleLevel levelModel){
     super(levelModel);
 
     movesLabel = new Label("Moves");
@@ -40,7 +40,7 @@ public class PuzzleView extends LevelView {
 
   @Override
   public RadioButton getButton() {
-    return PuzzleView.button;
+    return PuzzleWidgetView.button;
   }
 
 }

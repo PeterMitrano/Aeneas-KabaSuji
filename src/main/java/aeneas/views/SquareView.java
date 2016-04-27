@@ -1,6 +1,7 @@
 package aeneas.views;
 
 
+import aeneas.models.ReleaseNumber;
 import aeneas.models.Square;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -33,17 +34,28 @@ public class SquareView extends StackPane {
     if(s != null){
       square.setFill(s.getColor());
       if(s.getNum() != null){
-        Label l = new Label(Integer.toString(s.getNum().getValue()));
-        l.setTextFill(s.getNum().getColor());
-        l.setFont(new Font(20));
-        this.getChildren().add(l);
+        setNumber(s.getNum());
       }
     }else{
       square.setFill(Color.BLACK);
     }
   }
+  
+  public void setNumber(ReleaseNumber num){
+    Label l = new Label(Integer.toString(num.getValue()));
+    l.setTextFill(num.getColor());
+    l.setFont(new Font(20));
+    this.getChildren().add(l);
+  }
 
   public void setColor(Color color){
     square.setFill(color);
+  }
+
+  public void refresh(Square square) {
+    setColor(square.getColor());
+    if (square.getNum() != null) {
+      setNumber(square.getNum());
+    }
   }
 }

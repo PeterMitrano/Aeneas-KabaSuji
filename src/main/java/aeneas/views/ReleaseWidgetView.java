@@ -11,11 +11,11 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ReleaseView extends LevelView {
+public class ReleaseWidgetView extends LevelWidgetView {
 
   private static final RadioButton button = new RadioButton("Release");
 
-  public ReleaseView(ReleaseLevel levelModel){
+  public ReleaseWidgetView(ReleaseLevel levelModel){
     super(levelModel);
 
     Spinner<Integer> movesSelect = new Spinner<Integer>(1, 20, 10);
@@ -51,7 +51,7 @@ public class ReleaseView extends LevelView {
 
   @Override
   public RadioButton getButton() {
-    return ReleaseView.button;
+    return ReleaseWidgetView.button;
   }
 }
 

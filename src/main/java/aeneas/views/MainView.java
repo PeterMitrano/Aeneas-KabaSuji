@@ -21,7 +21,6 @@ import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.models.Level;
 import aeneas.models.LightningLevel;
 import aeneas.models.Model;
-import aeneas.models.Piece;
 import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseBoard;
 import aeneas.models.ReleaseLevel;
@@ -31,7 +30,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
@@ -81,7 +79,7 @@ public class MainView extends StackPane implements Initializable {
   private PlaySelectLevelView playSelectLevelView;
   private BuildSelectLevelView buildSelectLevelView;
   private Model model;
-  private ArrayList<LevelView> levelViews = new ArrayList<LevelView>();
+  private ArrayList<LevelWidgetView> levelViews = new ArrayList<LevelWidgetView>();
 
   private Stack<Node> paneStack;
 
@@ -101,9 +99,9 @@ public class MainView extends StackPane implements Initializable {
     }
 
     // create the different types of levels
-    levelViews.add(new PuzzleView(new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()))));
-    levelViews.add(new LightningView(new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 0)));
-    levelViews.add(new ReleaseView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard(null))));
+    levelViews.add(new PuzzleWidgetView(new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()))));
+    levelViews.add(new LightningWidgetView(new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 0)));
+    levelViews.add(new ReleaseWidgetView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard(null))));
   }
 
   public void switchToWelcomeView() {
@@ -124,7 +122,7 @@ public class MainView extends StackPane implements Initializable {
     content.getChildren().add(buildSelectLevelView);
   }
 
-  public void switchToBuildLevelView(LevelView levelView) {
+  public void switchToBuildLevelView(LevelWidgetView levelView) {
     BuildLevelView buildLevelView = new BuildLevelView(this, levelViews, levelView, model);
     paneStack.push(buildLevelView);
     content.getChildren().clear();
@@ -187,15 +185,13 @@ public class MainView extends StackPane implements Initializable {
       dialog.show(this);
     });
 
-    this.setOnDragExited((e) -> {
-      // return a piece to where it came
-      System.out.println("drag exited");
+    content.setOnDragExited((e) -> {
+      // eventually return a piece to where it came
+      // this case is tough because this also fires on valid drops
     });
 
     this.setOnDragDropped((e) -> {
-      // return a piece to where it came
-      Dragboard db = e.getDragboard();
-      Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
+        model.getLatestDragSource().returnPiece();
     });
 
     // yes, we need this

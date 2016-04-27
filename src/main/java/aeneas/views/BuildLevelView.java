@@ -12,12 +12,14 @@ import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.AddPieceMove;
+import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.IMove;
 import aeneas.controllers.ToggleTileMove;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
+import aeneas.models.Square;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -93,17 +95,16 @@ public class BuildLevelView extends StackPane implements Initializable {
   private Level levelModel;
   private MainView mainView;
   private BullpenView bullpenView;
-  private LevelView levelView;
-  private ArrayList<LevelView> levelViews;
+  private LevelWidgetView levelView;
+  private ArrayList<LevelWidgetView> levelViews;
   private Model model;
 
-  BuildLevelView(MainView mainView, ArrayList<LevelView> levelViews, LevelView levelView, Model model) {
+  BuildLevelView(MainView mainView, ArrayList<LevelWidgetView> levelViews, LevelWidgetView levelView, Model model) {
     this.levelView = levelView;
     this.levelViews = levelViews;
     this.model = model;
     this.levelModel = levelView.getLevelModel();
     this.mainView = mainView;
-    System.out.println(this.toString());
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("BuildLevel.fxml"));
       loader.setRoot(this);
@@ -116,7 +117,7 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.boardView = new BoardView(levelModel.getBoard());
+    this.boardView = new BoardView(this, model, levelModel.getBoard());
     this.bullpenView = new BullpenView(model, bullpenBox, (Pane) this);
 
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
@@ -136,7 +137,7 @@ public class BuildLevelView extends StackPane implements Initializable {
       }
     });
 
-    for (LevelView tempLevelView : levelViews) {
+    for (LevelWidgetView tempLevelView : levelViews) {
       tempLevelView.getButton().setToggleGroup(levelType);
       togglesBox.getChildren().add(tempLevelView.getButton());
     }
@@ -150,7 +151,7 @@ public class BuildLevelView extends StackPane implements Initializable {
     levelType.selectedToggleProperty()
         .addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
           if (new_toggle != null) {
-            LevelView view = (LevelView) ((RadioButton) new_toggle).getUserData();
+            LevelWidgetView view = (LevelWidgetView) ((RadioButton) new_toggle).getUserData();
             this.levelModel = view.getLevelModel();
             this.settingsBox.getChildren().set(1, view.getPanel());
           }
