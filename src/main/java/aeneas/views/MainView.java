@@ -100,10 +100,10 @@ public class MainView extends StackPane implements Initializable {
       e.printStackTrace();
     }
 
-    // create the different types of levels
-    levelViews.add(new PuzzleWidgetView(new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()))));
-    levelViews.add(new LightningWidgetView(new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 0)));
-    levelViews.add(new ReleaseWidgetView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard())));
+    //create the different types of levels
+    levelViews.add(new PuzzleWidgetView(new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic())), model));
+    levelViews.add(new LightningWidgetView(new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 0), model));
+    levelViews.add(new ReleaseWidgetView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard()), model));
   }
 
   public void switchToWelcomeView() {
@@ -223,7 +223,7 @@ public class MainView extends StackPane implements Initializable {
     // so only remove and go back if there's multiple things on the stack
     if (paneStack.size() > 1) {
 
-      paneStack.pop();      
+      paneStack.pop();
       // This is really ugly. Probably to be replaced with an interface for the views or something
      if(paneStack.peek() instanceof PlaySelectLevelView) {
         ((PlaySelectLevelView)paneStack.peek()).refresh();
@@ -232,5 +232,7 @@ public class MainView extends StackPane implements Initializable {
       content.getChildren().add(paneStack.peek());
     }
   }
+
+  public Model getModel() { return model; }
 
 }

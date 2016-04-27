@@ -136,13 +136,13 @@ public abstract class Level implements java.io.Serializable {
     return bullpen.pieces;
   }
 
-  public abstract LevelWidgetView makeCorrespondingView();
+  public abstract LevelWidgetView makeCorrespondingView(Model model);
 
   public abstract String getIconName();
 
   public void start() { active = true; }
   public void stop() { active = false; }
-  
+
   public boolean isActive() {
     return active;
   }

@@ -74,6 +74,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public ReleaseLevel(Level src) {
     super(src);
     this.bullpen.logic = BullpenLogic.releaseLogic();
+    this.board = new ReleaseBoard(src.getBoard());
   }
 
   @Override
@@ -94,10 +95,10 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public int getAllowedMoves() { return moves; }
 
   @Override
-  public LevelWidgetView makeCorrespondingView() {
-    return new ReleaseWidgetView(this);
+  public LevelWidgetView makeCorrespondingView(Model model) {
+    return new ReleaseWidgetView(this, model);
   }
-  
+
   public String getIconName() {
     return "SORT_NUMERIC_ASC";
   }

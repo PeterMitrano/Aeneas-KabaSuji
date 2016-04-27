@@ -103,7 +103,7 @@ public class BuildLevelView extends StackPane implements Initializable {
   private Model model;
 
   BuildLevelView(MainView mainView, ArrayList<LevelWidgetView> levelViews, Level level, Model model) {
-    this.levelView = level.makeCorrespondingView();
+    this.levelView = level.makeCorrespondingView(model);
     this.levelViews = levelViews;
     this.model = model;
     this.levelModel = level;

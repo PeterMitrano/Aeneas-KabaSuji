@@ -52,6 +52,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public PuzzleLevel(Level src) {
     super(src);
     this.bullpen.logic = BullpenLogic.puzzleLogic();
+    this.board = new PuzzleBoard(src.getBoard());
   }
 
 
@@ -78,10 +79,10 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public int getAllowedMoves() { return moves; }
 
   @Override
-  public LevelWidgetView makeCorrespondingView() {
-    return new PuzzleWidgetView(this);
+  public LevelWidgetView makeCorrespondingView(Model model) {
+    return new PuzzleWidgetView(this, model);
   }
-  
+
   public String getIconName() {
     return "PUZZLE_PIECE";
   }

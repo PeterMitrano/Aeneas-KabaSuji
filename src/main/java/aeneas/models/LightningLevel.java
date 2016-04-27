@@ -101,8 +101,8 @@ public class LightningLevel extends Level implements java.io.Serializable {
   public int getAllowedTime() { return allowedTime; }
 
   @Override
-  public LevelWidgetView makeCorrespondingView() {
-    return new LightningWidgetView(this);
+  public LevelWidgetView makeCorrespondingView(Model model) {
+    return new LightningWidgetView(this, model);
   }
   
   public String getIconName() {

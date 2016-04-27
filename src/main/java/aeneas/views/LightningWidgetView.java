@@ -2,6 +2,7 @@ package aeneas.views;
 
 import aeneas.models.Level;
 import aeneas.models.LightningLevel;
+import aeneas.models.Model;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -11,11 +12,13 @@ import javafx.scene.layout.VBox;
 public class LightningWidgetView extends LevelWidgetView {
 
   private static final RadioButton button = new RadioButton("Lightning");
+  private Model model;
 
   Spinner<Integer> timeSelect;
-  
-  public LightningWidgetView(LightningLevel levelModel){
+
+  public LightningWidgetView(LightningLevel levelModel, Model model) {
     super(levelModel);
+    this.model = model;
 
     VBox box = new VBox();
     box.setSpacing(4);
@@ -37,7 +40,7 @@ public class LightningWidgetView extends LevelWidgetView {
 
     button.setUserData(this);
   }
-  
+
   public Level getLevelModel(Level level) {
     LightningLevel l = new LightningLevel(level);
     timeSelect.getValueFactory().setValue(l.getAllowedTime());
