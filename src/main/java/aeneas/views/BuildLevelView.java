@@ -105,7 +105,6 @@ public class BuildLevelView extends StackPane implements Initializable {
     this.model = model;
     this.levelModel = levelView.getLevelModel();
     this.mainView = mainView;
-    System.out.println(this.toString());
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("BuildLevel.fxml"));
       loader.setRoot(this);
@@ -167,10 +166,6 @@ public class BuildLevelView extends StackPane implements Initializable {
         model.addNewMove(m);
         boardView.refresh();
       }
-    });
-
-    boardView.setSquareDraggedListener((row, col) -> {
-      System.out.println(row + " " + col + " dragged.");
     });
 
     //if the user commits to dragging a piece out of the dialog then we close the dialog

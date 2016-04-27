@@ -55,9 +55,9 @@ public class BoardView extends GridPane {
   public BoardView(Pane levelPane, Model model, Board board) {
     clickListener = null;
     this.board = board;
-    this.board.addPiece(new PlacedPiece(new Piece(new Square[] { new Square(0, 0) }), 0, 0));
-    refresh();
 
+    initializeSquares();
+    
     this.setOnDragDetected((event) -> {
       PlacedPiece draggedPiece = this.board.getPieceAtLocation(dragDropRow, dragDropCol);
       Piece pieceModel = draggedPiece.getPiece();
@@ -119,22 +119,7 @@ public class BoardView extends GridPane {
     });
   }
 
-  public void setSquareClickListener(SquareClickListener listener) {
-    this.clickListener = listener;
-  }
-
-  public void setSquareDraggedListener(SquareDragListener listener) {
-    this.dragListener = listener;
-  }
-
-  public void setSquareDroppedListener(SquareDropListener listener) {
-    this.dropListener = listener;
-  }
-
-  /**
-   * Refreshes the view to match the current state of the board
-   */
-  public void refresh() {
+  private void initializeSquares() {
     Square[][] squares = board.assembleSquares();
     for (int i = 0; i < Board.SIZE; i++) {
       for (int j = 0; j < Board.SIZE; j++) {
@@ -169,6 +154,31 @@ public class BoardView extends GridPane {
           }
         });
         this.add(grid[i][j], i, j);
+      }
+    }
+    
+  }
+
+  public void setSquareClickListener(SquareClickListener listener) {
+    this.clickListener = listener;
+  }
+
+  public void setSquareDraggedListener(SquareDragListener listener) {
+    this.dragListener = listener;
+  }
+
+  public void setSquareDroppedListener(SquareDropListener listener) {
+    this.dropListener = listener;
+  }
+
+  /**
+   * Refreshes the view to match the current state of the board
+   */
+  public void refresh() {
+    Square[][] squares = board.assembleSquares();
+    for (int i = 0; i < Board.SIZE; i++) {
+      for (int j = 0; j < Board.SIZE; j++) {
+        grid[i][j].refresh(squares[i][j]);
       }
     }
   }
