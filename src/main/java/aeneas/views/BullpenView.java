@@ -47,7 +47,7 @@ public class BullpenView implements ChildDraggedListener {
 
       Pane piecePane = new Pane();
       PieceView pieceView = new PieceView(levelView, pieceModel, model, SQUARE_SIZE);
-      pieceView.setOnChldDraggedListener(this);
+      pieceView.setOnChildDraggedListener(this);
       piecePane.getChildren().add(pieceView);
       values.add(piecePane);
       bullpenBox.getChildren().add(piecePane);
@@ -82,7 +82,7 @@ public class BullpenView implements ChildDraggedListener {
       Piece piece = bullpen.getPieces().get(i);
       Pane piecePane = new Pane();
       PieceView pieceView = new PieceView(levelView, piece, model, SQUARE_SIZE);
-      pieceView.setOnChldDraggedListener(this);
+      pieceView.setOnChildDraggedListener(this);
       piecePane.getChildren().add(pieceView);
       values.add(piecePane);
       bullpenBox.getChildren().add(piecePane);

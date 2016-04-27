@@ -12,12 +12,14 @@ import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.AddPieceMove;
+import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.IMove;
 import aeneas.controllers.ToggleTileMove;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
+import aeneas.models.Square;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -165,6 +167,10 @@ public class BuildLevelView extends StackPane implements Initializable {
         model.addNewMove(m);
         boardView.refresh();
       }
+    });
+
+    boardView.setSquareDraggedListener((row, col) -> {
+      System.out.println(row + " " + col + " dragged.");
     });
 
     //if the user commits to dragging a piece out of the dialog then we close the dialog

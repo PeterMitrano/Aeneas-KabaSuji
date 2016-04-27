@@ -150,7 +150,7 @@ public class PieceView extends GridPane {
     }
   }
 
-  public void setOnChldDraggedListener(ChildDraggedListener listener) {
+  public void setOnChildDraggedListener(ChildDraggedListener listener) {
     this.childDraggedListener = listener;
   }
 
