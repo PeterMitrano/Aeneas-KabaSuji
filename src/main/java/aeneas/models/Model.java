@@ -12,6 +12,7 @@ import java.util.Stack;
 
 import aeneas.controllers.IMove;
 import aeneas.models.Level.Metadata;
+import aeneas.views.PieceView.PieceSource;
 
 /**
  * Top level entity class for KabaSuji.
@@ -26,6 +27,8 @@ public class Model {
   public static final String helpText = "To begin playing the game, select a level that is unlocked. "
       + "To begin editing a level, select and existing level from the list or create a new one. "
       + "Achievements can also be viewed with the 'View Achievements' button.";
+
+  private PieceSource latestDragSource;
 
   public final String helpString = "HELP";
   public final String aboutString = "ABOUT";
@@ -162,5 +165,12 @@ public class Model {
     } catch (ClassNotFoundException c) {
     } catch (ClassCastException c) {
     }
+  }
+
+  public void setLatestDragSource(PieceSource latestDragSource) {
+    this.latestDragSource = latestDragSource; 
+  }
+  public PieceSource getLatestDragSource() {
+    return latestDragSource;
   }
 }

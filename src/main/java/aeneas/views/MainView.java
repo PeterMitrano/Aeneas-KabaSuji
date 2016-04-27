@@ -21,7 +21,6 @@ import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.models.Level;
 import aeneas.models.LightningLevel;
 import aeneas.models.Model;
-import aeneas.models.Piece;
 import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseBoard;
 import aeneas.models.ReleaseLevel;
@@ -31,7 +30,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
@@ -187,15 +185,13 @@ public class MainView extends StackPane implements Initializable {
       dialog.show(this);
     });
 
-    this.setOnDragExited((e) -> {
-      // return a piece to where it came
-      System.out.println("drag exited");
+    content.setOnDragExited((e) -> {
+      // eventually return a piece to where it came
+      // this case is tough because this also fires on valid drops
     });
 
     this.setOnDragDropped((e) -> {
-      // return a piece to where it came
-      Dragboard db = e.getDragboard();
-      Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
+        model.getLatestDragSource().returnPiece();
     });
 
     // yes, we need this

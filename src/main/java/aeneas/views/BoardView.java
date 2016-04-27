@@ -5,6 +5,7 @@ import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PlacedPiece;
 import aeneas.models.Square;
+import aeneas.views.PieceView.PieceSource;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
@@ -21,7 +22,7 @@ import javafx.scene.paint.Color;
  * @author Logan Tutt
  * @author Joseph Martin
  */
-public class BoardView extends GridPane {
+public class BoardView extends GridPane implements PieceSource {
 
   /** Specifies how many pixels the squares of a piece on the board will be */
   static final int SQUARE_SIZE = 40;
@@ -44,6 +45,7 @@ public class BoardView extends GridPane {
   private SquareClickListener clickListener;
   private SquareDragListener dragListener;
   private SquareDropListener dropListener;
+  private PlacedPiece pieceBeingDragged;
 
   /**
    * Initialized the board with grey squares
@@ -67,6 +69,9 @@ public class BoardView extends GridPane {
         
         //remove the piece from the board
         this.board.removePiece(draggedPiece);
+        this.pieceBeingDragged = draggedPiece;
+        model.setLatestDragSource(this);
+
         refresh();
         
         Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
@@ -181,5 +186,11 @@ public class BoardView extends GridPane {
         grid[i][j].refresh(squares[i][j]);
       }
     }
+  }
+
+  @Override
+  public void returnPiece() {
+    this.board.addPiece(pieceBeingDragged);
+    refresh();
   }
 }

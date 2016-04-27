@@ -7,7 +7,7 @@ import aeneas.models.Bullpen;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.Square;
-
+import aeneas.views.PieceView.PieceSource;
 import javafx.geometry.Pos;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
  *
  * @author Joseph Martin
  */
-public class BullpenView implements ChildDraggedListener {
+public class BullpenView implements ChildDraggedListener, PieceSource {
 
   VBox bullpenBox;
   Pane levelView;
@@ -29,6 +29,7 @@ public class BullpenView implements ChildDraggedListener {
   private String baseStyle = "-fx-padding:10px;";
 
   ArrayList<Pane> values = new ArrayList<Pane>();
+  private PieceView pieceBeingDragged;
 
   public BullpenView(Model model, VBox bullpenBox, Pane levelView) {
     this.model = model;
@@ -71,6 +72,7 @@ public class BullpenView implements ChildDraggedListener {
 
     bullpenBox.setOnDragEntered((e) -> {
       bullpenBox.setStyle(baseStyle + "-fx-background-color:#E2E2E2;");
+      e.consume();
     });
   }
 
@@ -91,10 +93,17 @@ public class BullpenView implements ChildDraggedListener {
 
   @Override
   public void onPieceDragged(PieceView pieceView) {
+    pieceBeingDragged = pieceView;
     bullpenBox.getChildren().remove(pieceView.getParent());
+    model.setLatestDragSource(this);
   }
 
   @Override
   public void onSquareDragged(Square squareView) {
+  }
+
+  @Override
+  public void returnPiece() {
+    bullpenBox.getChildren().add(pieceBeingDragged);
   }
 }
