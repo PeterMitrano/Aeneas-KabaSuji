@@ -19,7 +19,7 @@ import javafx.scene.paint.Color;
 /**
  * View class to display a board
  * @author Logan Tutt
- *
+ * @author Joseph Martin
  */
 public class BoardView extends GridPane {
 
