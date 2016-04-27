@@ -1,13 +1,19 @@
 package aeneas.views;
 
 import aeneas.models.Board;
+import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PlacedPiece;
 import aeneas.models.Square;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.Image;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 /**
  * View class to display a board
@@ -34,7 +40,7 @@ public class BoardView extends GridPane {
 
   SquareView[][] grid = new SquareView[Board.SIZE][Board.SIZE];
   Board board;
-  private int dropRow = 0, dropCol = 0;
+  private int dragDropRow = 0, dragDropCol = 0;
   private SquareClickListener clickListener;
   private SquareDragListener dragListener;
   private SquareDropListener dropListener;
@@ -46,12 +52,43 @@ public class BoardView extends GridPane {
    *          the board model object. Eventually this will model object will
    *          describe which squares are active
    */
-  public BoardView(Board board) {
+  public BoardView(Pane levelPane, Model model, Board board) {
     clickListener = null;
     this.board = board;
     this.board.addPiece(new PlacedPiece(new Piece(new Square[] { new Square(0, 0) }), 0, 0));
     refresh();
 
+    this.setOnDragDetected((event) -> {
+      PlacedPiece draggedPiece = this.board.getPieceAtLocation(dragDropRow, dragDropCol);
+      Piece pieceModel = draggedPiece.getPiece();
+     
+      //check there's a piece at the location
+      if (draggedPiece != null){
+        
+        //remove the piece from the board
+        this.board.removePiece(draggedPiece);
+        refresh();
+        
+        Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
+        ClipboardContent content = new ClipboardContent();
+        content.put(Piece.dataFormat, pieceModel);
+        db.setContent(content);
+
+        SnapshotParameters snapshotParameters = new SnapshotParameters();
+        snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle this
+
+        // create a new piece view just for the dragging so it can have a
+        // different size
+        PieceView fullSizedPieceView =
+          new PieceView(levelPane, pieceModel, model, BoardView.SQUARE_SIZE);
+
+        Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
+        db.setDragView(snapshotImage);
+
+        event.consume();
+      }
+    });
+    
     // This handle the drop of a piece on the board
     this.setOnDragDropped((DragEvent event) -> {
       Dragboard db = event.getDragboard();
@@ -59,11 +96,14 @@ public class BoardView extends GridPane {
       // use this to draw the piece on the board
       Piece piece = (Piece) db.getContent(Piece.dataFormat);
 
-      PlacedPiece placedPiece = new PlacedPiece(piece, dropRow, dropCol);
+      PlacedPiece placedPiece = new PlacedPiece(piece, dragDropRow, dragDropCol);
       boolean added = this.board.addPiece(placedPiece);
+      
       refresh();
-
-      System.out.println("dropped " + added + " " + dropRow + " " + dropCol);
+      
+      if (!added){
+        
+      }
 
       // this might change we we actually implement it,
       // such as if they drop it on a square that doesn't exist
@@ -109,6 +149,8 @@ public class BoardView extends GridPane {
         });
 
         grid[i][j].setOnDragDetected((e) -> {
+          this.dragDropCol = col;
+          this.dragDropRow = row;
           if (dropListener != null) {
             dragListener.squareDragged(row, col);
           }
@@ -120,8 +162,8 @@ public class BoardView extends GridPane {
         });
 
         grid[i][j].setOnDragDropped((e) -> {
-          this.dropCol = col;
-          this.dropRow = row;
+          this.dragDropCol = col;
+          this.dragDropRow = row;
           if (dropListener != null) {
             dropListener.squareDropped(row, col);
           }

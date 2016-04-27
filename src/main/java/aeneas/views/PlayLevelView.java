@@ -70,11 +70,7 @@ public class PlayLevelView extends BorderPane implements Initializable {
 
     bullpenView.refresh(levelModel.getBullpen());
 
-    boardView = new BoardView(levelModel.getBoard());
-
-    boardView.setSquareDraggedListener((row, col) -> {
-      System.out.println(row + " " + col + " dragged.");
-    });
+    boardView = new BoardView(this, model, levelModel.getBoard());
 
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);

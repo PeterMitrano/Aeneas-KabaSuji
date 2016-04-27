@@ -7,6 +7,10 @@ package aeneas.models;
  */
 public class PlacedPiece {
   Piece piece;
+  public Piece getPiece() {
+    return piece;
+  }
+
   int row, col;
 
   /**
