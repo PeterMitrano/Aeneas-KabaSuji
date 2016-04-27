@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 
-import aeneas.controllers.SelectLevelController;
 import aeneas.models.Level;
 import aeneas.models.Model;
 
@@ -25,7 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 /**
- * 
+ *
  * @author Joseph Martin
  */
 public class PlaySelectLevelView extends BorderPane implements Initializable {
@@ -47,13 +46,13 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
   @FXML
   private Label customLevelLabel;
 
-  public MainView parentView;
+  public MainView mainView;
 
   private final int numCols = 5;
 
-  PlaySelectLevelView(MainView parentView, Model model) {
+  PlaySelectLevelView(MainView mainView, Model model) {
     this.gameModel = model;
-    this.parentView = parentView;
+    this.mainView = mainView;
 
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("PlaySelectLevel.fxml"));
@@ -76,7 +75,12 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
       int r = (level.getLevelNumber() - 1) / numCols;
       int c = (level.getLevelNumber() - 1) % numCols;
       JFXButton button = makeLevelButton(level.getLevelNumber(), gameModel.getMetadata(level).isLocked());
-      button.setOnMouseClicked(new SelectLevelController(parentView, gameModel, level));
+      button.setOnMouseClicked((e)->{
+        if (!gameModel.getMetadata(level).isLocked()) {
+          mainView.switchToPlayLevelView(level);
+          level.reset();
+        }
+      });
       HBox stars = makeStars(gameModel.getMetadata(level).getStarsEarned());
 
       if (level.isPrebuilt()) {

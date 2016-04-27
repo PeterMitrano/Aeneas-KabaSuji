@@ -1,17 +1,13 @@
 package aeneas.views;
 
-
 import aeneas.models.Board;
-import aeneas.models.PlacedPiece;
-import aeneas.models.ReleaseNumber;
+import aeneas.models.Piece;
 import aeneas.models.Square;
-import javafx.scene.control.Label;
+
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 
 
 /**
@@ -30,8 +26,10 @@ public class BoardView extends GridPane {
 
   /**
    * Initialized the board with grey squares
-   * @param board the board model object.
-   * Eventually this will model object will describe which squares are active
+   *
+   * @param board
+   *          the board model object. Eventually this will model object will
+   *          describe which squares are active
    */
   public BoardView(Board board) {
     this.board = board;
@@ -40,22 +38,20 @@ public class BoardView extends GridPane {
     // This handle the drop of a piece on the board
     this.setOnDragDropped((DragEvent event) -> {
       Dragboard db = event.getDragboard();
-      boolean success = false;
 
-      // when we create a drag event we gave it a string
-      // so check that this is present
-      if (db.hasString()) {
+      //use this to draw the piece on the board
+      Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
 
-        // Get an item ID here, which was stored when the drag started.
-        // eventually we will use something better than a string
-        String pieceToString = db.getString();
-        System.out.println("Adding " + pieceToString);
+      // this might change we we actually implement it,
+      // such as if they drop it on a square that doesn't exist
+      event.setDropCompleted(true);
+      event.consume();
 
-      }
+    });
 
-      //this might change we we actually implement it,
-      //such as if they drop it on a square that doesn't exist
-      event.setDropCompleted(success);
+    //this is absolutely nessecary
+    this.setOnDragOver((DragEvent event) -> {
+      event.acceptTransferModes(TransferMode.MOVE);
       event.consume();
     });
   }
@@ -66,7 +62,7 @@ public class BoardView extends GridPane {
   public void refresh(){
     Square[][] squares = board.assembleSquares();
     for (int i = 0; i < Board.SIZE; i++) {
-      for (int j = 0; j < Board.SIZE; j++) {         
+      for (int j = 0; j < Board.SIZE; j++) {
         grid[i][j] = new SquareView(SQUARE_SIZE, squares[i][j]);
         this.add(grid[i][j], i, j);
       }
