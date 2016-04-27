@@ -34,7 +34,6 @@ public class ModelTest {
     Model m = new Model();
     Level l = new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()));
     assertEquals(m.getMetadata(l).getStarsEarned(), 0);
-    m.setActiveLevel(l);
     m.updateStats();
     assertEquals(m.getMetadata(l).getStarsEarned(), 0);
   }
