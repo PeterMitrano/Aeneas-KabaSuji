@@ -27,6 +27,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
@@ -81,6 +82,12 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @FXML
   private VBox togglesBox;
+
+  @FXML
+  private Spinner<Integer> rowSpinner;
+
+  @FXML
+  private Spinner<Integer> columnSpinner;
 
   private BoardView boardView;
   private Level levelModel;
@@ -150,7 +157,7 @@ public class BuildLevelView extends StackPane implements Initializable {
         });
 
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
-    
+
     boardView.setSquareClickListener((row, col) -> {
       IMove m = new ToggleTileMove(levelModel, row, col);
       if (m.isValid()) {

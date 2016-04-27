@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 /**
- * 
+ *
  * @author Joseph Martin
  */
 public class LevelIndex {
@@ -85,7 +85,7 @@ public class LevelIndex {
   Collection<Level> getLevels() {
     return levels.values();
   }
-  
+
   Level getLevel(int i) {
     return levels.get(i);
   }

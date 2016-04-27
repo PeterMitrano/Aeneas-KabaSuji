@@ -95,7 +95,7 @@ public abstract class Level implements java.io.Serializable {
   public boolean isPrebuilt() {
     return prebuilt;
   }
-  
+
   public void reset() {
   }
 

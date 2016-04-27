@@ -18,7 +18,7 @@ public class BoardView extends GridPane {
 
   /** Specifies how many pixels the squares of a piece on the board will be */
   static final int SQUARE_SIZE = 40;
-  
+
   public interface SquareClickListener {
     public void squareClicked(int row, int col);
   }
@@ -59,7 +59,7 @@ public class BoardView extends GridPane {
       event.consume();
     });
   }
-  
+
   public void setSquareClickListener(SquareClickListener listener) {
     this.listener = listener;
   }

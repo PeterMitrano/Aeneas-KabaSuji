@@ -5,7 +5,7 @@ import javafx.scene.input.DataFormat;
 
 /**
  *
- * @author Joseph Martin
+ * @author Joseph Martin, Garrison
  */
 public class Piece implements java.io.Serializable {
   public enum Axis {
@@ -24,6 +24,7 @@ public class Piece implements java.io.Serializable {
   private int width;
   private int height;
   public boolean inBullpen;
+  private boolean hint;
   private String color;
 
 
@@ -106,6 +107,13 @@ public class Piece implements java.io.Serializable {
 
   public Color getColor(){ return Color.web(color);}
 
+  public void setColor(Color c) {
+    for (Square s : squares){
+      s.setColor(c);
+    }
+   this.color = c.toString();
+  }
+
 
   @Override
   /**
@@ -125,4 +133,12 @@ public class Piece implements java.io.Serializable {
     return clone;
   }
 
+  public boolean isHint() {
+    return hint;
+  }
+
+  public void setHint(boolean hint) {
+    this.hint = hint;
+    this.setColor(Color.CORNSILK);
+  }
 }

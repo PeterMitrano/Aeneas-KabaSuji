@@ -66,14 +66,14 @@
           <VBox fx:id="sizing" spacing="10" alignment="TOP_LEFT">
             <HBox spacing="5" alignment="CENTER_RIGHT">
               <Label fx:id="rowsLabel" text="Rows" />
-              <Spinner prefWidth="70" min="0" max="12"
+              <Spinner fx:id="rowSpinner" prefWidth="70" min="0" max="12"
                 initialValue="12">
                 <editable>true</editable>
               </Spinner>
             </HBox>
             <HBox spacing="5" alignment="CENTER_RIGHT">
               <Label fx:id="columnsLabel" text="Columns" />
-              <Spinner prefWidth="70" min="0" max="12"
+              <Spinner fx:id="columnSpinner" prefWidth="70" min="0" max="12"
                 initialValue="12">
                 <editable>true</editable>
               </Spinner>

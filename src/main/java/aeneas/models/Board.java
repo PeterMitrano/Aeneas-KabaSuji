@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 /**
  * Represents a board (which keeps track of its pieces, hints, and the shape of the board).
- * 
+ *
  * @author Joseph Martin
  */
 public abstract class Board implements java.io.Serializable {
@@ -152,7 +152,7 @@ public abstract class Board implements java.io.Serializable {
     return squares;
   }
 
-  public boolean[][] getSquares() {
+  public boolean[][] getSquares(){
     return squares;
   }
 }

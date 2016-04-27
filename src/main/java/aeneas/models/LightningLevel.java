@@ -23,7 +23,7 @@ public class LightningLevel extends Level implements java.io.Serializable {
     super(bullpen);
     this.allowedTime = allowedTime;
     this.board = board;
-  }  
+  }
 
 
   /**
@@ -35,7 +35,7 @@ public class LightningLevel extends Level implements java.io.Serializable {
     super(bullpen);
     this.allowedTime = allowedTime;
     this.board = new LightningBoard();
-  }  
+  }
 
   @Override
   public int getStarsEarned() {
