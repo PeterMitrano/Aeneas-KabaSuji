@@ -3,6 +3,7 @@ package aeneas.views;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
@@ -69,17 +70,18 @@ public class MainView extends StackPane implements Initializable {
   @FXML
   private JFXDialog dialog;
 
-  @FXML private JFXDialogLayout dialogLayout;
+  @FXML
+  private JFXDialogLayout dialogLayout;
 
   @FXML
   private JFXButton accept;
-
 
   private ViewAchievementsView viewAchievementsView;
   private WelcomeView welcomeView;
   private PlaySelectLevelView playSelectLevelView;
   private BuildSelectLevelView buildSelectLevelView;
   private Model model;
+  private ArrayList<LevelView> levelViews = new ArrayList<LevelView>();
 
   private Stack<Node> paneStack;
 
@@ -94,14 +96,14 @@ public class MainView extends StackPane implements Initializable {
       loader.setRoot(this);
       loader.setController(this);
       loader.load();
-    } catch (IOException e){
+    } catch (IOException e) {
       e.printStackTrace();
     }
 
-    //create the different types of levels
-    LevelViewFactory.addView(new PuzzleView(new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()))));
-    LevelViewFactory.addView(new LightningView(new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 0)));
-    LevelViewFactory.addView(new ReleaseView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard(null))));
+    // create the different types of levels
+    levelViews.add(new PuzzleView(new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()))));
+    levelViews.add(new LightningView(new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 0)));
+    levelViews.add(new ReleaseView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard(null))));
   }
 
   public void switchToWelcomeView() {
@@ -123,7 +125,7 @@ public class MainView extends StackPane implements Initializable {
   }
 
   public void switchToBuildLevelView(LevelView levelView) {
-    BuildLevelView buildLevelView = new BuildLevelView(this, levelView, model);
+    BuildLevelView buildLevelView = new BuildLevelView(this, levelViews, levelView, model);
     paneStack.push(buildLevelView);
     content.getChildren().clear();
     content.getChildren().add(buildLevelView);
@@ -131,7 +133,7 @@ public class MainView extends StackPane implements Initializable {
   }
 
   public void switchToPlayLevelView(Level level) {
-    PlayLevelView playLevelView = new PlayLevelView(this, level, model);
+    PlayLevelView playLevelView = new PlayLevelView(level, model);
     paneStack.push(playLevelView);
     content.getChildren().clear();
     content.getChildren().add(playLevelView);
@@ -148,9 +150,9 @@ public class MainView extends StackPane implements Initializable {
     model = new Model();
 
     welcomeView = new WelcomeView(this, model);
-    playSelectLevelView= new PlaySelectLevelView(this, model);
+    playSelectLevelView = new PlaySelectLevelView(this, model);
     viewAchievementsView = new ViewAchievementsView(model);
-    buildSelectLevelView= new BuildSelectLevelView(this);
+    buildSelectLevelView = new BuildSelectLevelView(this);
 
     // init Popup
     toolbarPopup.setPopupContainer(root);
@@ -186,17 +188,17 @@ public class MainView extends StackPane implements Initializable {
     });
 
     this.setOnDragExited((e) -> {
-      //return a piece to where it came
+      // return a piece to where it came
       System.out.println("drag exited");
     });
 
     this.setOnDragDropped((e) -> {
-      //return a piece to where it came
+      // return a piece to where it came
       Dragboard db = e.getDragboard();
       Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
     });
 
-    //yes, we need this
+    // yes, we need this
     this.setOnDragOver((DragEvent event) -> {
       event.acceptTransferModes(TransferMode.MOVE);
       event.consume();
@@ -217,11 +219,11 @@ public class MainView extends StackPane implements Initializable {
     return fileChooser.showOpenDialog(stage);
   }
 
-  void navigateBack(){
+  void navigateBack() {
     // unless we're out of places to go back, go at the last pane we
     // the current node should always be in the stack,
     // so only remove and go back if there's multiple things on the stack
-    if (paneStack.size() > 1){
+    if (paneStack.size() > 1) {
       paneStack.pop();
       content.getChildren().clear();
       content.getChildren().add(paneStack.peek());

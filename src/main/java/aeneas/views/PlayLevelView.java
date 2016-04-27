@@ -8,8 +8,6 @@ import com.jfoenix.controls.JFXButton;
 
 import aeneas.models.Level;
 import aeneas.models.Model;
-import aeneas.models.Piece;
-import aeneas.models.Square;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
