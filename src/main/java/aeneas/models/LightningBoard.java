@@ -17,7 +17,7 @@ public class LightningBoard extends Board implements java.io.Serializable {
       }
     }
   }
-  
+
   @Override
   public boolean addPiece(PlacedPiece piece) {
     if(super.addPiece(piece)) {

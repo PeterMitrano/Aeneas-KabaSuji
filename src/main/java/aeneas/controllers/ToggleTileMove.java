@@ -33,7 +33,7 @@ public class ToggleTileMove implements IMove {
 
   @Override
   public boolean execute() {
-    if(!isValid()) return false; 
+    if(!isValid()) return false;
     boolean[][] squares = level.getBoard().getSquares();
     squares[row][col] = !squares[row][col];
     return true;

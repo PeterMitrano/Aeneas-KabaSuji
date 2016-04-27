@@ -82,11 +82,11 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @FXML
   private VBox togglesBox;
-  
+
   @FXML
   private Spinner<Integer> rowSpinner;
-  
-  @FXML 
+
+  @FXML
   private Spinner<Integer> columnSpinner;
 
   private BoardView boardView;
@@ -171,7 +171,7 @@ public class BuildLevelView extends StackPane implements Initializable {
     piecesPane.setOnDragExited((e) -> {
       piecePickerDialog.close();
     });
-    
+
     addPiece.setOnMouseClicked((e) -> {
       piecePickerDialog.show(this);
       piecesPane.getChildren().clear();

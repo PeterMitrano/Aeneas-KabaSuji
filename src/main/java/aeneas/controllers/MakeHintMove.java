@@ -32,7 +32,7 @@ public class MakeHintMove implements IMove {
      piece.setHint(true);
     return true;
     }
-   else 
+   else
      return false;
   }
 

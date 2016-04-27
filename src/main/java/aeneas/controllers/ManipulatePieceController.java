@@ -69,7 +69,7 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
       pieceView.refresh();
     }
   }
-  
+
   public void addHint(){
     IMove move = new MakeHintMove(pieceModel);
     if (move != null && move.execute()) {

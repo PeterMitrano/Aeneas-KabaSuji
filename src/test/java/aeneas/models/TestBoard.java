@@ -83,7 +83,7 @@ public class TestBoard {
     assertEquals(3, l.getStarsEarned());
 
   }
-  
+
   @Test
   public void testToggleSquare() {
     Bullpen b = new Bullpen(BullpenLogic.editorLogic());

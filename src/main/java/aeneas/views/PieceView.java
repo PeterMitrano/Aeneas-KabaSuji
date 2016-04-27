@@ -113,7 +113,7 @@ public class PieceView extends GridPane {
       controller.doMove(Axis.HORIZONTAL);
     });
     content.getChildren().add(flipHorz);
-    
+
     Label makeHint = new Label("Make Hint");
     makeHint.setOnMouseClicked((MouseEvent event) ->{
       controller.addHint();
