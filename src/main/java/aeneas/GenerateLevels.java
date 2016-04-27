@@ -13,8 +13,8 @@ import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseLevel;
 
 public class GenerateLevels {
-  
-  private static int levelNumber = 0;
+
+  private static int levelNumber = 1;
 
   public static void main(String[] args) {
     File file = new File("build/levels/default/");
@@ -40,7 +40,7 @@ public class GenerateLevels {
     saveNewLevel(newLightning(20, new int[]{1,4,1,11,13}));
     saveNewLevel(newRelease(10, new int[]{3,6,5,4,9}));
   }
-  
+
   private static ReleaseLevel newRelease(int moves, int[] pieceIndeces) {
     Piece[] pieces = PieceFactory.getPieces();
     Bullpen bullpen = new Bullpen(BullpenLogic.releaseLogic());
@@ -51,7 +51,7 @@ public class GenerateLevels {
     l.setAllowedMoves(moves);
     return l;
   }
-  
+
   private static LightningLevel newLightning(int time, int[] pieceIndeces) {
     Piece[] pieces = PieceFactory.getPieces();
     Bullpen bullpen = new Bullpen(BullpenLogic.lightningLogic());
@@ -61,7 +61,7 @@ public class GenerateLevels {
     LightningLevel l = new LightningLevel(bullpen, time);
     return l;
   }
-  
+
   private static PuzzleLevel newPuzzle(int moves, int[] pieceIndeces) {
     Piece[] pieces = PieceFactory.getPieces();
     Bullpen bullpen = new Bullpen(BullpenLogic.puzzleLogic());
@@ -72,7 +72,7 @@ public class GenerateLevels {
     l.setAllowedMoves(moves);
     return l;
   }
-  
+
   private static void saveNewLevel(Level l){
     String path = "build/levels/default/" + levelNumber + ".ksb";
     File file = new File(path);
@@ -83,7 +83,7 @@ public class GenerateLevels {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    
+
   }
 
 }
