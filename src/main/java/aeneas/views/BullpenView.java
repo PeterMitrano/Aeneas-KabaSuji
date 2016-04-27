@@ -24,6 +24,7 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
   VBox bullpenBox;
   Pane levelView;
   private Model model;
+  Bullpen bullpen;
 
   static final int SQUARE_SIZE = 14;
   private String baseStyle = "-fx-padding:10px;";
@@ -31,8 +32,9 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
   ArrayList<Pane> values = new ArrayList<Pane>();
   private PieceView pieceBeingDragged = null;
 
-  public BullpenView(Model model, VBox bullpenBox, Pane levelView) {
+  public BullpenView(Model model, Bullpen bullpen, VBox bullpenBox, Pane levelView) {
     this.model = model;
+    this.bullpen = bullpen;
     this.levelView = levelView;
     this.bullpenBox = bullpenBox;
     bullpenBox.setAlignment(Pos.TOP_CENTER);
@@ -77,7 +79,7 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
     });
   }
 
-  public void refresh(Bullpen bullpen) {
+  public void refresh() {
 
     bullpenBox.getChildren().clear();
 
@@ -95,7 +97,8 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
   @Override
   public void onPieceDragged(PieceView pieceView) {
     pieceBeingDragged = pieceView;
-    bullpenBox.getChildren().remove(pieceView.getParent());
+    bullpen.removePiece(pieceView.pieceModel);
+    refresh();
     model.setLatestDragSource(this);
   }
 
