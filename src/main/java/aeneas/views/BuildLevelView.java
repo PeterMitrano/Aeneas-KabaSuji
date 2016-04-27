@@ -12,11 +12,12 @@ import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.AddPieceMove;
 import aeneas.controllers.IMove;
+import aeneas.controllers.ToggleTileMove;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
-
+import aeneas.models.Square;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import javafx.beans.value.ObservableValue;
@@ -25,11 +26,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -146,6 +149,17 @@ public class BuildLevelView extends StackPane implements Initializable {
         });
 
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
+    
+    boardView.setSquareClickListener((sv) -> {
+      Integer x = GridPane.getColumnIndex(sv);
+      Integer y = GridPane.getRowIndex(sv);
+      IMove m = new ToggleTileMove(levelModel, y, x);
+      if (m.isValid()) {
+        m.execute();
+        model.addNewMove(m);
+        boardView.refresh();
+      }
+    });
 
     addPiece.setOnMouseClicked((e) -> {
       piecePickerDialog.show(this);

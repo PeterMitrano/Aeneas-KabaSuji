@@ -1,6 +1,8 @@
 package aeneas.views;
 
 
+import java.util.ArrayList;
+
 import aeneas.models.Board;
 import aeneas.models.PlacedPiece;
 import aeneas.models.ReleaseNumber;
@@ -23,10 +25,15 @@ public class BoardView extends GridPane {
 
   /** Specifies how many pixels the squares of a piece on the board will be */
   static final int SQUARE_SIZE = 40;
+  
+  public interface SquareClickListener {
+    public void squareClicked(SquareView target);
+  }
 
   //StackPane[][] grid = new StackPane[Board.SIZE][Board.SIZE];
   SquareView[][] grid = new SquareView[Board.SIZE][Board.SIZE];
   Board board;
+  SquareClickListener listener;
 
   /**
    * Initialized the board with grey squares
@@ -34,6 +41,7 @@ public class BoardView extends GridPane {
    * Eventually this will model object will describe which squares are active
    */
   public BoardView(Board board) {
+    listener = null;
     this.board = board;
     refresh();
 
@@ -59,6 +67,10 @@ public class BoardView extends GridPane {
       event.consume();
     });
   }
+  
+  public void setSquareClickListener(SquareClickListener listener) {
+    this.listener = listener;
+  }
 
   /**
    * Refreshes the view to match the current state of the board
@@ -67,8 +79,10 @@ public class BoardView extends GridPane {
     Square[][] squares = board.assembleSquares();
     for (int i = 0; i < Board.SIZE; i++) {
       for (int j = 0; j < Board.SIZE; j++) {         
-        grid[i][j] = new SquareView(SQUARE_SIZE, squares[i][j]);
-        this.add(grid[i][j], i, j);
+        grid[j][i] = new SquareView(SQUARE_SIZE, squares[j][i]);
+        SquareView s = grid[j][i];
+        grid[j][i].setOnMouseClicked((e) -> { listener.squareClicked(s); });
+        this.add(grid[j][i], i, j);
       }
     }
   }

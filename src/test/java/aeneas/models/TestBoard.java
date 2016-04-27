@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import aeneas.controllers.IMove;
+import aeneas.controllers.ToggleTileMove;
 import aeneas.models.Bullpen.BullpenLogic;
 
 public class TestBoard {
@@ -80,5 +82,22 @@ public class TestBoard {
     assertEquals(3, l.numCoveredNumberSets());
     assertEquals(3, l.getStarsEarned());
 
+  }
+  
+  @Test
+  public void testToggleSquare() {
+    Bullpen b = new Bullpen(BullpenLogic.editorLogic());
+    Level l = new PuzzleLevel(b);
+    IMove m = new ToggleTileMove(l, 0, 2);
+    boolean success = m.execute();
+    assertTrue(success);
+    assertFalse(l.getBoard().locationValid(new Square(0, 2)));
+    success = m.undo();
+    assertTrue(success);
+    assertTrue(l.getBoard().locationValid(new Square(0, 2)));
+    m.execute();
+    success = m.execute();
+    assertTrue(success);
+    assertTrue(l.getBoard().locationValid(new Square(0, 2)));
   }
 }
