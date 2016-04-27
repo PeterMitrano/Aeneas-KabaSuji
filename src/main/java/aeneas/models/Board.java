@@ -153,7 +153,6 @@ public abstract class Board implements java.io.Serializable {
   }
 
   public boolean[][] getSquares() {
-    // TODO Auto-generated method stub
     return squares;
   }
 }
