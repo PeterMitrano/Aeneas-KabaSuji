@@ -150,10 +150,8 @@ public class BuildLevelView extends StackPane implements Initializable {
 
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
     
-    boardView.setSquareClickListener((sv) -> {
-      Integer x = GridPane.getColumnIndex(sv);
-      Integer y = GridPane.getRowIndex(sv);
-      IMove m = new ToggleTileMove(levelModel, y, x);
+    boardView.setSquareClickListener((row, col) -> {
+      IMove m = new ToggleTileMove(levelModel, row, col);
       if (m.isValid()) {
         m.execute();
         model.addNewMove(m);

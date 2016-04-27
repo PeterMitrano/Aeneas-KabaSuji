@@ -1,19 +1,10 @@
 package aeneas.views;
 
-
-import java.util.ArrayList;
-
 import aeneas.models.Board;
-import aeneas.models.PlacedPiece;
-import aeneas.models.ReleaseNumber;
 import aeneas.models.Square;
-import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 
 
 /**
@@ -27,10 +18,9 @@ public class BoardView extends GridPane {
   static final int SQUARE_SIZE = 40;
   
   public interface SquareClickListener {
-    public void squareClicked(SquareView target);
+    public void squareClicked(int row, int col);
   }
 
-  //StackPane[][] grid = new StackPane[Board.SIZE][Board.SIZE];
   SquareView[][] grid = new SquareView[Board.SIZE][Board.SIZE];
   Board board;
   SquareClickListener listener;
@@ -80,8 +70,9 @@ public class BoardView extends GridPane {
     for (int i = 0; i < Board.SIZE; i++) {
       for (int j = 0; j < Board.SIZE; j++) {         
         grid[j][i] = new SquareView(SQUARE_SIZE, squares[j][i]);
-        SquareView s = grid[j][i];
-        grid[j][i].setOnMouseClicked((e) -> { listener.squareClicked(s); });
+        final int row = j;
+        final int col = i;
+        grid[j][i].setOnMouseClicked((e) -> { listener.squareClicked(row, col); });
         this.add(grid[j][i], i, j);
       }
     }
