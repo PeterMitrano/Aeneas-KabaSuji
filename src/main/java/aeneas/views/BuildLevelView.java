@@ -3,6 +3,7 @@ package aeneas.views;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -17,22 +18,18 @@ import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
-import aeneas.models.Square;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -90,13 +87,16 @@ public class BuildLevelView extends StackPane implements Initializable {
   private MainView mainView;
   private BullpenView bullpenView;
   private LevelView levelView;
+  private ArrayList<LevelView> levelViews;
   private Model model;
 
-  BuildLevelView(MainView mainView, LevelView levelView, Model model) {
+  BuildLevelView(MainView mainView, ArrayList<LevelView> levelViews, LevelView levelView, Model model) {
     this.levelView = levelView;
+    this.levelViews = levelViews;
     this.model = model;
     this.levelModel = levelView.getLevelModel();
     this.mainView = mainView;
+    System.out.println(this.toString());
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("BuildLevel.fxml"));
       loader.setRoot(this);
@@ -109,8 +109,9 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.bullpenView = new BullpenView(bullpenBox, this);
     this.boardView = new BoardView(levelModel.getBoard());
+    this.bullpenView = new BullpenView(model, bullpenBox, (Pane) this);
+
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
@@ -128,9 +129,9 @@ public class BuildLevelView extends StackPane implements Initializable {
       }
     });
 
-    for (LevelView levelView : LevelViewFactory.getViews()) {
-      levelView.getButton().setToggleGroup(levelType);
-      togglesBox.getChildren().add(levelView.getButton());
+    for (LevelView tempLevelView : levelViews) {
+      tempLevelView.getButton().setToggleGroup(levelType);
+      togglesBox.getChildren().add(tempLevelView.getButton());
     }
 
     // set the right settings got the given level type
@@ -159,6 +160,11 @@ public class BuildLevelView extends StackPane implements Initializable {
       }
     });
 
+    //if the user commits to dragging a piece out of the dialog then we close the dialog
+    piecesPane.setOnDragExited((e) -> {
+      piecePickerDialog.close();
+    });
+
     addPiece.setOnMouseClicked((e) -> {
       piecePickerDialog.show(this);
       piecesPane.getChildren().clear();
@@ -171,7 +177,7 @@ public class BuildLevelView extends StackPane implements Initializable {
           IMove move = new AddPieceMove(levelModel.getBullpen(), pieceModel.clone());
           if (move.execute()){
             model.addNewMove(move);
-            bullpenView.refresh(model, levelModel.getBullpen());
+            bullpenView.refresh(levelModel.getBullpen());
           }
         });
       }
