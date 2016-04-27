@@ -105,6 +105,7 @@ public class SerTest {
     m.getMetadata(m.getLevel(2)).setLocked(false);
     assertFalse(m.getMetadata(m.getLevel(2)).isLocked());
     File file = new File("build/test_metadata.dat");
+
     try {
       m.saveLevelMetadata(file);
     } catch (IOException e) {
