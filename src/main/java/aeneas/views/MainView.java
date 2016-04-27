@@ -29,7 +29,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
@@ -185,13 +187,10 @@ public class MainView extends StackPane implements Initializable {
       dialog.show(this);
     });
 
-    content.setOnDragExited((e) -> {
-      // eventually return a piece to where it came
-      // this case is tough because this also fires on valid drops
-    });
-
     this.setOnDragDropped((e) -> {
-        model.getLatestDragSource().returnPiece();
+      model.getLatestDragSource().returnPiece();
+    });
+    this.setOnDragExited((e) -> {
     });
 
     // yes, we need this

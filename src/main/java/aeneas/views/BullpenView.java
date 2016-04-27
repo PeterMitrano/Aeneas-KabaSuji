@@ -29,7 +29,7 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
   private String baseStyle = "-fx-padding:10px;";
 
   ArrayList<Pane> values = new ArrayList<Pane>();
-  private PieceView pieceBeingDragged;
+  private PieceView pieceBeingDragged = null;
 
   public BullpenView(Model model, VBox bullpenBox, Pane levelView) {
     this.model = model;
@@ -52,6 +52,7 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
       piecePane.getChildren().add(pieceView);
       values.add(piecePane);
       bullpenBox.getChildren().add(piecePane);
+      model.getLatestDragSource().dragSuccess();
 
       // this might change we we actually implement it,
       // such as if they drop it on a square that doesn't exist
@@ -104,6 +105,14 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
 
   @Override
   public void returnPiece() {
-    bullpenBox.getChildren().add(pieceBeingDragged);
+    if(pieceBeingDragged != null) {
+      bullpenBox.getChildren().add(pieceBeingDragged);
+      pieceBeingDragged = null;
+    }
+  }
+
+  @Override
+  public void dragSuccess() {
+    pieceBeingDragged = null;
   }
 }

@@ -41,11 +41,12 @@ public class BoardView extends GridPane implements PieceSource {
 
   SquareView[][] grid = new SquareView[Board.SIZE][Board.SIZE];
   Board board;
+  Model gameModel;
   private int dragDropRow = 0, dragDropCol = 0;
   private SquareClickListener clickListener;
   private SquareDragListener dragListener;
   private SquareDropListener dropListener;
-  private PlacedPiece pieceBeingDragged;
+  private PlacedPiece pieceBeingDragged = null;
 
   /**
    * Initialized the board with grey squares
@@ -57,6 +58,7 @@ public class BoardView extends GridPane implements PieceSource {
   public BoardView(Pane levelPane, Model model, Board board) {
     clickListener = null;
     this.board = board;
+    this.gameModel = model;
 
     initializeSquares();
     
@@ -107,7 +109,9 @@ public class BoardView extends GridPane implements PieceSource {
       refresh();
       
       if (!added){
-        
+        model.getLatestDragSource().returnPiece();
+      } else {
+        model.getLatestDragSource().dragSuccess();
       }
 
       // this might change we we actually implement it,
@@ -190,7 +194,15 @@ public class BoardView extends GridPane implements PieceSource {
 
   @Override
   public void returnPiece() {
-    this.board.addPiece(pieceBeingDragged);
-    refresh();
+    if(pieceBeingDragged != null) {
+      this.board.addPiece(pieceBeingDragged);
+      pieceBeingDragged = null;
+      refresh();
+    }
+  }
+
+  @Override
+  public void dragSuccess() {
+    pieceBeingDragged = null;
   }
 }
