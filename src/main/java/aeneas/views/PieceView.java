@@ -42,7 +42,7 @@ public class PieceView extends GridPane {
   /**
    * Constructor
    *
-   * @param levelView
+   * @param levelPane
    *          the view for the level in which this piece is displayed
    * @param pieceModel
    *          The Piece that this view displays
