@@ -6,13 +6,8 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import aeneas.controllers.SelectLevelController;
 import aeneas.models.Level;
 import aeneas.models.Model;
-import aeneas.models.Piece;
-import aeneas.models.PlacedPiece;
-import aeneas.models.Square;
-
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
@@ -47,15 +42,12 @@ public class PlayLevelView extends BorderPane implements Initializable {
   @FXML
   private FontAwesomeIconView levelTypeIcon;
 
-  private MainView mainView;
-
-
   private BullpenView bullpenView;
   private BoardView boardView;
   private Level levelModel;
   private Model model;
 
-  PlayLevelView(MainView mainView, Level levelModel, Model model) {
+  PlayLevelView(Level levelModel, Model model) {
     this.levelModel = levelModel;
     this.model = model;
     try {
@@ -70,25 +62,13 @@ public class PlayLevelView extends BorderPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    bullpenView = new BullpenView(bullpenBox, (Pane) this);
+    bullpenView = new BullpenView(model, bullpenBox, (Pane) this);
 
     resetLevelButton.setOnMouseClicked((e) -> {
-      SelectLevelController c = new SelectLevelController(mainView, model, levelModel);
-      c.resetLevel();
+      levelModel.reset();
     });
 
-
-    Piece testPiece = new Piece(new Square[] {
-        new Square(0, 0),
-        new Square(1, 0),
-        new Square(2, 1),
-        new Square(2, 2),
-        new Square(1, 1),
-        new Square(1, 2), });
-
-    bullpenView.refresh(model, levelModel.getBullpen());
-
-
+    bullpenView.refresh(levelModel.getBullpen());
 
     boardView = new BoardView(levelModel.getBoard());
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));

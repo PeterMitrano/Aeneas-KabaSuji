@@ -1,6 +1,7 @@
 package aeneas.models;
 
 import javafx.scene.paint.Color;
+import javafx.scene.input.DataFormat;
 
 /**
  *
@@ -16,6 +17,8 @@ public class Piece implements java.io.Serializable {
     CLOCKWISE,
     COUNTERCLOCKWISE,
   }
+
+  public static final DataFormat dataFormat = new DataFormat("aeneas.Piece");
 
   Square squares[];
   private int width;
@@ -78,6 +81,15 @@ public class Piece implements java.io.Serializable {
     int temp = height;
     height = width;
     width = temp;
+  }
+
+  @Override
+  public String toString(){
+    String str = "[";
+    for (Square s : squares){
+      str += s.toString() + ",";
+    }
+    return str + "]";
   }
 
   public Square[] getSquares() {
