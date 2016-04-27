@@ -71,7 +71,7 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
   }
   
   public void addHint(){
-    IMove move = new CreateHintMove(pieceModel);
+    IMove move = new MakeHintMove(pieceModel);
     if (move != null && move.execute()) {
       model.addNewMove(move);
       pieceView.refresh();

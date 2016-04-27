@@ -8,7 +8,7 @@ import aeneas.models.PlacedPiece;
  * @author Logan, Garrison
  *
  */
-public class CreateHintMove implements IMove {
+public class MakeHintMove implements IMove {
 
 
   Level level;
@@ -20,13 +20,9 @@ public class CreateHintMove implements IMove {
 
   /**
    * Constructor
-   *
-   * @param level The level that is currently being played
    * @param piece The piece that is being used to make the hint
-   * @param row The row to place the piece in
-   * @param col The column to place the piece in
    */
-  public CreateHintMove(Piece piece) {
+  public MakeHintMove(Piece piece) {
     this.piece = piece;
   }
 

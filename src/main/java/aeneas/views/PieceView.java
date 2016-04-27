@@ -114,11 +114,11 @@ public class PieceView extends GridPane {
     });
     content.getChildren().add(flipHorz);
     
-    Label addHint = new Label("Add Hint");
-    addHint.setOnMouseClicked((MouseEvent event) ->{
+    Label makeHint = new Label("Make Hint");
+    makeHint.setOnMouseClicked((MouseEvent event) ->{
       controller.addHint();
     });
-    content.getChildren().add(addHint);
+    content.getChildren().add(makeHint);
 
     piecePopup = new JFXPopup();
     piecePopup.setSource(this);
