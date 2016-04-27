@@ -8,11 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
 /**
- * 
+ *
  * @author Joseph Martin
  */
 public class LevelIndex {
@@ -25,6 +26,13 @@ public class LevelIndex {
 
   public void reindex() {
     levels.clear();
+
+    ArrayList<Level> defaultLevels = LevelGenerator.generateDefaultLevels();
+    for (int i=0;i<defaultLevels.size();i++){
+      Level l = defaultLevels.get(i);
+      l.levelNumber = i + 1;
+      levels.put(i, l);
+    }
 
     Path level_dir = null;
     try {
@@ -85,7 +93,7 @@ public class LevelIndex {
   Collection<Level> getLevels() {
     return levels.values();
   }
-  
+
   Level getLevel(int i) {
     return levels.get(i);
   }

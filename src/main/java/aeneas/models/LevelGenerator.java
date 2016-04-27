@@ -1,18 +1,12 @@
-package aeneas;
+package aeneas.models;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
-import aeneas.models.Bullpen;
 import aeneas.models.Bullpen.BullpenLogic;
-import aeneas.models.Level;
-import aeneas.models.LightningLevel;
-import aeneas.models.Piece;
-import aeneas.models.PieceFactory;
-import aeneas.models.PuzzleLevel;
-import aeneas.models.ReleaseLevel;
 
-public class GenerateLevels {
+public class LevelGenerator {
 
   private static int levelNumber = 1;
 
@@ -20,25 +14,35 @@ public class GenerateLevels {
     File file = new File("build/levels/default/");
     file.mkdirs();
 
-    saveNewLevel(newPuzzle(16, new int[]{0,1,2,3,2}));
-    saveNewLevel(newLightning(60, new int[]{8,6,4,11,15}));
-    saveNewLevel(newRelease(16, new int[]{0,1,2,3,2}));
+    for (Level l : generateDefaultLevels()){
+      saveNewLevel(l);
+    }
+  }
 
-    saveNewLevel(newPuzzle(12, new int[]{4,2,12,2,2}));
-    saveNewLevel(newLightning(50, new int[]{2,0,1,10,14}));
-    saveNewLevel(newRelease(12, new int[]{4,2,12,2,2}));
+  public static ArrayList<Level> generateDefaultLevels(){
+    ArrayList<Level> levels = new ArrayList<Level>();
 
-    saveNewLevel(newPuzzle(12, new int[]{10,11,2,14,2}));
-    saveNewLevel(newLightning(40, new int[]{1,6,4,11,13}));
-    saveNewLevel(newRelease(12, new int[]{10,11,2,14,2}));
+    levels.add(newPuzzle(16, new int[]{0,1,2,3,2}));
+    levels.add(newLightning(60, new int[]{8,6,4,11,15}));
+    levels.add(newRelease(16, new int[]{0,1,2,3,2}));
 
-    saveNewLevel(newPuzzle(10, new int[]{4,13,7,4,8}));
-    saveNewLevel(newLightning(30, new int[]{0,3,3,11,12}));
-    saveNewLevel(newRelease(10, new int[]{4,13,7,4,8}));
+    levels.add(newPuzzle(12, new int[]{4,2,12,2,2}));
+    levels.add(newLightning(50, new int[]{2,0,1,10,14}));
+    levels.add(newRelease(12, new int[]{4,2,12,2,2}));
 
-    saveNewLevel(newPuzzle(10, new int[]{3,6,5,4,9}));
-    saveNewLevel(newLightning(20, new int[]{1,4,1,11,13}));
-    saveNewLevel(newRelease(10, new int[]{3,6,5,4,9}));
+    levels.add(newPuzzle(12, new int[]{10,11,2,14,2}));
+    levels.add(newLightning(40, new int[]{1,6,4,11,13}));
+    levels.add(newRelease(12, new int[]{10,11,2,14,2}));
+
+    levels.add(newPuzzle(10, new int[]{4,13,7,4,8}));
+    levels.add(newLightning(30, new int[]{0,3,3,11,12}));
+    levels.add(newRelease(10, new int[]{4,13,7,4,8}));
+
+    levels.add(newPuzzle(10, new int[]{3,6,5,4,9}));
+    levels.add(newLightning(20, new int[]{1,4,1,11,13}));
+    levels.add(newRelease(10, new int[]{3,6,5,4,9}));
+
+    return levels;
   }
 
   private static ReleaseLevel newRelease(int moves, int[] pieceIndeces) {
