@@ -49,12 +49,12 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
-    // create default new level
+  }
+  
+  private LevelView createDefaultLevelView() {
     Bullpen defaultBullpen  = new Bullpen(BullpenLogic.editorLogic());
     PuzzleLevel defaultLevel = new PuzzleLevel(defaultBullpen);
-    LevelView defaultLevelView = new PuzzleView(defaultLevel);
-    levelMap.put("DEFAULT", defaultLevelView);
+    return new PuzzleView(defaultLevel);
   }
 
   @Override
@@ -67,7 +67,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
         String path = l.getText();
 
         if (path.equals(createNewLevelLabel.getText())) {
-          levelViewToSwitchTo = levelMap.get("DEFAULT");
+          levelViewToSwitchTo = createDefaultLevelView();
           mainView.switchToBuildLevelView(levelViewToSwitchTo);
         } else {
           levelViewToSwitchTo = levelMap.get(path);
