@@ -173,7 +173,7 @@ public class Model {
   }
 
   public void setLatestDragSource(PieceSource latestDragSource) {
-    this.latestDragSource = latestDragSource; 
+    this.latestDragSource = latestDragSource;
   }
   public PieceSource getLatestDragSource() {
     return latestDragSource;
@@ -182,8 +182,10 @@ public class Model {
   public void setActiveLevel(Level levelModel) {
     activeLevel = levelModel;
   }
-  
+
   public Level getActiveLevel() {
     return activeLevel;
   }
+
+  public LevelIndex getLevelIndex() { return index; }
 }
