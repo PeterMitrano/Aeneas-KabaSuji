@@ -93,11 +93,11 @@ public class BuildLevelView extends StackPane implements Initializable {
   private Level levelModel;
   private MainView mainView;
   private BullpenView bullpenView;
-  private LevelView levelView;
-  private ArrayList<LevelView> levelViews;
+  private LevelWidgetView levelView;
+  private ArrayList<LevelWidgetView> levelViews;
   private Model model;
 
-  BuildLevelView(MainView mainView, ArrayList<LevelView> levelViews, LevelView levelView, Model model) {
+  BuildLevelView(MainView mainView, ArrayList<LevelWidgetView> levelViews, LevelWidgetView levelView, Model model) {
     this.levelView = levelView;
     this.levelViews = levelViews;
     this.model = model;
@@ -136,7 +136,7 @@ public class BuildLevelView extends StackPane implements Initializable {
       }
     });
 
-    for (LevelView tempLevelView : levelViews) {
+    for (LevelWidgetView tempLevelView : levelViews) {
       tempLevelView.getButton().setToggleGroup(levelType);
       togglesBox.getChildren().add(tempLevelView.getButton());
     }
@@ -150,7 +150,7 @@ public class BuildLevelView extends StackPane implements Initializable {
     levelType.selectedToggleProperty()
         .addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
           if (new_toggle != null) {
-            LevelView view = (LevelView) ((RadioButton) new_toggle).getUserData();
+            LevelWidgetView view = (LevelWidgetView) ((RadioButton) new_toggle).getUserData();
             this.levelModel = view.getLevelModel();
             this.settingsBox.getChildren().set(1, view.getPanel());
           }

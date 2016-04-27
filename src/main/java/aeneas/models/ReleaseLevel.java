@@ -1,7 +1,8 @@
 package aeneas.models;
 
-import aeneas.views.LevelView;
-import aeneas.views.ReleaseView;
+import aeneas.views.LevelWidgetView;
+import aeneas.views.ReleaseWidgetView;
+
 import javafx.scene.paint.Color;
 
 /**
@@ -91,7 +92,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public int getAllowedMoves() { return moves; }
 
   @Override
-  public LevelView makeCorrespondingView() {
-    return new ReleaseView(this);
+  public LevelWidgetView makeCorrespondingView() {
+    return new ReleaseWidgetView(this);
   }
 }

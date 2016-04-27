@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import aeneas.views.LevelView;
+import aeneas.views.LevelWidgetView;
 
 /**
  *
@@ -135,5 +135,5 @@ public abstract class Level implements java.io.Serializable {
     return bullpen.pieces;
   }
 
-  public abstract LevelView makeCorrespondingView();
+  public abstract LevelWidgetView makeCorrespondingView();
 }

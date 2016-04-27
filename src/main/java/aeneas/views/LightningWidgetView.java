@@ -7,11 +7,11 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.VBox;
 
-public class LightningView extends LevelView {
+public class LightningWidgetView extends LevelWidgetView {
 
   private static final RadioButton button = new RadioButton("Lightning");
 
-  public LightningView(LightningLevel levelModel){
+  public LightningWidgetView(LightningLevel levelModel){
     super(levelModel);
 
     VBox box = new VBox();
@@ -37,6 +37,6 @@ public class LightningView extends LevelView {
 
   @Override
   public RadioButton getButton() {
-    return LightningView.button;
+    return LightningWidgetView.button;
   }
 }

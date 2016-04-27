@@ -81,7 +81,7 @@ public class MainView extends StackPane implements Initializable {
   private PlaySelectLevelView playSelectLevelView;
   private BuildSelectLevelView buildSelectLevelView;
   private Model model;
-  private ArrayList<LevelView> levelViews = new ArrayList<LevelView>();
+  private ArrayList<LevelWidgetView> levelViews = new ArrayList<LevelWidgetView>();
 
   private Stack<Node> paneStack;
 
@@ -101,9 +101,9 @@ public class MainView extends StackPane implements Initializable {
     }
 
     // create the different types of levels
-    levelViews.add(new PuzzleView(new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()))));
-    levelViews.add(new LightningView(new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 0)));
-    levelViews.add(new ReleaseView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard(null))));
+    levelViews.add(new PuzzleWidgetView(new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()))));
+    levelViews.add(new LightningWidgetView(new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 0)));
+    levelViews.add(new ReleaseWidgetView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard(null))));
   }
 
   public void switchToWelcomeView() {
@@ -124,7 +124,7 @@ public class MainView extends StackPane implements Initializable {
     content.getChildren().add(buildSelectLevelView);
   }
 
-  public void switchToBuildLevelView(LevelView levelView) {
+  public void switchToBuildLevelView(LevelWidgetView levelView) {
     BuildLevelView buildLevelView = new BuildLevelView(this, levelViews, levelView, model);
     paneStack.push(buildLevelView);
     content.getChildren().clear();

@@ -1,7 +1,7 @@
 package aeneas.models;
 
-import aeneas.views.LevelView;
-import aeneas.views.PuzzleView;
+import aeneas.views.LevelWidgetView;
+import aeneas.views.PuzzleWidgetView;
 
 /**
  *
@@ -76,7 +76,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public int getAllowedMoves() { return moves; }
 
   @Override
-  public LevelView makeCorrespondingView() {
-    return new PuzzleView(this);
+  public LevelWidgetView makeCorrespondingView() {
+    return new PuzzleWidgetView(this);
   }
 }
