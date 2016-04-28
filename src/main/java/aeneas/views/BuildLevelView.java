@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.AddPieceMove;
+import aeneas.controllers.BoardSizeController;
 import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.IMove;
 import aeneas.controllers.ToggleTileMove;
@@ -20,7 +21,9 @@ import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
 import aeneas.models.Square;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -124,6 +127,12 @@ public class BuildLevelView extends StackPane implements Initializable {
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
 
+    rowSpinner.valueProperty().addListener(new BoardSizeController(levelModel, model, this));
+    columnSpinner.valueProperty().addListener(new BoardSizeController(levelModel, model, this));
+
+    columnSpinner.valueProperty().addListener((observer, old_value, new_value) -> {
+    });
+
     saveButton.setOnMouseClicked((e) -> {
       File saveFile = mainView.showSaveDialog();
       if (saveFile == null)
@@ -190,5 +199,18 @@ public class BuildLevelView extends StackPane implements Initializable {
         });
       }
     });
+  }
+
+  public void refresh() {
+    boardView.refresh();
+    bullpenView.refresh();
+  }
+
+  public int getRowSpinner() {
+    return rowSpinner.getValue();
+  }
+
+  public int getColumnSpinner() {
+    return columnSpinner.getValue();
   }
 }

@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 
 /**
  * View class to display a board
- * 
+ *
  * @author Logan Tutt
  * @author Joseph Martin
  */
@@ -38,7 +38,7 @@ public class BoardView extends GridPane implements PieceSource {
   public interface SquareDropListener {
     public void squareDropped(int row, int col);
   }
-  
+
   public interface RefreshListener {
     public void refresh();
   }
@@ -52,7 +52,7 @@ public class BoardView extends GridPane implements PieceSource {
   private SquareDropListener dropListener;
   private RefreshListener refreshListener;
   private PlacedPiece pieceBeingDragged = null;
-  
+
   public void setRefreshListener(RefreshListener listener) {
     this.refreshListener = listener;
   }
@@ -70,21 +70,21 @@ public class BoardView extends GridPane implements PieceSource {
     this.gameModel = model;
 
     initializeSquares();
-    
+
     this.setOnDragDetected((event) -> {
       PlacedPiece draggedPiece = this.board.getPieceAtLocation(dragDropRow, dragDropCol);
-     
+
       //check there's a piece at the location
       if (draggedPiece != null){
         Piece pieceModel = draggedPiece.getPiece();
-        
+
         //remove the piece from the board
         this.board.removePiece(draggedPiece);
         this.pieceBeingDragged = draggedPiece;
         model.setLatestDragSource(this);
 
         refresh();
-        
+
         Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         content.put(Piece.dataFormat, pieceModel);
@@ -104,7 +104,7 @@ public class BoardView extends GridPane implements PieceSource {
         event.consume();
       }
     });
-    
+
     // This handle the drop of a piece on the board
     this.setOnDragDropped((DragEvent event) -> {
       Dragboard db = event.getDragboard();
@@ -114,15 +114,15 @@ public class BoardView extends GridPane implements PieceSource {
 
       PlacedPiece placedPiece = new PlacedPiece(piece, dragDropRow, dragDropCol);
       boolean added = this.board.addPiece(placedPiece);
-      
+
       refresh();
-      
+
       if (!added){
         model.getLatestDragSource().returnPiece();
       } else {
         model.getLatestDragSource().dragSuccess();
       }
-      
+
       if(refreshListener != null) {
         refreshListener.refresh();
       }
@@ -175,11 +175,11 @@ public class BoardView extends GridPane implements PieceSource {
             dropListener.squareDropped(r, c);
           }
         });
-        
+
         this.add(grid[row][col], col, row);
       }
     }
-    
+
   }
 
   public void setSquareClickListener(SquareClickListener listener) {
