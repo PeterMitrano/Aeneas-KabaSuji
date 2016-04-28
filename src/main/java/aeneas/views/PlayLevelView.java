@@ -40,7 +40,7 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
 
   @FXML
   private Label levelLabel;
-  
+
   @FXML
   private Label timeLabel;
 
@@ -49,7 +49,7 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
 
   @FXML
   private FontAwesomeIconView levelTypeIcon;
-  
+
   @FXML
   private FontAwesomeIconView star1;
   @FXML
@@ -80,12 +80,14 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
     bullpenView = new BullpenView(model,levelModel.getBullpen(), bullpenBox, (Pane) this);
 
     resetLevelButton.setOnMouseClicked((e) -> {
-      levelModel.reset();
+      this.levelModel.reset();
+      bullpenView.refresh();
+      boardView.refresh();
     });
 
     bullpenView.refresh();
     levelLabel.setText("Level "+levelModel.getLevelNumber());
-    
+
     levelTypeIcon.setGlyphName(levelModel.getIconName());
 
     boardView = new BoardView(this, model, levelModel.getBoard());
@@ -94,9 +96,9 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
-    
+
     model.setActiveLevel(levelModel);
-    
+
     // This should be moved to a controller.
     if(levelModel instanceof LightningLevel) {
       LightningLevel l = (LightningLevel)levelModel;
@@ -106,7 +108,7 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
         @Override
         public void run() {
           elapsedTime++;
-          
+
           Platform.runLater(() -> {timeLabel.setText("Time Remaining: "+(l.getAllowedTime()-elapsedTime));});
           levelModel.stop();
           if(elapsedTime >= l.getAllowedTime()) {
@@ -116,7 +118,7 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
       }, 1000, 1000);
     }
   }
-  
+
   public void refresh() {
     int stars = levelModel.getStarsEarned();
     model.setActiveLevel(levelModel);
@@ -143,6 +145,8 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
       break;
     }
     model.updateStats();
+    bullpenView.refresh();
+    boardView.refresh();
   }
 
 }

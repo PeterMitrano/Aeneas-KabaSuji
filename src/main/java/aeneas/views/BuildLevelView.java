@@ -133,7 +133,7 @@ public class BuildLevelView extends StackPane implements Initializable {
         // level will change over time.
         this.levelModel.save(saveFile);
       } catch (IOException i) {
-        System.out.println("Error occurred in opening file.");
+        System.out.println("Error occurred in saving file.");
       }
     });
 

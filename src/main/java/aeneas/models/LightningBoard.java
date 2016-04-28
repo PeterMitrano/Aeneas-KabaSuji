@@ -55,7 +55,7 @@ public class LightningBoard extends Board implements java.io.Serializable {
 
     return count;
   }
-  
+
   @Override
   public Square[][] assembleSquares() {
     Square[][] s = super.assembleSquares();
@@ -67,5 +67,17 @@ public class LightningBoard extends Board implements java.io.Serializable {
       }
     }
     return s;
+  }
+
+  @Override
+  public Object clone() {
+    LightningBoard newBoard = new LightningBoard();
+    super.copy(this, newBoard);
+    for (int i = 0; i < SIZE; ++i) {
+      for (int j = 0; j < SIZE; ++j) {
+        newBoard.coveredSquares[i][j] = this.coveredSquares[i][j];
+      }
+    }
+    return newBoard;
   }
 }

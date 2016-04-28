@@ -56,7 +56,6 @@ public class LightningLevel extends Level implements java.io.Serializable {
     this(bullpen, allowedTime, new LightningBoard(), true);
   }
 
-
   @Override
   public int getStarsEarned() {
     int numSquaresUncovered = board.numValidSquares()-board.numCoveredSquares();
@@ -104,11 +103,11 @@ public class LightningLevel extends Level implements java.io.Serializable {
   public LevelWidgetView makeCorrespondingView() {
     return new LightningWidgetView(this);
   }
-  
+
   public String getIconName() {
     return "BOLT";
   }
-  
+
   @Override
   public void start() {
     if(timer == null) timer = new Timer();
@@ -124,11 +123,26 @@ public class LightningLevel extends Level implements java.io.Serializable {
       }
     }, 1000, 1000);
   }
-  
+
   @Override
   public void stop() {
     if (timer != null) {
       timer.cancel();
     }
+  }
+
+  @Override
+  public Object clone() {
+    LightningLevel newLevel =
+      new LightningLevel((Bullpen)this.bullpen.clone(), this.allowedTime,
+                         (LightningBoard)this.board.clone(), this.prebuilt);
+    super.copy(this, newLevel);
+    return newLevel;
+  }
+
+  @Override
+  public void reset() {
+    super.reset();
+    this.elapsedTime = this.allowedTime;
   }
 }

@@ -17,7 +17,8 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   ReleaseBoard board;
 
-  private int moves;
+  private int movesAllowed;
+  private transient int movesLeft;
 
   /**
    * Constructor
@@ -88,17 +89,33 @@ implements java.io.Serializable, Level.LevelWithMoves {
   }
 
   @Override
-  public void setAllowedMoves(int moves) { this.moves = moves; }
+  public void setAllowedMoves(int movesAllowed) { this.movesAllowed = movesAllowed; }
 
   @Override
-  public int getAllowedMoves() { return moves; }
+  public int getAllowedMoves() { return movesAllowed; }
 
   @Override
   public LevelWidgetView makeCorrespondingView() {
     return new ReleaseWidgetView(this);
   }
-  
+
   public String getIconName() {
     return "SORT_NUMERIC_ASC";
+  }
+
+  @Override
+  public Object clone() {
+    ReleaseLevel newLevel =
+      new ReleaseLevel((Bullpen)this.bullpen.clone(),
+                         (ReleaseBoard)this.board.clone(), this.prebuilt);
+    super.copy(this, newLevel);
+    newLevel.movesAllowed = this.movesAllowed;
+    return newLevel;
+  }
+
+  @Override
+  public void reset() {
+    super.reset();
+    this.movesLeft = movesAllowed;
   }
 }

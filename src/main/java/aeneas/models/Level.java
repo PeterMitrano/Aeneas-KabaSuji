@@ -94,6 +94,12 @@ public abstract class Level implements java.io.Serializable {
   }
 
   public void reset() {
+    Board board = getBoard();
+    Bullpen bullpen = getBullpen();
+    for (PlacedPiece piece : board.getPieces()) {
+      bullpen.addPiece(piece.piece);
+    }
+    board.getPieces().clear();
   }
 
   /**
@@ -142,8 +148,18 @@ public abstract class Level implements java.io.Serializable {
 
   public void start() { active = true; }
   public void stop() { active = false; }
-  
+
   public boolean isActive() {
     return active;
   }
+
+  public void copy(Level src, Level dst) {
+    dst.bullpen = (Bullpen)src.bullpen.clone();
+    dst.prebuilt = src.prebuilt;
+    dst.active = src.active;
+    dst.levelNumber = src.levelNumber;
+  }
+
+  @Override
+  public abstract Object clone();
 }
