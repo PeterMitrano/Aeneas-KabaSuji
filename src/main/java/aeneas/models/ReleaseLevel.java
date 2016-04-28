@@ -4,6 +4,7 @@ import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.ReleaseWidgetView;
 
+import javafx.scene.control.RadioButton;
 import javafx.scene.paint.Color;
 
 /**
@@ -101,5 +102,10 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   public String getIconName() {
     return "SORT_NUMERIC_ASC";
+  }
+
+  @Override
+  public RadioButton getButton() {
+    return ReleaseWidgetView.button;
   }
 }

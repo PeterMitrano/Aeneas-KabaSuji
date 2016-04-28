@@ -13,9 +13,11 @@ import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.AddPieceMove;
 import aeneas.controllers.BoardSizeController;
+import aeneas.controllers.ChangeLevelTypeMove;
 import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.IMove;
 import aeneas.controllers.ToggleTileMove;
+import aeneas.controllers.UndoRedoController;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
@@ -80,6 +82,12 @@ public class BuildLevelView extends StackPane implements Initializable {
   private JFXButton saveButton;
 
   @FXML
+  private JFXButton undoButton;
+
+  @FXML
+  private JFXButton redoButton;
+
+  @FXML
   private HBox settingsBox;
 
   @FXML
@@ -127,10 +135,15 @@ public class BuildLevelView extends StackPane implements Initializable {
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
 
-    rowSpinner.valueProperty().addListener(new BoardSizeController(levelModel, model, this));
-    columnSpinner.valueProperty().addListener(new BoardSizeController(levelModel, model, this));
+    rowSpinner.valueProperty().addListener(new BoardSizeController(model, this));
+    columnSpinner.valueProperty().addListener(new BoardSizeController(model, this));
 
-    columnSpinner.valueProperty().addListener((observer, old_value, new_value) -> {
+    undoButton.setOnMouseClicked((e) -> {
+        new UndoRedoController(this, model).doUndo();
+    });
+
+    redoButton.setOnMouseClicked((e) -> {
+        new UndoRedoController(this, model).doRedo();
     });
 
     saveButton.setOnMouseClicked((e) -> {
@@ -159,10 +172,13 @@ public class BuildLevelView extends StackPane implements Initializable {
     // TODO: Consider moving this to a separate class.
     levelType.selectedToggleProperty()
         .addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
-          if (new_toggle != null) {
+          if (new_toggle != null && !toggle.equals(new_toggle)) {
             LevelWidgetView view = (LevelWidgetView) ((RadioButton) new_toggle).getUserData();
-            this.levelModel = view.getLevelModel(this.levelModel);
+            Level newLevel = view.resetLevelModel(this.levelModel);
+            IMove move = new ChangeLevelTypeMove(this, newLevel);
+            if (move.execute()) model.addNewMove(move);
             this.settingsBox.getChildren().set(1, view.getPanel());
+            this.levelView = view;
           }
         });
 
@@ -204,6 +220,9 @@ public class BuildLevelView extends StackPane implements Initializable {
   public void refresh() {
     boardView.refresh();
     bullpenView.refresh();
+    this.levelType.selectToggle(levelModel.getButton());
+    this.levelView = (LevelWidgetView)levelType.getSelectedToggle().getUserData();
+    this.levelView.refresh();
   }
 
   public int getRowSpinner() {
@@ -212,5 +231,13 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   public int getColumnSpinner() {
     return columnSpinner.getValue();
+  }
+
+  public Level getLevelModel() {
+    return levelModel;
+  }
+
+  public void setLevelModel(Level level) {
+    this.levelModel = level;
   }
 }

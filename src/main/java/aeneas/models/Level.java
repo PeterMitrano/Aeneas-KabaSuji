@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import aeneas.views.LevelWidgetView;
 
+import javafx.scene.control.RadioButton;
+
 /**
  *
  * @author Joseph Martin
@@ -137,6 +139,8 @@ public abstract class Level implements java.io.Serializable {
   }
 
   public abstract LevelWidgetView makeCorrespondingView(Model model);
+
+  public abstract RadioButton getButton();
 
   public abstract String getIconName();
 
