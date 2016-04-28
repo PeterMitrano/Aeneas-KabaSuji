@@ -63,9 +63,7 @@ public class Bullpen implements java.io.Serializable {
      * @return the canAddNewPiece
      */
     public boolean isCanAddNewPiece() {
-      //return canAddNewPiece;
-      // Can't we add pieces to any bullpen?
-      return true;
+      return canAddNewPiece;
     }
 
     public boolean isRandom() {
