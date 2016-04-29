@@ -1,11 +1,24 @@
 package aeneas.models;
 
-public class Achievement implements java.io.Serializable {
+/**
+ * achievements are locked or unlocked, and a name
+ *
+ * @author Joseph Martin
+ */
+public abstract class Achievement implements java.io.Serializable {
   boolean unlocked;
   String name;
 
-  Achievement(String name, boolean unlocked) {
+  public Achievement(String name, boolean unlocked) {
     this.unlocked = unlocked;
     this.name = name;
   }
+
+  /**
+   * Run to check if the achievement has been unlocked yet.
+   *
+   * @param model The current game model
+   * @return True if the achievement has been unlocked, false otherwise.
+   */
+  public abstract boolean checkUnlocked(Model model);
 }

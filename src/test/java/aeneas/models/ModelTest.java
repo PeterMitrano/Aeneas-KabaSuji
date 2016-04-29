@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import aeneas.models.Bullpen.BullpenLogic;
+
 public class ModelTest {
 
   @Before
@@ -17,9 +19,22 @@ public class ModelTest {
   }
 
   @Test
-  public void test() {
+  public void testLevelCount() {
     Model m = new Model();
-    assertTrue("level count", m.levels.size() > 15);
+    assertFalse(m.getMetadata(m.getLevel(0)).isLocked());
+    assertEquals(0, m.getMetadata(m.getLevel(0)).getStarsEarned());
+    for(int i = 1; i < 15; i++) {
+      assertTrue(m.getMetadata(m.getLevel(i)).isLocked());
+      assertEquals(0, m.getMetadata(m.getLevel(i)).getStarsEarned());
+    }
   }
 
+  @Test
+  public void testStars() {
+    Model m = new Model();
+    Level l = new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()));
+    assertEquals(m.getMetadata(l).getStarsEarned(), 0);
+    m.updateStats();
+    assertEquals(m.getMetadata(l).getStarsEarned(), 0);
+  }
 }

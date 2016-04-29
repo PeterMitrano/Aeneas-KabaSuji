@@ -1,5 +1,6 @@
 package aeneas.controllers;
 import aeneas.models.Piece;
+import aeneas.models.Piece.Axis;
 
 /**
  * Move action to flip a piece
@@ -11,31 +12,37 @@ public class FlipMove implements IMove {
 
 
   Piece piece;
+  Axis axis;
 
   /**
    * Constructor
    * @param piece The piece that is to be flipped
+   * @param axis The axis around which we flip, either verticle or horizontal
    */
-  public FlipMove(Piece piece) {
+  public FlipMove(Piece piece, Axis axis) {
     this.piece = piece;
+    this.axis = axis;
   }
 
   @Override
   public boolean execute() {
-    // TODO Auto-generated method stub
+    if(isValid()){
+      piece.flip(axis);
+      return true;
+    }
     return false;
+
   }
 
   @Override
   public boolean undo() {
-    // TODO Auto-generated method stub
-    return false;
+    piece.flip(axis);
+    return true;
   }
 
   @Override
   public boolean isValid() {
-    // TODO Auto-generated method stub
-    return false;
+    return true;
   }
 
 }

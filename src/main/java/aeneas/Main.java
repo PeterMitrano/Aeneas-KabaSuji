@@ -2,12 +2,10 @@ package aeneas;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.border.EmptyBorder;
 
 import com.jfoenix.controls.JFXDecorator;
 
 import aeneas.views.MainView;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -34,7 +32,7 @@ public class Main extends Application {
     frame.setSize(300, 300);
     frame.setVisible(true);
     try {
-      Thread.sleep(4000);
+      Thread.sleep(400);
     } catch (InterruptedException e) {
     }
     frame.setVisible(false);
