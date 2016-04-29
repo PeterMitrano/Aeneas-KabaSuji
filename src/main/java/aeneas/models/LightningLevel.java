@@ -1,5 +1,6 @@
 package aeneas.models;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,6 +19,8 @@ public class LightningLevel extends Level implements java.io.Serializable {
   int allowedTime;
   private transient int elapsedTime = 0;
   private transient Timer timer;
+  ArrayList<Piece> startPieces = new ArrayList<Piece>();
+  private boolean started = false;
 
   /**
    * Constructor
@@ -110,7 +113,9 @@ public class LightningLevel extends Level implements java.io.Serializable {
 
   @Override
   public void start() {
-    if(timer == null) timer = new Timer();
+    timer = new Timer();
+    this.started = true;
+    startPieces = (ArrayList<Piece>)this.bullpen.getPieces().clone();
     timer.scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
@@ -142,7 +147,15 @@ public class LightningLevel extends Level implements java.io.Serializable {
 
   @Override
   public void reset() {
-    super.reset();
     this.elapsedTime = this.allowedTime;
+    getBoard().getPieces().clear();
+    this.board.coveredSquares = new boolean[Board.SIZE][Board.SIZE];
+    if (started) {
+      getBullpen().getPieces().clear();
+      for (Piece piece : startPieces) {
+        getBullpen().addPiece(piece);
+      }
+    }
+    this.start();
   }
 }

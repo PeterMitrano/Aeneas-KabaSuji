@@ -119,6 +119,7 @@ public class BuildLevelView extends StackPane implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     this.boardView = new BoardView(this, model, levelModel.getBoard());
     this.bullpenView = new BullpenView(model, levelModel.getBullpen(), bullpenBox, (Pane) this);
+    bullpenView.refresh();
 
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);

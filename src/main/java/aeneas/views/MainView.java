@@ -213,6 +213,8 @@ public class MainView extends StackPane implements Initializable {
 
   public File showOpenDialog() {
     FileChooser fileChooser = new FileChooser();
+    File initialDirectory = new File(model.getLevelIndex().defaultLevelPath);
+    fileChooser.setInitialDirectory(initialDirectory);
     fileChooser.setTitle("Open Existing Level");
     return fileChooser.showOpenDialog(stage);
   }
@@ -223,7 +225,7 @@ public class MainView extends StackPane implements Initializable {
     // so only remove and go back if there's multiple things on the stack
     if (paneStack.size() > 1) {
 
-      paneStack.pop();      
+      paneStack.pop();
       // This is really ugly. Probably to be replaced with an interface for the views or something
      if(paneStack.peek() instanceof PlaySelectLevelView) {
         ((PlaySelectLevelView)paneStack.peek()).refresh();

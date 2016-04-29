@@ -117,6 +117,7 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
   }
 
   void refresh() {
+    gameModel.refreshLevelIndex();
     customLevelGrid.getChildren().clear();
     levelGrid.getChildren().clear();
     for (Level level : gameModel.getLevels()) {

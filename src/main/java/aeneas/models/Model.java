@@ -188,4 +188,7 @@ public class Model {
   }
 
   public LevelIndex getLevelIndex() { return index; }
+  public void refreshLevelIndex() {
+    index.reindex();
+  }
 }

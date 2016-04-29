@@ -1,5 +1,7 @@
 package aeneas.models;
 
+import java.util.ArrayList;
+
 import javafx.scene.paint.Color;
 
 /**
@@ -7,7 +9,9 @@ import javafx.scene.paint.Color;
  * @author Joseph Martin
  */
 public class LightningBoard extends Board implements java.io.Serializable {
-  transient boolean coveredSquares[][];
+  // TODO: Figure out some way to make this transient but still initialize
+  // when the level is created.
+  boolean coveredSquares[][];
 
   public LightningBoard() {
     super();
