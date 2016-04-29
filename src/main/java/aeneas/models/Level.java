@@ -28,7 +28,7 @@ public abstract class Level implements java.io.Serializable {
     int starsEarned;
     boolean locked;
 
-    public Metadata() { this.starsEarned = 0; this.locked = true; }
+    public Metadata() { this.starsEarned = 0; this.locked = false; }
 
     public Metadata(int starsEarned, boolean locked) {
       this.starsEarned = starsEarned;
