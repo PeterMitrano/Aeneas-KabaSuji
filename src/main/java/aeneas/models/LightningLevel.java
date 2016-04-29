@@ -1,5 +1,7 @@
 package aeneas.models;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -137,5 +139,12 @@ public class LightningLevel extends Level implements java.io.Serializable {
   @Override
   public RadioButton getButton() {
     return LightningWidgetView.button;
+  }
+
+
+  @Override
+  public void save(File file) throws IOException {
+    // Remember to set the appropriate logic before saving.
+    super.save(file, BullpenLogic.lightningLogic());
   }
 }

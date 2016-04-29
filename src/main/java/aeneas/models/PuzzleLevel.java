@@ -1,5 +1,8 @@
 package aeneas.models;
 
+import java.io.File;
+import java.io.IOException;
+
 import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.PuzzleWidgetView;
@@ -92,5 +95,11 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   public String getIconName() {
     return "PUZZLE_PIECE";
+  }
+
+  @Override
+  public void save(File file) throws IOException {
+    // Remember to set the appropriate logic before saving.
+    super.save(file, BullpenLogic.puzzleLogic());
   }
 }

@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 
 import javafx.scene.control.RadioButton;
@@ -101,15 +102,22 @@ public abstract class Level implements java.io.Serializable {
   /**
    * Saves the level to a file.
    * @param file The file to save to. Should not be null
+   * @param saveLogic The BullpenLogic to save with.
    * @throws IOException could fail to load file
    */
-  public void save(File file) throws IOException {
+  public void save(File file, BullpenLogic saveLogic) throws IOException {
+    BullpenLogic oldLogic = getBullpen().getLogic();
+    getBullpen().setLogic(saveLogic);
     try (FileOutputStream saveFile = new FileOutputStream(file);
          ObjectOutputStream out = new ObjectOutputStream(saveFile);) {
       out.writeObject(this);
     } catch (IOException i) {
       throw i;
     }
+    getBullpen().setLogic(oldLogic);
+  }
+  public void save(File file) throws IOException {
+    save(file, getBullpen().getLogic());
   }
 
   /**
