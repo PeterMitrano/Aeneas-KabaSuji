@@ -47,6 +47,9 @@ public class Model {
     achievements = new ArrayList<>();
     index = new LevelIndex();
 
+    undoStack = new Stack<IMove>();
+    redoStack = new Stack<IMove>();
+
     levelMetadata.put(1, new Level.Metadata(0, false));
   }
 
@@ -128,7 +131,7 @@ public class Model {
   public boolean redoLastMove() {
     if(redoStack.size() > 0) {
       IMove m = redoStack.peek();
-      boolean success = m.undo();
+      boolean success = m.execute();
       if(success) {
         redoStack.pop();
         undoStack.add(m);
@@ -146,7 +149,7 @@ public class Model {
    * @param move the move to add
    */
   public void addNewMove(IMove move){
-
+    undoStack.add(move);
   }
 
   public void saveLevelMetadata(File file) throws IOException {

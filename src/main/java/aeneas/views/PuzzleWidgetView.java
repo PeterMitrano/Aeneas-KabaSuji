@@ -1,8 +1,14 @@
 package aeneas.views;
 
 import aeneas.models.Level;
+import aeneas.models.Level.LevelWithMoves;
+import aeneas.controllers.IMove;
+import aeneas.controllers.SetMovesMove;
+import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -14,19 +20,23 @@ public class PuzzleWidgetView extends LevelWidgetView {
   static public final RadioButton button = new RadioButton("Puzzle");
 
   private Spinner<Integer> movesSelect;
+  private SetMovesController controller;
   private Label movesLabel;
+  private Model model;
+  private PuzzleLevel level;
 
-  public PuzzleWidgetView(PuzzleLevel levelModel){
+  public PuzzleWidgetView(PuzzleLevel levelModel, Model model) {
     super(levelModel);
+    this.model = model;
+    this.level = levelModel;
 
     movesLabel = new Label("Moves");
     movesSelect = new Spinner<Integer>(1, 20, 10);
     movesSelect.setPrefWidth(70);
     movesSelect.setEditable(true);
     movesSelect.getValueFactory().setValue(levelModel.getAllowedMoves());
-    movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
-      levelModel.setAllowedMoves(new_value);
-    });
+    controller = new SetMovesController(level, model);
+    movesSelect.valueProperty().addListener(controller);
 
     HBox hbox = new HBox();
     hbox.setSpacing(5);
@@ -45,12 +55,25 @@ public class PuzzleWidgetView extends LevelWidgetView {
   }
 
   @Override
-  public Level getLevelModel(Level level) {
-    PuzzleLevel l = new PuzzleLevel(level);
-    movesSelect.getValueFactory().setValue(l.getAllowedMoves());
-    movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
-      l.setAllowedMoves(new_value);
-    });
-    return l;
+  public Level resetLevelModel(Level level) {
+    if (level instanceof PuzzleLevel) {
+      this.level = (PuzzleLevel)level;
+      return level;
+    }
+    this.level = new PuzzleLevel(level);
+    movesSelect.valueProperty().removeListener(controller);
+    movesSelect.getValueFactory().setValue(this.level.getAllowedMoves());
+    controller = new SetMovesController(this.level, model);
+    movesSelect.valueProperty().addListener(controller);
+    return this.level;
+  }
+
+  @Override
+  public void refresh() {
+    // Don't let the listener get called while refreshing.
+    movesSelect.valueProperty().removeListener(controller);
+    movesSelect.getValueFactory().setValue(level.getAllowedMoves());
+    movesSelect.valueProperty().addListener(controller);
+    getButton().setSelected(true);
   }
 }

@@ -3,6 +3,7 @@ package aeneas.views;
 import com.jfoenix.controls.JFXColorPicker;
 
 import aeneas.models.Level;
+import aeneas.models.Model;
 import aeneas.models.ReleaseLevel;
 
 import javafx.geometry.Pos;
@@ -14,20 +15,23 @@ import javafx.scene.layout.VBox;
 
 public class ReleaseWidgetView extends LevelWidgetView {
 
-  private static final RadioButton button = new RadioButton("Release");
+  public static final RadioButton button = new RadioButton("Release");
   Spinner<Integer> movesSelect;
+  private Model model;
+  private ReleaseLevel level;
+  private SetMovesController controller;
 
-  public ReleaseWidgetView(ReleaseLevel levelModel){
+  public ReleaseWidgetView(ReleaseLevel levelModel, Model model){
     super(levelModel);
+    this.model = model;
 
     movesSelect = new Spinner<Integer>(1, 20, 10);
     Label movesLabel = new Label("Moves");
     movesSelect.setPrefWidth(70);
     movesSelect.setEditable(true);
     movesSelect.getValueFactory().setValue(levelModel.getAllowedMoves());
-    movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
-      levelModel.setAllowedMoves(new_value);
-    });
+    controller = new SetMovesController(level, model);
+    movesSelect.valueProperty().addListener(controller);
 
 
     VBox box = new VBox();
@@ -55,15 +59,27 @@ public class ReleaseWidgetView extends LevelWidgetView {
   public RadioButton getButton() {
     return ReleaseWidgetView.button;
   }
-  
+
   @Override
-  public Level getLevelModel(Level level) {
-    ReleaseLevel l = new ReleaseLevel(level);
-    movesSelect.getValueFactory().setValue(l.getAllowedMoves());
-    movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
-      l.setAllowedMoves(new_value);
-    });
-    return l;
+  public Level resetLevelModel(Level level) {
+    if (level instanceof ReleaseLevel) {
+      this.level = (ReleaseLevel)level;
+      return level;
+    }
+    this.level = new ReleaseLevel(level);
+    movesSelect.valueProperty().removeListener(controller);
+    movesSelect.getValueFactory().setValue(this.level.getAllowedMoves());
+    controller = new SetMovesController(this.level, model);
+    movesSelect.valueProperty().addListener(controller);
+    return this.level;
+  }
+
+  @Override
+  public void refresh() {
+    getButton().setSelected(true);
+    movesSelect.valueProperty().removeListener(controller);
+    movesSelect.getValueFactory().setValue(level.getAllowedMoves());
+    movesSelect.valueProperty().addListener(controller);
   }
 }
 

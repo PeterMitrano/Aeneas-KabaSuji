@@ -4,6 +4,8 @@ import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.PuzzleWidgetView;
 
+import javafx.scene.control.RadioButton;
+
 /**
  *
  * @author Joseph Martin
@@ -52,6 +54,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public PuzzleLevel(Level src) {
     super(src);
     this.bullpen.logic = BullpenLogic.puzzleLogic();
+    this.board = new PuzzleBoard(src.getBoard());
   }
 
 
@@ -78,8 +81,13 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public int getAllowedMoves() { return movesAllowed; }
 
   @Override
-  public LevelWidgetView makeCorrespondingView() {
-    return new PuzzleWidgetView(this);
+  public LevelWidgetView makeCorrespondingView(Model model) {
+    return new PuzzleWidgetView(this, model);
+  }
+
+  @Override
+  public RadioButton getButton() {
+    return PuzzleWidgetView.button;
   }
 
   public String getIconName() {

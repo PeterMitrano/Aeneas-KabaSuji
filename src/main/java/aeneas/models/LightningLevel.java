@@ -8,6 +8,8 @@ import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.LightningWidgetView;
 
+import javafx.scene.control.RadioButton;
+
 /**
  * A subclass of level with functionality specific to lightning mode.
  * @author Joseph Martin
@@ -103,8 +105,8 @@ public class LightningLevel extends Level implements java.io.Serializable {
   public int getAllowedTime() { return allowedTime; }
 
   @Override
-  public LevelWidgetView makeCorrespondingView() {
-    return new LightningWidgetView(this);
+  public LevelWidgetView makeCorrespondingView(Model model) {
+    return new LightningWidgetView(this, model);
   }
 
   public String getIconName() {
@@ -157,5 +159,9 @@ public class LightningLevel extends Level implements java.io.Serializable {
       }
     }
     this.start();
+  }
+
+  public RadioButton getButton() {
+    return LightningWidgetView.button;
   }
 }

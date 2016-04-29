@@ -4,6 +4,7 @@ import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.ReleaseWidgetView;
 
+import javafx.scene.control.RadioButton;
 import javafx.scene.paint.Color;
 
 /**
@@ -75,6 +76,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public ReleaseLevel(Level src) {
     super(src);
     this.bullpen.logic = BullpenLogic.releaseLogic();
+    this.board = new ReleaseBoard(src.getBoard());
   }
 
   @Override
@@ -95,8 +97,8 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public int getAllowedMoves() { return movesAllowed; }
 
   @Override
-  public LevelWidgetView makeCorrespondingView() {
-    return new ReleaseWidgetView(this);
+  public LevelWidgetView makeCorrespondingView(Model model) {
+    return new ReleaseWidgetView(this, model);
   }
 
   public String getIconName() {
@@ -117,5 +119,10 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public void reset() {
     super.reset();
     this.movesLeft = movesAllowed;
+  }
+
+  @Override
+  public RadioButton getButton() {
+    return ReleaseWidgetView.button;
   }
 }
