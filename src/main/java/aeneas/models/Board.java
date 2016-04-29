@@ -72,7 +72,8 @@ public abstract class Board implements java.io.Serializable {
   public boolean addPiece(PlacedPiece piece) {
     if (!canAddPiece(piece)) return false;
     // Otherwise placement is valid
-    pieces.add(piece);
+    if (piece.getPiece().isHint()) hints.add(piece);
+    else pieces.add(piece);
     return true;
   }
 
@@ -87,6 +88,8 @@ public abstract class Board implements java.io.Serializable {
     for (Square s : piece.getSquaresInBoardFrame()) {
       if (!locationValid(s)) return false;
     }
+    // If it is a hint, we don't care about intersections.
+    if (piece.getPiece().isHint()) return true;
     // If the piece overlaps an existing piece, placement not valid
     if (intersects(piece)) return false;
     return true;
@@ -150,11 +153,13 @@ public abstract class Board implements java.io.Serializable {
    */
   public Square[][] assembleSquares(){
     Square[][] squares = new Square[SIZE][SIZE];
-    for (PlacedPiece piece : pieces){
+    for (PlacedPiece piece : hints){
       for(Square s : piece.getSquaresInBoardFrame())
         squares[s.getRow()][s.getCol()] = s;
     }
-    for (PlacedPiece piece : hints){
+    // Run normal pieces after hint in order to avoid hint displaying
+    // over the normal pieces.
+    for (PlacedPiece piece : pieces){
       for(Square s : piece.getSquaresInBoardFrame())
         squares[s.getRow()][s.getCol()] = s;
     }
