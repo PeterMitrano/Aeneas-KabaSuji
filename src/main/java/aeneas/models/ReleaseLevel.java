@@ -1,5 +1,8 @@
 package aeneas.models;
 
+import java.io.File;
+import java.io.IOException;
+
 import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.ReleaseWidgetView;
@@ -143,5 +146,11 @@ implements java.io.Serializable, Level.LevelWithMoves {
   @Override
   public RadioButton getButton() {
     return ReleaseWidgetView.button;
+  }
+
+  @Override
+  public void save(File file) throws IOException {
+    // Remember to set the appropriate logic before saving.
+    super.save(file, BullpenLogic.releaseLogic());
   }
 }

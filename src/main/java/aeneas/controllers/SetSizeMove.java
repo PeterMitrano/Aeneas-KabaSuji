@@ -36,6 +36,7 @@ public class SetSizeMove implements IMove {
 
   public boolean execute() {
     if (!isValid()) return false;
+    System.out.println("Setting Size.");
     // First, keep track of old configuration.
     // We can't just keep track of the old size, because
     // then we might miss the state of individual squares.

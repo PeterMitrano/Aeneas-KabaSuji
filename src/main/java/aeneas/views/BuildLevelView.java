@@ -103,7 +103,6 @@ public class BuildLevelView extends StackPane implements Initializable {
   private Spinner<Integer> columnSpinner;
 
   private BoardView boardView;
-  private Level levelModel;
   private MainView mainView;
   private BullpenView bullpenView;
   private LevelWidgetView levelView;
@@ -114,7 +113,7 @@ public class BuildLevelView extends StackPane implements Initializable {
     this.levelView = level.makeCorrespondingView(model);
     this.levelViews = levelViews;
     this.model = model;
-    this.levelModel = level;
+    model.setActiveLevel(level);
     this.mainView = mainView;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("BuildLevel.fxml"));
@@ -128,8 +127,8 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.boardView = new BoardView(this, model, levelModel.getBoard());
-    this.bullpenView = new BullpenView(model, levelModel.getBullpen(), bullpenBox, (Pane) this);
+    this.boardView = new BoardView((Pane)this, model, model.getActiveLevel().getBoard());
+    this.bullpenView = new BullpenView(model, model.getActiveLevel().getBullpen(), bullpenBox, (Pane) this);
     bullpenView.refresh();
 
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
@@ -154,7 +153,7 @@ public class BuildLevelView extends StackPane implements Initializable {
       try {
         // We retrieve the current level live, because the current
         // level will change over time.
-        this.levelModel.save(saveFile);
+        this.model.getActiveLevel().save(saveFile);
       } catch (IOException i) {
         System.out.println("Error occurred in saving file.");
       }
@@ -175,7 +174,7 @@ public class BuildLevelView extends StackPane implements Initializable {
         .addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
           if (new_toggle != null && !toggle.equals(new_toggle)) {
             LevelWidgetView view = (LevelWidgetView) ((RadioButton) new_toggle).getUserData();
-            Level newLevel = view.resetLevelModel(this.levelModel);
+            Level newLevel = view.resetLevelModel(this.model.getActiveLevel());
             IMove move = new ChangeLevelTypeMove(this, newLevel);
             if (move.execute()) model.addNewMove(move);
             this.settingsBox.getChildren().set(1, view.getPanel());
@@ -186,7 +185,7 @@ public class BuildLevelView extends StackPane implements Initializable {
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
 
     boardView.setSquareClickListener((row, col) -> {
-      IMove m = new ToggleTileMove(levelModel, row, col);
+      IMove m = new ToggleTileMove(model.getActiveLevel(), row, col);
       if (m.isValid()) {
         m.execute();
         model.addNewMove(m);
@@ -208,7 +207,7 @@ public class BuildLevelView extends StackPane implements Initializable {
         piecesPane.getChildren().add(pView);
 
         pView.setOnMouseClicked((click) -> {
-          IMove move = new AddPieceMove(levelModel.getBullpen(), pieceModel.clone());
+          IMove move = new AddPieceMove(model.getActiveLevel().getBullpen(), pieceModel.clone());
           if (move.execute()){
             model.addNewMove(move);
             bullpenView.refresh();
@@ -221,7 +220,7 @@ public class BuildLevelView extends StackPane implements Initializable {
   public void refresh() {
     boardView.refresh();
     bullpenView.refresh();
-    this.levelType.selectToggle(levelModel.getButton());
+    this.levelType.selectToggle(model.getActiveLevel().getButton());
     this.levelView = (LevelWidgetView)levelType.getSelectedToggle().getUserData();
     this.levelView.refresh();
   }
@@ -235,10 +234,10 @@ public class BuildLevelView extends StackPane implements Initializable {
   }
 
   public Level getLevelModel() {
-    return levelModel;
+    return model.getActiveLevel();
   }
 
   public void setLevelModel(Level level) {
-    this.levelModel = level;
+    model.setActiveLevel(level);
   }
 }

@@ -15,6 +15,11 @@ public class Bullpen implements java.io.Serializable {
     return logic;
   }
 
+  /**
+   * Set the logic.
+   */
+  public void setLogic(BullpenLogic logic) { this.logic = logic; }
+
   public static class BullpenLogic implements java.io.Serializable {
     private boolean canReturnPiece;
     private boolean canAddNewPiece;
@@ -63,8 +68,7 @@ public class Bullpen implements java.io.Serializable {
      * @return the canAddNewPiece
      */
     public boolean isCanAddNewPiece() {
-      // Just assume that this is always allowed...
-      return true;
+      return canAddNewPiece;
     }
 
     public boolean isRandom() {

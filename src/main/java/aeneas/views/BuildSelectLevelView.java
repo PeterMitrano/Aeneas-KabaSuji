@@ -68,6 +68,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
 
         if (path.equals(createNewLevelLabel.getText())) {
           levelToSwitchTo = createDefaultLevelView().getDefaultLevelModel();
+          levelToSwitchTo.getBullpen().setLogic(BullpenLogic.editorLogic());
           mainView.switchToBuildLevelView(levelToSwitchTo);
         } else {
           levelToSwitchTo = levelMap.get(path);
