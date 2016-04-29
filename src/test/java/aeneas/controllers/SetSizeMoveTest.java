@@ -31,7 +31,7 @@ public class SetSizeMoveTest {
   @Test
   public void testSetSizeNormal() {
     int rows = 8, cols = 5;
-    IMove move = new SetSizeMove(level, rows, cols);
+    IMove move = new SetSizeMove(level, rows, cols, 12, 12);
     assertTrue(move.execute());
 
     boolean[][] squares = level.getBoard().getSquares();
@@ -53,7 +53,7 @@ public class SetSizeMoveTest {
 
   @Test
   public void testBadInput() {
-    IMove move = new SetSizeMove(level, -10, 5);
+    IMove move = new SetSizeMove(level, -10, 5, 12, 12);
     assertFalse(move.isValid());
     assertFalse(move.execute());
   }

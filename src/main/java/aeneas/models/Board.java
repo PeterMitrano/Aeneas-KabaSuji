@@ -165,9 +165,8 @@ public abstract class Board implements java.io.Serializable {
     }
     for(int row = 0;row<this.squares.length;row++ ){
       for(int col = 0;col<this.squares.length;col++){
-        if(this.squares[row][col] && squares[row][col] == null){
-          squares[row][col]=new Square(row, col, Board.DEFAULT_COLOR);
-        }
+        if (squares[row][col] == null && this.squares[row][col])
+            squares[row][col]=new Square(row, col, Board.DEFAULT_COLOR);
       }
     }
     return squares;

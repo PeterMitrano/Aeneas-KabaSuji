@@ -203,7 +203,6 @@ public class BoardView extends GridPane implements PieceSource {
     Square[][] squares = board.assembleSquares();
     for (int row = 0; row < Board.SIZE; row++) {
       for (int col = 0; col < Board.SIZE; col++) {
-        assert(squares[row][col] != null);
         grid[row][col].refresh(squares[row][col]);
       }
     }
