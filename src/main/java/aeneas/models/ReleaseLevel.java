@@ -97,6 +97,25 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public int getAllowedMoves() { return movesAllowed; }
 
   @Override
+  public int decMoves() { return --movesLeft; }
+
+  @Override
+  public String getCountdownText() {
+    return "Moves remaining: " + movesLeft;
+  }
+
+  @Override
+  public boolean isFinished() {
+    return movesLeft <= 0;
+  }
+
+  @Override
+  public void start() {
+    super.start();
+    this.movesLeft = this.movesAllowed;
+  }
+
+  @Override
   public LevelWidgetView makeCorrespondingView(Model model) {
     return new ReleaseWidgetView(this, model);
   }

@@ -57,7 +57,6 @@ implements java.io.Serializable, Level.LevelWithMoves {
     this.board = new PuzzleBoard(src.getBoard());
   }
 
-
   @Override
   public int getStarsEarned() {
     return Math.max(0, 3 - board.numSquaresRemaining()/6);
@@ -75,10 +74,19 @@ implements java.io.Serializable, Level.LevelWithMoves {
   }
 
   @Override
+  public void start() {
+    super.start();
+    this.movesLeft = this.movesAllowed;
+  }
+
+  @Override
   public void setAllowedMoves(int movesAllowed) { this.movesAllowed = movesAllowed; }
 
   @Override
   public int getAllowedMoves() { return movesAllowed; }
+
+  @Override
+  public int decMoves() { return --this.movesLeft; }
 
   @Override
   public LevelWidgetView makeCorrespondingView(Model model) {
@@ -92,6 +100,16 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   public String getIconName() {
     return "PUZZLE_PIECE";
+  }
+
+  @Override
+  public String getCountdownText() {
+    return "Moves remaining: " + movesLeft;
+  }
+
+  @Override
+  public boolean isFinished() {
+    return movesLeft <= 0;
   }
 
   @Override

@@ -70,15 +70,25 @@ public abstract class Board implements java.io.Serializable {
    * @return true if the piece was added to the board, false otherwise.
    */
   public boolean addPiece(PlacedPiece piece) {
-    // If any of the squares of the piece are at an invalid location,
-    // piece placement not valid
-    for(Square s : piece.getSquaresInBoardFrame()) {
-      if(!locationValid(s)) return false;
-    }
-    // If the piece overlaps an existing piece, placement not valid
-    if(intersects(piece)) return false;
+    if (!canAddPiece(piece)) return false;
     // Otherwise placement is valid
     pieces.add(piece);
+    return true;
+  }
+
+  /**
+   * Determines if the piece can be added to the board.
+   * @param piece The piece to check the validity of.
+   * @return true if the piece can be added.
+   */
+  public boolean canAddPiece(PlacedPiece piece) {
+    // If any of the squares of the piece are at an invalid location,
+    // piece placement not valid
+    for (Square s : piece.getSquaresInBoardFrame()) {
+      if (!locationValid(s)) return false;
+    }
+    // If the piece overlaps an existing piece, placement not valid
+    if (intersects(piece)) return false;
     return true;
   }
 

@@ -48,6 +48,7 @@ public abstract class Level implements java.io.Serializable {
   public interface LevelWithMoves {
     public int getAllowedMoves();
     public void setAllowedMoves(int moves);
+    public int decMoves();
   }
 
   public Level(Bullpen bullpen, boolean prebuilt) {
@@ -156,6 +157,18 @@ public abstract class Level implements java.io.Serializable {
   public boolean isActive() {
     return active;
   }
+
+  /**
+   * Get the text for counting down the user to finished.
+   * @return The text to be displayed to the user, eg "Time Remaining: 50"
+   */
+  public abstract String getCountdownText();
+
+  /**
+   * Get whether the level is finished and should exit.
+   * @return true if we should exit the level.
+   */
+  public abstract boolean isFinished();
 
   public void copy(Level src, Level dst) {
     dst.bullpen = (Bullpen)src.bullpen.clone();
