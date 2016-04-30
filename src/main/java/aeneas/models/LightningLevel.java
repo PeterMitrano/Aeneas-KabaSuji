@@ -1,7 +1,16 @@
 package aeneas.models;
 
+import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.LightningWidgetView;
+
+import javafx.scene.control.RadioButton;
 
 /**
  * A subclass of level with functionality specific to lightning mode.
@@ -12,6 +21,10 @@ public class LightningLevel extends Level implements java.io.Serializable {
 
   LightningBoard board;
   int allowedTime;
+  private transient int elapsedTime = 0;
+  private transient Timer timer;
+  ArrayList<Piece> startPieces = new ArrayList<Piece>();
+  private boolean started = false;
 
   /**
    * Constructor
@@ -50,7 +63,6 @@ public class LightningLevel extends Level implements java.io.Serializable {
     this(bullpen, allowedTime, new LightningBoard(), true);
   }
 
-
   @Override
   public int getStarsEarned() {
     int numSquaresUncovered = board.numValidSquares()-board.numCoveredSquares();
@@ -63,7 +75,10 @@ public class LightningLevel extends Level implements java.io.Serializable {
     if (src instanceof LightningLevel) {
       this.board = ((LightningLevel)src).board;
       this.allowedTime = ((LightningLevel)src).allowedTime;
+    } else {
+      this.board = new LightningBoard(src.getBoard());
     }
+    this.bullpen.logic = BullpenLogic.lightningLogic();
   }
 
   @Override
@@ -92,7 +107,87 @@ public class LightningLevel extends Level implements java.io.Serializable {
   public int getAllowedTime() { return allowedTime; }
 
   @Override
-  public LevelWidgetView makeCorrespondingView() {
+  public LevelWidgetView makeCorrespondingView(Model model) {
     return new LightningWidgetView(this);
+  }
+
+  public String getIconName() {
+    return "BOLT";
+  }
+
+  /**
+   * Called when the level gets started.
+   * In this case, starts the timer and keeps track of the
+   * pieces that started in the Bullpen (for resetting the level).
+   */
+  @Override
+  public void start() {
+    super.start();
+    if (timer != null) timer.cancel();
+    timer = new Timer();
+    this.started = true;
+    startPieces = (ArrayList<Piece>)this.bullpen.getPieces().clone();
+    timer.scheduleAtFixedRate(new TimerTask() {
+      @Override
+      public void run() {
+        elapsedTime++;
+        System.out.println("tick "+elapsedTime+"/"+allowedTime);
+        if(elapsedTime >= allowedTime) {
+          System.out.println("Time is up");
+          timer.cancel();
+        }
+      }
+    }, 1000, 1000);
+  }
+
+  @Override
+  public String getCountdownText() {
+    return "Time Remaining: " + (allowedTime - elapsedTime);
+  }
+
+  @Override
+  public boolean isFinished() {
+    return elapsedTime >= allowedTime;
+  }
+
+  @Override
+  public void stop() {
+    if (timer != null) {
+      timer.cancel();
+    }
+  }
+
+  @Override
+  public Object clone() {
+    LightningLevel newLevel =
+      new LightningLevel((Bullpen)this.bullpen.clone(), this.allowedTime,
+                         (LightningBoard)this.board.clone(), this.prebuilt);
+    super.copy(this, newLevel);
+    return newLevel;
+  }
+
+  @Override
+  public void reset() {
+    this.elapsedTime = 0;
+    getBoard().getPieces().clear();
+    this.board.coveredSquares = new boolean[Board.SIZE][Board.SIZE];
+    if (started) {
+      getBullpen().getPieces().clear();
+      for (Piece piece : startPieces) {
+        getBullpen().addPiece(piece);
+      }
+    }
+    this.start();
+  }
+
+  public RadioButton getButton() {
+    return LightningWidgetView.button;
+  }
+
+
+  @Override
+  public void save(File file) throws IOException {
+    // Remember to set the appropriate logic before saving.
+    super.save(file, BullpenLogic.lightningLogic());
   }
 }

@@ -3,14 +3,17 @@ package aeneas.views;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.jfoenix.controls.JFXButton;
 
 import aeneas.models.Level;
+import aeneas.models.LightningLevel;
 import aeneas.models.Model;
-
+import aeneas.views.BoardView.RefreshListener;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,8 +28,10 @@ import javafx.scene.layout.VBox;
  *
  * @author Joseph Martin
  */
-public class PlayLevelView extends BorderPane implements Initializable {
+public class PlayLevelView extends BorderPane implements Initializable, RefreshListener {
 
+  private Timer timer = new Timer();
+  int elapsedTime = 0;
   @FXML
   private JFXButton resetLevelButton;
 
@@ -37,19 +42,31 @@ public class PlayLevelView extends BorderPane implements Initializable {
   private Label levelLabel;
 
   @FXML
+  private Label timeLabel;
+
+  @FXML
   private VBox centerBox;
 
   @FXML
   private FontAwesomeIconView levelTypeIcon;
 
+  @FXML
+  private FontAwesomeIconView star1;
+  @FXML
+  private FontAwesomeIconView star2;
+  @FXML
+  private FontAwesomeIconView star3;
+
   private BullpenView bullpenView;
   private BoardView boardView;
+  private MainView mainView;
   private Level levelModel;
   private Model model;
 
-  PlayLevelView(Level levelModel, Model model) {
+  PlayLevelView(Level levelModel, Model model, MainView mainView) {
     this.levelModel = levelModel;
     this.model = model;
+    this.mainView = mainView;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("PlayLevel.fxml"));
       loader.setRoot(this);
@@ -63,18 +80,73 @@ public class PlayLevelView extends BorderPane implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     bullpenView = new BullpenView(model, bullpenBox, levelModel, (Pane) this);
-
     resetLevelButton.setOnMouseClicked((e) -> {
-      levelModel.reset();
+      this.levelModel.reset();
+      refresh();
     });
 
-    bullpenView.refresh(levelModel.getBullpen());
+    bullpenView.refresh();
+    levelLabel.setText("Level "+levelModel.getLevelNumber());
 
-    boardView = new BoardView(this, model, levelModel,levelModel.getBoard());
+    levelTypeIcon.setGlyphName(levelModel.getIconName());
+
+    boardView = new BoardView(this, model, levelModel, levelModel.getBoard());
+    boardView.setRefreshListener(this);
 
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
+
+    model.setActiveLevel(levelModel);
+    levelModel.start();
+    refresh();
+
+    if (timer != null) timer.cancel();
+    timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+      @Override
+      public void run() {
+        Platform.runLater(() -> refresh());
+      }
+    }, 1000, 1000);
+  }
+
+  public void cleanup() {
+    timer.cancel();
+  }
+
+  public void refresh() {
+    int stars = levelModel.getStarsEarned();
+    switch(stars) {
+    case 0:
+      star1.setGlyphName("STAR_ALT");
+      star2.setGlyphName("STAR_ALT");
+      star3.setGlyphName("STAR_ALT");
+      break;
+    case 1:
+      star1.setGlyphName("STAR");
+      star2.setGlyphName("STAR_ALT");
+      star3.setGlyphName("STAR_ALT");
+      break;
+    case 2:
+      star1.setGlyphName("STAR");
+      star2.setGlyphName("STAR");
+      star3.setGlyphName("STAR_ALT");
+      break;
+    case 3:
+      star1.setGlyphName("STAR");
+      star2.setGlyphName("STAR");
+      star3.setGlyphName("STAR");
+      break;
+    }
+    model.updateStats();
+    bullpenView.refresh();
+    boardView.refresh();
+    timeLabel.setText(levelModel.getCountdownText());
+    if (levelModel.isFinished() || stars == 3) {
+      cleanup();
+      mainView.switchToPlaySelectLevelView();
+    }
   }
 
 }

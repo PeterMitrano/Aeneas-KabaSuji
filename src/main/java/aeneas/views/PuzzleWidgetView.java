@@ -2,8 +2,9 @@ package aeneas.views;
 
 import aeneas.controllers.IMove;
 import aeneas.controllers.SetMovesMove;
+import aeneas.models.Level;
+import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -17,11 +18,11 @@ public class PuzzleWidgetView extends LevelWidgetView {
   private Spinner<Integer> movesSelect;
   private Label movesLabel;
   private PuzzleLevel level;
-  
   private boolean isUserInput = true;
 
-  public PuzzleWidgetView(PuzzleLevel levelModel){
+  public PuzzleWidgetView(PuzzleLevel levelModel) {
     super(levelModel);
+    this.level = levelModel;
 
     level = levelModel;
     movesLabel = new Label("Moves");
@@ -31,9 +32,9 @@ public class PuzzleWidgetView extends LevelWidgetView {
     movesSelect.getValueFactory().setValue(levelModel.getAllowedMoves());
     movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
       if(!isUserInput) return;
-      IMove move = new SetMovesMove(levelModel, new_value);
+      IMove move = new SetMovesMove(level, new_value);
       if(move.execute()){
-        levelModel.addNewMove(move);
+        level.addNewMove(move);
       }
     });
 
@@ -56,8 +57,19 @@ public class PuzzleWidgetView extends LevelWidgetView {
   @Override
   public void updateValues(){
     isUserInput = false;
+    getButton().setSelected(true);
     movesSelect.getValueFactory().setValue(level.getAllowedMoves());
     isUserInput = true;
+  }
+
+  public Level resetLevelModel(Level level) {
+    if (level instanceof PuzzleLevel) {
+      this.level = (PuzzleLevel)level;
+      return level;
+    }
+    this.level = new PuzzleLevel(level);
+    updateValues();
+    return this.level;
   }
 
 }

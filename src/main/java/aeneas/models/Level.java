@@ -9,7 +9,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Stack;
 import aeneas.controllers.IMove;
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
+
+import javafx.scene.control.RadioButton;
 
 /**
  *
@@ -19,6 +22,7 @@ public abstract class Level implements java.io.Serializable {
   Bullpen bullpen;
 
   transient int levelNumber;
+  transient boolean active = false;
   boolean prebuilt;
   
   transient Stack<IMove> undoStack;
@@ -49,6 +53,7 @@ public abstract class Level implements java.io.Serializable {
   public interface LevelWithMoves {
     public int getAllowedMoves();
     public void setAllowedMoves(int moves);
+    public int decMoves();
   }
 
   public Level(Bullpen bullpen, boolean prebuilt) {
@@ -101,20 +106,33 @@ public abstract class Level implements java.io.Serializable {
   }
 
   public void reset() {
+    Board board = getBoard();
+    Bullpen bullpen = getBullpen();
+    for (PlacedPiece piece : board.getPieces()) {
+      bullpen.addPiece(piece.piece);
+    }
+    board.getPieces().clear();
   }
 
   /**
    * Saves the level to a file.
    * @param file The file to save to. Should not be null
+   * @param saveLogic The BullpenLogic to save with.
    * @throws IOException could fail to load file
    */
-  public void save(File file) throws IOException {
+  public void save(File file, BullpenLogic saveLogic) throws IOException {
+    BullpenLogic oldLogic = getBullpen().getLogic();
+    getBullpen().setLogic(saveLogic);
     try (FileOutputStream saveFile = new FileOutputStream(file);
          ObjectOutputStream out = new ObjectOutputStream(saveFile);) {
       out.writeObject(this);
     } catch (IOException i) {
       throw i;
     }
+    getBullpen().setLogic(oldLogic);
+  }
+  public void save(File file) throws IOException {
+    save(file, getBullpen().getLogic());
   }
 
   /**
@@ -193,5 +211,38 @@ public abstract class Level implements java.io.Serializable {
     undoStack.add(move);
   }
 
-  public abstract LevelWidgetView makeCorrespondingView();
+  public abstract LevelWidgetView makeCorrespondingView(Model model);
+
+  public abstract RadioButton getButton();
+
+  public abstract String getIconName();
+
+  public void start() { active = true; }
+  public void stop() { active = false; }
+
+  public boolean isActive() {
+    return active;
+  }
+
+  /**
+   * Get the text for counting down the user to finished.
+   * @return The text to be displayed to the user, eg "Time Remaining: 50"
+   */
+  public abstract String getCountdownText();
+
+  /**
+   * Get whether the level is finished and should exit.
+   * @return true if we should exit the level.
+   */
+  public abstract boolean isFinished();
+
+  public void copy(Level src, Level dst) {
+    dst.bullpen = (Bullpen)src.bullpen.clone();
+    dst.prebuilt = src.prebuilt;
+    dst.active = src.active;
+    dst.levelNumber = src.levelNumber;
+  }
+
+  @Override
+  public abstract Object clone();
 }

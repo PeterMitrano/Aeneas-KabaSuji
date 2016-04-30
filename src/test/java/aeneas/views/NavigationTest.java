@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class NavigationTest extends ApplicationTest {
 
-	Stage stage;
+  Stage stage;
   MainView mainView;
 
   @Override
@@ -26,7 +26,7 @@ public class NavigationTest extends ApplicationTest {
   @Override
   public void start(Stage stage) {
     this.stage = stage;
-		mainView = new MainView(stage);
+    mainView = new MainView(stage);
     Scene scene = new Scene(new JFXDecorator(stage, mainView.root), 800, 800);
     stage.setScene(scene);
     stage.show();
@@ -51,10 +51,10 @@ public class NavigationTest extends ApplicationTest {
 
     // hit back again to see if it breaks something
     clickOn("#back");
-	}
+  }
 
-	@Test
-	public void testAddPiecesInEditor() {
+  @Test
+  public void testAddPiecesInEditor() {
     // check adding pieces to bullpen
     clickOn("#buildSelectLevelButton");
     clickOn("#createNewLevelLabel");

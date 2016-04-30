@@ -45,7 +45,6 @@ public class Model {
     levelMetadata = new HashMap<>();
     achievements = new ArrayList<>();
     index = new LevelIndex();
-
     levelMetadata.put(1, new Level.Metadata(0, false));
   }
 
@@ -90,11 +89,15 @@ public class Model {
       if(getMetadata(activeLevel).getStarsEarned() < stars) {
         Level.Metadata m = levelMetadata.getOrDefault(activeLevel.getLevelNumber(), new Level.Metadata());
         m.setStarsEarned(stars);
+        if(stars > 0) {
+          Level.Metadata nextMetadata = levelMetadata.getOrDefault(activeLevel.getLevelNumber()+1, new Level.Metadata());
+          nextMetadata.setLocked(false);
+          levelMetadata.put(activeLevel.getLevelNumber()+1, nextMetadata);
+        }
         levelMetadata.put(activeLevel.getLevelNumber(), m);
       }
     }
   }
-
 
   public void saveLevelMetadata(File file) throws IOException {
     try (FileOutputStream saveFile = new FileOutputStream(file);
@@ -120,9 +123,22 @@ public class Model {
   }
 
   public void setLatestDragSource(PieceSource latestDragSource) {
-    this.latestDragSource = latestDragSource; 
+    this.latestDragSource = latestDragSource;
   }
   public PieceSource getLatestDragSource() {
     return latestDragSource;
+  }
+
+  public void setActiveLevel(Level levelModel) {
+    activeLevel = levelModel;
+  }
+
+  public Level getActiveLevel() {
+    return activeLevel;
+  }
+
+  public LevelIndex getLevelIndex() { return index; }
+  public void refreshLevelIndex() {
+    index.reindex();
   }
 }

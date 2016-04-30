@@ -32,9 +32,8 @@ public class PieceView extends GridPane {
 
 
   public interface PieceSource {
-
     public void returnPiece();
-
+    public void dragSuccess();
   }
 
   private JFXPopup piecePopup;

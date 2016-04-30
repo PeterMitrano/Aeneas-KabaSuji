@@ -7,6 +7,7 @@ import aeneas.models.Bullpen;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
+import aeneas.models.PieceFactory;
 import aeneas.models.Square;
 import aeneas.views.PieceView.PieceSource;
 import javafx.geometry.Pos;
@@ -26,16 +27,18 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
   Pane levelView;
   private Model model;
   private Level level;
+  Bullpen bullpen;
 
   static final int SQUARE_SIZE = 14;
   private String baseStyle = "-fx-padding:10px;";
 
   ArrayList<Pane> values = new ArrayList<Pane>();
-  private PieceView pieceBeingDragged;
+  private PieceView pieceBeingDragged = null;
 
   public BullpenView(Model model, VBox bullpenBox, Level level, Pane levelView) {
     this.model = model;
     this.level = level;
+    this.bullpen = level.getBullpen();
     this.levelView = levelView;
     this.bullpenBox = bullpenBox;
     bullpenBox.setAlignment(Pos.TOP_CENTER);
@@ -48,13 +51,11 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
     bullpenBox.setOnDragDropped((DragEvent event) -> {
       Dragboard db = event.getDragboard();
       Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
-
-      Pane piecePane = new Pane();
-      PieceView pieceView = new PieceView(levelView, pieceModel, level, SQUARE_SIZE);
-      pieceView.setOnChildDraggedListener(this);
-      piecePane.getChildren().add(pieceView);
-      values.add(piecePane);
-      bullpenBox.getChildren().add(piecePane);
+      bullpen.addPiece(pieceModel);
+      if(model.getLatestDragSource() != null && model.getLatestDragSource() != this) {
+        model.getLatestDragSource().dragSuccess();
+      }
+      refresh();
 
       // this might change we we actually implement it,
       // such as if they drop it on a square that doesn't exist
@@ -79,7 +80,7 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
     });
   }
 
-  public void refresh(Bullpen bullpen) {
+  public void refresh() {
 
     bullpenBox.getChildren().clear();
 
@@ -97,7 +98,8 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
   @Override
   public void onPieceDragged(PieceView pieceView) {
     pieceBeingDragged = pieceView;
-    bullpenBox.getChildren().remove(pieceView.getParent());
+    bullpen.removePiece(pieceView.pieceModel);
+    refresh();
     model.setLatestDragSource(this);
   }
 
@@ -107,6 +109,20 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
 
   @Override
   public void returnPiece() {
-    bullpenBox.getChildren().add(pieceBeingDragged);
+    if(pieceBeingDragged != null) {
+      bullpen.addPiece(pieceBeingDragged.pieceModel);
+      refresh();
+      pieceBeingDragged = null;
+    }
+  }
+
+  @Override
+  public void dragSuccess() {
+    if(bullpen.getLogic().isRandom()) {
+      int pieceIndex = (int)(Math.random()*35);
+      bullpen.addPiece(PieceFactory.getPieces()[pieceIndex]);
+    }
+    refresh();
+    pieceBeingDragged = null;
   }
 }

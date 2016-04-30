@@ -10,7 +10,6 @@ import aeneas.models.PlacedPiece;
  */
 public class MakeHintMove implements IMove {
 
-
   Level level;
 
   Piece piece;

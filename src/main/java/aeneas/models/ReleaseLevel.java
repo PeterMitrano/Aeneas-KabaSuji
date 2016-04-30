@@ -1,8 +1,13 @@
 package aeneas.models;
 
+import java.io.File;
+import java.io.IOException;
+
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.ReleaseWidgetView;
 
+import javafx.scene.control.RadioButton;
 import javafx.scene.paint.Color;
 
 /**
@@ -16,7 +21,8 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   ReleaseBoard board;
 
-  private int moves;
+  private int movesAllowed;
+  private transient int movesLeft;
 
   /**
    * Constructor
@@ -72,6 +78,8 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   public ReleaseLevel(Level src) {
     super(src);
+    this.bullpen.logic = BullpenLogic.releaseLogic();
+    this.board = new ReleaseBoard(src.getBoard());
   }
 
   @Override
@@ -86,13 +94,63 @@ implements java.io.Serializable, Level.LevelWithMoves {
   }
 
   @Override
-  public void setAllowedMoves(int moves) { this.moves = moves; }
+  public void setAllowedMoves(int movesAllowed) { this.movesAllowed = movesAllowed; }
 
   @Override
-  public int getAllowedMoves() { return moves; }
+  public int getAllowedMoves() { return movesAllowed; }
 
   @Override
-  public LevelWidgetView makeCorrespondingView() {
+  public int decMoves() { return --movesLeft; }
+
+  @Override
+  public String getCountdownText() {
+    return "Moves remaining: " + movesLeft;
+  }
+
+  @Override
+  public boolean isFinished() {
+    return movesLeft <= 0;
+  }
+
+  @Override
+  public void start() {
+    super.start();
+    this.movesLeft = this.movesAllowed;
+  }
+
+  @Override
+  public LevelWidgetView makeCorrespondingView(Model model) {
     return new ReleaseWidgetView(this);
+  }
+
+  public String getIconName() {
+    return "SORT_NUMERIC_ASC";
+  }
+
+  @Override
+  public Object clone() {
+    ReleaseLevel newLevel =
+      new ReleaseLevel((Bullpen)this.bullpen.clone(),
+                         (ReleaseBoard)this.board.clone(), this.prebuilt);
+    super.copy(this, newLevel);
+    newLevel.movesAllowed = this.movesAllowed;
+    return newLevel;
+  }
+
+  @Override
+  public void reset() {
+    super.reset();
+    this.movesLeft = movesAllowed;
+  }
+
+  @Override
+  public RadioButton getButton() {
+    return ReleaseWidgetView.button;
+  }
+
+  @Override
+  public void save(File file) throws IOException {
+    // Remember to set the appropriate logic before saving.
+    super.save(file, BullpenLogic.releaseLogic());
   }
 }
