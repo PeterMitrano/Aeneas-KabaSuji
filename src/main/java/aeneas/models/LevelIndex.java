@@ -24,7 +24,13 @@ public class LevelIndex {
   LevelIndex() {
     levels = new HashMap<>();
     // TODO: Consider changing this path.
-    String homeDir = System.getenv("HOME");
+    String homeDir;
+    if (System.getProperty("os.name").contains("Windows")) {
+      homeDir = System.getenv("HOMEPATH");
+    }
+    else {
+      homeDir = System.getenv("HOME");
+    }
     defaultLevelPath = homeDir + "/.aeneas-kabasuji";
     reindex();
   }
