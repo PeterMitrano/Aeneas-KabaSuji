@@ -133,7 +133,7 @@ public class MainView extends StackPane implements Initializable {
   }
 
   public void switchToPlayLevelView(Level level) {
-    PlayLevelView playLevelView = new PlayLevelView(level, model);
+    PlayLevelView playLevelView = new PlayLevelView(level, model, this);
     paneStack.push(playLevelView);
     content.getChildren().clear();
     content.getChildren().add(playLevelView);
@@ -213,6 +213,8 @@ public class MainView extends StackPane implements Initializable {
 
   public File showOpenDialog() {
     FileChooser fileChooser = new FileChooser();
+    File initialDirectory = new File(model.getLevelIndex().defaultLevelPath);
+    fileChooser.setInitialDirectory(initialDirectory);
     fileChooser.setTitle("Open Existing Level");
     return fileChooser.showOpenDialog(stage);
   }
@@ -222,7 +224,6 @@ public class MainView extends StackPane implements Initializable {
     // the current node should always be in the stack,
     // so only remove and go back if there's multiple things on the stack
     if (paneStack.size() > 1) {
-
       paneStack.pop();
       // This is really ugly. Probably to be replaced with an interface for the views or something
      if(paneStack.peek() instanceof PlaySelectLevelView) {

@@ -89,11 +89,12 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
       if (loadFile == null)
         return;
       try {
-        Level newLevel = Level.loadLevel(loadFile);
+        levelToSwitchTo = Level.loadLevel(loadFile);
         String path = loadFile.getAbsolutePath();
         levelMap.put(path, levelToSwitchTo);
         this.fileList.getItems().add(new Label(path));
       } catch (IOException i) {
+        i.printStackTrace(System.out);
         System.out.println("Error occurred opening file.");
       }
     });

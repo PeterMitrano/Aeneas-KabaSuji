@@ -115,8 +115,9 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
 
     return stars;
   }
-  
+
   void refresh() {
+    gameModel.refreshLevelIndex();
     customLevelGrid.getChildren().clear();
     levelGrid.getChildren().clear();
     for (Level level : gameModel.getLevels()) {
@@ -125,8 +126,8 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
       JFXButton button = makeLevelButton(level.getLevelNumber(), gameModel.getMetadata(level).isLocked());
       button.setOnMouseClicked((e)->{
         if (!gameModel.getMetadata(level).isLocked()) {
-          mainView.switchToPlayLevelView(level);
           level.reset();
+          mainView.switchToPlayLevelView(level);
         }
       });
       HBox stars = makeStars(gameModel.getMetadata(level).getStarsEarned());

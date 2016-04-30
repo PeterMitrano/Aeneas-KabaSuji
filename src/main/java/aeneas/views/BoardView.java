@@ -1,5 +1,7 @@
 package aeneas.views;
 
+import aeneas.controllers.BullpenToBoardMove;
+import aeneas.controllers.IMove;
 import aeneas.models.Board;
 import aeneas.models.Model;
 import aeneas.models.Piece;
@@ -112,16 +114,16 @@ public class BoardView extends GridPane implements PieceSource {
       // use this to draw the piece on the board
       Piece piece = (Piece) db.getContent(Piece.dataFormat);
 
-      PlacedPiece placedPiece = new PlacedPiece(piece, dragDropRow, dragDropCol);
-      boolean added = this.board.addPiece(placedPiece);
+      IMove move = new BullpenToBoardMove(gameModel.getActiveLevel(), piece,
+                                          dragDropRow, dragDropCol);
 
-      refresh();
-
-      if (!added){
+      if (!move.execute()){
         model.getLatestDragSource().returnPiece();
       } else {
         model.getLatestDragSource().dragSuccess();
       }
+
+      refresh();
 
       if(refreshListener != null) {
         refreshListener.refresh();
@@ -201,7 +203,6 @@ public class BoardView extends GridPane implements PieceSource {
     Square[][] squares = board.assembleSquares();
     for (int row = 0; row < Board.SIZE; row++) {
       for (int col = 0; col < Board.SIZE; col++) {
-        assert(squares[row][col] != null);
         grid[row][col].refresh(squares[row][col]);
       }
     }

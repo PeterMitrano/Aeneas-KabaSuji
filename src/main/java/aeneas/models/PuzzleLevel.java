@@ -19,8 +19,8 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   PuzzleBoard board;
 
-  private int moves;
-
+  private int movesAllowed;
+  private transient int movesLeft;
 
   /**
    * Constructor
@@ -60,10 +60,9 @@ implements java.io.Serializable, Level.LevelWithMoves {
     this.board = new PuzzleBoard(src.getBoard());
   }
 
-
   @Override
   public int getStarsEarned() {
-    return Math.max(0, 3 - board.numSquaresRemainig()/6);
+    return Math.max(0, 3 - board.numSquaresRemaining()/6);
   }
 
   @Override
@@ -78,10 +77,19 @@ implements java.io.Serializable, Level.LevelWithMoves {
   }
 
   @Override
-  public void setAllowedMoves(int moves) { this.moves = moves; }
+  public void start() {
+    super.start();
+    this.movesLeft = this.movesAllowed;
+  }
 
   @Override
-  public int getAllowedMoves() { return moves; }
+  public void setAllowedMoves(int movesAllowed) { this.movesAllowed = movesAllowed; }
+
+  @Override
+  public int getAllowedMoves() { return movesAllowed; }
+
+  @Override
+  public int decMoves() { return --this.movesLeft; }
 
   @Override
   public LevelWidgetView makeCorrespondingView(Model model) {
@@ -98,6 +106,31 @@ implements java.io.Serializable, Level.LevelWithMoves {
   }
 
   @Override
+  public String getCountdownText() {
+    return "Moves remaining: " + movesLeft;
+  }
+
+  @Override
+  public boolean isFinished() {
+    return movesLeft <= 0;
+  }
+
+  @Override
+  public Object clone() {
+    PuzzleLevel newLevel =
+      new PuzzleLevel((Bullpen)this.bullpen.clone(),
+                         (PuzzleBoard)this.board.clone(), this.prebuilt);
+    super.copy(this, newLevel);
+    newLevel.movesAllowed = this.movesAllowed;
+    return newLevel;
+  }
+
+  @Override
+  public void reset() {
+    super.reset();
+    this.movesLeft = movesAllowed;
+  }
+
   public void save(File file) throws IOException {
     // Remember to set the appropriate logic before saving.
     super.save(file, BullpenLogic.puzzleLogic());

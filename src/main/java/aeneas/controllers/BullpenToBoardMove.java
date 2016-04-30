@@ -1,18 +1,18 @@
 package aeneas.controllers;
 import aeneas.models.Level;
+import aeneas.models.Level.LevelWithMoves;
+import aeneas.models.Piece;
 import aeneas.models.PlacedPiece;
 
 /**
  * Move action to move a piece from the bullpen to the board
  * @author Logan
- *
+ * @author jbkuszmaul
  */
 public class BullpenToBoardMove implements IMove {
-
-
   Level level;
 
-  PlacedPiece piece;
+  PlacedPiece placedPiece;
 
   int row;
   int col;
@@ -25,29 +25,32 @@ public class BullpenToBoardMove implements IMove {
    * @param row The row to place the piece in
    * @param col The column to place the piece in
    */
-  public BullpenToBoardMove(Level level, PlacedPiece piece, int row, int col) {
+  public BullpenToBoardMove(Level level, Piece piece, int row, int col) {
     this.level = level;
-    this.piece = piece;
+    this.placedPiece = new PlacedPiece(piece, row, col);
     this.row = row;
     this.col = col;
   }
 
   @Override
   public boolean execute() {
-    // TODO Auto-generated method stub
-    return false;
+    if (!isValid()) return false;
+    if (level instanceof LevelWithMoves && level.isActive()) {
+      ((LevelWithMoves)level).decMoves();
+    }
+    return level.getBoard().addPiece(placedPiece);
   }
 
   @Override
   public boolean undo() {
-    // TODO Auto-generated method stub
-    return false;
+    level.getBoard().removePiece(placedPiece);
+    level.getBullpen().addPiece(placedPiece.getPiece());
+    return true;
   }
 
   @Override
   public boolean isValid() {
-    // TODO Auto-generated method stub
-    return false;
+    return level.getBoard().canAddPiece(placedPiece);
   }
 
 }

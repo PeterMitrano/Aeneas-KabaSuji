@@ -69,8 +69,6 @@ public class Bullpen implements java.io.Serializable {
      */
     public boolean isCanAddNewPiece() {
       return canAddNewPiece;
-      // TODO: Figure out proper way to phrase this logic.
-      //return true;
     }
 
     public boolean isRandom() {
@@ -122,5 +120,17 @@ public class Bullpen implements java.io.Serializable {
    */
   public ArrayList<Piece> getPieces() {
     return pieces;
+  }
+
+  /**
+   * Create a copy of the bullpen.
+   */
+  @Override
+  public Object clone() {
+    Bullpen newBullpen = new Bullpen(this.logic);
+    for (Piece piece: this.pieces) {
+      newBullpen.pieces.add(piece.clone());
+    }
+    return newBullpen;
   }
 }

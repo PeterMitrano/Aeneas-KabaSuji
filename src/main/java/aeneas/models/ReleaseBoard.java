@@ -9,10 +9,10 @@ import javafx.scene.paint.Color;
  * @author Joseph Martin
  * @author Logan Tutt
  */
-public class ReleaseBoard extends Board implements java.io.Serializable {
-
+public class ReleaseBoard extends Board implements java.io.Serializable, Level.LevelWithMoves {
   ArrayList<ReleaseNumber> numbers;
-
+  private int movesAllowed;
+  private transient int movesLeft;
 
   public ReleaseBoard(){
     this.numbers = new ArrayList<ReleaseNumber>();
@@ -20,14 +20,12 @@ public class ReleaseBoard extends Board implements java.io.Serializable {
 
   public ReleaseBoard(ArrayList<ReleaseNumber> numbers){
     this.numbers = numbers;
-
   }
-  
+
   public ReleaseBoard(Board board) {
     super(board);
     this.numbers = new ArrayList<>();
   }
-
 
   /**
    * Gets all squares on the board, including release numbers.
@@ -46,4 +44,23 @@ public class ReleaseBoard extends Board implements java.io.Serializable {
   public ArrayList<ReleaseNumber> getNumbers() {
     return numbers;
   }
+
+  @Override
+  public Object clone() {
+    ReleaseBoard newBoard = new ReleaseBoard();
+    super.copy(this, newBoard);
+    for (ReleaseNumber num : numbers) {
+      newBoard.numbers.add((ReleaseNumber)num.clone());
+    }
+    return newBoard;
+  }
+
+  @Override
+  public void setAllowedMoves(int movesAllowed) { this.movesAllowed = movesAllowed; }
+
+  @Override
+  public int getAllowedMoves() { return movesAllowed; }
+
+  @Override
+  public int decMoves() { return this.movesLeft; }
 }

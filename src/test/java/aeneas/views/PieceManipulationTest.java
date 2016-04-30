@@ -55,40 +55,41 @@ public class PieceManipulationTest extends ApplicationTest {
     clickOn(levels.getChildren().get(0));
   }
 
-  @Test
-  public void testRotateFlipPiece() {
-    navigateToFirstLevel();
+  private PieceView getFirstPiece() {
     VBox bullpenBox = (VBox) lookup("#bullpenBox").query();
     Pane piecePane = (Pane) bullpenBox.getChildren().get(0);
     PieceView piece = (PieceView) piecePane.getChildren().get(0);
+    return piece;
+  }
+
+  @Test
+  public void testRotatePiece() {
+    navigateToFirstLevel();
+    PieceView piece = getFirstPiece();
     Piece oldPiece = piece.pieceModel.clone();
     clickOn(piece);
     oldPiece.rotate(Piece.Dir.CLOCKWISE);
     assertEquals(oldPiece.toString(), piece.pieceModel.toString());
-    press(KeyCode.SHIFT);
-    clickOn(piece);
-    release(KeyCode.SHIFT);
+    System.out.println("CCW: ");
+    press(KeyCode.SHIFT).clickOn(piece).release(KeyCode.SHIFT);
     oldPiece.rotate(Piece.Dir.COUNTERCLOCKWISE);
     assertEquals(oldPiece.toString(), piece.pieceModel.toString());
-    
+  }
+
+  @Test
+  public void testFlipPiece() {
+    navigateToFirstLevel();
+    PieceView piece = getFirstPiece();
+    Piece oldPiece = piece.pieceModel.clone();
     // Now, test flips.
     press(KeyCode.CONTROL).clickOn(piece).release(KeyCode.CONTROL);
     oldPiece.flip(Piece.Axis.VERTICAL);
     assertEquals(oldPiece.toString(), piece.pieceModel.toString());
 
+    System.out.println("Horizontal: ");
     press(KeyCode.CONTROL).press(KeyCode.SHIFT).clickOn(piece).release(KeyCode.CONTROL).release(KeyCode.SHIFT);
     oldPiece.flip(Piece.Axis.HORIZONTAL);
     assertEquals(oldPiece.toString(), piece.pieceModel.toString());
-    return;
-    
-    /*
-    press(KeyCode.SHIFT).press(KeyCode.CONTROL);
-    oldPiece.flip(Piece.Axis.HORIZONTAL);
-    assertEquals(oldPiece.toString(), piece.pieceModel.toString());
-    release(KeyCode.SHIFT);
-    
-    release(KeyCode.CONTROL);
-    */
   }
 
   @Test
@@ -104,11 +105,11 @@ public class PieceManipulationTest extends ApplicationTest {
     // First, drag piece to board.
     drag(piece).dropTo(boardView.grid[0][0]);
     assertEquals(1, boardView.board.getPieces().size());
-    
+
     // Now, drag piece back to Bullpen.
     drag(boardView.grid[0][0]).dropTo(bullpenBox);
     assertEquals(0, boardView.board.getPieces().size());
-    
+
     piecePane = (Pane) bullpenBox.getChildren().get(0);
     // Now, drag to invalid spot on board.
     drag(piecePane.getChildren().get(0)).dropTo(boardView.grid[11][11]);

@@ -40,7 +40,7 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
 
   @FXML
   private Label levelLabel;
-  
+
   @FXML
   private Label timeLabel;
 
@@ -49,7 +49,7 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
 
   @FXML
   private FontAwesomeIconView levelTypeIcon;
-  
+
   @FXML
   private FontAwesomeIconView star1;
   @FXML
@@ -59,12 +59,14 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
 
   private BullpenView bullpenView;
   private BoardView boardView;
+  private MainView mainView;
   private Level levelModel;
   private Model model;
 
-  PlayLevelView(Level levelModel, Model model) {
+  PlayLevelView(Level levelModel, Model model, MainView mainView) {
     this.levelModel = levelModel;
     this.model = model;
+    this.mainView = mainView;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("PlayLevel.fxml"));
       loader.setRoot(this);
@@ -80,12 +82,13 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
     bullpenView = new BullpenView(model,levelModel.getBullpen(), bullpenBox, (Pane) this);
 
     resetLevelButton.setOnMouseClicked((e) -> {
-      levelModel.reset();
+      this.levelModel.reset();
+      refresh();
     });
 
     bullpenView.refresh();
     levelLabel.setText("Level "+levelModel.getLevelNumber());
-    
+
     levelTypeIcon.setGlyphName(levelModel.getIconName());
 
     boardView = new BoardView(this, model, levelModel.getBoard());
@@ -94,32 +97,27 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
-    
+
     model.setActiveLevel(levelModel);
-    
-    // This should be moved to a controller.
-    if(levelModel instanceof LightningLevel) {
-      LightningLevel l = (LightningLevel)levelModel;
-      elapsedTime = 0;
-      if(timer == null) timer = new Timer();
-      timer.scheduleAtFixedRate(new TimerTask() {
-        @Override
-        public void run() {
-          elapsedTime++;
-          
-          Platform.runLater(() -> {timeLabel.setText("Time Remaining: "+(l.getAllowedTime()-elapsedTime));});
-          levelModel.stop();
-          if(elapsedTime >= l.getAllowedTime()) {
-            timer.cancel();
-          }
-        }
-      }, 1000, 1000);
-    }
+    levelModel.start();
+    refresh();
+
+    if (timer != null) timer.cancel();
+    timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+      @Override
+      public void run() {
+        Platform.runLater(() -> refresh());
+      }
+    }, 1000, 1000);
   }
-  
+
+  public void cleanup() {
+    timer.cancel();
+  }
+
   public void refresh() {
     int stars = levelModel.getStarsEarned();
-    model.setActiveLevel(levelModel);
     switch(stars) {
     case 0:
       star1.setGlyphName("STAR_ALT");
@@ -143,6 +141,13 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
       break;
     }
     model.updateStats();
+    bullpenView.refresh();
+    boardView.refresh();
+    timeLabel.setText(levelModel.getCountdownText());
+    if (levelModel.isFinished() || stars == 3) {
+      cleanup();
+      mainView.switchToPlaySelectLevelView();
+    }
   }
 
 }

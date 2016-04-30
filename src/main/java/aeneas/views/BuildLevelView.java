@@ -127,8 +127,9 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.boardView = new BoardView(this, model, model.getActiveLevel().getBoard());
+    this.boardView = new BoardView((Pane)this, model, model.getActiveLevel().getBoard());
     this.bullpenView = new BullpenView(model, model.getActiveLevel().getBullpen(), bullpenBox, (Pane) this);
+    bullpenView.refresh();
 
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
@@ -154,7 +155,7 @@ public class BuildLevelView extends StackPane implements Initializable {
         // level will change over time.
         this.model.getActiveLevel().save(saveFile);
       } catch (IOException i) {
-        System.out.println("Error occurred in opening file.");
+        System.out.println("Error occurred in saving file.");
       }
     });
 
@@ -224,12 +225,12 @@ public class BuildLevelView extends StackPane implements Initializable {
     this.levelView.refresh();
   }
 
-  public int getRowSpinner() {
-    return rowSpinner.getValue();
+  public Spinner<Integer> getRowSpinner() {
+    return rowSpinner;
   }
 
-  public int getColumnSpinner() {
-    return columnSpinner.getValue();
+  public Spinner<Integer> getColumnSpinner() {
+    return columnSpinner;
   }
 
   public Level getLevelModel() {
