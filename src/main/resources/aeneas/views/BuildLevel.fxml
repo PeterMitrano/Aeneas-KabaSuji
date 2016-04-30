@@ -25,19 +25,23 @@
     xmlns="http://javafx.com/javafx/2.2">
   <BorderPane>
   <left>
-    <VBox alignment="BOTTOM_LEFT">
+    <BorderPane>
+			<center>
       <ScrollPane fx:id="scrollpane" fitToWidth="true" style="-fx-background-color:transparent;">
-          <VBox prefWidth="115" fx:id="bullpenBox" spacing="20" alignment="TOP_CENTER" />
+        <VBox prefWidth="115" fx:id="bullpenBox" spacing="20" alignment="TOP_CENTER" />
       </ScrollPane>
+			</center>
+			<bottom>
       <JFXButton fx:id="addPiece" minWidth="50" minHeight="50" styleClass="action-button">
         <graphic>
           <FontAwesomeIconView glyphName="PLUS" size="2em" />
         </graphic>
-        <VBox.margin>
+        <BorderPane.margin>
           <Insets left="10" bottom="10" top="10" right="10"/>
-        </VBox.margin>
+        </BorderPane.margin>
       </JFXButton>
-    </VBox>
+			</bottom>
+    </BorderPane>
   </left>
   <center>
     <VBox fx:id="centerBox" spacing="10" alignment="TOP_CENTER">
@@ -62,14 +66,14 @@
           <VBox fx:id="sizing" spacing="10" alignment="TOP_LEFT">
             <HBox spacing="5" alignment="CENTER_RIGHT">
               <Label fx:id="rowsLabel" text="Rows" />
-              <Spinner prefWidth="70" min="0" max="12"
+              <Spinner fx:id="rowSpinner" prefWidth="70" min="0" max="12"
                 initialValue="12">
                 <editable>true</editable>
               </Spinner>
             </HBox>
             <HBox spacing="5" alignment="CENTER_RIGHT">
               <Label fx:id="columnsLabel" text="Columns" />
-              <Spinner prefWidth="70" min="0" max="12"
+              <Spinner fx:id="columnSpinner" prefWidth="70" min="0" max="12"
                 initialValue="12">
                 <editable>true</editable>
               </Spinner>

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 /**
- * 
+ *
  * @author Joseph Martin
  * @author Logan Tutt
  */
@@ -23,7 +23,7 @@ public class ReleaseBoard extends Board implements java.io.Serializable {
 
   }
 
-  
+
   /**
    * Gets all squares on the board, including release numbers.
    * Release numbers are only added to the squares if the square is valid and uncovered

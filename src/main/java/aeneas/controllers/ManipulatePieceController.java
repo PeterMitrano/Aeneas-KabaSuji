@@ -63,8 +63,16 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
     }
   }
 
-  public void doMove(Axis axis) {
+  public void doMove(Axis axis){
     IMove move = new FlipMove(pieceModel, axis);
+    if (move != null && move.execute()) {
+      level.addNewMove(move);
+      pieceView.refresh();
+    }
+  }
+
+  public void addHint(){
+    IMove move = new MakeHintMove(pieceModel);
     if (move != null && move.execute()) {
       level.addNewMove(move);
       pieceView.refresh();

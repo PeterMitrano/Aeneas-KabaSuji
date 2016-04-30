@@ -8,9 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Stack;
-
 import aeneas.controllers.IMove;
-import aeneas.views.LevelView;
+import aeneas.views.LevelWidgetView;
 
 /**
  *
@@ -59,10 +58,6 @@ public abstract class Level implements java.io.Serializable {
     redoStack = new Stack<IMove>();
   }
 
-  public Level(Bullpen bullpen) {
-    this(bullpen, true);
-  }
-
   /**
    * Copy constructor.
    * @param src the level you are copying from
@@ -104,7 +99,7 @@ public abstract class Level implements java.io.Serializable {
   public boolean isPrebuilt() {
     return prebuilt;
   }
-  
+
   public void reset() {
   }
 
@@ -198,5 +193,5 @@ public abstract class Level implements java.io.Serializable {
     undoStack.add(move);
   }
 
-  public abstract LevelView makeCorrespondingView();
+  public abstract LevelWidgetView makeCorrespondingView();
 }

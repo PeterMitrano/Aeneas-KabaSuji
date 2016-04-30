@@ -3,6 +3,7 @@ package aeneas.views;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -11,15 +12,16 @@ import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.AddPieceMove;
+import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.IMove;
 import aeneas.controllers.UndoRedoController;
+import aeneas.controllers.ToggleTileMove;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
-
+import aeneas.models.Square;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +30,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
@@ -89,16 +92,24 @@ public class BuildLevelView extends StackPane implements Initializable {
   @FXML
   private VBox togglesBox;
 
+  @FXML
+  private Spinner<Integer> rowSpinner;
+
+  @FXML
+  private Spinner<Integer> columnSpinner;
+
   private BoardView boardView;
   private Level levelModel;
   private MainView mainView;
   private BullpenView bullpenView;
-  private LevelView levelView;
+  private LevelWidgetView levelView;
+  private ArrayList<LevelWidgetView> levelViews;
   private Model model;
   private UndoRedoController undoController;
 
-  BuildLevelView(MainView mainView, LevelView levelView, Model model) {
+  BuildLevelView(MainView mainView, ArrayList<LevelWidgetView> levelViews, LevelWidgetView levelView, Model model) {
     this.levelView = levelView;
+    this.levelViews = levelViews;
     this.model = model;
     this.levelModel = levelView.getLevelModel();
     this.mainView = mainView;
@@ -114,14 +125,15 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   public void refreshAll(){
     boardView.refresh();
-    bullpenView.refresh(levelModel, levelModel.getBullpen());
+    bullpenView.refresh(levelModel.getBullpen());
     levelView.updateValues();
   }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.bullpenView = new BullpenView(bullpenBox, this);
-    this.boardView = new BoardView(levelModel.getBoard());
+    this.boardView = new BoardView(this, model,levelModel, levelModel.getBoard());
+    this.bullpenView = new BullpenView(model, bullpenBox, levelModel, (Pane) this);
+
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
@@ -139,9 +151,9 @@ public class BuildLevelView extends StackPane implements Initializable {
       }
     });
 
-    for (LevelView levelView : LevelViewFactory.getViews()) {
-      levelView.getButton().setToggleGroup(levelType);
-      togglesBox.getChildren().add(levelView.getButton());
+    for (LevelWidgetView tempLevelView : levelViews) {
+      tempLevelView.getButton().setToggleGroup(levelType);
+      togglesBox.getChildren().add(tempLevelView.getButton());
     }
 
     // set the right settings got the given level type
@@ -153,7 +165,7 @@ public class BuildLevelView extends StackPane implements Initializable {
     levelType.selectedToggleProperty()
     .addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
       if (new_toggle != null) {
-        LevelView view = (LevelView) ((RadioButton) new_toggle).getUserData();
+        LevelWidgetView view = (LevelWidgetView) ((RadioButton) new_toggle).getUserData();
         this.levelModel = view.getLevelModel();
         this.settingsBox.getChildren().set(1, view.getPanel());
         undoController = new UndoRedoController(this, levelModel);
@@ -165,6 +177,20 @@ public class BuildLevelView extends StackPane implements Initializable {
     });
 
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
+
+    boardView.setSquareClickListener((row, col) -> {
+      IMove m = new ToggleTileMove(levelModel, row, col);
+      if (m.isValid()) {
+        m.execute();
+        levelModel.addNewMove(m);
+        boardView.refresh();
+      }
+    });
+
+    //if the user commits to dragging a piece out of the dialog then we close the dialog
+    piecesPane.setOnDragExited((e) -> {
+      piecePickerDialog.close();
+    });
 
     addPiece.setOnMouseClicked((e) -> {
       piecePickerDialog.show(this);
@@ -178,7 +204,7 @@ public class BuildLevelView extends StackPane implements Initializable {
           IMove move = new AddPieceMove(levelModel.getBullpen(), pieceModel.clone());
           if (move.execute()){
             levelModel.addNewMove(move);
-            bullpenView.refresh(levelModel, levelModel.getBullpen());
+            bullpenView.refresh(levelModel.getBullpen());
           }
         });
       }

@@ -1,10 +1,11 @@
 package aeneas.models;
 
 import javafx.scene.paint.Color;
+import javafx.scene.input.DataFormat;
 
 /**
  *
- * @author Joseph Martin
+ * @author Joseph Martin, Garrison
  */
 public class Piece implements java.io.Serializable {
   public enum Axis {
@@ -17,10 +18,13 @@ public class Piece implements java.io.Serializable {
     COUNTERCLOCKWISE,
   }
 
+  public static final DataFormat dataFormat = new DataFormat("aeneas.Piece");
+
   Square squares[];
   private int width;
   private int height;
   public boolean inBullpen;
+  private boolean hint;
   private String color;
 
 
@@ -79,6 +83,15 @@ public class Piece implements java.io.Serializable {
     width = temp;
   }
 
+  @Override
+  public String toString(){
+    String str = "[";
+    for (Square s : squares){
+      str += s.toString() + ",";
+    }
+    return str + "]";
+  }
+
   public Square[] getSquares() {
     return squares;
   }
@@ -93,6 +106,13 @@ public class Piece implements java.io.Serializable {
 
 
   public Color getColor(){ return Color.web(color);}
+
+  public void setColor(Color c) {
+    for (Square s : squares){
+      s.setColor(c);
+    }
+   this.color = c.toString();
+  }
 
 
   @Override
@@ -113,4 +133,12 @@ public class Piece implements java.io.Serializable {
     return clone;
   }
 
+  public boolean isHint() {
+    return hint;
+  }
+
+  public void setHint(boolean hint) {
+    this.hint = hint;
+    this.setColor(Color.CORNSILK);
+  }
 }

@@ -36,8 +36,8 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
   private JFXButton editLevel;
 
   private MainView mainView;
-  private LevelView levelViewToSwitchTo;
-  private HashMap<String, LevelView> levelMap = new HashMap<String, LevelView>();
+  private LevelWidgetView levelViewToSwitchTo;
+  private HashMap<String, LevelWidgetView> levelMap = new HashMap<String, LevelWidgetView>();
 
   BuildSelectLevelView(MainView mainView) {
     this.mainView = mainView;
@@ -49,12 +49,12 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
 
-    // create default new level
+  private LevelWidgetView createDefaultLevelView() {
     Bullpen defaultBullpen  = new Bullpen(BullpenLogic.editorLogic());
     PuzzleLevel defaultLevel = new PuzzleLevel(defaultBullpen);
-    LevelView defaultLevelView = new PuzzleView(defaultLevel);
-    levelMap.put("DEFAULT", defaultLevelView);
+    return new PuzzleWidgetView(defaultLevel);
   }
 
   @Override
@@ -67,7 +67,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
         String path = l.getText();
 
         if (path.equals(createNewLevelLabel.getText())) {
-          levelViewToSwitchTo = levelMap.get("DEFAULT");
+          levelViewToSwitchTo = createDefaultLevelView();
           mainView.switchToBuildLevelView(levelViewToSwitchTo);
         } else {
           levelViewToSwitchTo = levelMap.get(path);

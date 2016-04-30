@@ -6,12 +6,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.VBox;
 
-public abstract class LevelView {
+public abstract class LevelWidgetView {
 
   protected VBox panel;
   private Level levelModel;
 
-  public LevelView(Level levelModel){
+  public LevelWidgetView(Level levelModel){
     this.levelModel = levelModel;
     panel = new VBox();
     panel.setAlignment(Pos.TOP_LEFT);

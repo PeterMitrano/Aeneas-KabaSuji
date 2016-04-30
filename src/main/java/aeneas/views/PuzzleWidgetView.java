@@ -1,33 +1,31 @@
 package aeneas.views;
 
-import com.jfoenix.controls.JFXColorPicker;
-
 import aeneas.controllers.IMove;
 import aeneas.controllers.SetMovesMove;
-import aeneas.models.ReleaseLevel;
+import aeneas.models.PuzzleLevel;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
-public class ReleaseView extends LevelView {
+public class PuzzleWidgetView extends LevelWidgetView {
 
-  private static final RadioButton button = new RadioButton("Release");
+  static public final RadioButton button = new RadioButton("Puzzle");
+
+  private Spinner<Integer> movesSelect;
+  private Label movesLabel;
+  private PuzzleLevel level;
   
-  Spinner<Integer> movesSelect;
-  private ReleaseLevel level;
-
   private boolean isUserInput = true;
-  
-  public ReleaseView(ReleaseLevel levelModel){
+
+  public PuzzleWidgetView(PuzzleLevel levelModel){
     super(levelModel);
 
     level = levelModel;
+    movesLabel = new Label("Moves");
     movesSelect = new Spinner<Integer>(1, 20, 10);
-    Label movesLabel = new Label("Moves");
     movesSelect.setPrefWidth(70);
     movesSelect.setEditable(true);
     movesSelect.getValueFactory().setValue(levelModel.getAllowedMoves());
@@ -39,38 +37,27 @@ public class ReleaseView extends LevelView {
       }
     });
 
+    HBox hbox = new HBox();
+    hbox.setSpacing(5);
+    hbox.setAlignment(Pos.CENTER_LEFT);
+    hbox.getChildren().add(movesLabel);
+    hbox.getChildren().add(movesSelect);
 
-    VBox box = new VBox();
-    box.setSpacing(4);
-
-    HBox movesBox = new HBox();
-    movesBox.setSpacing(5);
-    movesBox.setAlignment(Pos.CENTER_LEFT);
-    movesBox.getChildren().add(movesLabel);
-    movesBox.getChildren().add(movesSelect);
-
-
-    JFXColorPicker colorSelect = new JFXColorPicker();
-    colorSelect.prefWidth(110);
-
-    box.getChildren().add(movesBox);
-    box.getChildren().add(colorSelect);
-
-    panel.getChildren().add(box);
+    panel.getChildren().add(hbox);
 
     button.setUserData(this);
   }
 
   @Override
   public RadioButton getButton() {
-    return ReleaseView.button;
+    return PuzzleWidgetView.button;
   }
-  
+
   @Override
   public void updateValues(){
     isUserInput = false;
     movesSelect.getValueFactory().setValue(level.getAllowedMoves());
     isUserInput = true;
   }
-}
 
+}

@@ -2,12 +2,10 @@ package aeneas;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.border.EmptyBorder;
 
 import com.jfoenix.controls.JFXDecorator;
 
 import aeneas.views.MainView;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
