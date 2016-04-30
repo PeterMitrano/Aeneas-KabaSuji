@@ -1,7 +1,15 @@
 package aeneas.models;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.LightningWidgetView;
+
+import javafx.scene.control.RadioButton;
 
 /**
  * A subclass of level with functionality specific to lightning mode.
@@ -12,6 +20,8 @@ public class LightningLevel extends Level implements java.io.Serializable {
 
   LightningBoard board;
   int allowedTime;
+  private transient int elapsedTime = 0;
+  private transient Timer timer;
 
   /**
    * Constructor
@@ -63,7 +73,10 @@ public class LightningLevel extends Level implements java.io.Serializable {
     if (src instanceof LightningLevel) {
       this.board = ((LightningLevel)src).board;
       this.allowedTime = ((LightningLevel)src).allowedTime;
+    } else {
+      this.board = new LightningBoard(src.getBoard());
     }
+    this.bullpen.logic = BullpenLogic.lightningLogic();
   }
 
   @Override
@@ -92,7 +105,46 @@ public class LightningLevel extends Level implements java.io.Serializable {
   public int getAllowedTime() { return allowedTime; }
 
   @Override
-  public LevelWidgetView makeCorrespondingView() {
-    return new LightningWidgetView(this);
+  public LevelWidgetView makeCorrespondingView(Model model) {
+    return new LightningWidgetView(this, model);
+  }
+
+  public String getIconName() {
+    return "BOLT";
+  }
+
+  @Override
+  public void start() {
+    if(timer == null) timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+      @Override
+      public void run() {
+        elapsedTime++;
+        System.out.println("tick "+elapsedTime+"/"+allowedTime);
+        if(elapsedTime >= allowedTime) {
+          System.out.println("Times up");
+          timer.cancel();
+        }
+      }
+    }, 1000, 1000);
+  }
+
+  @Override
+  public void stop() {
+    if (timer != null) {
+      timer.cancel();
+    }
+  }
+
+  @Override
+  public RadioButton getButton() {
+    return LightningWidgetView.button;
+  }
+
+
+  @Override
+  public void save(File file) throws IOException {
+    // Remember to set the appropriate logic before saving.
+    super.save(file, BullpenLogic.lightningLogic());
   }
 }

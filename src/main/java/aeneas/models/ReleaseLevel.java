@@ -1,8 +1,13 @@
 package aeneas.models;
 
+import java.io.File;
+import java.io.IOException;
+
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.ReleaseWidgetView;
 
+import javafx.scene.control.RadioButton;
 import javafx.scene.paint.Color;
 
 /**
@@ -72,6 +77,8 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   public ReleaseLevel(Level src) {
     super(src);
+    this.bullpen.logic = BullpenLogic.releaseLogic();
+    this.board = new ReleaseBoard(src.getBoard());
   }
 
   @Override
@@ -92,7 +99,22 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public int getAllowedMoves() { return moves; }
 
   @Override
-  public LevelWidgetView makeCorrespondingView() {
-    return new ReleaseWidgetView(this);
+  public LevelWidgetView makeCorrespondingView(Model model) {
+    return new ReleaseWidgetView(this, model);
+  }
+
+  public String getIconName() {
+    return "SORT_NUMERIC_ASC";
+  }
+
+  @Override
+  public RadioButton getButton() {
+    return ReleaseWidgetView.button;
+  }
+
+  @Override
+  public void save(File file) throws IOException {
+    // Remember to set the appropriate logic before saving.
+    super.save(file, BullpenLogic.releaseLogic());
   }
 }

@@ -1,0 +1,26 @@
+package aeneas.controllers;
+
+import aeneas.models.Level;
+import aeneas.models.Model;
+import aeneas.views.BuildLevelView;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
+public class BoardSizeController implements ChangeListener<Integer> {
+
+  private Model model;
+  private BuildLevelView view;
+
+  public BoardSizeController(Model model, BuildLevelView view) {
+    this.model = model;
+    this.view = view;
+  }
+
+  public void changed(ObservableValue<? extends Integer> observable,
+      Integer oldValue, Integer newValue) {
+    IMove move = new SetSizeMove(view.getLevelModel(), view.getRowSpinner(), view.getColumnSpinner());
+    if (move.execute()) model.addNewMove(move);
+    view.refresh();
+  }
+}

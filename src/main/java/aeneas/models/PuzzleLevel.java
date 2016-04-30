@@ -1,7 +1,13 @@
 package aeneas.models;
 
+import java.io.File;
+import java.io.IOException;
+
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.PuzzleWidgetView;
+
+import javafx.scene.control.RadioButton;
 
 /**
  *
@@ -50,12 +56,14 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   public PuzzleLevel(Level src) {
     super(src);
+    this.bullpen.logic = BullpenLogic.puzzleLogic();
+    this.board = new PuzzleBoard(src.getBoard());
   }
 
 
   @Override
   public int getStarsEarned() {
-    return Math.max(0, 3 - bullpen.pieces.size());
+    return Math.max(0, 3 - board.numSquaresRemainig()/6);
   }
 
   @Override
@@ -76,7 +84,22 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public int getAllowedMoves() { return moves; }
 
   @Override
-  public LevelWidgetView makeCorrespondingView() {
-    return new PuzzleWidgetView(this);
+  public LevelWidgetView makeCorrespondingView(Model model) {
+    return new PuzzleWidgetView(this, model);
+  }
+
+  @Override
+  public RadioButton getButton() {
+    return PuzzleWidgetView.button;
+  }
+
+  public String getIconName() {
+    return "PUZZLE_PIECE";
+  }
+
+  @Override
+  public void save(File file) throws IOException {
+    // Remember to set the appropriate logic before saving.
+    super.save(file, BullpenLogic.puzzleLogic());
   }
 }
