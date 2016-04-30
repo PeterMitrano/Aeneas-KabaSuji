@@ -28,9 +28,7 @@ import javafx.scene.layout.VBox;
  *
  * @author Joseph Martin
  */
-public class PlayLevelView extends BorderPane implements Initializable, RefreshListener {
-
-  private Timer timer = new Timer();
+public class PlayLevelView extends BorderPane implements Initializable, RefreshListener, Level.LevelListener {
   int elapsedTime = 0;
   @FXML
   private JFXButton resetLevelButton;
@@ -65,6 +63,7 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
 
   PlayLevelView(Level levelModel, Model model, MainView mainView) {
     this.levelModel = levelModel;
+    levelModel.setListener(this);
     this.model = model;
     this.mainView = mainView;
     try {
@@ -101,53 +100,42 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
     model.setActiveLevel(levelModel);
     levelModel.start();
     refresh();
-
-    if (timer != null) timer.cancel();
-    timer = new Timer();
-    timer.scheduleAtFixedRate(new TimerTask() {
-      @Override
-      public void run() {
-        Platform.runLater(() -> refresh());
-      }
-    }, 1000, 1000);
-  }
-
-  public void cleanup() {
-    timer.cancel();
   }
 
   public void refresh() {
-    int stars = levelModel.getStarsEarned();
-    switch(stars) {
-    case 0:
-      star1.setGlyphName("STAR_ALT");
-      star2.setGlyphName("STAR_ALT");
-      star3.setGlyphName("STAR_ALT");
-      break;
-    case 1:
-      star1.setGlyphName("STAR");
-      star2.setGlyphName("STAR_ALT");
-      star3.setGlyphName("STAR_ALT");
-      break;
-    case 2:
-      star1.setGlyphName("STAR");
-      star2.setGlyphName("STAR");
-      star3.setGlyphName("STAR_ALT");
-      break;
-    case 3:
-      star1.setGlyphName("STAR");
-      star2.setGlyphName("STAR");
-      star3.setGlyphName("STAR");
-      break;
-    }
-    model.updateStats();
-    bullpenView.refresh();
-    boardView.refresh();
-    timeLabel.setText(levelModel.getCountdownText());
-    if (levelModel.isFinished() || stars == 3) {
-      cleanup();
-      mainView.switchToPlaySelectLevelView();
-    }
+    Platform.runLater(() -> {
+      int stars = levelModel.getStarsEarned();
+      switch(stars) {
+      case 0:
+        star1.setGlyphName("STAR_ALT");
+        star2.setGlyphName("STAR_ALT");
+        star3.setGlyphName("STAR_ALT");
+        break;
+      case 1:
+        star1.setGlyphName("STAR");
+        star2.setGlyphName("STAR_ALT");
+        star3.setGlyphName("STAR_ALT");
+        break;
+      case 2:
+        star1.setGlyphName("STAR");
+        star2.setGlyphName("STAR");
+        star3.setGlyphName("STAR_ALT");
+        break;
+      case 3:
+        star1.setGlyphName("STAR");
+        star2.setGlyphName("STAR");
+        star3.setGlyphName("STAR");
+        break;
+      }
+      model.updateStats();
+      bullpenView.refresh();
+      boardView.refresh();
+      timeLabel.setText(levelModel.getCountdownText());
+      if (levelModel.isFinished() || stars == 3 && levelModel.isActive()) {
+        levelModel.stop();
+        mainView.navigateBack();
+      }
+    });
   }
 
 }

@@ -18,6 +18,16 @@ import javafx.scene.control.RadioButton;
  * @author Joseph Martin
  */
 public abstract class Level implements java.io.Serializable {
+  public interface LevelListener {
+    void refresh();
+  }
+  
+  LevelListener listener;
+  
+  public void setListener(LevelListener listener) {
+    this.listener = listener;
+  }
+  
   Bullpen bullpen;
 
   transient int levelNumber;
