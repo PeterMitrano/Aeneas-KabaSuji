@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 /**
- * Represents a board (which keeps track of its pieces, hints, and the shape of the board).
+ * Represents a board (which keeps track of its pieces, hints, and the shape of
+ * the board).
  *
  * @author Joseph Martin
  */
@@ -21,8 +22,8 @@ public abstract class Board implements java.io.Serializable {
   public Board() {
     pieces = new ArrayList<>();
     hints = new ArrayList<>();
-    for (int i=0;i<SIZE;i++){
-      for (int j=0;j<SIZE;j++){
+    for (int i = 0; i < SIZE; i++) {
+      for (int j = 0; j < SIZE; j++) {
         squares[i][j] = true;
       }
     }
@@ -36,12 +37,13 @@ public abstract class Board implements java.io.Serializable {
 
   /**
    * Count the number of valid squares on this board
+   *
    * @return The number of valid squares.
    */
   int numValidSquares() {
     int count = 0;
-    for(int j = 0; j < squares.length; j++) {
-      for(int i = 0; i < squares[j].length; i++) {
+    for (int j = 0; j < squares.length; j++) {
+      for (int i = 0; i < squares[j].length; i++) {
         count += squares[j][i] ? 1 : 0;
       }
     }
@@ -49,15 +51,16 @@ public abstract class Board implements java.io.Serializable {
   }
 
   /**
-   * Check if a square on the board is valid.
-   * If the row or col is < 0 or > 12, the square is invalid,
-   * otherwise check if the square is valid in the squares array.
+   * Check if a square on the board is valid. If the row or col is < 0 or > 12,
+   * the square is invalid, otherwise check if the square is valid in the
+   * squares array.
+   *
    * @return True if the square is valid, false otherwise.
    */
   boolean locationValid(Square s) {
     int row = s.getRow();
     int col = s.getCol();
-    if(row >= 0 && row < squares.length && col >= 0 && col < squares[row].length) {
+    if (row >= 0 && row < squares.length && col >= 0 && col < squares[row].length) {
       return squares[row][col];
     } else {
       return false;
@@ -66,7 +69,9 @@ public abstract class Board implements java.io.Serializable {
 
   /**
    * Adds the given piece to the board, if valid.
-   * @param piece The piece to add to the board.
+   *
+   * @param piece
+   *          The piece to add to the board.
    * @return true if the piece was added to the board, false otherwise.
    */
   public boolean addPiece(PlacedPiece piece) {
@@ -86,18 +91,23 @@ public abstract class Board implements java.io.Serializable {
     // If any of the squares of the piece are at an invalid location,
     // piece placement not valid
     for (Square s : piece.getSquaresInBoardFrame()) {
-      if (!locationValid(s)) return false;
+      if (!locationValid(s))
+        return false;
     }
     // If it is a hint, we don't care about intersections.
     if (piece.getPiece().isHint()) return true;
     // If the piece overlaps an existing piece, placement not valid
-    if (intersects(piece)) return false;
+    if (intersects(piece))
+      return false;
+    // Otherwise placement is valid
     return true;
   }
 
   /**
    * Removes the given piece from the board, if possible
-   * @param piece The piece to be removed
+   *
+   * @param piece
+   *          The piece to be removed
    * @return true If the piece on the board and it was removed, false otherwise.
    */
   public boolean removePiece(PlacedPiece piece) {
@@ -106,13 +116,16 @@ public abstract class Board implements java.io.Serializable {
 
   /**
    * Gets the piece at the specified position (if there is one)
-   * @param row The row coordinate
-   * @param col The column coordinate
+   *
+   * @param row
+   *          The row coordinate
+   * @param col
+   *          The column coordinate
    * @return The piece at the given position if there is one, null otherwise
    */
   public PlacedPiece getPieceAtLocation(int row, int col) {
-    for(PlacedPiece p : pieces) {
-      if(p.intersects(row, col)) {
+    for (PlacedPiece p : pieces) {
+      if (p.intersects(row, col)) {
         return p;
       }
     }
@@ -122,12 +135,15 @@ public abstract class Board implements java.io.Serializable {
 
   /**
    * Test if the given piece would intersect a piece on the board
-   * @param piece The piece to test intersection for
-   * @return true if the piece intersects another piece on the board, false otherwise.
+   *
+   * @param piece
+   *          The piece to test intersection for
+   * @return true if the piece intersects another piece on the board, false
+   *         otherwise.
    */
   public boolean intersects(PlacedPiece piece) {
-    for(PlacedPiece p : pieces) {
-      if(piece.intersects(p)) {
+    for (PlacedPiece p : pieces) {
+      if (piece.intersects(p)) {
         return true;
       }
     }
@@ -137,21 +153,29 @@ public abstract class Board implements java.io.Serializable {
 
   /**
    * Gets all the pieces currently on the board
+   *
    * @return The list of pieces on the board.
    */
-  public ArrayList<PlacedPiece> getPieces() { return pieces; }
+  public ArrayList<PlacedPiece> getPieces() {
+    return pieces;
+  }
 
   /**
    * Gets the list of hints currently on the board
+   *
    * @return The list of hints on the board.
    */
-  public ArrayList<PlacedPiece> getHints() { return hints; }
+  public ArrayList<PlacedPiece> getHints() {
+    return hints;
+  }
 
   /**
-   * Gets the state of all squares in the board. A square will be null if no square is there
+   * Gets the state of all squares in the board. A square will be null if no
+   * square is there
+   *
    * @return A two dimensional array representing the current state of the board
    */
-  public Square[][] assembleSquares(){
+  public Square[][] assembleSquares() {
     Square[][] squares = new Square[SIZE][SIZE];
     for (PlacedPiece piece : hints){
       for(Square s : piece.getSquaresInBoardFrame())
@@ -183,7 +207,7 @@ public abstract class Board implements java.io.Serializable {
     return count;
   }
 
-  public boolean[][] getSquares(){
+  public boolean[][] getSquares() {
     return squares;
   }
 
@@ -201,6 +225,39 @@ public abstract class Board implements java.io.Serializable {
       for (int j = 0; j < SIZE; ++j) {
         dest.squares[i][j] = src.squares[i][j];
       }
+    }
+  }
+
+  public static class BoardLogic {
+    boolean canRemovePieces;
+    boolean peristentPieces;
+
+    public static BoardLogic editorLogic() {
+      BoardLogic b = new BoardLogic();
+      b.canRemovePieces = true;
+      b.peristentPieces = true;
+      return b;
+    }
+
+    public static BoardLogic puzzleLogic() {
+      BoardLogic b = new BoardLogic();
+      b.canRemovePieces = true;
+      b.peristentPieces = true;
+      return b;
+    }
+
+    public static BoardLogic lightningLogic() {
+      BoardLogic b = new BoardLogic();
+      b.canRemovePieces = false;
+      b.peristentPieces = false;
+      return b;
+    }
+
+    public static BoardLogic releaseLogic() {
+      BoardLogic b = new BoardLogic();
+      b.canRemovePieces = false;
+      b.peristentPieces = true;
+      return b;
     }
   }
 }
