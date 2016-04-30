@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.jfoenix.effects.JFXDepthManager;
 
 import aeneas.models.Bullpen;
+import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 
@@ -32,14 +33,14 @@ public class BullpenView {
     bullpenBox.setAlignment(Pos.TOP_CENTER);
   }
 
-  public void refresh(Model model, Bullpen bullpen) {
+  public void refresh(Level level, Bullpen bullpen) {
 
     bullpenBox.getChildren().clear();
 
     for (int i=bullpen.getPieces().size() - 1; i >= 0; i-- ) {
       Piece piece = bullpen.getPieces().get(i);
       Pane piecePane = new Pane();
-      PieceView pieceView = new PieceView(levelView, piece, model, SQUARE_SIZE);
+      PieceView pieceView = new PieceView(levelView, piece, level, SQUARE_SIZE);
       piecePane.getChildren().add(pieceView);
       values.add(piecePane);
       bullpenBox.getChildren().add(piecePane);

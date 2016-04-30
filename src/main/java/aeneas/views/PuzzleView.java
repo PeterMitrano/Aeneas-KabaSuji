@@ -1,5 +1,7 @@
 package aeneas.views;
 
+import aeneas.controllers.IMove;
+import aeneas.controllers.SetMovesMove;
 import aeneas.models.PuzzleLevel;
 
 import javafx.geometry.Pos;
@@ -14,17 +16,25 @@ public class PuzzleView extends LevelView {
 
   private Spinner<Integer> movesSelect;
   private Label movesLabel;
+  private PuzzleLevel level;
+  
+  private boolean isUserInput = true;
 
   public PuzzleView(PuzzleLevel levelModel){
     super(levelModel);
 
+    level = levelModel;
     movesLabel = new Label("Moves");
     movesSelect = new Spinner<Integer>(1, 20, 10);
     movesSelect.setPrefWidth(70);
     movesSelect.setEditable(true);
     movesSelect.getValueFactory().setValue(levelModel.getAllowedMoves());
     movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
-      levelModel.setAllowedMoves(new_value);
+      if(!isUserInput) return;
+      IMove move = new SetMovesMove(levelModel, new_value);
+      if(move.execute()){
+        levelModel.addNewMove(move);
+      }
     });
 
     HBox hbox = new HBox();
@@ -41,6 +51,13 @@ public class PuzzleView extends LevelView {
   @Override
   public RadioButton getButton() {
     return PuzzleView.button;
+  }
+
+  @Override
+  public void updateValues(){
+    isUserInput = false;
+    movesSelect.getValueFactory().setValue(level.getAllowedMoves());
+    isUserInput = true;
   }
 
 }

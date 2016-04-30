@@ -36,14 +36,11 @@ public class Model {
 
   Level activeLevel;
   ArrayList<Achievement> achievements;
-  Stack<IMove> undoStack;
-  Stack<IMove> redoStack;
+
 
   public Model() {
     levelMetadata = new HashMap<>();
     achievements = new ArrayList<>();
-    undoStack = new Stack<IMove>();
-    redoStack = new Stack<IMove>();
     index = new LevelIndex();
 
     levelMetadata.put(1, new Level.Metadata(0, false));
@@ -115,55 +112,6 @@ public class Model {
     }
   }
 
-  /**
-   * Undoes the most recently made move, if possible
-   * @return true if undo was successful, false otherwise
-   */
-  public boolean undoLastMove() {
-    if(undoStack.size() > 0) {
-      IMove m = undoStack.peek();
-      boolean success = m.undo();
-      if(success) {
-        undoStack.pop();
-        redoStack.add(m);
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * Redoes the most recently undone move, if possible
-   * @return true if redo was successful, false otherwise
-   */
-  public boolean redoLastMove() {
-    if(redoStack.size() > 0) {
-      IMove m = redoStack.peek();
-      boolean success = m.execute();
-      if(success) {
-        redoStack.pop();
-        undoStack.add(m);
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * Adds a new move to the undo stack.
-   * This will clear all moves in the redo stack
-   * @param move The move to be added
-   */
-  public void addNewMove(IMove move){
-    redoStack.clear();
-    undoStack.add(move);
-  }
 
   public void saveLevelMetadata(File file) throws IOException {
     try (FileOutputStream saveFile = new FileOutputStream(file);

@@ -34,4 +34,6 @@ public abstract class LevelView {
   }
 
   public abstract RadioButton getButton();
+  
+  public abstract void updateValues();
 }

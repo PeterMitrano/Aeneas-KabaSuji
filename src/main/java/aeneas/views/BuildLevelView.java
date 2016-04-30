@@ -95,6 +95,7 @@ public class BuildLevelView extends StackPane implements Initializable {
   private BullpenView bullpenView;
   private LevelView levelView;
   private Model model;
+  private UndoRedoController undoController;
 
   BuildLevelView(MainView mainView, LevelView levelView, Model model) {
     this.levelView = levelView;
@@ -112,8 +113,9 @@ public class BuildLevelView extends StackPane implements Initializable {
   }
 
   public void refreshAll(){
-    //boardView.refresh;
-    bullpenView.refresh(model, levelModel.getBullpen());
+    boardView.refresh();
+    bullpenView.refresh(levelModel, levelModel.getBullpen());
+    levelView.updateValues();
   }
 
   @Override
@@ -154,6 +156,11 @@ public class BuildLevelView extends StackPane implements Initializable {
         LevelView view = (LevelView) ((RadioButton) new_toggle).getUserData();
         this.levelModel = view.getLevelModel();
         this.settingsBox.getChildren().set(1, view.getPanel());
+        undoController = new UndoRedoController(this, levelModel);
+        mainView.setOnKeyPressed(undoController );
+        undoButton.setOnMouseClicked((e)-> {
+          undoController.undoMove();
+        });
       }
     });
 
@@ -164,19 +171,19 @@ public class BuildLevelView extends StackPane implements Initializable {
       piecesPane.getChildren().clear();
 
       for (Piece pieceModel : PieceFactory.getPieces()) {
-        PieceView pView = new PieceView((Pane) this, pieceModel, model, PIECE_PICKER_SQUARE_SIZE);
+        PieceView pView = new PieceView((Pane) this, pieceModel, levelModel, PIECE_PICKER_SQUARE_SIZE);
         piecesPane.getChildren().add(pView);
 
         pView.setOnMouseClicked((click) -> {
           IMove move = new AddPieceMove(levelModel.getBullpen(), pieceModel.clone());
           if (move.execute()){
-            model.addNewMove(move);
-            bullpenView.refresh(model, levelModel.getBullpen());
+            levelModel.addNewMove(move);
+            bullpenView.refresh(levelModel, levelModel.getBullpen());
           }
         });
       }
     });
-    UndoRedoController undoController = new UndoRedoController(this, model);
+    undoController = new UndoRedoController(this, levelModel);
     mainView.setOnKeyPressed(undoController );
     undoButton.setOnMouseClicked((e)-> {
       undoController.undoMove();

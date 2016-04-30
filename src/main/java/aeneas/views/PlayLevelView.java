@@ -86,7 +86,7 @@ public class PlayLevelView extends BorderPane implements Initializable {
         new Square(1, 1),
         new Square(1, 2), });
 
-    bullpenView.refresh(model, levelModel.getBullpen());
+    bullpenView.refresh(levelModel, levelModel.getBullpen());
 
 
 

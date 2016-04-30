@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Stack;
 
+import aeneas.controllers.IMove;
 import aeneas.views.LevelView;
 
 /**
@@ -19,6 +21,9 @@ public abstract class Level implements java.io.Serializable {
 
   transient int levelNumber;
   boolean prebuilt;
+  
+  transient Stack<IMove> undoStack;
+  transient Stack<IMove> redoStack;
 
   public int getLevelNumber() {
     return levelNumber;
@@ -50,6 +55,8 @@ public abstract class Level implements java.io.Serializable {
   public Level(Bullpen bullpen, boolean prebuilt) {
     this.bullpen = bullpen;
     this.prebuilt = prebuilt;
+    undoStack = new Stack<IMove>();
+    redoStack = new Stack<IMove>();
   }
 
   public Level(Bullpen bullpen) {
@@ -66,6 +73,8 @@ public abstract class Level implements java.io.Serializable {
     this.bullpen = src.bullpen;
     this.levelNumber = src.levelNumber;
     this.prebuilt = src.prebuilt;
+    undoStack = new Stack<IMove>();
+    redoStack = new Stack<IMove>();
   }
 
   /**
@@ -137,6 +146,56 @@ public abstract class Level implements java.io.Serializable {
 
   public ArrayList<Piece> getPieces() {
     return bullpen.pieces;
+  }
+  
+  /**
+   * Undoes the most recently made move, if possible
+   * @return true if undo was successful, false otherwise
+   */
+  public boolean undoLastMove() {
+    if(undoStack.size() > 0) {
+      IMove m = undoStack.peek();
+      boolean success = m.undo();
+      if(success) {
+        undoStack.pop();
+        redoStack.add(m);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Redoes the most recently undone move, if possible
+   * @return true if redo was successful, false otherwise
+   */
+  public boolean redoLastMove() {
+    if(redoStack.size() > 0) {
+      IMove m = redoStack.peek();
+      boolean success = m.execute();
+      if(success) {
+        redoStack.pop();
+        undoStack.add(m);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Adds a new move to the undo stack.
+   * This will clear all moves in the redo stack
+   * @param move The move to be added
+   */
+  public void addNewMove(IMove move){
+    redoStack.clear();
+    undoStack.add(move);
   }
 
   public abstract LevelView makeCorrespondingView();
