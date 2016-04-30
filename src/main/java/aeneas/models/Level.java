@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
-
+import aeneas.views.RefreshListener;
 import javafx.scene.control.RadioButton;
 
 /**
@@ -18,13 +18,10 @@ import javafx.scene.control.RadioButton;
  * @author Joseph Martin
  */
 public abstract class Level implements java.io.Serializable {
-  public interface LevelListener {
-    void refresh();
-  }
   
-  LevelListener listener;
+  RefreshListener listener;
   
-  public void setListener(LevelListener listener) {
+  public void setListener(RefreshListener listener) {
     this.listener = listener;
   }
   

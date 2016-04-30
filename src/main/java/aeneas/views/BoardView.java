@@ -41,10 +41,6 @@ public class BoardView extends GridPane implements PieceSource {
     public void squareDropped(int row, int col);
   }
 
-  public interface RefreshListener {
-    public void refresh();
-  }
-
   SquareView[][] grid = new SquareView[Board.SIZE][Board.SIZE];
   Board board;
   Model gameModel;

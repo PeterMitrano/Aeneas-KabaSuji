@@ -11,7 +11,6 @@ import com.jfoenix.controls.JFXButton;
 import aeneas.models.Level;
 import aeneas.models.LightningLevel;
 import aeneas.models.Model;
-import aeneas.views.BoardView.RefreshListener;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -28,7 +27,7 @@ import javafx.scene.layout.VBox;
  *
  * @author Joseph Martin
  */
-public class PlayLevelView extends BorderPane implements Initializable, RefreshListener, Level.LevelListener {
+public class PlayLevelView extends BorderPane implements Initializable, RefreshListener {
   int elapsedTime = 0;
   @FXML
   private JFXButton resetLevelButton;

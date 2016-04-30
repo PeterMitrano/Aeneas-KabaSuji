@@ -114,7 +114,7 @@ public class LightningLevel extends Level implements java.io.Serializable {
   public String getIconName() {
     return "BOLT";
   }
-  
+
   /**
    * Called when the level gets started.
    * In this case, starts the timer and keeps track of the
