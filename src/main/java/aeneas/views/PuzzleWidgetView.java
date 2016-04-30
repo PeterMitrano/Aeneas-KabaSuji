@@ -68,6 +68,13 @@ public class PuzzleWidgetView extends LevelWidgetView {
       return level;
     }
     this.level = new PuzzleLevel(level);
+    movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
+      if(!isUserInput) return;
+      IMove move = new SetMovesMove(this.level, new_value);
+      if(move.execute()){
+        level.addNewMove(move);
+      }
+    });
     updateValues();
     return this.level;
   }

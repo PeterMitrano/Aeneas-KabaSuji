@@ -80,6 +80,13 @@ public class LightningWidgetView extends LevelWidgetView {
 //    timeSelect.getValueFactory().setValue(this.level.getAllowedTime());
 //    controller = new SetTimeController();
 //    timeSelect.valueProperty().addListener(controller);
+    timeSelect.valueProperty().addListener((observer, old_value, new_value) -> {
+      if(!isUserInput) return;
+      IMove move = new SetTimeMove(this.level, new_value);
+      if(move.execute()){
+        level.addNewMove(move);
+      }
+    });
     updateValues();
     return this.level;
   }

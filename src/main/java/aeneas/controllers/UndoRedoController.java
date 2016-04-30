@@ -49,5 +49,9 @@ public class UndoRedoController implements EventHandler<KeyEvent> {
     }
 
   }
+  
+  public void setLevel(Level level){
+    this.level = level;
+  }
 
 }

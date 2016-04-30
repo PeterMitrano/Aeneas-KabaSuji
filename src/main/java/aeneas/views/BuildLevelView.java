@@ -110,6 +110,7 @@ public class BuildLevelView extends StackPane implements Initializable {
   private ArrayList<LevelWidgetView> levelViews;
   private Model model;
   private UndoRedoController undoController;
+  private boolean isRefreshing = false;
 
   BuildLevelView(MainView mainView, ArrayList<LevelWidgetView> levelViews, Level level, Model model) {
     this.levelView = level.makeCorrespondingView(model);
@@ -127,32 +128,20 @@ public class BuildLevelView extends StackPane implements Initializable {
     }
   }
 
-  public void refreshAll(){
-    boardView.refresh();
-    bullpenView.refresh();
-    levelView.updateValues();
-  }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.boardView = new BoardView((Pane)this, model, model.getActiveLevel() ,model.getActiveLevel().getBoard());
     this.bullpenView = new BullpenView(model, bullpenBox, model.getActiveLevel(), (Pane) this);
     bullpenView.refresh();
+    undoController = new UndoRedoController(this, model.getActiveLevel());
 
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
 
-    rowSpinner.valueProperty().addListener(new BoardSizeController(model.getActiveLevel(), this));
-    columnSpinner.valueProperty().addListener(new BoardSizeController(model.getActiveLevel(), this));
-
-    undoButton.setOnMouseClicked((e) -> {
-      new UndoRedoController(this, model.getActiveLevel()).undoMove();
-    });
-
-    redoButton.setOnMouseClicked((e) -> {
-      new UndoRedoController(this, model.getActiveLevel()).redoMove();
-    });
+    rowSpinner.valueProperty().addListener(new BoardSizeController(this));
+    columnSpinner.valueProperty().addListener(new BoardSizeController(this));
 
     saveButton.setOnMouseClicked((e) -> {
       File saveFile = mainView.showSaveDialog();
@@ -187,6 +176,7 @@ public class BuildLevelView extends StackPane implements Initializable {
         if (move.execute()) model.getActiveLevel().addNewMove(move);
         this.settingsBox.getChildren().set(1, view.getPanel());
         this.levelView = view;
+        this.undoController.setLevel(model.getActiveLevel());
       }
     });
 
@@ -223,7 +213,7 @@ public class BuildLevelView extends StackPane implements Initializable {
         });
       }
     });
-    undoController = new UndoRedoController(this, model.getActiveLevel());
+
     mainView.setOnKeyPressed(undoController );
     undoButton.setOnMouseClicked((e)-> {
       undoController.undoMove();
@@ -234,13 +224,15 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   }
 
-  public void refresh() {
+  public void refreshAll() {
     boardView.refresh();
     bullpenView.refresh();
     this.levelType.selectToggle(model.getActiveLevel().getButton());
     this.levelView = (LevelWidgetView)levelType.getSelectedToggle().getUserData();
     this.levelView.updateValues();
   }
+
+  public boolean isRefreshing(){return isRefreshing;}
 
   public Spinner<Integer> getRowSpinner() {
     return rowSpinner;

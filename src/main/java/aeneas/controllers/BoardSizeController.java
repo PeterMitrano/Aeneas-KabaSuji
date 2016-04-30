@@ -11,16 +11,16 @@ import javafx.scene.control.Spinner;
 
 public class BoardSizeController implements ChangeListener<Integer> {
 
-  private Level level;
+
   private BuildLevelView view;
 
-  public BoardSizeController(Level level, BuildLevelView view) {
-    this.level = level;
+  public BoardSizeController( BuildLevelView view) {
     this.view = view;
   }
 
   public void changed(ObservableValue<? extends Integer> observable,
       Integer oldValue, Integer newValue) {
+    if(view.isRefreshing()) return;
     Spinner<Integer> rowSpin = view.getRowSpinner();
     Spinner<Integer> colSpin = view.getColumnSpinner();
     Spinner<Integer> changed = (Spinner<Integer>)((ReadOnlyObjectWrapper)observable).getBean();
@@ -30,7 +30,7 @@ public class BoardSizeController implements ChangeListener<Integer> {
     else oldCol = oldValue;
     IMove move = new SetSizeMove(view.getLevelModel(), rowSpin.getValue(), colSpin.getValue(),
                                  oldRow, oldCol);
-    if (move.execute()) level.addNewMove(move);
-    view.refresh();
+    if (move.execute()) view.getLevelModel().addNewMove(move);
+    view.refreshAll();
   }
 }

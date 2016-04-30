@@ -82,6 +82,13 @@ public class ReleaseWidgetView extends LevelWidgetView {
       return level;
     }
     this.level = new ReleaseLevel(level);
+    movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
+      if(!isUserInput) return;
+      IMove move = new SetMovesMove(this.level, new_value);
+      if(move.execute()){
+        level.addNewMove(move);
+      }
+    });
     updateValues();
     return this.level;
   }
