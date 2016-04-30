@@ -115,31 +115,6 @@ public class LightningLevel extends Level implements java.io.Serializable {
     return "BOLT";
   }
 
-  /**
-   * Called when the level gets started.
-   * In this case, starts the timer and keeps track of the
-   * pieces that started in the Bullpen (for resetting the level).
-   */
-  @Override
-  public void start() {
-    super.start();
-    if (timer != null) timer.cancel();
-    timer = new Timer();
-    this.started = true;
-    startPieces = (ArrayList<Piece>)this.bullpen.getPieces().clone();
-    timer.scheduleAtFixedRate(new TimerTask() {
-      @Override
-      public void run() {
-        elapsedTime++;
-        System.out.println("tick "+elapsedTime+"/"+allowedTime);
-        if(elapsedTime >= allowedTime) {
-          System.out.println("Time is up");
-          timer.cancel();
-        }
-      }
-    }, 1000, 1000);
-  }
-
   @Override
   public String getCountdownText() {
     return "Time Remaining: " + (allowedTime - elapsedTime);
