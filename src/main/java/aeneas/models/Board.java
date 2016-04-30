@@ -100,7 +100,6 @@ public abstract class Board implements java.io.Serializable {
     if (intersects(piece))
       return false;
     // Otherwise placement is valid
-    pieces.add(piece);
     return true;
   }
 
