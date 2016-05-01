@@ -73,8 +73,8 @@ public abstract class Level implements java.io.Serializable {
     this.bullpen = src.bullpen;
     this.levelNumber = src.levelNumber;
     this.prebuilt = src.prebuilt;
-    undoStack = new Stack<IMove>();
-    redoStack = new Stack<IMove>();
+    undoStack = src.undoStack;
+    redoStack = src.redoStack;
   }
 
   /**
