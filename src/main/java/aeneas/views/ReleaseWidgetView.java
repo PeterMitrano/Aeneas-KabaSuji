@@ -8,17 +8,29 @@ import aeneas.controllers.SetMovesMove;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.ReleaseLevel;
+import aeneas.models.ReleaseNumber;
+import aeneas.models.Square;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
+import javafx.scene.image.Image;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
 public class ReleaseWidgetView extends LevelWidgetView {
@@ -40,7 +52,10 @@ public class ReleaseWidgetView extends LevelWidgetView {
     Label releaseNumLabel = new Label("5");
     releaseNumLabel.setTextAlignment(TextAlignment.CENTER);
     releaseNumLabel.setPadding(new Insets(8,8,8,8));
-    releaseNumLabel.setStyle("-fx-background-radius:10%;-fx-background-color:#4C9689");
+    releaseNumLabel.setBackground(new Background(
+          new BackgroundFill(Color.WHITE,
+            new CornerRadii(2, false),
+            new Insets(0,0,0,0))));
     JFXDepthManager.setDepth(releaseNumLabel,1);
 
     FontAwesomeIconView upArrowGlyph = new FontAwesomeIconView();
@@ -118,6 +133,35 @@ public class ReleaseWidgetView extends LevelWidgetView {
     panel.getChildren().add(box);
 
     button.setUserData(this);
+
+    colorSelect.valueProperty().addListener((observer, old_color, new_color) -> {
+      releaseNumLabel.setBackground(new Background(
+            new BackgroundFill(new_color,
+              new CornerRadii(2, false),
+              new Insets(0,0,0,0))));
+    });
+
+    releaseNumLabel.setOnDragDetected((MouseEvent event) -> {
+      Dragboard db = releaseNumLabel.startDragAndDrop(TransferMode.MOVE);
+      ClipboardContent content = new ClipboardContent();
+      Integer num = Integer.parseInt(releaseNumLabel.getText());
+      ReleaseNumber releaseNum = new ReleaseNumber(-1, -1, colorSelect.getValue(), num);
+      content.put(ReleaseNumber.dataFormat, releaseNum);
+      content.putString();
+      db.setContent(content);
+
+      SnapshotParameters snapshotParameters = new SnapshotParameters();
+      snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle this
+
+      Square square = new Square(-1, -1, releaseNum);
+      SquareView releaseNumView = new SquareView(BoardView.SQUARE_SIZE, square);
+
+      Image snapshotImage = releaseNumView.snapshot(snapshotParameters, null);
+      db.setDragView(snapshotImage);
+
+      event.consume();
+    });
+
   }
 
   @Override
