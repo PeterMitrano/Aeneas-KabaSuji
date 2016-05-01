@@ -62,7 +62,7 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
 
   PlayLevelView(Level levelModel, Model model, MainView mainView) {
     this.levelModel = levelModel;
-    levelModel.setListener(this);
+    levelModel.setRefreshListener(this);
     this.model = model;
     this.mainView = mainView;
     try {

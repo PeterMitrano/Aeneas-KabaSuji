@@ -21,7 +21,7 @@ public abstract class Level implements java.io.Serializable {
   
   RefreshListener listener;
   
-  public void setListener(RefreshListener listener) {
+  public void setRefreshListener(RefreshListener listener) {
     this.listener = listener;
   }
   
