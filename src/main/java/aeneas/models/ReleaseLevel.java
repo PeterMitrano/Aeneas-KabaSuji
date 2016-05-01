@@ -78,8 +78,11 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   public ReleaseLevel(Level src) {
     super(src);
-    this.bullpen.logic = BullpenLogic.releaseLogic();
     this.board = new ReleaseBoard(src.getBoard());
+    if (src.bullpen.logic.equals(BullpenLogic.editorLogic()))
+      this.bullpen.logic = BullpenLogic.editorLogic();
+    else
+      this.bullpen.logic = BullpenLogic.releaseLogic();
   }
 
   @Override
