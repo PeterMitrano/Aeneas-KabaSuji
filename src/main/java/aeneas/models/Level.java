@@ -11,7 +11,7 @@ import java.util.Stack;
 import aeneas.controllers.IMove;
 import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
-
+import aeneas.views.RefreshListener;
 import javafx.scene.control.RadioButton;
 
 /**
@@ -19,6 +19,13 @@ import javafx.scene.control.RadioButton;
  * @author Joseph Martin
  */
 public abstract class Level implements java.io.Serializable {
+  
+  RefreshListener listener;
+  
+  public void setRefreshListener(RefreshListener listener) {
+    this.listener = listener;
+  }
+  
   Bullpen bullpen;
 
   transient int levelNumber;

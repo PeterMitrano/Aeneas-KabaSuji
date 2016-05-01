@@ -30,7 +30,6 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
   static final int SQUARE_SIZE = 14;
   private String baseStyle = "-fx-padding:10px;";
 
-  ArrayList<Pane> values = new ArrayList<Pane>();
   private PieceView pieceBeingDragged = null;
 
   public BullpenView(Model model, VBox bullpenBox, Pane levelView) {
@@ -86,7 +85,6 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
       PieceView pieceView = new PieceView(levelView, piece,  model.getActiveLevel(), SQUARE_SIZE);
       pieceView.setOnChildDraggedListener(this);
       piecePane.getChildren().add(pieceView);
-      values.add(piecePane);
       bullpenBox.getChildren().add(piecePane);
     }
   }
