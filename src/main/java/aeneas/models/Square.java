@@ -19,12 +19,12 @@ public class Square implements java.io.Serializable {
     this.color = color.toString();
   }
 
-  public Square(int dRow,int dCol, ReleaseNumber num){
-    this(dRow, dCol, num, num.getColor());
-  }
-
   public Square(int dRow, int dCol, Color color){
     this(dRow, dCol,null, color);
+  }
+
+  public Square(int dRow, int dCol, ReleaseNumber num) {
+    this(dRow, dCol, num, Color.GRAY);
   }
 
   public Square(int dRow, int dCol) {

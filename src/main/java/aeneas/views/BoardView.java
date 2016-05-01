@@ -31,8 +31,9 @@ import javafx.scene.paint.Color;
  */
 public class BoardView extends GridPane implements DragSource {
 
-  /** Specifies
-how many pixels the squares of a piece on the board will be */
+  /**
+   * Specifies how many pixels the squares of a piece on the board will be
+   */
   static final int SQUARE_SIZE = 40;
 
   public interface SquareClickListener {
@@ -74,13 +75,14 @@ how many pixels the squares of a piece on the board will be */
     initializeSquares();
 
     this.setOnDragDetected((event) -> {
-      PlacedPiece draggedPiece = this.gameModel.getActiveLevel().getBoard().getPieceAtLocation(dragDropRow, dragDropCol);
+      PlacedPiece draggedPiece = this.gameModel.getActiveLevel().getBoard()
+          .getPieceAtLocation(dragDropRow, dragDropCol);
 
       // check there's a piece at the location
       if (draggedPiece != null) {
         Piece pieceModel = draggedPiece.getPiece();
 
-        //remove the piece from the board
+        // remove the piece from the board
         this.gameModel.getActiveLevel().getBoard().removePiece(draggedPiece);
         this.pieceBeingDragged = draggedPiece;
         model.setLatestDragSource(this);
@@ -93,15 +95,12 @@ how many pixels the squares of a piece on the board will be */
         content.put(DragType.dataFormat, DragType.Type.Piece);
         db.setContent(content);
 
-        SnapshotParameters snapshotParameters = new SnapshotParameters();
-        snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle this
-
         // create a new piece view just for the dragging so it can have a
         // different size
-        PieceView fullSizedPieceView = new PieceView(levelPane, pieceModel, model.getActiveLevel(), BoardView.SQUARE_SIZE);
+        PieceView fullSizedPieceView = new PieceView(levelPane, pieceModel,
+            model.getActiveLevel(), BoardView.SQUARE_SIZE);
 
-        Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters,
-            null);
+        Image snapshotImage = fullSizedPieceView.snapshot(null, null);
         db.setDragView(snapshotImage);
 
         event.consume();
@@ -132,8 +131,8 @@ how many pixels the squares of a piece on the board will be */
         releaseNum.setRow(dragDropRow);
         releaseNum.setCol(dragDropCol);
 
-        move = new AddNumMove((ReleaseLevel) gameModel.getActiveLevel(), releaseNum,
-            dragDropRow, dragDropCol);
+        move = new AddNumMove((ReleaseLevel) gameModel.getActiveLevel(),
+            releaseNum, dragDropRow, dragDropCol);
         break;
       }
 
@@ -161,7 +160,8 @@ how many pixels the squares of a piece on the board will be */
   }
 
   private void initializeSquares() {
-    Square[][] squares = this.gameModel.getActiveLevel().getBoard().assembleSquares();
+    Square[][] squares = this.gameModel.getActiveLevel().getBoard()
+        .assembleSquares();
     for (int row = 0; row < Board.MAX_SIZE; row++) {
       for (int col = 0; col < Board.MAX_SIZE; col++) {
         grid[row][col] = new SquareView(SQUARE_SIZE, squares[row][col]);
@@ -217,7 +217,8 @@ how many pixels the squares of a piece on the board will be */
    * Refreshes the view to match the current state of the board
    */
   public void refresh() {
-    Square[][] squares = this.gameModel.getActiveLevel().getBoard().assembleSquares();
+    Square[][] squares = this.gameModel.getActiveLevel().getBoard()
+        .assembleSquares();
     for (int row = 0; row < Board.MAX_SIZE; row++) {
       for (int col = 0; col < Board.MAX_SIZE; col++) {
         grid[row][col].refresh(squares[row][col]);

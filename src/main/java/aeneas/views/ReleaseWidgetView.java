@@ -11,9 +11,7 @@ import aeneas.models.Model;
 import aeneas.models.ReleaseLevel;
 import aeneas.models.ReleaseNumber;
 import aeneas.models.Square;
-
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
@@ -52,12 +50,10 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
 
     Label releaseNumLabel = new Label("5");
     releaseNumLabel.setTextAlignment(TextAlignment.CENTER);
-    releaseNumLabel.setPadding(new Insets(8,8,8,8));
-    releaseNumLabel.setBackground(new Background(
-          new BackgroundFill(Color.WHITE,
-            new CornerRadii(2, false),
-            new Insets(0,0,0,0))));
-    JFXDepthManager.setDepth(releaseNumLabel,1);
+    releaseNumLabel.setPadding(new Insets(8, 8, 8, 8));
+    releaseNumLabel.setBackground(new Background(new BackgroundFill(Color.WHITE,
+        new CornerRadii(2, false), new Insets(0, 0, 0, 0))));
+    JFXDepthManager.setDepth(releaseNumLabel, 1);
 
     FontAwesomeIconView upArrowGlyph = new FontAwesomeIconView();
     upArrowGlyph.setGlyphName("ARROW_UP");
@@ -68,41 +64,43 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
     downArrowGlyph.setGlyphSize(8);
 
     Button upReleaseNumButton = new Button();
-    upReleaseNumButton.setPrefSize(15,5);
+    upReleaseNumButton.setPrefSize(15, 5);
     upReleaseNumButton.setGraphic(upArrowGlyph);
-    upReleaseNumButton.setPadding(new Insets(0,0,0,0));
+    upReleaseNumButton.setPadding(new Insets(0, 0, 0, 0));
     upReleaseNumButton.setStyle("-fx-background-color:WHITE");
-    JFXDepthManager.setDepth(upReleaseNumButton,1);
+    JFXDepthManager.setDepth(upReleaseNumButton, 1);
     upReleaseNumButton.setOnMouseClicked((e) -> {
       Integer i = Integer.parseInt(releaseNumLabel.getText());
-      if (i < 10){
-        releaseNumLabel.setText(String.valueOf(i+1));
+      if (i < 6) {
+        releaseNumLabel.setText(String.valueOf(i + 1));
       }
     });
 
     Button downReleaseNumButton = new Button();
-    downReleaseNumButton.setPrefSize(15,5);
+    downReleaseNumButton.setPrefSize(15, 5);
     downReleaseNumButton.setGraphic(downArrowGlyph);
-    downReleaseNumButton.setPadding(new Insets(0,0,0,0));
+    downReleaseNumButton.setPadding(new Insets(0, 0, 0, 0));
     downReleaseNumButton.setStyle("-fx-background-color:WHITE");
-    JFXDepthManager.setDepth(downReleaseNumButton,1);
+    JFXDepthManager.setDepth(downReleaseNumButton, 1);
     downReleaseNumButton.setOnMouseClicked((e) -> {
       Integer i = Integer.parseInt(releaseNumLabel.getText());
-      if (i > 0) {
-        releaseNumLabel.setText(String.valueOf(i-1));
+      if (i > 1) {
+        releaseNumLabel.setText(String.valueOf(i - 1));
       }
     });
 
     movesSelect.setPrefWidth(70);
     movesSelect.setEditable(true);
     movesSelect.getValueFactory().setValue(levelModel.getAllowedMoves());
-    movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
-      if(!isUserInput) return;
-      IMove move = new SetMovesMove(level, new_value);
-      if(move.execute()){
-        level.addNewMove(move);
-      }
-    });
+    movesSelect.valueProperty()
+        .addListener((observer, old_value, new_value) -> {
+          if (!isUserInput)
+            return;
+          IMove move = new SetMovesMove(level, new_value);
+          if (move.execute()) {
+            level.addNewMove(move);
+          }
+        });
 
     VBox box = new VBox();
     box.setSpacing(4);
@@ -135,37 +133,36 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
 
     button.setUserData(this);
 
-    colorSelect.valueProperty().addListener((observer, old_color, new_color) -> {
-      releaseNumLabel.setBackground(new Background(
-            new BackgroundFill(new_color,
-              new CornerRadii(2, false),
-              new Insets(0,0,0,0))));
-    });
+    colorSelect.valueProperty()
+        .addListener((observer, old_color, new_color) -> {
+          releaseNumLabel.setTextFill(new_color);
+        });
 
     releaseNumLabel.setOnDragDetected((MouseEvent event) -> {
       Dragboard db = releaseNumLabel.startDragAndDrop(TransferMode.MOVE);
       ClipboardContent content = new ClipboardContent();
 
       Integer num = Integer.parseInt(releaseNumLabel.getText());
-      ReleaseNumber releaseNum = new ReleaseNumber(-1, -1, colorSelect.getValue(), num);
+      ReleaseNumber releaseNum = new ReleaseNumber(-1, -1,
+          colorSelect.getValue(), num);
 
       content.put(ReleaseNumber.dataFormat, releaseNum);
       content.put(DragType.dataFormat, DragType.Type.ReleaseNum);
 
       db.setContent(content);
 
-      //allows the drop to check where this came from
+      // allows the drop to check where this came from
       model.setLatestDragSource(this);
+
+      Square square = new Square(-1, -1, releaseNum, colorSelect.getValue());
+      SquareView releaseNumView = new SquareView(BoardView.SQUARE_SIZE, square);
 
       SnapshotParameters snapshotParameters = new SnapshotParameters();
       snapshotParameters.setFill(Color.WHITE); // i3 doesn't handle this
-
-      Square square = new Square(-1, -1, releaseNum);
-      SquareView releaseNumView = new SquareView(BoardView.SQUARE_SIZE, square);
-
+      
       Image snapshotImage = releaseNumView.snapshot(snapshotParameters, null);
       db.setDragView(snapshotImage);
-
+      
       event.consume();
     });
 
@@ -177,7 +174,7 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
   }
 
   @Override
-  public void updateValues(){
+  public void updateValues() {
     isUserInput = false;
     getButton().setSelected(true);
     movesSelect.getValueFactory().setValue(level.getAllowedMoves());
@@ -191,13 +188,15 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
       return level;
     }
     this.level = new ReleaseLevel(level);
-    movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
-      if(!isUserInput) return;
-      IMove move = new SetMovesMove(this.level, new_value);
-      if(move.execute()){
-        level.addNewMove(move);
-      }
-    });
+    movesSelect.valueProperty()
+        .addListener((observer, old_value, new_value) -> {
+          if (!isUserInput)
+            return;
+          IMove move = new SetMovesMove(this.level, new_value);
+          if (move.execute()) {
+            level.addNewMove(move);
+          }
+        });
     updateValues();
     return this.level;
   }
