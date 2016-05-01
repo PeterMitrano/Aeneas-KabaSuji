@@ -13,12 +13,12 @@ import javafx.scene.input.KeyEvent;
 // TODO: Figure out correct type of Event.
 public class UndoRedoController implements EventHandler<KeyEvent> {
 
-  Level level;
+  Model model;
   BuildLevelView view;
 
-  public UndoRedoController(BuildLevelView view, Level level){
-    this.level = level;
+  public UndoRedoController(BuildLevelView view, Model model){
     this.view = view;
+    this.model = model;
   }
 
   @Override
@@ -35,7 +35,7 @@ public class UndoRedoController implements EventHandler<KeyEvent> {
    * Undoes a single move if possible
    */
   public void undoMove(){
-    if(level.undoLastMove()){
+    if(model.getActiveLevel().undoLastMove()){
       view.refreshAll();
     }
   }
@@ -44,14 +44,11 @@ public class UndoRedoController implements EventHandler<KeyEvent> {
    * redoes a single move if possible
    */
   public void redoMove(){
-    if(level.redoLastMove()){
+    if(model.getActiveLevel().redoLastMove()){
       view.refreshAll();
     }
 
   }
   
-  public void setLevel(Level level){
-    this.level = level;
-  }
 
 }

@@ -87,8 +87,10 @@ public class TestBoard {
   @Test
   public void testToggleSquare() {
     Bullpen b = new Bullpen(BullpenLogic.editorLogic());
+    Model model = new Model();
     Level l = new PuzzleLevel(b);
-    IMove m = new ToggleTileMove(l, 0, 2);
+    model.setActiveLevel(l);
+    IMove m = new ToggleTileMove(model, 0, 2);
     boolean success = m.execute();
     assertTrue(success);
     assertFalse(l.getBoard().locationValid(new Square(0, 2)));

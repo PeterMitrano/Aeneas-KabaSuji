@@ -1,6 +1,7 @@
 package aeneas.controllers;
 import aeneas.models.Board;
 import aeneas.models.Level;
+import aeneas.models.Model;
 
 /**
  * Move action to toggle the state of a tile on the board
@@ -10,7 +11,7 @@ import aeneas.models.Level;
  * @author Joseph Martin
  */
 public class ToggleTileMove implements IMove {
-  Level level;
+  Model model;
 
   int row;
   int col;
@@ -22,8 +23,8 @@ public class ToggleTileMove implements IMove {
    * @param row The row of tile to toggle
    * @param col The column of tile to toggle
    */
-  public ToggleTileMove(Level level, int row, int col) {
-    this.level = level;
+  public ToggleTileMove(Model model, int row, int col) {
+    this.model = model;
     this.row = row;
     this.col = col;
   }
@@ -31,7 +32,7 @@ public class ToggleTileMove implements IMove {
   @Override
   public boolean execute() {
     if(!isValid()) return false;
-    boolean[][] squares = level.getBoard().getSquares();
+    boolean[][] squares = model.getActiveLevel().getBoard().getSquares();
     squares[row][col] = !squares[row][col];
     return true;
   }

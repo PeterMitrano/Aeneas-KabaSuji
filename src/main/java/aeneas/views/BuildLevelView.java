@@ -134,7 +134,7 @@ public class BuildLevelView extends StackPane implements Initializable {
     this.boardView = new BoardView((Pane)this, model);
     this.bullpenView = new BullpenView(model, bullpenBox, (Pane) this);
     bullpenView.refresh();
-    undoController = new UndoRedoController(this, model.getActiveLevel());
+    undoController = new UndoRedoController(this, model);
 
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
@@ -176,14 +176,13 @@ public class BuildLevelView extends StackPane implements Initializable {
         if (move.execute()) model.getActiveLevel().addNewMove(move);
         this.settingsBox.getChildren().set(1, view.getPanel());
         this.levelView = view;
-        this.undoController.setLevel(model.getActiveLevel());
       }
     });
 
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
 
     boardView.setSquareClickListener((row, col) -> {
-      IMove m = new ToggleTileMove(model.getActiveLevel(), row, col);
+      IMove m = new ToggleTileMove(model, row, col);
       if (m.isValid()) {
         m.execute();
         model.getActiveLevel().addNewMove(m);
