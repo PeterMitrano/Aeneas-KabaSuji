@@ -28,17 +28,17 @@ public class LevelGenerator {
     levels.add(newRelease(16, new int[] { 0, 1, 2, 3, 2 }));
 
     levels.add(newPuzzle(30,
-        new int[] { 4, 2, 12, 2, 2, 10, 3, 5, 14, 12, 11, 6, 7, 5, 5, 10, 12,
-            15, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 12, 14, 3,
+        new int[] { 4, 0, 12, 2, 30, 10, 23, 5, 14, 22, 11, 6, 7, 24, 5, 10, 12,
+            15, 1, 21, 2, 3, 4, 5, 8, 7, 28, 29, 10, 34, 12, 13, 14, 15, 12, 14, 27,
             2, 5 }));
     levels.add(newLightning(85, new int[] { 2, 0, 1, 10, 14 }));
     levels.add(newRelease(12, new int[] { 4, 2, 12, 2, 2 }));
 
     levels
         .add(newPuzzle(30,
-            new int[] { 10, 11, 2, 14, 2, 1, 5, 2, 6, 3, 4, 7, 5, 6, 7, 12, 8,
-                1, 9, 14, 1, 4, 2, 6, 5, 2, 5, 12, 6, 4, 12, 4, 3, 4, 12, 12,
-                12 }));
+            new int[] { 10, 11, 2, 14, 22, 21, 0, 2, 6, 3, 4, 27, 5, 26, 7, 12, 8,
+                1, 9, 14, 1, 4, 0, 6, 25, 2, 0, 12, 6, 4, 12, 4, 23, 24, 12, 12,
+                12, 31, 34}));
     levels.add(newLightning(80, new int[] { 1, 6, 4, 11, 13 }));
     levels.add(newRelease(12, new int[] { 10, 11, 2, 14, 2 }));
 
@@ -57,38 +57,33 @@ public class LevelGenerator {
   }
 
   private static ReleaseLevel newRelease(int moves, int[] pieceIndeces) {
-    Piece[] pieces = PieceFactory.getPieces();
-    ArrayList<ReleaseNumber> numbers = new ArrayList<ReleaseNumber>();
-    numbers.add(new ReleaseNumber(4, 4, ReleaseNumber.color1, 2));
-    ReleaseBoard board = new ReleaseBoard(numbers);
     Bullpen bullpen = new Bullpen(BullpenLogic.releaseLogic());
-    for (int i : pieceIndeces) {
-      bullpen.addPiece(pieces[i]);
-    }
-    ReleaseLevel l = new ReleaseLevel(bullpen, board);
+    addPieces(bullpen, pieceIndeces);
+    ReleaseLevel l = new ReleaseLevel(bullpen);
     l.setAllowedMoves(moves);
     return l;
   }
 
   private static LightningLevel newLightning(int time, int[] pieceIndeces) {
-    Piece[] pieces = PieceFactory.getPieces();
     Bullpen bullpen = new Bullpen(BullpenLogic.lightningLogic());
-    for (int i : pieceIndeces) {
-      bullpen.addPiece(pieces[i]);
-    }
+    addPieces(bullpen, pieceIndeces);
     LightningLevel l = new LightningLevel(bullpen, time);
     return l;
   }
 
   private static PuzzleLevel newPuzzle(int moves, int[] pieceIndeces) {
-    Piece[] pieces = PieceFactory.getPieces();
     Bullpen bullpen = new Bullpen(BullpenLogic.puzzleLogic());
-    for (int i : pieceIndeces) {
-      bullpen.addPiece(pieces[i]);
-    }
+    addPieces(bullpen, pieceIndeces);
     PuzzleLevel l = new PuzzleLevel(bullpen, new PuzzleBoard());
     l.setAllowedMoves(moves);
     return l;
+  }
+
+  private static void addPieces(Bullpen bullpen, int[] pieceIndeces){
+    Piece[] pieces = PieceFactory.getPieces();
+    for (int i : pieceIndeces) {
+      bullpen.addPiece(pieces[i].clone());
+    }
   }
 
   private static void saveNewLevel(Level l) {
