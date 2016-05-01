@@ -53,8 +53,8 @@ public class PieceView extends GridPane {
    *          the view for the level in which this piece is displayed
    * @param pieceModel
    *          The Piece that this view displays
-   * @param model
-   *          The model that is being used
+   * @param level
+   *          The level that is being used
    * @param squareSize
    *          The size of a single square in the piece
    */

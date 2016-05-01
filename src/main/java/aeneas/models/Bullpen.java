@@ -17,6 +17,7 @@ public class Bullpen implements java.io.Serializable {
 
   /**
    * Set the logic.
+   * @param logic the logic to use for this bullpen
    */
   public void setLogic(BullpenLogic logic) { this.logic = logic; }
 

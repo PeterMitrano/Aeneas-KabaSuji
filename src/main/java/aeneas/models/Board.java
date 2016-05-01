@@ -216,6 +216,8 @@ public abstract class Board implements java.io.Serializable {
 
   /**
    * Copy common elements of two boards; used for clone() on the subclasses.
+   * @param src the board to get the data from
+   * @param dest the board to copy the data to
    */
   protected void copy(Board src, Board dest) {
     for (PlacedPiece piece : src.pieces) {
@@ -235,8 +237,8 @@ public abstract class Board implements java.io.Serializable {
   
   /**
    * Resizes the board
-   * @param row number of rows
-   * @param col number of columns
+   * @param rows number of rows
+   * @param cols number of columns
    */
   public void resizeBoard(int rows, int cols){
     

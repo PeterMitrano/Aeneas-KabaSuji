@@ -23,11 +23,9 @@ public class SetSizeMove implements IMove {
   /**
    * Constructor
    *
-   * @param level The level being edited.
+   * @param model The model being edited.
    * @param rows The number of rows to set the board to have (1-Board.SIZE).
    * @param cols The number of columns to set the board to have (1-Board.SIZE).
-   * @param old_rows The previous number of rows the board had.
-   * @param old_cols The previous number of columns the board had.
    */
   public SetSizeMove(Model model, int rows, int cols) {
     this.model = model;

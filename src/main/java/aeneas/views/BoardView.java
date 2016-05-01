@@ -58,9 +58,7 @@ public class BoardView extends GridPane implements PieceSource {
   /**
    * Initialized the board with grey squares
    *
-   * @param board
-   *          the board model object. Eventually this will model object will
-   *          describe which squares are active
+   * @param model the model object for the game
    */
   public BoardView(Pane levelPane, Model model) {
     clickListener = null;

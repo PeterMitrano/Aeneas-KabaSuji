@@ -19,7 +19,7 @@ public class ToggleTileMove implements IMove {
   /**
    * Constructor
    *
-   * @param level The level that is currently being edited
+   * @param model The model that is currently being edited
    * @param row The row of tile to toggle
    * @param col The column of tile to toggle
    */
