@@ -29,20 +29,21 @@ public class LevelGenerator {
 
     levels.add(newPuzzle(30,
         new int[] { 4, 0, 12, 2, 30, 10, 23, 5, 14, 22, 11, 6, 7, 24, 5, 10, 12,
-            15, 1, 21, 2, 3, 4, 5, 8, 7, 28, 29, 10, 34, 12, 13, 14, 15, 12, 14, 27,
-            2, 5 }));
+            15, 1, 21, 2, 3, 4, 5, 8, 7, 28, 29, 10, 34, 12, 13, 14, 15, 12, 14,
+            27, 2, 5 }));
     levels.add(newLightning(85, new int[] { 2, 0, 1, 10, 14 }));
     levels.add(newRelease(12, new int[] { 4, 2, 12, 2, 2 }));
 
-    levels
-        .add(newPuzzle(30,
-            new int[] { 10, 11, 2, 14, 22, 21, 0, 2, 6, 3, 4, 27, 5, 26, 7, 12, 8,
-                1, 9, 14, 1, 4, 0, 6, 25, 2, 0, 12, 6, 4, 12, 4, 23, 24, 12, 12,
-                12, 31, 34}));
+    levels.add(newPuzzle(30,
+        new int[] { 10, 11, 2, 14, 22, 21, 0, 2, 6, 3, 4, 27, 5, 26, 7, 12, 8,
+            1, 9, 14, 1, 4, 0, 6, 25, 2, 0, 12, 6, 4, 12, 4, 23, 24, 12, 12, 12,
+            31, 34 }));
     levels.add(newLightning(80, new int[] { 1, 6, 4, 11, 13 }));
     levels.add(newRelease(12, new int[] { 10, 11, 2, 14, 2 }));
 
-    levels.add(newPuzzle(25, new int[] { 4, 13, 7, 4, 8 }));
+    levels.add(newPuzzle(25, new int[] { 31, 4, 15, 9, 26, 5, 34, 8, 9, 7, 9,
+        32, 3, 8, 4, 6, 26, 4, 33, 2, 4, 6, 15, 16, 23, 32, 1, 2, 5, 8, 33, 25, 23, 20, 14,
+        7, 0, 0, 10, 11, 12, 13, 17, 18, 19}));
     levels.add(newLightning(70, new int[] { 0, 3, 3, 11, 12 }));
     levels.add(newRelease(10, new int[] { 4, 13, 7, 4, 8 }));
 
@@ -79,7 +80,7 @@ public class LevelGenerator {
     return l;
   }
 
-  private static void addPieces(Bullpen bullpen, int[] pieceIndeces){
+  private static void addPieces(Bullpen bullpen, int[] pieceIndeces) {
     Piece[] pieces = PieceFactory.getPieces();
     for (int i : pieceIndeces) {
       bullpen.addPiece(pieces[i].clone());
