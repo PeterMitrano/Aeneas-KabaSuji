@@ -173,7 +173,7 @@ public abstract class Level implements java.io.Serializable {
    * @return true if undo was successful, false otherwise
    */
   public boolean undoLastMove() {
-    if(undoStack.size() > 0) {
+    if(undoStack != null && undoStack.size() > 0) {
       IMove m = undoStack.peek();
       boolean success = m.undo();
       if(success) {
@@ -193,7 +193,7 @@ public abstract class Level implements java.io.Serializable {
    * @return true if redo was successful, false otherwise
    */
   public boolean redoLastMove() {
-    if(redoStack.size() > 0) {
+    if(redoStack != null && redoStack.size() > 0) {
       IMove m = redoStack.peek();
       boolean success = m.execute();
       if(success) {
@@ -214,6 +214,10 @@ public abstract class Level implements java.io.Serializable {
    * @param move The move to be added
    */
   public void addNewMove(IMove move){
+    if(redoStack==null){
+      redoStack = new Stack<IMove>();
+      undoStack = new Stack<IMove>();
+    }
     redoStack.clear();
     undoStack.add(move);
   }
