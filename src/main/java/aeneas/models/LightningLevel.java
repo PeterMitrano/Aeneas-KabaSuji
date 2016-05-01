@@ -123,6 +123,7 @@ public class LightningLevel extends Level implements java.io.Serializable {
   @Override
   public void start() {
     super.start();
+    elapsedTime = 0;
     if (timer != null) timer.cancel();
     timer = new Timer();
     this.started = true;
@@ -131,10 +132,12 @@ public class LightningLevel extends Level implements java.io.Serializable {
       @Override
       public void run() {
         elapsedTime++;
-        System.out.println("tick "+elapsedTime+"/"+allowedTime);
+
         if(elapsedTime >= allowedTime) {
-          System.out.println("Time is up");
           timer.cancel();
+        }
+        if(listener != null) {
+          listener.refresh();
         }
       }
     }, 1000, 1000);
