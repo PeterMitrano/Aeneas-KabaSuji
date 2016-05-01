@@ -220,7 +220,8 @@ public abstract class Board implements java.io.Serializable {
       for (int col = 0; col < squares[0].length; col++) {
         
         // Toggle any squares outside of the range off.
-        if (row >= rows || col >= cols) squares[row][col] = false;
+        if (row >= rows || col >= cols) 
+          squares[row][col] = false;
         else {
           // If old_rows or old_cols are less then rows/cols, then we need
           // to also toggle some squares on.

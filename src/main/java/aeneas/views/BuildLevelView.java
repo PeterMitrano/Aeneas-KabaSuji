@@ -172,7 +172,7 @@ public class BuildLevelView extends StackPane implements Initializable {
       if (new_toggle != null && !toggle.equals(new_toggle)) {
         LevelWidgetView view = (LevelWidgetView) ((RadioButton) new_toggle).getUserData();
         Level newLevel = view.resetLevelModel(this.model.getActiveLevel());
-        IMove move = new ChangeLevelTypeMove(this, newLevel);
+        IMove move = new ChangeLevelTypeMove(this.model, newLevel);
         if (move.execute()) model.getActiveLevel().addNewMove(move);
         this.settingsBox.getChildren().set(1, view.getPanel());
         this.levelView = view;

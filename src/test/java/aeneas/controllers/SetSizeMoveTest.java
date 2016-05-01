@@ -18,12 +18,11 @@ import aeneas.models.ReleaseLevel;
 
 public class SetSizeMoveTest {
 
-  Level level;
   Model model;
 
   @Before
   public void setUp() throws Exception {
-    level = new PuzzleLevel(new Bullpen(BullpenLogic.editorLogic()));
+    Level level = new PuzzleLevel(new Bullpen(BullpenLogic.editorLogic()));
     model = new Model();
     model.setActiveLevel(level);
   }
@@ -38,7 +37,7 @@ public class SetSizeMoveTest {
     IMove move = new SetSizeMove(model, rows, cols);
     assertTrue(move.execute());
 
-    boolean[][] squares = level.getBoard().getSquares();
+    boolean[][] squares = model.getActiveLevel().getBoard().getSquares();
     for (int i = 0; i < Board.MAX_SIZE; ++i) {
       for (int j = 0; j < Board.MAX_SIZE; ++j) {
         if (i < rows && j < cols) assertTrue("("+i+", "+j+") should be true", squares[i][j]);
@@ -48,6 +47,7 @@ public class SetSizeMoveTest {
 
     move.undo();
 
+    squares = model.getActiveLevel().getBoard().getSquares();
     for (int i = 0; i < Board.MAX_SIZE; ++i) {
       for (int j = 0; j < Board.MAX_SIZE; ++j) {
         assertTrue(squares[i][j]);
