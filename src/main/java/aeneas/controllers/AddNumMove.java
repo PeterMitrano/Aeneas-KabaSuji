@@ -1,4 +1,5 @@
 package aeneas.controllers;
+import aeneas.models.ReleaseBoard;
 import aeneas.models.ReleaseLevel;
 import aeneas.models.ReleaseNumber;
 
@@ -15,33 +16,36 @@ public class AddNumMove implements IMove {
   ReleaseLevel level;
 
   ReleaseNumber num;
+  int row, col;
 
   /**
    * Constructor
    * @param level the level that is being played
    * @param num the ReleaseNumber to be added
    */
-  public AddNumMove(ReleaseLevel level, ReleaseNumber num) {
+  public AddNumMove(ReleaseLevel level, ReleaseNumber num, int row, int col) {
     this.level = level;
     this.num = num;
+    this.row = row;
+    this.col = col;
   }
 
   @Override
   public boolean execute() {
-    // TODO Auto-generated method stub
-    return false;
+    if (!isValid()) return false;
+    ((ReleaseBoard) level.getBoard()).addNumber(num);
+    return true;
   }
 
   @Override
   public boolean undo() {
-    // TODO Auto-generated method stub
-    return false;
+    ((ReleaseBoard) level.getBoard()).removeNumber(num);
+    return true;
   }
 
   @Override
   public boolean isValid() {
-    // TODO Auto-generated method stub
-    return false;
+    return true;
   }
 
 }

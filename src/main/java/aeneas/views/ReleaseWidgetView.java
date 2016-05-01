@@ -5,6 +5,7 @@ import com.jfoenix.effects.JFXDepthManager;
 
 import aeneas.controllers.IMove;
 import aeneas.controllers.SetMovesMove;
+import aeneas.models.DragType;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.ReleaseLevel;
@@ -33,7 +34,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
-public class ReleaseWidgetView extends LevelWidgetView {
+public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
 
   public static final RadioButton button = new RadioButton("Release");
 
@@ -144,14 +145,20 @@ public class ReleaseWidgetView extends LevelWidgetView {
     releaseNumLabel.setOnDragDetected((MouseEvent event) -> {
       Dragboard db = releaseNumLabel.startDragAndDrop(TransferMode.MOVE);
       ClipboardContent content = new ClipboardContent();
+
       Integer num = Integer.parseInt(releaseNumLabel.getText());
       ReleaseNumber releaseNum = new ReleaseNumber(-1, -1, colorSelect.getValue(), num);
+
       content.put(ReleaseNumber.dataFormat, releaseNum);
-      content.putString();
+      content.put(DragType.dataFormat, DragType.Type.ReleaseNum);
+
       db.setContent(content);
 
+      //allows the drop to check where this came from
+      model.setLatestDragSource(this);
+
       SnapshotParameters snapshotParameters = new SnapshotParameters();
-      snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle this
+      snapshotParameters.setFill(Color.WHITE); // i3 doesn't handle this
 
       Square square = new Square(-1, -1, releaseNum);
       SquareView releaseNumView = new SquareView(BoardView.SQUARE_SIZE, square);
@@ -195,4 +202,11 @@ public class ReleaseWidgetView extends LevelWidgetView {
     return this.level;
   }
 
+  @Override
+  public void returnNode() {
+  }
+
+  @Override
+  public void dragSuccess() {
+  }
 }

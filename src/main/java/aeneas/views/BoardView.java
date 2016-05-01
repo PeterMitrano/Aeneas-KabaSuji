@@ -1,14 +1,18 @@
 package aeneas.views;
 
+import aeneas.controllers.AddNumMove;
 import aeneas.controllers.BullpenToBoardMove;
 import aeneas.controllers.IMove;
 import aeneas.models.Board;
-import aeneas.models.Level;
+import aeneas.models.DragType;
+import aeneas.models.DragType.Type;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PlacedPiece;
+import aeneas.models.ReleaseLevel;
+import aeneas.models.ReleaseNumber;
 import aeneas.models.Square;
-import aeneas.views.PieceView.PieceSource;
+
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
@@ -25,9 +29,10 @@ import javafx.scene.paint.Color;
  * @author Logan Tutt
  * @author Joseph Martin
  */
-public class BoardView extends GridPane implements PieceSource {
+public class BoardView extends GridPane implements DragSource {
 
-  /** Specifies how many pixels the squares of a piece on the board will be */
+  /** Specifies
+how many pixels the squares of a piece on the board will be */
   static final int SQUARE_SIZE = 40;
 
   public interface SquareClickListener {
@@ -71,8 +76,8 @@ public class BoardView extends GridPane implements PieceSource {
     this.setOnDragDetected((event) -> {
       PlacedPiece draggedPiece = this.gameModel.getActiveLevel().getBoard().getPieceAtLocation(dragDropRow, dragDropCol);
 
-      //check there's a piece at the location
-      if (draggedPiece != null){
+      // check there's a piece at the location
+      if (draggedPiece != null) {
         Piece pieceModel = draggedPiece.getPiece();
 
         //remove the piece from the board
@@ -85,6 +90,7 @@ public class BoardView extends GridPane implements PieceSource {
         Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         content.put(Piece.dataFormat, pieceModel);
+        content.put(DragType.dataFormat, DragType.Type.Piece);
         db.setContent(content);
 
         SnapshotParameters snapshotParameters = new SnapshotParameters();
@@ -92,10 +98,10 @@ public class BoardView extends GridPane implements PieceSource {
 
         // create a new piece view just for the dragging so it can have a
         // different size
-        PieceView fullSizedPieceView =
-          new PieceView(levelPane, pieceModel, model.getActiveLevel(), BoardView.SQUARE_SIZE);
+        PieceView fullSizedPieceView = new PieceView(levelPane, pieceModel, model.getActiveLevel(), BoardView.SQUARE_SIZE);
 
-        Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
+        Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters,
+            null);
         db.setDragView(snapshotImage);
 
         event.consume();
@@ -106,29 +112,43 @@ public class BoardView extends GridPane implements PieceSource {
     this.setOnDragDropped((DragEvent event) -> {
       Dragboard db = event.getDragboard();
 
-      // use this to draw the piece on the board
-      Piece piece = (Piece) db.getContent(Piece.dataFormat);
+      Type type = (Type) db.getContent(DragType.dataFormat);
+      IMove move;
 
-      IMove move = new BullpenToBoardMove(gameModel.getActiveLevel(), piece,
-                                          dragDropRow, dragDropCol);
+      switch (type) {
+      default:
+      case Piece:
+        // use this to draw the piece on the board
+        Piece piece = (Piece) db.getContent(Piece.dataFormat);
 
-      if (!move.execute()){
-        model.getLatestDragSource().returnPiece();
+        move = new BullpenToBoardMove(gameModel.getActiveLevel(), piece,
+            dragDropRow, dragDropCol);
+        break;
+
+      case ReleaseNum:
+        // use this to draw the piece on the board
+        ReleaseNumber releaseNum = (ReleaseNumber) db
+            .getContent(ReleaseNumber.dataFormat);
+
+        move = new AddNumMove((ReleaseLevel) gameModel.getActiveLevel(), releaseNum,
+            dragDropRow, dragDropCol);
+        break;
+      }
+
+      if (!move.execute()) {
+        model.getLatestDragSource().returnNode();
       } else {
         model.getLatestDragSource().dragSuccess();
       }
 
       refresh();
 
-      if(refreshListener != null) {
+      if (refreshListener != null) {
         refreshListener.refresh();
       }
 
-      // this might change we we actually implement it,
-      // such as if they drop it on a square that doesn't exist
       event.setDropCompleted(true);
       event.consume();
-
     });
 
     // this is absolutely nessecary
@@ -204,8 +224,8 @@ public class BoardView extends GridPane implements PieceSource {
   }
 
   @Override
-  public void returnPiece() {
-    if(pieceBeingDragged != null) {
+  public void returnNode() {
+    if (pieceBeingDragged != null) {
       this.gameModel.getActiveLevel().getBoard().addPiece(pieceBeingDragged);
       pieceBeingDragged = null;
       refresh();

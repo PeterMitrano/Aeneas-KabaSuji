@@ -41,6 +41,14 @@ public class ReleaseBoard extends Board implements java.io.Serializable, Level.L
     return squares;
   }
 
+  public void addNumber(ReleaseNumber num) {
+    numbers.add(num);
+  }
+
+  public void removeNumber(ReleaseNumber num) {
+    numbers.remove(num);
+  }
+
   public ArrayList<ReleaseNumber> getNumbers() {
     return numbers;
   }

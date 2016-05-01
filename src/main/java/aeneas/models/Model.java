@@ -12,7 +12,7 @@ import java.util.Stack;
 
 import aeneas.controllers.IMove;
 import aeneas.models.Level.Metadata;
-import aeneas.views.PieceView.PieceSource;
+import aeneas.views.DragSource;
 
 /**
  * Top level entity class for KabaSuji.
@@ -28,7 +28,7 @@ public class Model {
       + "To begin editing a level, select and existing level from the list or create a new one. "
       + "Achievements can also be viewed with the 'View Achievements' button.";
 
-  private PieceSource latestDragSource;
+  private DragSource latestDragSource;
 
   public final String helpString = "HELP";
   public final String aboutString = "ABOUT";
@@ -122,10 +122,10 @@ public class Model {
     }
   }
 
-  public void setLatestDragSource(PieceSource latestDragSource) {
+  public void setLatestDragSource(DragSource latestDragSource) {
     this.latestDragSource = latestDragSource;
   }
-  public PieceSource getLatestDragSource() {
+  public DragSource getLatestDragSource() {
     return latestDragSource;
   }
 

@@ -1,15 +1,13 @@
 package aeneas.views;
 
-import java.util.ArrayList;
-
 import aeneas.controllers.ChildDraggedListener;
-import aeneas.models.Bullpen;
-import aeneas.models.Level;
+import aeneas.models.DragType;
+import aeneas.models.DragType.Type;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
 import aeneas.models.Square;
-import aeneas.views.PieceView.PieceSource;
+
 import javafx.geometry.Pos;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -21,7 +19,7 @@ import javafx.scene.layout.VBox;
  *
  * @author Joseph Martin
  */
-public class BullpenView implements ChildDraggedListener, PieceSource {
+public class BullpenView implements ChildDraggedListener, DragSource {
 
   VBox bullpenBox;
   Pane levelView;
@@ -45,17 +43,28 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
     // This handle the drop of a piece on the board
     bullpenBox.setOnDragDropped((DragEvent event) -> {
       Dragboard db = event.getDragboard();
-      Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
-      model.getActiveLevel().getBullpen().addPiece(pieceModel);
-      if(model.getLatestDragSource() != null && model.getLatestDragSource() != this) {
-        model.getLatestDragSource().dragSuccess();
-      }
-      refresh();
 
-      // this might change we we actually implement it,
-      // such as if they drop it on a square that doesn't exist
-      event.setDropCompleted(true);
-      event.consume();
+      Type type = (Type) db.getContent(DragType.dataFormat);
+
+      switch (type) {
+      default:
+      case Piece:
+        Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
+        model.getActiveLevel().getBullpen().addPiece(pieceModel);
+        if(model.getLatestDragSource() != null && model.getLatestDragSource() != this) {
+          model.getLatestDragSource().dragSuccess();
+        }
+        refresh();
+
+        // this might change we we actually implement it,
+        // such as if they drop it on a square that doesn't exist
+        event.setDropCompleted(true);
+        event.consume();
+        break;
+      case ReleaseNum:
+        break;
+      }
+
 
     });
 
@@ -102,7 +111,7 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
   }
 
   @Override
-  public void returnPiece() {
+  public void returnNode() {
     if(pieceBeingDragged != null) {
       model.getActiveLevel().getBullpen().addPiece(pieceBeingDragged.pieceModel);
       refresh();

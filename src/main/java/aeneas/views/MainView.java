@@ -29,9 +29,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
@@ -189,7 +187,7 @@ public class MainView extends StackPane implements Initializable {
     });
 
     this.setOnDragDropped((e) -> {
-      model.getLatestDragSource().returnPiece();
+      model.getLatestDragSource().returnNode();
     });
     this.setOnDragExited((e) -> {
     });
