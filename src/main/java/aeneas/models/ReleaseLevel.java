@@ -120,7 +120,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   @Override
   public LevelWidgetView makeCorrespondingView(Model model) {
-    return new ReleaseWidgetView(this);
+    return new ReleaseWidgetView(this, model);
   }
 
   public String getIconName() {

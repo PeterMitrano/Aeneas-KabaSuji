@@ -129,6 +129,8 @@ how many pixels the squares of a piece on the board will be */
         // use this to draw the piece on the board
         ReleaseNumber releaseNum = (ReleaseNumber) db
             .getContent(ReleaseNumber.dataFormat);
+        releaseNum.setRow(dragDropRow);
+        releaseNum.setCol(dragDropCol);
 
         move = new AddNumMove((ReleaseLevel) gameModel.getActiveLevel(), releaseNum,
             dragDropRow, dragDropCol);
