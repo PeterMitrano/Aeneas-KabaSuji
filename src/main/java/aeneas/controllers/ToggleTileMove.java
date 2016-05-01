@@ -43,7 +43,7 @@ public class ToggleTileMove implements IMove {
 
   @Override
   public boolean isValid() {
-    return row < Board.SIZE && col < Board.SIZE;
+    return row < Board.MAX_SIZE && col < Board.MAX_SIZE;
   }
 
 }

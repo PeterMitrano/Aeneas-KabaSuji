@@ -104,15 +104,15 @@ public class PieceManipulationTest extends ApplicationTest {
 
     // First, drag piece to board.
     drag(piece).dropTo(boardView.grid[0][0]);
-    assertEquals(1, boardView.board.getPieces().size());
+    assertEquals(1, boardView.gameModel.getActiveLevel().getBoard().getPieces().size());
 
     // Now, drag piece back to Bullpen.
     drag(boardView.grid[0][0]).dropTo(bullpenBox);
-    assertEquals(0, boardView.board.getPieces().size());
+    assertEquals(0, boardView.gameModel.getActiveLevel().getBoard().getPieces().size());
 
     piecePane = (Pane) bullpenBox.getChildren().get(0);
     // Now, drag to invalid spot on board.
     drag(piecePane.getChildren().get(0)).dropTo(boardView.grid[11][11]);
-    assertEquals(0, boardView.board.getPieces().size());
+    assertEquals(0, boardView.gameModel.getActiveLevel().getBoard().getPieces().size());
   }
 }

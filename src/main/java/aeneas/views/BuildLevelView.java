@@ -131,8 +131,8 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.boardView = new BoardView((Pane)this, model, model.getActiveLevel() ,model.getActiveLevel().getBoard());
-    this.bullpenView = new BullpenView(model, bullpenBox, model.getActiveLevel(), (Pane) this);
+    this.boardView = new BoardView((Pane)this, model);
+    this.bullpenView = new BullpenView(model, bullpenBox, (Pane) this);
     bullpenView.refresh();
     undoController = new UndoRedoController(this, model.getActiveLevel());
 
@@ -225,11 +225,15 @@ public class BuildLevelView extends StackPane implements Initializable {
   }
 
   public void refreshAll() {
+    isRefreshing = true;
     boardView.refresh();
     bullpenView.refresh();
     this.levelType.selectToggle(model.getActiveLevel().getButton());
     this.levelView = (LevelWidgetView)levelType.getSelectedToggle().getUserData();
     this.levelView.updateValues();
+    this.rowSpinner.getValueFactory().setValue(model.getActiveLevel().getBoard().getRows());
+    this.columnSpinner.getValueFactory().setValue(model.getActiveLevel().getBoard().getCols());
+    isRefreshing = false;
   }
 
   public boolean isRefreshing(){return isRefreshing;}
@@ -248,5 +252,9 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   public void setLevelModel(Level level) {
     model.setActiveLevel(level);
+  }
+  
+  public Model getModel(){
+    return model;
   }
 }

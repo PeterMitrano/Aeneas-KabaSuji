@@ -22,15 +22,6 @@ public class LightningWidgetView extends LevelWidgetView {
   public static final RadioButton button = new RadioButton("Lightning");
   private Model model;
   private LightningLevel level;
- // private SetTimeController controller;
-
-//  public class SetTimeController implements ChangeListener<Integer> {
-//    public void changed(ObservableValue<? extends Integer> observable,
-//        Integer old_value, Integer new_value) {
-//      IMove move = new SetTimeMove(level, new_value);
-//      if (isUserInput  && move.execute()) level.addNewMove(move);
-//    }
-//  }
 
 
   Spinner<Integer> timeSelect;
@@ -59,8 +50,6 @@ public class LightningWidgetView extends LevelWidgetView {
       }
     });
 
-    //controller = new SetTimeController();
-    //timeSelect.valueProperty().addListener(controller);
 
     box.getChildren().add(timeLabel);
     box.getChildren().add(timeSelect);
@@ -76,10 +65,6 @@ public class LightningWidgetView extends LevelWidgetView {
       return level;
     }
     this.level = new LightningLevel(level);
-//    timeSelect.valueProperty().removeListener(controller);
-//    timeSelect.getValueFactory().setValue(this.level.getAllowedTime());
-//    controller = new SetTimeController();
-//    timeSelect.valueProperty().addListener(controller);
     timeSelect.valueProperty().addListener((observer, old_value, new_value) -> {
       if(!isUserInput) return;
       IMove move = new SetTimeMove(this.level, new_value);

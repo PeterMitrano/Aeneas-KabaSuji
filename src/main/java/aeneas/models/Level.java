@@ -241,8 +241,11 @@ public abstract class Level implements java.io.Serializable {
     dst.prebuilt = src.prebuilt;
     dst.active = src.active;
     dst.levelNumber = src.levelNumber;
+    dst.undoStack = src.undoStack;
+    dst.redoStack = src.redoStack;
   }
 
   @Override
   public abstract Object clone();
+  
 }

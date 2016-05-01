@@ -1,6 +1,8 @@
 package aeneas.controllers;
 import aeneas.models.Board;
 import aeneas.models.Level;
+import aeneas.models.Model;
+import aeneas.views.BuildLevelView;
 
 /**
  * Set the number of rows/columns for the board.
@@ -8,12 +10,13 @@ import aeneas.models.Level;
  * @author jbkuszmaul
  */
 public class SetSizeMove implements IMove {
-  Level level;
+  Level oldLevel;
+  Model model;
 
   int rows;
   int cols;
-  int old_rows;
-  int old_cols;
+  int oldRows;
+  int oldCols;
 
   boolean[][] old_squares;
 
@@ -26,56 +29,30 @@ public class SetSizeMove implements IMove {
    * @param old_rows The previous number of rows the board had.
    * @param old_cols The previous number of columns the board had.
    */
-  public SetSizeMove(Level level, int rows, int cols, int old_rows, int old_cols) {
-    this.level = level;
+  public SetSizeMove(Model model, int rows, int cols) {
+    this.model = model;
     this.rows = rows;
     this.cols = cols;
-    this.old_rows = old_rows;
-    this.old_cols = old_cols;
+    this.oldLevel = model.getActiveLevel();
   }
 
   public boolean execute() {
     if (!isValid()) return false;
-    // First, keep track of old configuration.
-    // We can't just keep track of the old size, because
-    // then we might miss the state of individual squares.
-    boolean[][] squares = level.getBoard().getSquares();
-    old_squares = new boolean[squares.length][squares[0].length];
-    for (int i = 0; i < squares.length; ++i) {
-      for (int j = 0; j < squares[0].length; ++j) {
-        // Could use System.arraycopy, but honestly this looks nicer.
-        // and System.arraycopy can only do 1-D arrays.
-        old_squares[i][j] = squares[i][j];
-
-        // Toggle any squares outside of the range off.
-        if (i >= rows || j >= cols) squares[i][j] = false;
-        else {
-          // If old_rows or old_cols are less then rows/cols, then we need
-          // to also toggle some squares on.
-          if ((i >= old_rows && i < rows) || (j >= old_cols && j < cols)) {
-            squares[i][j] = true;
-          }
-        }
-      }
-    }
+    model.setActiveLevel((Level)model.getActiveLevel().clone());
+    
+    model.getActiveLevel().getBoard().resizeBoard(rows, cols);
 
     return true;
   }
 
   public boolean undo() {
-    // Just go through and copy old_squares back in...
-    boolean[][] squares = level.getBoard().getSquares();
-    for (int i = 0; i < squares.length; ++i) {
-      for (int j = 0; j < squares[0].length; ++j) {
-        squares[i][j] = old_squares[i][j];
-      }
-    }
+    model.setActiveLevel(oldLevel);
     return true;
   }
 
   public boolean isValid() {
-    return rows > 0 && rows <= Board.SIZE &&
-           cols > 0 && cols <= Board.SIZE;
+    return rows > 0 && rows <= Board.MAX_SIZE &&
+           cols > 0 && cols <= Board.MAX_SIZE;
   }
 
 }

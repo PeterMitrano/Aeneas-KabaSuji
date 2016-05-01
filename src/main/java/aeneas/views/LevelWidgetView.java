@@ -14,21 +14,6 @@ import javafx.scene.layout.VBox;
 
 public abstract class LevelWidgetView {
 
-//  public class SetMovesController implements ChangeListener<Integer> {
-//    Model model;
-//    LevelWithMoves level;
-//    public SetMovesController(LevelWithMoves level, Model model) {
-//      this.level = level;
-//      this.model = model;
-//    }
-//
-//    public void changed(ObservableValue<? extends Integer> observable,
-//                        Integer old_value, Integer new_value) {
-//      IMove move = new SetMovesMove(level, new_value);
-//      if (move.execute()) this.model.getActiveLevel().addNewMove(move);
-//    }
-//
-//  }
 
   protected VBox panel;
   private Level levelModel;

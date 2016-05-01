@@ -15,10 +15,12 @@ public class LightningBoard extends Board implements java.io.Serializable {
 
   public LightningBoard() {
     super();
+    coveredSquares = new boolean[MAX_SIZE][MAX_SIZE];
   }
 
   public LightningBoard(Board board) {
     super(board);
+    coveredSquares = new boolean[MAX_SIZE][MAX_SIZE];
   }
 
   @Override
@@ -39,9 +41,9 @@ public class LightningBoard extends Board implements java.io.Serializable {
   public boolean[][] getCoveredSquares() {
     // This seems to be necessary because of serialization?
     if(coveredSquares == null) {
-      coveredSquares = new boolean[SIZE][SIZE];
-      for(int j = 0; j < SIZE; j++) {
-        for(int i = 0; i < SIZE; i++) {
+      coveredSquares = new boolean[MAX_SIZE][MAX_SIZE];
+      for(int j = 0; j < MAX_SIZE; j++) {
+        for(int i = 0; i < MAX_SIZE; i++) {
           coveredSquares[j][i] = false;
         }
       }
@@ -51,8 +53,8 @@ public class LightningBoard extends Board implements java.io.Serializable {
 
   public int numCoveredSquares() {
     int count = 0;
-    for(int j = 0; j < SIZE; j++) {
-      for(int i = 0; i < SIZE; i++) {
+    for(int j = 0; j < MAX_SIZE; j++) {
+      for(int i = 0; i < MAX_SIZE; i++) {
         count += getCoveredSquares()[j][i] ? 1 : 0;
       }
     }
@@ -77,8 +79,8 @@ public class LightningBoard extends Board implements java.io.Serializable {
   public Object clone() {
     LightningBoard newBoard = new LightningBoard();
     super.copy(this, newBoard);
-    for (int i = 0; i < SIZE; ++i) {
-      for (int j = 0; j < SIZE; ++j) {
+    for (int i = 0; i < MAX_SIZE; ++i) {
+      for (int j = 0; j < MAX_SIZE; ++j) {
         newBoard.coveredSquares[i][j] = this.coveredSquares[i][j];
       }
     }
