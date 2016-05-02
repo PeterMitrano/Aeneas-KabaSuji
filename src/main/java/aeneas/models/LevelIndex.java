@@ -1,12 +1,12 @@
 package aeneas.models;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,15 +19,14 @@ import java.util.stream.Stream;
 public class LevelIndex {
   HashMap<Integer, Level> levels;
 
-  public final String defaultLevelPath;
+  public final Path defaultLevelPath;
 
   private boolean get_opt_levels = true;
 
   LevelIndex() {
     levels = new HashMap<>();
     // TODO: Consider changing this path.
-    String homeDir = System.getenv("HOME");
-    defaultLevelPath = homeDir + "/.aeneas-kabasuji";
+    defaultLevelPath = Paths.get(System.getProperty("user.home"), ".aeneas-kabasuji");
     reindex();
   }
 
@@ -43,16 +42,20 @@ public class LevelIndex {
 
     if (!get_opt_levels) return;
 
-    Path defaultDirectory = (new File(defaultLevelPath)).toPath();
+    if (!Files.exists(defaultLevelPath)) {
+      try {
+        Files.createDirectory(defaultLevelPath);
+      } catch(IOException e) {
+        System.err.println("Could not create default level directory '" + defaultLevelPath + "'");
+        return;
+      }
 
-    if (!Files.exists(defaultDirectory)) {
-      new File(defaultLevelPath).mkdir();
-      System.out.println("Directory '" + defaultDirectory + "' does not exist; it will be created.");
+      System.out.println("Directory '" + defaultLevelPath + "' does not exist; it will be created.");
       return;
     }
 
     try {
-      Stream<Path> files = Files.list(defaultDirectory).filter(file -> file.getFileName().toString().endsWith(".kbs"));
+      Stream<Path> files = Files.list(defaultLevelPath).filter(file -> file.getFileName().toString().endsWith(".kbs"));
       files.forEach((file) -> {
         ObjectInputStream ois = null;
         try {
@@ -89,9 +92,9 @@ public class LevelIndex {
         }
       });
     } catch (NotDirectoryException e) {
-      System.err.println("Error loading levels. '" + defaultDirectory + "' is not a directory");
+      System.err.println("Error loading levels. '" + defaultLevelPath + "' is not a directory");
     } catch (IOException e) {
-      System.err.println("Error reading from directory '" + defaultDirectory + "'");
+      System.err.println("Error reading from directory '" + defaultLevelPath + "'");
     }
   }
 

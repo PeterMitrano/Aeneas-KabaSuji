@@ -19,14 +19,6 @@
       <JFXListView prefWidth="300" fx:id="fileList">
         <Label fx:id="createNewLevelLabel" styleClass="create_new_level_label">Create New Level</Label>
       </JFXListView>
-      <JFXButton fx:id="openFile" prefHeight="50" prefWidth="50" styleClass="action-button">
-        <graphic>
-          <FontAwesomeIconView glyphName="FOLDER_OPEN" size="2em"/>
-        </graphic>
-        <StackPane.margin>
-          <Insets left="10" bottom="10" />
-        </StackPane.margin>
-      </JFXButton>
     </StackPane>
   </left>
   <center>
