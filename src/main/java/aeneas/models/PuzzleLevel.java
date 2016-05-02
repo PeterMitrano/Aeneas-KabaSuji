@@ -56,7 +56,10 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   public PuzzleLevel(Level src) {
     super(src);
-    this.bullpen.logic = BullpenLogic.puzzleLogic();
+    if (src.bullpen.logic.equals(BullpenLogic.editorLogic()))
+      this.bullpen.logic = BullpenLogic.editorLogic();
+    else
+      this.bullpen.logic = BullpenLogic.puzzleLogic();
     this.board = new PuzzleBoard(src.getBoard());
   }
 

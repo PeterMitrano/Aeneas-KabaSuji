@@ -78,7 +78,10 @@ public class LightningLevel extends Level implements java.io.Serializable {
     } else {
       this.board = new LightningBoard(src.getBoard());
     }
-    this.bullpen.logic = BullpenLogic.lightningLogic();
+    if (src.bullpen.logic.equals(BullpenLogic.editorLogic()))
+      this.bullpen.logic = BullpenLogic.editorLogic();
+    else
+      this.bullpen.logic = BullpenLogic.lightningLogic();
   }
 
   @Override
