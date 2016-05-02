@@ -17,7 +17,7 @@ public class BoardToBullpenMove implements IMove {
   /**
    * Constructor
    * @param level the level that is being played
-   * @param pieceModel the piece to move
+   * @param boardPiece the piece to move
    */
   public BoardToBullpenMove(Level level, PlacedPiece boardPiece) {
     this.level = level;
@@ -38,7 +38,6 @@ public class BoardToBullpenMove implements IMove {
   @Override
   public boolean undo() {
     if(!isValid()) return false;
-    // Should probably increment moves here? maybe not necessary
     level.getBullpen().removePiece(piece.getPiece());
     return level.getBoard().addPiece(piece);
   }
