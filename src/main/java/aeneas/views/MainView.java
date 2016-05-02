@@ -83,13 +83,13 @@ public class MainView extends StackPane implements Initializable {
   private Model model;
   private ArrayList<LevelWidgetView> levelViews = new ArrayList<LevelWidgetView>();
 
-  private Stack<Node> paneStack;
+  private Stack<RefreshListener> paneStack;
 
   Stage stage;
 
   public MainView(Stage stage) {
     this.stage = stage;
-    paneStack = new Stack<Node>();
+    paneStack = new Stack<RefreshListener>();
 
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
@@ -119,6 +119,7 @@ public class MainView extends StackPane implements Initializable {
   }
 
   public void switchToBuildSelectLevelView() {
+    buildSelectLevelView.refresh();
     paneStack.push(buildSelectLevelView);
     content.getChildren().clear();
     content.getChildren().add(buildSelectLevelView);
@@ -205,16 +206,14 @@ public class MainView extends StackPane implements Initializable {
 
   public File showSaveDialog() {
     FileChooser fileChooser = new FileChooser();
-    File initialDirectory = new File(model.getLevelIndex().defaultLevelPath);
-    fileChooser.setInitialDirectory(initialDirectory);
+    fileChooser.setInitialDirectory(model.getLevelIndex().defaultLevelPath.toFile());
     fileChooser.setTitle("Save Level");
     return fileChooser.showSaveDialog(stage);
   }
 
   public File showOpenDialog() {
     FileChooser fileChooser = new FileChooser();
-    File initialDirectory = new File(model.getLevelIndex().defaultLevelPath);
-    fileChooser.setInitialDirectory(initialDirectory);
+    fileChooser.setInitialDirectory(model.getLevelIndex().defaultLevelPath.toFile());
     fileChooser.setTitle("Open Existing Level");
     return fileChooser.showOpenDialog(stage);
   }
@@ -223,14 +222,13 @@ public class MainView extends StackPane implements Initializable {
     // unless we're out of places to go back, go at the last pane we
     // the current node should always be in the stack,
     // so only remove and go back if there's multiple things on the stack
+    model.setActiveLevel(null);
     if (paneStack.size() > 1) {
       paneStack.pop();
-      // This is really ugly. Probably to be replaced with an interface for the views or something
-     if(paneStack.peek() instanceof PlaySelectLevelView) {
-        ((PlaySelectLevelView)paneStack.peek()).refresh();
-      }
+      RefreshListener pane = paneStack.peek();
+      pane.refresh();
       content.getChildren().clear();
-      content.getChildren().add(paneStack.peek());
+      content.getChildren().add((Node)pane);
     }
   }
 

@@ -131,6 +131,11 @@ public class LightningLevel extends Level implements java.io.Serializable {
     timer.scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
+        if(!active) {
+          timer.cancel();
+          return;
+        }
+        
         elapsedTime++;
 
         if(elapsedTime >= allowedTime) {

@@ -50,7 +50,7 @@ import javafx.scene.layout.VBox;
  * @author jbkuszmaul
  * @author Joseph Martin
  */
-public class BuildLevelView extends StackPane implements Initializable {
+public class BuildLevelView extends StackPane implements Initializable, RefreshListener {
 
   private static final int PIECE_PICKER_SQUARE_SIZE = 12;
 

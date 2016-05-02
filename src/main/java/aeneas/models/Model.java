@@ -183,6 +183,9 @@ public class Model {
   }
 
   public void setActiveLevel(Level levelModel) {
+    if(activeLevel != null) {
+      activeLevel.stop();
+    }
     activeLevel = levelModel;
   }
 

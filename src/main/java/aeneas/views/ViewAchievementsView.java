@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
-public class ViewAchievementsView extends BorderPane implements Initializable {
+public class ViewAchievementsView extends BorderPane implements Initializable, RefreshListener {
 
   ViewAchievementsView(Model model) {
     try {
@@ -26,6 +26,10 @@ public class ViewAchievementsView extends BorderPane implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
+  }
+
+  @Override
+  public void refresh() {
   }
 
 }
