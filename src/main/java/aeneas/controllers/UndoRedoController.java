@@ -36,7 +36,7 @@ public class UndoRedoController implements EventHandler<KeyEvent> {
    */
   public void undoMove(){
     if(model.getActiveLevel().undoLastMove()){
-      view.refreshAll();
+      view.refresh();
     }
   }
 
@@ -45,7 +45,7 @@ public class UndoRedoController implements EventHandler<KeyEvent> {
    */
   public void redoMove(){
     if(model.getActiveLevel().redoLastMove()){
-      view.refreshAll();
+      view.refresh();
     }
 
   }

@@ -30,6 +30,6 @@ public class BoardSizeController implements ChangeListener<Integer> {
     else oldCol = oldValue;
     IMove move = new SetSizeMove(view.getModel(), rowSpin.getValue(), colSpin.getValue());
     if (move.execute()) view.getLevelModel().addNewMove(move);
-    view.refreshAll();
+    view.refresh();
   }
 }
