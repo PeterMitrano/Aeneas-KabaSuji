@@ -11,7 +11,9 @@ import aeneas.models.Model;
 import aeneas.models.ReleaseLevel;
 import aeneas.models.ReleaseNumber;
 import aeneas.models.Square;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
@@ -40,6 +42,8 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
   private ReleaseLevel level;
   private boolean isUserInput = true;
   private Model model;
+  private Label releaseNumLabel;
+  private final int W = 30;
 
   public ReleaseWidgetView(ReleaseLevel levelModel, Model model) {
     super(levelModel);
@@ -48,9 +52,10 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
     movesSelect = new Spinner<Integer>(1, 20, 10);
     Label movesLabel = new Label("Moves");
 
-    Label releaseNumLabel = new Label("5");
-    releaseNumLabel.setTextAlignment(TextAlignment.CENTER);
+    releaseNumLabel = new Label("5");
     releaseNumLabel.setPadding(new Insets(8, 8, 8, 8));
+    releaseNumLabel.setTextAlignment(TextAlignment.CENTER);
+    releaseNumLabel.setPrefSize(W,W);
     releaseNumLabel.setBackground(new Background(new BackgroundFill(Color.WHITE,
         new CornerRadii(2, false), new Insets(0, 0, 0, 0))));
     JFXDepthManager.setDepth(releaseNumLabel, 1);
@@ -121,7 +126,7 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
 
     HBox releaseNumBox = new HBox();
     releaseNumBox.setAlignment(Pos.CENTER_LEFT);
-    releaseNumBox.setSpacing(2);
+    releaseNumBox.setSpacing(6);
     releaseNumBox.getChildren().add(releaseNumLabel);
     releaseNumBox.getChildren().add(arrowBox);
 
@@ -154,15 +159,15 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
       // allows the drop to check where this came from
       model.setLatestDragSource(this);
 
-      Square square = new Square(-1, -1, releaseNum, colorSelect.getValue());
+      Square square = new Square(-1, -1, releaseNum, Color.WHITE);
       SquareView releaseNumView = new SquareView(BoardView.SQUARE_SIZE, square);
 
       SnapshotParameters snapshotParameters = new SnapshotParameters();
-      snapshotParameters.setFill(Color.WHITE); // i3 doesn't handle this
-      
-      Image snapshotImage = releaseNumView.snapshot(snapshotParameters, null);
-      db.setDragView(snapshotImage);
-      
+      snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle this
+
+      Image snapshotImage = releaseNumLabel.snapshot(snapshotParameters, null);
+      db.setDragView(snapshotImage, W, W);
+
       event.consume();
     });
 
