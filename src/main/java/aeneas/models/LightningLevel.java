@@ -31,36 +31,20 @@ public class LightningLevel extends Level implements java.io.Serializable {
    * @param bullpen The Bullpen to use for this level
    * @param allowedTime The allowable time for this level
    * @param board The board to use for this level
-   * @param prebuilt is the level custom or prebuilt
    */
-  public LightningLevel(Bullpen bullpen, int allowedTime, LightningBoard board, boolean prebuilt) {
-    super(bullpen, prebuilt);
+  public LightningLevel(Bullpen bullpen, int allowedTime, LightningBoard board) {
+    super(bullpen);
     this.allowedTime = allowedTime;
     this.board = board;
   }
 
   /**
-   * Constructor
-   * @param bullpen The Bullpen to use for this level
-   * @param allowedTime The allowable time for this level
-   * @param board The board to use for this level
-   *
-   * assumes prebuilt
-   */
-  public LightningLevel(Bullpen bullpen, int allowedTime, LightningBoard board) {
-    this(bullpen, allowedTime, board, true);
-  }
-
-
-  /**
    * Constructor. Will create a new, empty board for this level
    * @param bullpen The Bullpen to use for this level
    * @param allowedTime The allowable time for this level
-   *
-   * assumes prebuilt
    */
   public LightningLevel(Bullpen bullpen, int allowedTime) {
-    this(bullpen, allowedTime, new LightningBoard(), true);
+    this(bullpen, allowedTime, new LightningBoard());
   }
 
   @Override
@@ -78,13 +62,10 @@ public class LightningLevel extends Level implements java.io.Serializable {
     } else {
       this.board = new LightningBoard(src.getBoard());
     }
-    this.bullpen.logic = BullpenLogic.lightningLogic();
-  }
-
-  @Override
-  public boolean isComplete() {
-    // TODO Auto-generated method stub
-    return false;
+    if (src.bullpen.logic.equals(BullpenLogic.editorLogic()))
+      this.bullpen.logic = BullpenLogic.editorLogic();
+    else
+      this.bullpen.logic = BullpenLogic.lightningLogic();
   }
 
   @Override
@@ -131,6 +112,11 @@ public class LightningLevel extends Level implements java.io.Serializable {
     timer.scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
+        if(!active) {
+          timer.cancel();
+          return;
+        }
+        
         elapsedTime++;
 
         if(elapsedTime >= allowedTime) {
@@ -164,7 +150,7 @@ public class LightningLevel extends Level implements java.io.Serializable {
   public Object clone() {
     LightningLevel newLevel =
       new LightningLevel((Bullpen)this.bullpen.clone(), this.allowedTime,
-                         (LightningBoard)this.board.clone(), this.prebuilt);
+                         (LightningBoard)this.board.clone());
     super.copy(this, newLevel);
     return newLevel;
   }

@@ -21,6 +21,7 @@ public abstract class Board implements java.io.Serializable {
   boolean[][] squares = new boolean[MAX_SIZE][MAX_SIZE];
   ArrayList<PlacedPiece> pieces;
   ArrayList<PlacedPiece> hints;
+  protected transient boolean isEditor = false;
 
   public Board() {
     pieces = new ArrayList<>();
@@ -216,6 +217,8 @@ public abstract class Board implements java.io.Serializable {
 
   /**
    * Copy common elements of two boards; used for clone() on the subclasses.
+   * @param src the board to get the data from
+   * @param dest the board to copy the data to
    */
   protected void copy(Board src, Board dest) {
     for (PlacedPiece piece : src.pieces) {
@@ -235,8 +238,8 @@ public abstract class Board implements java.io.Serializable {
   
   /**
    * Resizes the board
-   * @param row number of rows
-   * @param col number of columns
+   * @param rows number of rows
+   * @param cols number of columns
    */
   public void resizeBoard(int rows, int cols){
     
@@ -264,36 +267,7 @@ public abstract class Board implements java.io.Serializable {
   public int getCols(){return cols;}
 
 
-  public static class BoardLogic {
-    boolean canRemovePieces;
-    boolean peristentPieces;
-
-    public static BoardLogic editorLogic() {
-      BoardLogic b = new BoardLogic();
-      b.canRemovePieces = true;
-      b.peristentPieces = true;
-      return b;
-    }
-
-    public static BoardLogic puzzleLogic() {
-      BoardLogic b = new BoardLogic();
-      b.canRemovePieces = true;
-      b.peristentPieces = true;
-      return b;
-    }
-
-    public static BoardLogic lightningLogic() {
-      BoardLogic b = new BoardLogic();
-      b.canRemovePieces = false;
-      b.peristentPieces = false;
-      return b;
-    }
-
-    public static BoardLogic releaseLogic() {
-      BoardLogic b = new BoardLogic();
-      b.canRemovePieces = false;
-      b.peristentPieces = true;
-      return b;
-    }
+  public void setIsEditor(boolean is) {
+    this.isEditor = is;
   }
 }

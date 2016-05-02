@@ -59,7 +59,6 @@ public class BoardControlTest extends ApplicationTest {
     Level level = mainView.getModel().getActiveLevel();
     Board board = level.getBoard();
     boolean[][] squares = board.getSquares();
-    System.out.println(squares);
     for (int i = 0; i < Board.MAX_SIZE; ++i) {
       for (int j = 0; j < Board.MAX_SIZE; ++j) {
         if (i >= rows || j >= cols) assertFalse(squares[i][j]);
@@ -70,6 +69,7 @@ public class BoardControlTest extends ApplicationTest {
     clickOn("#undoButton");
     clickOn("#undoButton");
 
+    squares = mainView.getModel().getActiveLevel().getBoard().getSquares();
     for (int i = 0; i < Board.MAX_SIZE; ++i) {
       for (int j = 0; j < Board.MAX_SIZE; ++j) {
         assertTrue(squares[i][j]);

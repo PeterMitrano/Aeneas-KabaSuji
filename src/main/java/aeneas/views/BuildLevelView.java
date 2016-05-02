@@ -51,7 +51,7 @@ import javafx.scene.layout.VBox;
  * @author jbkuszmaul
  * @author Joseph Martin
  */
-public class BuildLevelView extends StackPane implements Initializable {
+public class BuildLevelView extends StackPane implements Initializable, RefreshListener {
 
   private static final int PIECE_PICKER_SQUARE_SIZE = 12;
 
@@ -134,7 +134,7 @@ public class BuildLevelView extends StackPane implements Initializable {
     this.boardView = new BoardView((Pane)this, model);
     this.bullpenView = new BullpenView(model, bullpenBox, (Pane) this);
     bullpenView.refresh();
-    undoController = new UndoRedoController(this, model.getActiveLevel());
+    undoController = new UndoRedoController(this, model);
 
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
@@ -144,7 +144,7 @@ public class BuildLevelView extends StackPane implements Initializable {
     columnSpinner.valueProperty().addListener(new BoardSizeController(this));
 
     saveButton.setOnMouseClicked((e) -> {
-      File saveFile = mainView.showSaveDialog();
+      File saveFile = mainView.showSaveDialog(this.model.getActiveLevel().getLevelNumber());
       if (saveFile == null)
         return;
       try {
@@ -176,14 +176,13 @@ public class BuildLevelView extends StackPane implements Initializable {
         if (move.execute()) model.getActiveLevel().addNewMove(move);
         this.settingsBox.getChildren().set(1, view.getPanel());
         this.levelView = view;
-        this.undoController.setLevel(model.getActiveLevel());
       }
     });
 
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
 
     boardView.setSquareClickListener((row, col) -> {
-      IMove m = new ToggleTileMove(model.getActiveLevel(), row, col);
+      IMove m = new ToggleTileMove(model, row, col);
       if (m.isValid()) {
         m.execute();
         model.getActiveLevel().addNewMove(m);
@@ -203,6 +202,17 @@ public class BuildLevelView extends StackPane implements Initializable {
       for (Piece pieceModel : PieceFactory.getPieces()) {
         PieceView pView = new PieceView((Pane) this, pieceModel, model.getActiveLevel(), PIECE_PICKER_SQUARE_SIZE);
         piecesPane.getChildren().add(pView);
+
+        pView.setOnChildDraggedListener(new ChildDraggedListener() {
+          @Override
+          public void onSquareDragged(Square squareView) {
+          }
+
+          @Override
+          public void onPieceDragged(PieceView pieceView) {
+            model.setLatestDragSource(null);
+          }
+        });
 
         pView.setOnMouseClicked((click) -> {
           IMove move = new AddPieceMove(model.getActiveLevel().getBullpen(), pieceModel.clone());
@@ -224,7 +234,7 @@ public class BuildLevelView extends StackPane implements Initializable {
 
   }
 
-  public void refreshAll() {
+  public void refresh() {
     isRefreshing = true;
     boardView.refresh();
     bullpenView.refresh();

@@ -17,6 +17,7 @@ public class Bullpen implements java.io.Serializable {
 
   /**
    * Set the logic.
+   * @param logic the logic to use for this bullpen
    */
   public void setLogic(BullpenLogic logic) { this.logic = logic; }
 
@@ -73,6 +74,17 @@ public class Bullpen implements java.io.Serializable {
 
     public boolean isRandom() {
       return isRandom;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (obj instanceof BullpenLogic) {
+        BullpenLogic other = (BullpenLogic)obj;
+        return this.canAddNewPiece == other.canAddNewPiece &&
+               this.canReturnPiece == other.canReturnPiece &&
+               this.isRandom == other.isRandom;
+      }
+      return false;
     }
   }
 

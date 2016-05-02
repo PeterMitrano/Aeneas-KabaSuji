@@ -77,6 +77,8 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    model.setActiveLevel(levelModel);
+    levelModel.start();
     bullpenView = new BullpenView(model, bullpenBox, (Pane) this);
     resetLevelButton.setOnMouseClicked((e) -> {
       this.levelModel.reset();
@@ -84,6 +86,7 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
     });
 
     bullpenView.refresh();
+    bullpenView.setRefreshListener(this);
     levelLabel.setText("Level "+levelModel.getLevelNumber());
 
     levelTypeIcon.setGlyphName(levelModel.getIconName());
@@ -95,7 +98,6 @@ public class PlayLevelView extends BorderPane implements Initializable, RefreshL
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
 
-    model.setActiveLevel(levelModel);
     levelModel.start();
     refresh();
   }

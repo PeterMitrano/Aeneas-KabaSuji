@@ -3,6 +3,7 @@ package aeneas.views;
 import aeneas.controllers.AddNumMove;
 import aeneas.controllers.BullpenToBoardMove;
 import aeneas.controllers.IMove;
+import aeneas.controllers.OnBoardMove;
 import aeneas.models.Board;
 import aeneas.models.DragType;
 import aeneas.models.DragType.Type;
@@ -64,9 +65,8 @@ public class BoardView extends GridPane implements DragSource {
   /**
    * Initialized the board with grey squares
    *
-   * @param board
-   *          the board model object. Eventually this will model object will
-   *          describe which squares are active
+   * @param model
+   *          the model object for the game
    */
   public BoardView(Pane levelPane, Model model) {
     clickListener = null;
@@ -83,25 +83,31 @@ public class BoardView extends GridPane implements DragSource {
         Piece pieceModel = draggedPiece.getPiece();
 
         // remove the piece from the board
-        this.gameModel.getActiveLevel().getBoard().removePiece(draggedPiece);
-        this.pieceBeingDragged = draggedPiece;
-        model.setLatestDragSource(this);
+        if (this.gameModel.getActiveLevel().getBoard()
+            .removePiece(draggedPiece)) {
+          this.pieceBeingDragged = draggedPiece;
+          model.setLatestDragSource(this);
 
-        refresh();
+          refresh();
 
-        Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
-        ClipboardContent content = new ClipboardContent();
-        content.put(Piece.dataFormat, pieceModel);
-        content.put(DragType.dataFormat, DragType.Type.Piece);
-        db.setContent(content);
+          Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
+          ClipboardContent content = new ClipboardContent();
+          content.put(Piece.dataFormat, pieceModel);
+          db.setContent(content);
 
-        // create a new piece view just for the dragging so it can have a
-        // different size
-        PieceView fullSizedPieceView = new PieceView(levelPane, pieceModel,
-            model.getActiveLevel(), BoardView.SQUARE_SIZE);
+          SnapshotParameters snapshotParameters = new SnapshotParameters();
+          snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle
+                                                         // this
 
-        Image snapshotImage = fullSizedPieceView.snapshot(null, null);
-        db.setDragView(snapshotImage);
+          // create a new piece view just for the dragging so it can have a
+          // different size
+          PieceView fullSizedPieceView = new PieceView(levelPane, pieceModel,
+              model.getActiveLevel(), BoardView.SQUARE_SIZE);
+
+          Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters,
+              null);
+          db.setDragView(snapshotImage);
+        }
 
         event.consume();
       }
@@ -120,8 +126,27 @@ public class BoardView extends GridPane implements DragSource {
         // use this to draw the piece on the board
         Piece piece = (Piece) db.getContent(Piece.dataFormat);
 
-        move = new BullpenToBoardMove(gameModel.getActiveLevel(), piece,
-            dragDropRow, dragDropCol);
+        DragSource source = model.getLatestDragSource();
+        if (source instanceof BoardView) {
+          BoardView v = (BoardView) source;
+          IMove m = new OnBoardMove(gameModel.getActiveLevel(),
+              v.getLastDraggedPiece(), dragDropRow, dragDropCol);
+          if (!m.execute()) {
+            model.returnDraggableNode();
+          } else {
+            model.dragSuccess();
+            model.getActiveLevel().addNewMove(m);
+          }
+        } else if (source instanceof BullpenView) {
+          IMove m = new BullpenToBoardMove(gameModel.getActiveLevel(), piece,
+              dragDropRow, dragDropCol);
+          if (!m.execute()) {
+            model.returnDraggableNode();
+          } else {
+            model.dragSuccess();
+            model.getActiveLevel().addNewMove(m);
+          }
+        }
         break;
 
       case ReleaseNum:
@@ -133,13 +158,13 @@ public class BoardView extends GridPane implements DragSource {
 
         move = new AddNumMove((ReleaseLevel) gameModel.getActiveLevel(),
             releaseNum, dragDropRow, dragDropCol);
+        if (!move.execute()) {
+          model.returnDraggableNode();
+        } else {
+          model.dragSuccess();
+          model.getActiveLevel().addNewMove(move);
+        }
         break;
-      }
-
-      if (!move.execute()) {
-        model.getLatestDragSource().returnNode();
-      } else {
-        model.getLatestDragSource().dragSuccess();
       }
 
       refresh();
@@ -226,8 +251,12 @@ public class BoardView extends GridPane implements DragSource {
     }
   }
 
+  public PlacedPiece getLastDraggedPiece() {
+    return pieceBeingDragged;
+  }
+
   @Override
-  public void returnNode() {
+  public void returnDraggableNode() {
     if (pieceBeingDragged != null) {
       this.gameModel.getActiveLevel().getBoard().addPiece(pieceBeingDragged);
       pieceBeingDragged = null;

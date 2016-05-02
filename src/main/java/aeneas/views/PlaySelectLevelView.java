@@ -27,7 +27,7 @@ import javafx.scene.layout.HBox;
  *
  * @author Joseph Martin
  */
-public class PlaySelectLevelView extends BorderPane implements Initializable {
+public class PlaySelectLevelView extends BorderPane implements Initializable, RefreshListener {
 
   @FXML
   private GridPane levelGrid;
@@ -116,7 +116,7 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
     return stars;
   }
 
-  void refresh() {
+  public void refresh() {
     gameModel.refreshLevelIndex();
     customLevelGrid.getChildren().clear();
     levelGrid.getChildren().clear();

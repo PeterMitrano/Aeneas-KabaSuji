@@ -1,6 +1,10 @@
 package aeneas.views;
 
+import aeneas.controllers.AddPieceMove;
+import aeneas.controllers.BoardToBullpenMove;
 import aeneas.controllers.ChildDraggedListener;
+import aeneas.controllers.IMove;
+import aeneas.models.Bullpen;
 import aeneas.models.DragType;
 import aeneas.models.DragType.Type;
 import aeneas.models.Model;
@@ -24,6 +28,8 @@ public class BullpenView implements ChildDraggedListener, DragSource {
   VBox bullpenBox;
   Pane levelView;
   private Model model;
+  Bullpen bullpen;
+  RefreshListener listener;
 
   static final int SQUARE_SIZE = 14;
   private String baseStyle = "-fx-padding:10px;";
@@ -50,21 +56,43 @@ public class BullpenView implements ChildDraggedListener, DragSource {
       default:
       case Piece:
         Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
-        model.getActiveLevel().getBullpen().addPiece(pieceModel);
-        if(model.getLatestDragSource() != null && model.getLatestDragSource() != this) {
-          model.getLatestDragSource().dragSuccess();
+        DragSource source = model.getLatestDragSource();
+        if(source instanceof BoardView) {
+          BoardView b = (BoardView)source;
+          IMove m = new BoardToBullpenMove(model.getActiveLevel(), b.getLastDraggedPiece());
+          if(m.execute()) {
+            model.dragSuccess();
+            model.getActiveLevel().addNewMove(m);
+          } else {
+            model.returnDraggableNode();
+          }
+        } else if(source instanceof BullpenView) {
+          model.returnDraggableNode();
+        } else {
+          IMove m = new AddPieceMove(model.getActiveLevel().getBullpen(), pieceModel);
+          if(m.execute()) {
+            model.dragSuccess();
+            model.getActiveLevel().addNewMove(m);
+          } else {
+            model.returnDraggableNode();
+          }
         }
-        refresh();
-
-        // this might change we we actually implement it,
-        // such as if they drop it on a square that doesn't exist
-        event.setDropCompleted(true);
-        event.consume();
         break;
       case ReleaseNum:
         break;
       }
 
+
+      if(listener != null) {
+        listener.refresh();
+      }
+
+      refresh();
+
+      // this might change we we actually implement it,
+      // such as if they drop it on a square that doesn't exist
+      event.setDropCompleted(true);
+      event.consume();
 
     });
 
@@ -111,7 +139,7 @@ public class BullpenView implements ChildDraggedListener, DragSource {
   }
 
   @Override
-  public void returnNode() {
+  public void returnDraggableNode() {
     if(pieceBeingDragged != null) {
       model.getActiveLevel().getBullpen().addPiece(pieceBeingDragged.pieceModel);
       refresh();
@@ -127,5 +155,9 @@ public class BullpenView implements ChildDraggedListener, DragSource {
     }
     refresh();
     pieceBeingDragged = null;
+  }
+
+  public void setRefreshListener(RefreshListener listener) {
+    this.listener = listener;
   }
 }

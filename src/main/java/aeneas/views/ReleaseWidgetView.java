@@ -207,7 +207,7 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
   }
 
   @Override
-  public void returnNode() {
+  public void returnDraggableNode() {
   }
 
   @Override

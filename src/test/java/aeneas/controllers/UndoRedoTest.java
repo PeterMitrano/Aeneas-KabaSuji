@@ -32,7 +32,7 @@ public class UndoRedoTest {
   
   @Test
   public void toggleTileTest() {
-    IMove move = new ToggleTileMove(model.getActiveLevel(), 3, 3);
+    IMove move = new ToggleTileMove(model, 3, 3);
     assertTrue(move.execute());
     
     assertFalse(model.getActiveLevel().getBoard().getSquares()[3][3]);
