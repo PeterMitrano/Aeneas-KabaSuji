@@ -18,6 +18,7 @@ public abstract class Board implements java.io.Serializable {
   boolean[][] squares = new boolean[SIZE][SIZE];
   ArrayList<PlacedPiece> pieces;
   ArrayList<PlacedPiece> hints;
+  protected transient boolean isEditor = false;
 
   public Board() {
     pieces = new ArrayList<>();
@@ -226,5 +227,9 @@ public abstract class Board implements java.io.Serializable {
         dest.squares[i][j] = src.squares[i][j];
       }
     }
+  }
+
+  public void setIsEditor(boolean is) {
+    this.isEditor = is;
   }
 }
