@@ -35,6 +35,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
@@ -204,8 +205,11 @@ public class MainView extends StackPane implements Initializable {
     switchToWelcomeView();
   }
 
-  public File showSaveDialog() {
+  public File showSaveDialog(int levelNumber) {
     FileChooser fileChooser = new FileChooser();
+    if(levelNumber > 0) {
+      fileChooser.setInitialFileName(levelNumber+".kbs");
+    }
     fileChooser.setInitialDirectory(model.getLevelIndex().defaultLevelPath.toFile());
     fileChooser.setTitle("Save Level");
     return fileChooser.showSaveDialog(stage);

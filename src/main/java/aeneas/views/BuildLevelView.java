@@ -147,7 +147,7 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
     });
 
     saveButton.setOnMouseClicked((e) -> {
-      File saveFile = mainView.showSaveDialog();
+      File saveFile = mainView.showSaveDialog(this.model.getActiveLevel().getLevelNumber());
       if (saveFile == null)
         return;
       try {
