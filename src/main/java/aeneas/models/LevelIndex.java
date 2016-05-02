@@ -24,7 +24,7 @@ public class LevelIndex {
   LevelIndex() {
     levels = new HashMap<>();
     // TODO: Consider changing this path.
-    defaultLevelPath = Paths.get(System.getenv("HOME"), ".aeneas-kabasuji");
+    defaultLevelPath = Paths.get(System.getProperty("user.home"), ".aeneas-kabasuji");
     reindex();
   }
 

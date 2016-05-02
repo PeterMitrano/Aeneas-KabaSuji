@@ -154,7 +154,7 @@ public class MainView extends StackPane implements Initializable {
     welcomeView = new WelcomeView(this, model);
     playSelectLevelView = new PlaySelectLevelView(this, model);
     viewAchievementsView = new ViewAchievementsView(model);
-    buildSelectLevelView = new BuildSelectLevelView(this);
+    buildSelectLevelView = new BuildSelectLevelView(this, model);
 
     // init Popup
     toolbarPopup.setPopupContainer(root);
