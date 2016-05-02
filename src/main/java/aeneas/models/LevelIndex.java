@@ -21,7 +21,10 @@ public class LevelIndex {
 
   public final Path defaultLevelPath;
 
-  private boolean get_opt_levels = true;
+  // Whether or not we should load the levels from the ~/.aeneas-kabasuji
+  // directory. This is used for testing, when we don't want whatever weird
+  // things are in the user's computer affecting the tests.
+  private boolean loadUserLevels = true;
 
   LevelIndex() {
     levels = new HashMap<>();
@@ -40,7 +43,7 @@ public class LevelIndex {
       levels.put(i+1, l);
     }
 
-    if (!get_opt_levels) return;
+    if (!loadUserLevels) return;
 
     if (!Files.exists(defaultLevelPath)) {
       try {
@@ -106,7 +109,7 @@ public class LevelIndex {
     return levels.get(i);
   }
 
-  public void set_get_opt_levels(boolean set) {
-    get_opt_levels = set;
+  public void setLoadUserLevels(boolean set) {
+    this.loadUserLevels = set;
   }
 }

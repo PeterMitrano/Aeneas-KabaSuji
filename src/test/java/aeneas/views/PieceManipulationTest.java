@@ -41,7 +41,7 @@ public class PieceManipulationTest extends ApplicationTest {
     this.stage = stage;
     mainView = new MainView(stage);
     model = mainView.getModel();
-    model.getLevelIndex().set_get_opt_levels(false);
+    model.getLevelIndex().setLoadUserLevels(false);
     model.getLevelIndex().reindex();
     Scene scene = new Scene(new JFXDecorator(stage, mainView.root), 800, 800);
     stage.setScene(scene);
