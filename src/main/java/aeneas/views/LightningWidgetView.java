@@ -1,6 +1,10 @@
 package aeneas.views;
 
 import aeneas.controllers.IMove;
+import aeneas.controllers.SetMovesMove;
+import aeneas.controllers.SetTimeMove;
+import aeneas.models.LightningLevel;
+import aeneas.models.ReleaseLevel;
 import aeneas.controllers.SetTimeMove;
 import aeneas.models.Level;
 import aeneas.models.LightningLevel;
@@ -18,22 +22,17 @@ public class LightningWidgetView extends LevelWidgetView {
   public static final RadioButton button = new RadioButton("Lightning");
   private Model model;
   private LightningLevel level;
-  private SetTimeController controller;
 
-  public class SetTimeController implements ChangeListener<Integer> {
-    public void changed(ObservableValue<? extends Integer> observable,
-                        Integer old_value, Integer new_value) {
-      IMove move = new SetTimeMove(level, new_value);
-      if (move.execute()) model.addNewMove(move);
-    }
-  }
 
   Spinner<Integer> timeSelect;
 
-  public LightningWidgetView(LightningLevel levelModel, Model model) {
+  private boolean isUserInput = true;
+
+
+  public LightningWidgetView(LightningLevel levelModel){
     super(levelModel);
-    this.model = model;
-    this.level = levelModel;
+
+    level = levelModel;
 
     VBox box = new VBox();
     box.setSpacing(4);
@@ -43,9 +42,14 @@ public class LightningWidgetView extends LevelWidgetView {
     timeSelect.setPrefWidth(120);
     int seconds = levelModel.getAllowedTime();
     timeSelect.getValueFactory().setValue(seconds);
+    timeSelect.valueProperty().addListener((observer, old_value, new_value) -> {
+      if(!isUserInput) return;
+      IMove move = new SetTimeMove(level, new_value);
+      if(move.execute()){
+        level.addNewMove(move);
+      }
+    });
 
-    controller = new SetTimeController();
-    timeSelect.valueProperty().addListener(controller);
 
     box.getChildren().add(timeLabel);
     box.getChildren().add(timeSelect);
@@ -61,10 +65,14 @@ public class LightningWidgetView extends LevelWidgetView {
       return level;
     }
     this.level = new LightningLevel(level);
-    timeSelect.valueProperty().removeListener(controller);
-    timeSelect.getValueFactory().setValue(this.level.getAllowedTime());
-    controller = new SetTimeController();
-    timeSelect.valueProperty().addListener(controller);
+    timeSelect.valueProperty().addListener((observer, old_value, new_value) -> {
+      if(!isUserInput) return;
+      IMove move = new SetTimeMove(this.level, new_value);
+      if(move.execute()){
+        level.addNewMove(move);
+      }
+    });
+    updateValues();
     return this.level;
   }
 
@@ -74,10 +82,10 @@ public class LightningWidgetView extends LevelWidgetView {
   }
 
   @Override
-  public void refresh() {
-    timeSelect.valueProperty().removeListener(controller);
+  public void updateValues(){
+    isUserInput = false;
     timeSelect.getValueFactory().setValue(level.getAllowedTime());
-    timeSelect.valueProperty().addListener(controller);
     getButton().setSelected(true);
+    isUserInput = true;
   }
 }

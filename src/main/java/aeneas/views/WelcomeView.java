@@ -13,7 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 
-public class WelcomeView extends VBox implements Initializable{
+public class WelcomeView extends VBox implements Initializable, RefreshListener {
 
 	@FXML
 	private JFXButton playSelectLevelButton;
@@ -58,4 +58,8 @@ public class WelcomeView extends VBox implements Initializable{
     });
 
 	}
+
+  @Override
+  public void refresh() {
+  }
 }

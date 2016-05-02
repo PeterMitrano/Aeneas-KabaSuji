@@ -12,16 +12,19 @@ import aeneas.models.Board;
 import aeneas.models.Level;
 import aeneas.models.Level.LevelWithMoves;
 import aeneas.models.LightningLevel;
+import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseLevel;
 
 public class SetSizeMoveTest {
 
-  Level level;
+  Model model;
 
   @Before
   public void setUp() throws Exception {
-    level = new PuzzleLevel(new Bullpen(BullpenLogic.editorLogic()));
+    Level level = new PuzzleLevel(new Bullpen(BullpenLogic.editorLogic()));
+    model = new Model();
+    model.setActiveLevel(level);
   }
 
   @After
@@ -31,12 +34,12 @@ public class SetSizeMoveTest {
   @Test
   public void testSetSizeNormal() {
     int rows = 8, cols = 5;
-    IMove move = new SetSizeMove(level, rows, cols, 12, 12);
+    IMove move = new SetSizeMove(model, rows, cols);
     assertTrue(move.execute());
 
-    boolean[][] squares = level.getBoard().getSquares();
-    for (int i = 0; i < Board.SIZE; ++i) {
-      for (int j = 0; j < Board.SIZE; ++j) {
+    boolean[][] squares = model.getActiveLevel().getBoard().getSquares();
+    for (int i = 0; i < Board.MAX_SIZE; ++i) {
+      for (int j = 0; j < Board.MAX_SIZE; ++j) {
         if (i < rows && j < cols) assertTrue("("+i+", "+j+") should be true", squares[i][j]);
         else assertFalse("("+i+", "+j+") should be false", squares[i][j]);
       }
@@ -44,8 +47,9 @@ public class SetSizeMoveTest {
 
     move.undo();
 
-    for (int i = 0; i < Board.SIZE; ++i) {
-      for (int j = 0; j < Board.SIZE; ++j) {
+    squares = model.getActiveLevel().getBoard().getSquares();
+    for (int i = 0; i < Board.MAX_SIZE; ++i) {
+      for (int j = 0; j < Board.MAX_SIZE; ++j) {
         assertTrue(squares[i][j]);
       }
     }
@@ -53,7 +57,7 @@ public class SetSizeMoveTest {
 
   @Test
   public void testBadInput() {
-    IMove move = new SetSizeMove(level, -10, 5, 12, 12);
+    IMove move = new SetSizeMove(model, -10, 5);
     assertFalse(move.isValid());
     assertFalse(move.execute());
   }

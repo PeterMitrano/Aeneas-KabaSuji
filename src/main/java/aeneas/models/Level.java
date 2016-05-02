@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
+import java.util.Stack;
+import aeneas.controllers.IMove;
 import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.RefreshListener;
@@ -18,18 +19,20 @@ import javafx.scene.control.RadioButton;
  * @author Joseph Martin
  */
 public abstract class Level implements java.io.Serializable {
-  
+
   RefreshListener listener;
-  
+
   public void setRefreshListener(RefreshListener listener) {
     this.listener = listener;
   }
-  
+
   Bullpen bullpen;
 
   transient int levelNumber;
   transient boolean active = false;
-  boolean prebuilt;
+  
+  transient Stack<IMove> undoStack;
+  transient Stack<IMove> redoStack;
 
   public int getLevelNumber() {
     return levelNumber;
@@ -49,8 +52,8 @@ public abstract class Level implements java.io.Serializable {
     public int getStarsEarned() { return starsEarned; }
     public boolean isLocked() { return locked; }
 
-    void setStarsEarned(int stars) { starsEarned = stars; }
-    void setLocked(boolean locked) { this.locked = locked; }
+    public void setStarsEarned(int stars) { starsEarned = stars; }
+    public void setLocked(boolean locked) { this.locked = locked; }
   }
 
   public interface LevelWithMoves {
@@ -59,9 +62,10 @@ public abstract class Level implements java.io.Serializable {
     public int decMoves();
   }
 
-  public Level(Bullpen bullpen, boolean prebuilt) {
+  public Level(Bullpen bullpen) {
     this.bullpen = bullpen;
-    this.prebuilt = prebuilt;
+    undoStack = new Stack<IMove>();
+    redoStack = new Stack<IMove>();
   }
 
   /**
@@ -73,14 +77,9 @@ public abstract class Level implements java.io.Serializable {
   public Level(Level src) {
     this.bullpen = src.bullpen;
     this.levelNumber = src.levelNumber;
-    this.prebuilt = src.prebuilt;
+    undoStack = src.undoStack;
+    redoStack = src.redoStack;
   }
-
-  /**
-   * Check if the level is done
-   * @return true if the level is complete, false otherwise.
-   */
-  public abstract boolean isComplete();
 
   /**
    * Get the board for this level
@@ -101,7 +100,7 @@ public abstract class Level implements java.io.Serializable {
    * @return the prebuilt
    */
   public boolean isPrebuilt() {
-    return prebuilt;
+    return levelNumber <= 15;
   }
 
   public void reset() {
@@ -159,6 +158,60 @@ public abstract class Level implements java.io.Serializable {
   public ArrayList<Piece> getPieces() {
     return bullpen.pieces;
   }
+  
+  /**
+   * Undoes the most recently made move, if possible
+   * @return true if undo was successful, false otherwise
+   */
+  public boolean undoLastMove() {
+    if(undoStack != null && undoStack.size() > 0) {
+      IMove m = undoStack.peek();
+      boolean success = m.undo();
+      if(success) {
+        undoStack.pop();
+        redoStack.add(m);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Redoes the most recently undone move, if possible
+   * @return true if redo was successful, false otherwise
+   */
+  public boolean redoLastMove() {
+    if(redoStack != null && redoStack.size() > 0) {
+      IMove m = redoStack.peek();
+      boolean success = m.execute();
+      if(success) {
+        redoStack.pop();
+        undoStack.add(m);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Adds a new move to the undo stack.
+   * This will clear all moves in the redo stack
+   * @param move The move to be added
+   */
+  public void addNewMove(IMove move){
+    if(redoStack==null){
+      redoStack = new Stack<IMove>();
+      undoStack = new Stack<IMove>();
+    }
+    redoStack.clear();
+    undoStack.add(move);
+  }
 
   public abstract LevelWidgetView makeCorrespondingView(Model model);
 
@@ -187,11 +240,13 @@ public abstract class Level implements java.io.Serializable {
 
   public void copy(Level src, Level dst) {
     dst.bullpen = (Bullpen)src.bullpen.clone();
-    dst.prebuilt = src.prebuilt;
     dst.active = src.active;
     dst.levelNumber = src.levelNumber;
+    dst.undoStack = src.undoStack;
+    dst.redoStack = src.redoStack;
   }
 
   @Override
   public abstract Object clone();
+  
 }

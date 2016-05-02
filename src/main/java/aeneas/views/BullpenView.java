@@ -7,6 +7,7 @@ import aeneas.controllers.BoardToBullpenMove;
 import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.IMove;
 import aeneas.models.Bullpen;
+import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
@@ -36,9 +37,8 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
 
   private PieceView pieceBeingDragged = null;
 
-  public BullpenView(Model model, Bullpen bullpen, VBox bullpenBox, Pane levelView) {
+  public BullpenView(Model model, VBox bullpenBox, Pane levelView) {
     this.model = model;
-    this.bullpen = bullpen;
     this.levelView = levelView;
     this.bullpenBox = bullpenBox;
     bullpenBox.setAlignment(Pos.TOP_CENTER);
@@ -58,7 +58,7 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
         IMove m = new BoardToBullpenMove(model.getActiveLevel(), b.getLastDraggedPiece());
         if(m.execute()) {
           model.dragSuccess();
-          model.addNewMove(m);
+          model.getActiveLevel().addNewMove(m);
         } else {
           model.returnPiece();
         }
@@ -68,7 +68,7 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
         IMove m = new AddPieceMove(model.getActiveLevel().getBullpen(), pieceModel);
         if(m.execute()) {
           model.dragSuccess();
-          model.addNewMove(m);
+          model.getActiveLevel().addNewMove(m);
         } else {
           model.returnPiece();
         }
@@ -106,10 +106,10 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
 
     bullpenBox.getChildren().clear();
 
-    for (int i = bullpen.getPieces().size() - 1; i >= 0; i--) {
-      Piece piece = bullpen.getPieces().get(i);
+    for (int i = model.getActiveLevel().getBullpen().getPieces().size() - 1; i >= 0; i--) {
+      Piece piece = model.getActiveLevel().getBullpen().getPieces().get(i);
       Pane piecePane = new Pane();
-      PieceView pieceView = new PieceView(levelView, piece, model, SQUARE_SIZE);
+      PieceView pieceView = new PieceView(levelView, piece,  model.getActiveLevel(), SQUARE_SIZE);
       pieceView.setOnChildDraggedListener(this);
       piecePane.getChildren().add(pieceView);
       bullpenBox.getChildren().add(piecePane);
@@ -119,7 +119,7 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
   @Override
   public void onPieceDragged(PieceView pieceView) {
     pieceBeingDragged = pieceView;
-    bullpen.removePiece(pieceView.pieceModel);
+    model.getActiveLevel().getBullpen().removePiece(pieceView.pieceModel);
     refresh();
     model.setLatestDragSource(this);
   }
@@ -131,7 +131,7 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
   @Override
   public void returnPiece() {
     if(pieceBeingDragged != null) {
-      bullpen.addPiece(pieceBeingDragged.pieceModel);
+      model.getActiveLevel().getBullpen().addPiece(pieceBeingDragged.pieceModel);
       refresh();
       pieceBeingDragged = null;
     }
@@ -139,9 +139,9 @@ public class BullpenView implements ChildDraggedListener, PieceSource {
 
   @Override
   public void dragSuccess() {
-    if(bullpen.getLogic().isRandom()) {
+    if( model.getActiveLevel().getBullpen().getLogic().isRandom()) {
       int pieceIndex = (int)(Math.random()*35);
-      bullpen.addPiece(PieceFactory.getPieces()[pieceIndex]);
+      model.getActiveLevel().getBullpen().addPiece(PieceFactory.getPieces()[pieceIndex]);
     }
     refresh();
     pieceBeingDragged = null;

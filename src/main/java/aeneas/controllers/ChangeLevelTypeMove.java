@@ -1,5 +1,6 @@
 package aeneas.controllers;
 import aeneas.models.Level;
+import aeneas.models.Model;
 import aeneas.views.BuildLevelView;
 
 import javafx.scene.control.RadioButton;
@@ -12,25 +13,25 @@ public class ChangeLevelTypeMove implements IMove {
 
   Level newLevel;
   Level oldLevel;
-  BuildLevelView view;
+  Model model;
 
-  public ChangeLevelTypeMove(BuildLevelView view, Level newLevel) {
+  public ChangeLevelTypeMove(Model model, Level newLevel) {
     this.newLevel = newLevel;
-    this.view = view;
+    this.model = model;
   }
 
   @Override
   public boolean execute() {
     if (!isValid()) return false;
-    this.oldLevel = view.getLevelModel();
-    this.view.setLevelModel(newLevel);
+    this.oldLevel = model.getActiveLevel();
+    model.setActiveLevel(newLevel);
 
     return true;
   }
 
   @Override
   public boolean undo() {
-    view.setLevelModel(oldLevel);
+    model.setActiveLevel(oldLevel);
     return true;
   }
 
@@ -39,7 +40,7 @@ public class ChangeLevelTypeMove implements IMove {
    */
   @Override
   public boolean isValid() {
-    return !this.newLevel.equals(view.getLevelModel());
+    return !this.newLevel.equals(model.getActiveLevel());
   }
 
 }
