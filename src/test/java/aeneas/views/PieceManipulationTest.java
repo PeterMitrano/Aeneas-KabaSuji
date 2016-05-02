@@ -116,7 +116,7 @@ public class PieceManipulationTest extends ApplicationTest {
 
     Pane piecePane = (Pane) bullpenBox.getChildren().get(0);
     // First, drag piece to board.
-    drag(piecePane).dropTo(boardView.grid[0][0]);
+    drag(piecePane.getChildren().get(0)).dropTo(boardView.grid[0][0]);
     assertEquals(1, boardView.gameModel.getActiveLevel().getBoard().getPieces().size());
 
     // Now, drag piece back to Bullpen.
