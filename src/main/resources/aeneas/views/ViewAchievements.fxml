@@ -23,23 +23,23 @@
       <GridPane hgap="20" vgap="20" alignment="CENTER">
         <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <FontAwesomeIconView glyphName="SHIELD" size="4em"/>
-          <Label styleClass="achievement-title">Defender</Label>
-          <Label styleClass="achievement-description">complete four release levels</Label>
+          <Label styleClass="achievement-title">Go Home</Label>
+          <Label styleClass="achievement-description">Don't open the game for 5 years</Label>
         </VBox>
         <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
           <FontAwesomeIconView glyphName="ROCKET" size="4em"/>
           <Label styleClass="achievement-title">Rocket</Label>
-          <Label styleClass="achievement-description">complete four lightning levels</Label>
+          <Label styleClass="achievement-description">Play Kabasuji on Mars</Label>
         </VBox>
         <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
           <FontAwesomeIconView glyphName="PUZZLE_PIECE" size="4em"/>
-          <Label styleClass="achievement-title">Solver</Label>
-          <Label styleClass="achievement-description">complete four puzzle levels</Label>
+          <Label styleClass="achievement-title">Good Try</Label>
+          <Label styleClass="achievement-description">You can't get this achievement</Label>
         </VBox>
         <VBox spacing="10" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <FontAwesomeIconView glyphName="BOLT" size="4em"/>
-          <Label styleClass="achievement-title">Thor</Label>
-          <Label styleClass="achievement-description">complete all lightning levels</Label>
+          <Label styleClass="achievement-title">Good Luck</Label>
+          <Label styleClass="achievement-description">complete all levels in less than one second</Label>
         </VBox>
       </GridPane>
     </VBox>
