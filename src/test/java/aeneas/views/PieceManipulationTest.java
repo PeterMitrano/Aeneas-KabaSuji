@@ -14,6 +14,7 @@ import aeneas.models.Board;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -28,6 +29,7 @@ public class PieceManipulationTest extends ApplicationTest {
 
   Stage stage;
   MainView mainView;
+  Model model;
 
   @Override
   public void init() throws Exception {
@@ -38,6 +40,9 @@ public class PieceManipulationTest extends ApplicationTest {
   public void start(Stage stage) {
     this.stage = stage;
     mainView = new MainView(stage);
+    model = mainView.getModel();
+    model.getLevelIndex().set_get_opt_levels(false);
+    model.getLevelIndex().reindex();
     Scene scene = new Scene(new JFXDecorator(stage, mainView.root), 800, 800);
     stage.setScene(scene);
     stage.show();
@@ -49,10 +54,14 @@ public class PieceManipulationTest extends ApplicationTest {
     FxToolkit.cleanupStages();
   }
 
-  private void navigateToFirstLevel() {
+  private void navigateToLevel(int level_num) {
     clickOn("#playSelectLevelButton");
+    Level level = model.getLevel(level_num);
+    model.getMetadata(level).setLocked(false);
+    //Platform.runLater(() -> mainView.switchToPlayLevelView(level));
     GridPane levels = (GridPane) lookup("#levelGrid").query();
-    clickOn(levels.getChildren().get(0));
+    model.getLevelIndex().reindex();
+    clickOn(levels.getChildren().get(level_num*2 - 1));
   }
 
   private PieceView getFirstPiece() {
@@ -64,13 +73,12 @@ public class PieceManipulationTest extends ApplicationTest {
 
   @Test
   public void testRotatePiece() {
-    navigateToFirstLevel();
+    navigateToLevel(1);
     PieceView piece = getFirstPiece();
     Piece oldPiece = piece.pieceModel.clone();
     clickOn(piece);
     oldPiece.rotate(Piece.Dir.CLOCKWISE);
     assertEquals(oldPiece.toString(), piece.pieceModel.toString());
-    System.out.println("CCW: ");
     press(KeyCode.SHIFT).clickOn(piece).release(KeyCode.SHIFT);
     oldPiece.rotate(Piece.Dir.COUNTERCLOCKWISE);
     assertEquals(oldPiece.toString(), piece.pieceModel.toString());
@@ -78,7 +86,7 @@ public class PieceManipulationTest extends ApplicationTest {
 
   @Test
   public void testFlipPiece() {
-    navigateToFirstLevel();
+    navigateToLevel(1);
     PieceView piece = getFirstPiece();
     Piece oldPiece = piece.pieceModel.clone();
     // Now, test flips.
@@ -86,24 +94,58 @@ public class PieceManipulationTest extends ApplicationTest {
     oldPiece.flip(Piece.Axis.VERTICAL);
     assertEquals(oldPiece.toString(), piece.pieceModel.toString());
 
-    System.out.println("Horizontal: ");
     press(KeyCode.CONTROL).press(KeyCode.SHIFT).clickOn(piece).release(KeyCode.CONTROL).release(KeyCode.SHIFT);
     oldPiece.flip(Piece.Axis.HORIZONTAL);
     assertEquals(oldPiece.toString(), piece.pieceModel.toString());
   }
 
-  @Test
-  public void testDragPiece() {
-    navigateToFirstLevel();
-    VBox bullpenBox = (VBox) lookup("#bullpenBox").query();
-    Pane piecePane = (Pane) bullpenBox.getChildren().get(0);
-    PieceView piece = (PieceView) piecePane.getChildren().get(0);
+  BoardView boardView;
+  VBox bullpenBox;
+
+  public void testDragPieceSetup(int level_num) {
+    navigateToLevel(level_num);
+    bullpenBox = (VBox) lookup("#bullpenBox").query();
     VBox boardBox = (VBox) lookup("#centerBox").query();
     ObservableList<Node> children = boardBox.getChildren();
-    BoardView boardView = (BoardView) children.get(children.size()-1);
+    boardView = (BoardView) children.get(children.size()-1);
+  }
 
+  @Test
+  public void testDragPuzzle() {
+    testDragPieceSetup(1);
+
+    Pane piecePane = (Pane) bullpenBox.getChildren().get(0);
     // First, drag piece to board.
-    drag(piece).dropTo(boardView.grid[0][0]);
+    drag(piecePane.getChildren().get(0)).dropTo(boardView.grid[0][0]);
+    assertEquals(1, boardView.board.getPieces().size());
+
+    // Now, drag piece back to Bullpen.
+    drag(boardView.grid[0][0]).dropTo(bullpenBox);
+    assertEquals(0, boardView.board.getPieces().size());
+
+    piecePane = (Pane) bullpenBox.getChildren().get(0);
+    // Now, drag to invalid spot on board.
+    drag(piecePane.getChildren().get(0)).dropTo(boardView.grid[11][11]);
+    assertEquals(0, boardView.board.getPieces().size());
+  }
+
+  @Test
+  public void testDragLightning() throws InterruptedException {
+    testDragPieceSetup(2);
+
+    Pane piecePane = (Pane) bullpenBox.getChildren().get(0);
+    // First, drag piece to board.
+    drag(piecePane.getChildren().get(0)).dropTo(boardView.grid[0][0]);
+    assertEquals(0, boardView.board.getPieces().size());
+  }
+
+  @Test
+  public void testDragRelease() {
+    testDragPieceSetup(3);
+
+    Pane piecePane = (Pane) bullpenBox.getChildren().get(0);
+    // First, drag piece to board.
+    drag(piecePane.getChildren().get(0)).dropTo(boardView.grid[0][0]);
     assertEquals(1, boardView.board.getPieces().size());
 
     // Now, drag piece back to Bullpen.
