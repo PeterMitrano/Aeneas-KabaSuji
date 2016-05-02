@@ -70,6 +70,7 @@ public class BoardControlTest extends ApplicationTest {
     clickOn("#undoButton");
     clickOn("#undoButton");
 
+    squares = mainView.getModel().getActiveLevel().getBoard().getSquares();
     for (int i = 0; i < Board.MAX_SIZE; ++i) {
       for (int j = 0; j < Board.MAX_SIZE; ++j) {
         assertTrue(squares[i][j]);
