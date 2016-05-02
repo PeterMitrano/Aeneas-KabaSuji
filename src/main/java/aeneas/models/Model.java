@@ -82,6 +82,11 @@ public class Model {
       m = new Level.Metadata();
       levelMetadata.put(level.getLevelNumber(), m);
     }
+    
+    if(!level.isPrebuilt()) {
+      m.setLocked(false);
+    }
+    
     return m;
   }
 
@@ -206,6 +211,9 @@ public class Model {
   }
 
   public void setActiveLevel(Level levelModel) {
+    if(activeLevel != null) {
+      activeLevel.stop();
+    }
     activeLevel = levelModel;
   }
 

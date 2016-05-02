@@ -27,18 +27,9 @@ implements java.io.Serializable, Level.LevelWithMoves {
    * @param bullpen The bullpen to use for this level
    * @param board The board to use for this level
    */
-  public PuzzleLevel(Bullpen bullpen, PuzzleBoard board, boolean prebuilt){
-    super(bullpen, prebuilt);
-    this.board = board;
-  }
-
-  /**
-   * Constructor
-   * @param bullpen The bullpen to use for this level
-   * @param board The board to use for this level
-   */
   public PuzzleLevel(Bullpen bullpen, PuzzleBoard board){
-    this(bullpen, board, true);
+    super(bullpen);
+    this.board = board;
   }
 
   /**
@@ -46,11 +37,11 @@ implements java.io.Serializable, Level.LevelWithMoves {
    * @param bullpen The bullpen to use for this level
    */
   public PuzzleLevel(Bullpen bullpen) {
-    this(bullpen, new PuzzleBoard(), true);
+    this(bullpen, new PuzzleBoard());
   }
 
   public PuzzleLevel(Bullpen bullpen, boolean prebuilt) {
-    super(bullpen, prebuilt);
+    super(bullpen);
     board = new PuzzleBoard();
   }
 
@@ -122,7 +113,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public Object clone() {
     PuzzleLevel newLevel =
       new PuzzleLevel((Bullpen)this.bullpen.clone(),
-                         (PuzzleBoard)this.board.clone(), this.prebuilt);
+                         (PuzzleBoard)this.board.clone());
     super.copy(this, newLevel);
     newLevel.movesAllowed = this.movesAllowed;
     return newLevel;
