@@ -108,7 +108,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   @Override
   public LevelWidgetView makeCorrespondingView(Model model) {
-    return new ReleaseWidgetView(this, model);
+    return new ReleaseWidgetView(this);
   }
 
   public String getIconName() {

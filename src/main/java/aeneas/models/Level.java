@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
+import java.util.Stack;
+import aeneas.controllers.IMove;
 import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
 import aeneas.views.RefreshListener;
@@ -29,6 +30,9 @@ public abstract class Level implements java.io.Serializable {
 
   transient int levelNumber;
   transient boolean active = false;
+  
+  transient Stack<IMove> undoStack;
+  transient Stack<IMove> redoStack;
 
   public int getLevelNumber() {
     return levelNumber;
@@ -60,6 +64,8 @@ public abstract class Level implements java.io.Serializable {
 
   public Level(Bullpen bullpen) {
     this.bullpen = bullpen;
+    undoStack = new Stack<IMove>();
+    redoStack = new Stack<IMove>();
   }
 
   /**
@@ -71,6 +77,8 @@ public abstract class Level implements java.io.Serializable {
   public Level(Level src) {
     this.bullpen = src.bullpen;
     this.levelNumber = src.levelNumber;
+    undoStack = src.undoStack;
+    redoStack = src.redoStack;
   }
 
   /**
@@ -150,6 +158,60 @@ public abstract class Level implements java.io.Serializable {
   public ArrayList<Piece> getPieces() {
     return bullpen.pieces;
   }
+  
+  /**
+   * Undoes the most recently made move, if possible
+   * @return true if undo was successful, false otherwise
+   */
+  public boolean undoLastMove() {
+    if(undoStack != null && undoStack.size() > 0) {
+      IMove m = undoStack.peek();
+      boolean success = m.undo();
+      if(success) {
+        undoStack.pop();
+        redoStack.add(m);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Redoes the most recently undone move, if possible
+   * @return true if redo was successful, false otherwise
+   */
+  public boolean redoLastMove() {
+    if(redoStack != null && redoStack.size() > 0) {
+      IMove m = redoStack.peek();
+      boolean success = m.execute();
+      if(success) {
+        redoStack.pop();
+        undoStack.add(m);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Adds a new move to the undo stack.
+   * This will clear all moves in the redo stack
+   * @param move The move to be added
+   */
+  public void addNewMove(IMove move){
+    if(redoStack==null){
+      redoStack = new Stack<IMove>();
+      undoStack = new Stack<IMove>();
+    }
+    redoStack.clear();
+    undoStack.add(move);
+  }
 
   public abstract LevelWidgetView makeCorrespondingView(Model model);
 
@@ -180,8 +242,11 @@ public abstract class Level implements java.io.Serializable {
     dst.bullpen = (Bullpen)src.bullpen.clone();
     dst.active = src.active;
     dst.levelNumber = src.levelNumber;
+    dst.undoStack = src.undoStack;
+    dst.redoStack = src.redoStack;
   }
 
   @Override
   public abstract Object clone();
+  
 }

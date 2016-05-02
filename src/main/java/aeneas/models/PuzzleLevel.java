@@ -81,7 +81,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   @Override
   public LevelWidgetView makeCorrespondingView(Model model) {
-    return new PuzzleWidgetView(this, model);
+    return new PuzzleWidgetView(this);
   }
 
   @Override

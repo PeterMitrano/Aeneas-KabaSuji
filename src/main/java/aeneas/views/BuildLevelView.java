@@ -16,6 +16,7 @@ import aeneas.controllers.BoardSizeController;
 import aeneas.controllers.ChangeLevelTypeMove;
 import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.IMove;
+import aeneas.controllers.UndoRedoController;
 import aeneas.controllers.ToggleTileMove;
 import aeneas.controllers.UndoRedoController;
 import aeneas.models.Level;
@@ -108,6 +109,8 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
   private LevelWidgetView levelView;
   private ArrayList<LevelWidgetView> levelViews;
   private Model model;
+  private UndoRedoController undoController;
+  private boolean isRefreshing = false;
 
   BuildLevelView(MainView mainView, ArrayList<LevelWidgetView> levelViews, Level level, Model model) {
     this.levelView = level.makeCorrespondingView(model);
@@ -125,26 +128,20 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
     }
   }
 
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.boardView = new BoardView((Pane)this, model, model.getActiveLevel().getBoard());
-    this.bullpenView = new BullpenView(model, model.getActiveLevel().getBullpen(), bullpenBox, (Pane) this);
+    this.boardView = new BoardView((Pane)this, model);
+    this.bullpenView = new BullpenView(model, bullpenBox, (Pane) this);
     bullpenView.refresh();
+    undoController = new UndoRedoController(this, model);
 
     VBox.setMargin(boardView, new Insets(10, 10, 10, 10));
     centerBox.setAlignment(Pos.TOP_RIGHT);
     centerBox.getChildren().add(boardView);
 
-    rowSpinner.valueProperty().addListener(new BoardSizeController(model, this));
-    columnSpinner.valueProperty().addListener(new BoardSizeController(model, this));
-
-    undoButton.setOnMouseClicked((e) -> {
-        new UndoRedoController(this, model).doUndo();
-    });
-
-    redoButton.setOnMouseClicked((e) -> {
-        new UndoRedoController(this, model).doRedo();
-    });
+    rowSpinner.valueProperty().addListener(new BoardSizeController(this));
+    columnSpinner.valueProperty().addListener(new BoardSizeController(this));
 
     saveButton.setOnMouseClicked((e) -> {
       File saveFile = mainView.showSaveDialog(this.model.getActiveLevel().getLevelNumber());
@@ -171,24 +168,24 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
     // Handle changes in the level type.
     // TODO: Consider moving this to a separate class.
     levelType.selectedToggleProperty()
-        .addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
-          if (new_toggle != null && !toggle.equals(new_toggle)) {
-            LevelWidgetView view = (LevelWidgetView) ((RadioButton) new_toggle).getUserData();
-            Level newLevel = view.resetLevelModel(this.model.getActiveLevel());
-            IMove move = new ChangeLevelTypeMove(this, newLevel);
-            if (move.execute()) model.addNewMove(move);
-            this.settingsBox.getChildren().set(1, view.getPanel());
-            this.levelView = view;
-          }
-        });
+    .addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
+      if (new_toggle != null && !toggle.equals(new_toggle)) {
+        LevelWidgetView view = (LevelWidgetView) ((RadioButton) new_toggle).getUserData();
+        Level newLevel = view.resetLevelModel(this.model.getActiveLevel());
+        IMove move = new ChangeLevelTypeMove(this.model, newLevel);
+        if (move.execute()) model.getActiveLevel().addNewMove(move);
+        this.settingsBox.getChildren().set(1, view.getPanel());
+        this.levelView = view;
+      }
+    });
 
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
 
     boardView.setSquareClickListener((row, col) -> {
-      IMove m = new ToggleTileMove(model.getActiveLevel(), row, col);
+      IMove m = new ToggleTileMove(model, row, col);
       if (m.isValid()) {
         m.execute();
-        model.addNewMove(m);
+        model.getActiveLevel().addNewMove(m);
         boardView.refresh();
       }
     });
@@ -203,27 +200,42 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
       piecesPane.getChildren().clear();
 
       for (Piece pieceModel : PieceFactory.getPieces()) {
-        PieceView pView = new PieceView((Pane) this, pieceModel, model, PIECE_PICKER_SQUARE_SIZE);
+        PieceView pView = new PieceView((Pane) this, pieceModel, model.getActiveLevel(), PIECE_PICKER_SQUARE_SIZE);
         piecesPane.getChildren().add(pView);
 
         pView.setOnMouseClicked((click) -> {
           IMove move = new AddPieceMove(model.getActiveLevel().getBullpen(), pieceModel.clone());
           if (move.execute()){
-            model.addNewMove(move);
+            model.getActiveLevel().addNewMove(move);
             bullpenView.refresh();
           }
         });
       }
     });
+
+    mainView.setOnKeyPressed(undoController );
+    undoButton.setOnMouseClicked((e)-> {
+      undoController.undoMove();
+    });
+    redoButton.setOnMouseClicked((e)-> {
+      undoController.redoMove();
+    });
+
   }
 
   public void refresh() {
+    isRefreshing = true;
     boardView.refresh();
     bullpenView.refresh();
     this.levelType.selectToggle(model.getActiveLevel().getButton());
     this.levelView = (LevelWidgetView)levelType.getSelectedToggle().getUserData();
-    this.levelView.refresh();
+    this.levelView.updateValues();
+    this.rowSpinner.getValueFactory().setValue(model.getActiveLevel().getBoard().getRows());
+    this.columnSpinner.getValueFactory().setValue(model.getActiveLevel().getBoard().getCols());
+    isRefreshing = false;
   }
+
+  public boolean isRefreshing(){return isRefreshing;}
 
   public Spinner<Integer> getRowSpinner() {
     return rowSpinner;
@@ -239,5 +251,9 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
 
   public void setLevelModel(Level level) {
     model.setActiveLevel(level);
+  }
+  
+  public Model getModel(){
+    return model;
   }
 }

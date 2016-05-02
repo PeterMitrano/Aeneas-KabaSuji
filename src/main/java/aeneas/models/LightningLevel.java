@@ -89,7 +89,7 @@ public class LightningLevel extends Level implements java.io.Serializable {
 
   @Override
   public LevelWidgetView makeCorrespondingView(Model model) {
-    return new LightningWidgetView(this, model);
+    return new LightningWidgetView(this);
   }
 
   public String getIconName() {
@@ -159,7 +159,7 @@ public class LightningLevel extends Level implements java.io.Serializable {
   public void reset() {
     this.elapsedTime = 0;
     getBoard().getPieces().clear();
-    this.board.coveredSquares = new boolean[Board.SIZE][Board.SIZE];
+    this.board.coveredSquares = new boolean[Board.MAX_SIZE][Board.MAX_SIZE];
     if (started) {
       getBullpen().getPieces().clear();
       for (Piece piece : startPieces) {

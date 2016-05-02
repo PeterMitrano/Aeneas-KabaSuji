@@ -60,7 +60,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable, R
   private LevelWidgetView createDefaultLevelView() {
     Bullpen defaultBullpen  = new Bullpen(BullpenLogic.puzzleLogic());
     PuzzleLevel defaultLevel = new PuzzleLevel(defaultBullpen);
-    return new PuzzleWidgetView(defaultLevel, mainView.getModel());
+    return new PuzzleWidgetView(defaultLevel);
   }
 
   @Override

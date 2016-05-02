@@ -39,7 +39,7 @@ public class RotateMove implements IMove {
       piece.rotate(Dir.COUNTERCLOCKWISE);
     else
       piece.rotate(Dir.CLOCKWISE);
-    return false;
+    return true;
   }
 
   @Override

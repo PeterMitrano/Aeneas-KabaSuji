@@ -1,5 +1,6 @@
 package aeneas.controllers;
 
+import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.Piece.Axis;
@@ -19,11 +20,11 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
 
   Piece pieceModel;
   PieceView pieceView;
-  Model model;
+  Level level;
 
-  public ManipulatePieceController(Model model, Piece pieceModel, PieceView pieceView) {
+  public ManipulatePieceController(Level level, Piece pieceModel, PieceView pieceView) {
     this.pieceModel = pieceModel;
-    this.model = model;
+    this.level = level;
     this.pieceView = pieceView;
   }
 
@@ -57,7 +58,7 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
   public void doMove(Dir dir) {
     IMove move = new RotateMove(pieceModel, dir);
     if (move != null && move.execute()) {
-      model.addNewMove(move);
+      level.addNewMove(move);
       pieceView.refresh();
     }
   }
@@ -65,7 +66,7 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
   public void doMove(Axis axis){
     IMove move = new FlipMove(pieceModel, axis);
     if (move != null && move.execute()) {
-      model.addNewMove(move);
+      level.addNewMove(move);
       pieceView.refresh();
     }
   }
@@ -73,7 +74,7 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
   public void addHint(){
     IMove move = new MakeHintMove(pieceModel);
     if (move != null && move.execute()) {
-      model.addNewMove(move);
+      level.addNewMove(move);
       pieceView.refresh();
     }
   }

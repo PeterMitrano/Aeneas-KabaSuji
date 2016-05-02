@@ -11,11 +11,14 @@ import javafx.scene.paint.Color;
  * @author Joseph Martin
  */
 public abstract class Board implements java.io.Serializable {
-  public static final int SIZE = 12;
+  public static final int MAX_SIZE = 12;
 
   public static final Color DEFAULT_COLOR = Color.GRAY;
+  
+  int rows = MAX_SIZE;
+  int cols = MAX_SIZE;
 
-  boolean[][] squares = new boolean[SIZE][SIZE];
+  boolean[][] squares = new boolean[MAX_SIZE][MAX_SIZE];
   ArrayList<PlacedPiece> pieces;
   ArrayList<PlacedPiece> hints;
   protected transient boolean isEditor = false;
@@ -23,8 +26,8 @@ public abstract class Board implements java.io.Serializable {
   public Board() {
     pieces = new ArrayList<>();
     hints = new ArrayList<>();
-    for (int i = 0; i < SIZE; i++) {
-      for (int j = 0; j < SIZE; j++) {
+    for (int i=0;i<MAX_SIZE;i++){
+      for (int j=0;j<MAX_SIZE;j++){
         squares[i][j] = true;
       }
     }
@@ -176,8 +179,8 @@ public abstract class Board implements java.io.Serializable {
    *
    * @return A two dimensional array representing the current state of the board
    */
-  public Square[][] assembleSquares() {
-    Square[][] squares = new Square[SIZE][SIZE];
+  public Square[][] assembleSquares(){
+    Square[][] squares = new Square[MAX_SIZE][MAX_SIZE];
     for (PlacedPiece piece : hints){
       for(Square s : piece.getSquaresInBoardFrame())
         squares[s.getRow()][s.getCol()] = s;
@@ -188,8 +191,8 @@ public abstract class Board implements java.io.Serializable {
       for(Square s : piece.getSquaresInBoardFrame())
         squares[s.getRow()][s.getCol()] = s;
     }
-    for(int row = 0;row<this.squares.length;row++ ){
-      for(int col = 0;col<this.squares.length;col++){
+    for(int row = 0;row<squares.length;row++ ){
+      for(int col = 0;col<squares[0].length;col++){
         if (squares[row][col] == null && this.squares[row][col])
             squares[row][col]=new Square(row, col, Board.DEFAULT_COLOR);
       }
@@ -199,8 +202,8 @@ public abstract class Board implements java.io.Serializable {
 
   public int numSquaresRemaining() {
     int count = 0;
-    for(int j = 0; j < SIZE; j++) {
-      for(int i = 0; i < SIZE; i++) {
+    for(int j = 0; j < MAX_SIZE; j++) {
+      for(int i = 0; i < MAX_SIZE; i++) {
         count += squares[j][i] && (getPieceAtLocation(j, i) == null) ? 1 : 0;
       }
     }
@@ -214,6 +217,8 @@ public abstract class Board implements java.io.Serializable {
 
   /**
    * Copy common elements of two boards; used for clone() on the subclasses.
+   * @param src the board to get the data from
+   * @param dest the board to copy the data to
    */
   protected void copy(Board src, Board dest) {
     for (PlacedPiece piece : src.pieces) {
@@ -222,12 +227,45 @@ public abstract class Board implements java.io.Serializable {
     for (PlacedPiece hint : src.hints) {
       dest.hints.add(new PlacedPiece(hint.piece, hint.row, hint.col));
     }
-    for (int i = 0; i < SIZE; ++i) {
-      for (int j = 0; j < SIZE; ++j) {
+    for (int i = 0; i < MAX_SIZE; ++i) {
+      for (int j = 0; j < MAX_SIZE; ++j) {
         dest.squares[i][j] = src.squares[i][j];
       }
     }
+    dest.rows = src.rows;
+    dest.cols = src.cols;
   }
+  
+  /**
+   * Resizes the board
+   * @param rows number of rows
+   * @param cols number of columns
+   */
+  public void resizeBoard(int rows, int cols){
+    
+    for (int row = 0; row < squares.length; row++) {
+      for (int col = 0; col < squares[0].length; col++) {
+        
+        // Toggle any squares outside of the range off.
+        if (row >= rows || col >= cols) 
+          squares[row][col] = false;
+        else {
+          // If old_rows or old_cols are less then rows/cols, then we need
+          // to also toggle some squares on.
+          if ((row >= this.rows && row < rows) || (col >= this.cols && col < cols)) {
+            squares[row][col] = true;
+          }
+        }
+      }
+    }
+    this.rows = rows;
+    this.cols = cols;
+  }
+  
+  public int getRows(){return rows;}
+  
+  public int getCols(){return cols;}
+
 
   public void setIsEditor(boolean is) {
     this.isEditor = is;

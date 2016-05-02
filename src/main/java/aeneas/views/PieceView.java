@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXPopup;
 
 import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.ManipulatePieceController;
+import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.Piece.Axis;
@@ -38,7 +39,7 @@ public class PieceView extends GridPane {
   private JFXPopup piecePopup;
 
   Piece pieceModel;
-  Model model;
+  Level level;
   int squareSize;
   Pane levelPane;
   ManipulatePieceController controller;
@@ -52,17 +53,17 @@ public class PieceView extends GridPane {
    *          the view for the level in which this piece is displayed
    * @param pieceModel
    *          The Piece that this view displays
-   * @param model
-   *          The model that is being used
+   * @param level
+   *          The level that is being used
    * @param squareSize
    *          The size of a single square in the piece
    */
-  public PieceView(Pane levelPane, Piece pieceModel, Model model, int squareSize) {
+  public PieceView(Pane levelPane, Piece pieceModel, Level level, int squareSize) {
     this.pieceModel = pieceModel;
     this.levelPane = levelPane;
-    this.model = model;
+    this.level = level;
     this.squareSize = squareSize;
-    this.controller = new ManipulatePieceController(model, pieceModel, this);
+    this.controller = new ManipulatePieceController(level, pieceModel, this);
 
     // callback for when drags are initiated
     this.setOnDragDetected((MouseEvent event) -> {
@@ -74,10 +75,8 @@ public class PieceView extends GridPane {
       SnapshotParameters snapshotParameters = new SnapshotParameters();
       snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle this
 
-      // create a new piece view just for the dragging so it can have a
-      // different size
-      PieceView fullSizedPieceView =
-        new PieceView(levelPane, pieceModel, model, BoardView.SQUARE_SIZE);
+      //create a new piece view just for the dragging so it can have a different size
+      PieceView fullSizedPieceView = new PieceView(levelPane, pieceModel, level, BoardView.SQUARE_SIZE);
 
       Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
       db.setDragView(snapshotImage);
