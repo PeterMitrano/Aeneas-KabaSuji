@@ -65,6 +65,9 @@ public class BoardView extends GridPane implements DragSource {
   /**
    * Initialized the board with grey squares
    *
+   * @param levelPane
+   *          a passthrew for the pane you want the pieceview to render it's
+   *          right-click menu in
    * @param model
    *          the model object for the game
    */
