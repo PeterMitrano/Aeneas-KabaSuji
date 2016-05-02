@@ -206,6 +206,17 @@ public class BuildLevelView extends StackPane implements Initializable {
         PieceView pView = new PieceView((Pane) this, pieceModel, model, PIECE_PICKER_SQUARE_SIZE);
         piecesPane.getChildren().add(pView);
 
+        pView.setOnChildDraggedListener(new ChildDraggedListener() {
+          @Override
+          public void onSquareDragged(Square squareView) {
+          }
+
+          @Override
+          public void onPieceDragged(PieceView pieceView) {
+            model.setLatestDragSource(null);
+          }
+        });
+
         pView.setOnMouseClicked((click) -> {
           IMove move = new AddPieceMove(model.getActiveLevel().getBullpen(), pieceModel.clone());
           if (move.execute()){

@@ -2,6 +2,7 @@ package aeneas.views;
 
 import aeneas.controllers.BullpenToBoardMove;
 import aeneas.controllers.IMove;
+import aeneas.controllers.OnBoardMove;
 import aeneas.models.Board;
 import aeneas.models.Model;
 import aeneas.models.Piece;
@@ -110,13 +111,26 @@ public class BoardView extends GridPane implements PieceSource {
       // use this to draw the piece on the board
       Piece piece = (Piece) db.getContent(Piece.dataFormat);
 
-      IMove move = new BullpenToBoardMove(gameModel.getActiveLevel(), piece,
-                                          dragDropRow, dragDropCol);
-
-      if (!move.execute()){
-        model.getLatestDragSource().returnPiece();
+      PieceSource source = model.getLatestDragSource();
+      if(source instanceof BoardView) {
+        BoardView v = (BoardView)source;
+        IMove m = new OnBoardMove(gameModel.getActiveLevel(), v.getLastDraggedPiece(), dragDropRow, dragDropCol);
+        if (!m.execute()){
+          model.returnPiece();
+        } else {
+          model.dragSuccess();
+          model.addNewMove(m);
+        }
+      } else if(source instanceof BullpenView) {
+        IMove m = new BullpenToBoardMove(gameModel.getActiveLevel(), piece, dragDropRow, dragDropCol);
+        if (!m.execute()){
+          model.returnPiece();
+        } else {
+          model.dragSuccess();
+          model.addNewMove(m);
+        }
       } else {
-        model.getLatestDragSource().dragSuccess();
+        model.returnPiece();
       }
 
       refresh();
@@ -129,7 +143,6 @@ public class BoardView extends GridPane implements PieceSource {
       // such as if they drop it on a square that doesn't exist
       event.setDropCompleted(true);
       event.consume();
-
     });
 
     // this is absolutely nessecary
@@ -202,6 +215,10 @@ public class BoardView extends GridPane implements PieceSource {
         grid[row][col].refresh(squares[row][col]);
       }
     }
+  }
+
+  public PlacedPiece getLastDraggedPiece() {
+    return pieceBeingDragged;
   }
 
   @Override

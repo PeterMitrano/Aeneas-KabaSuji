@@ -205,6 +205,18 @@ public class Model {
     return latestDragSource;
   }
 
+  public void returnPiece() {
+    if(latestDragSource != null) {
+      latestDragSource.returnPiece();
+    }
+  }
+
+  public void dragSuccess() {
+    if(latestDragSource != null) {
+      latestDragSource.dragSuccess();
+    }
+  }
+
   public void setActiveLevel(Level levelModel) {
     activeLevel = levelModel;
   }
