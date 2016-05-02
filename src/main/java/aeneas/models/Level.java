@@ -19,13 +19,13 @@ import javafx.scene.control.RadioButton;
  * @author Joseph Martin
  */
 public abstract class Level implements java.io.Serializable {
-  
+
   RefreshListener listener;
-  
+
   public void setRefreshListener(RefreshListener listener) {
     this.listener = listener;
   }
-  
+
   Bullpen bullpen;
 
   transient int levelNumber;
@@ -52,8 +52,8 @@ public abstract class Level implements java.io.Serializable {
     public int getStarsEarned() { return starsEarned; }
     public boolean isLocked() { return locked; }
 
-    void setStarsEarned(int stars) { starsEarned = stars; }
-    void setLocked(boolean locked) { this.locked = locked; }
+    public void setStarsEarned(int stars) { starsEarned = stars; }
+    public void setLocked(boolean locked) { this.locked = locked; }
   }
 
   public interface LevelWithMoves {

@@ -26,7 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
- * 
+ *
  * @author Joseph Martin
  */
 public class BuildSelectLevelView extends BorderPane implements Initializable, RefreshListener {
@@ -75,9 +75,12 @@ public class BuildSelectLevelView extends BorderPane implements Initializable, R
         if (text.equals(createNewLevelLabel.getText())) {
           levelToSwitchTo = createDefaultLevelView().getDefaultLevelModel();
           levelToSwitchTo.getBullpen().setLogic(BullpenLogic.editorLogic());
+          levelToSwitchTo.getBoard().setIsEditor(true);
           mainView.switchToBuildLevelView(levelToSwitchTo);
         } else {
           levelToSwitchTo = model.getLevel(Integer.parseInt(text));
+          levelToSwitchTo.getBullpen().setLogic(BullpenLogic.editorLogic());
+          levelToSwitchTo.getBoard().setIsEditor(true);
 
           if (levelToSwitchTo == null) {
             System.out.println("couldn't find file level " + text);
@@ -100,7 +103,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable, R
     fileList.getItems().add(createNewLevelLabel);
 
     model.getLevelIndex().reindex();
-    
+
     for(Level l : model.getLevels()) {
       fileList.getItems().add(new Label(l.getLevelNumber()+""));
     }

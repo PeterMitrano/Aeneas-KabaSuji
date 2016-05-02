@@ -74,27 +74,28 @@ public class BoardView extends GridPane implements PieceSource {
         Piece pieceModel = draggedPiece.getPiece();
 
         //remove the piece from the board
-        this.gameModel.getActiveLevel().getBoard().removePiece(draggedPiece);
-        this.pieceBeingDragged = draggedPiece;
-        model.setLatestDragSource(this);
+        if (this.gameModel.getActiveLevel().getBoard().removePiece(draggedPiece)) {
+          this.pieceBeingDragged = draggedPiece;
+          model.setLatestDragSource(this);
 
-        refresh();
+          refresh();
 
-        Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
-        ClipboardContent content = new ClipboardContent();
-        content.put(Piece.dataFormat, pieceModel);
-        db.setContent(content);
+          Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
+          ClipboardContent content = new ClipboardContent();
+          content.put(Piece.dataFormat, pieceModel);
+          db.setContent(content);
 
-        SnapshotParameters snapshotParameters = new SnapshotParameters();
-        snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle this
+          SnapshotParameters snapshotParameters = new SnapshotParameters();
+          snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle this
 
         // create a new piece view just for the dragging so it can have a
         // different size
         PieceView fullSizedPieceView =
           new PieceView(levelPane, pieceModel, model.getActiveLevel(), BoardView.SQUARE_SIZE);
 
-        Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
-        db.setDragView(snapshotImage);
+          Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
+          db.setDragView(snapshotImage);
+        }
 
         event.consume();
       }
