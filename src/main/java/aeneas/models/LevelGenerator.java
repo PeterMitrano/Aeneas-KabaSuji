@@ -47,11 +47,14 @@ public class LevelGenerator {
 
   private static ReleaseLevel newRelease(int moves, int[] pieceIndeces) {
     Piece[] pieces = PieceFactory.getPieces();
+    ArrayList<ReleaseNumber> numbers = new ArrayList<ReleaseNumber>();
+    numbers.add(new ReleaseNumber(4, 4, ReleaseNumber.color1, 2));
+    ReleaseBoard board = new ReleaseBoard(numbers);
     Bullpen bullpen = new Bullpen(BullpenLogic.releaseLogic());
     for (int i : pieceIndeces){
       bullpen.addPiece(pieces[i]);
     }
-    ReleaseLevel l = new ReleaseLevel(bullpen);
+    ReleaseLevel l = new ReleaseLevel(bullpen, board);
     l.setAllowedMoves(moves);
     return l;
   }

@@ -23,6 +23,9 @@ public class LightningBoard extends Board implements java.io.Serializable {
 
   @Override
   public boolean addPiece(PlacedPiece piece) {
+    if (this.isEditor) {
+      return super.addPiece(piece);
+    }
     if(super.addPiece(piece)) {
       // Mark the squares as covered
       for(Square s : piece.getSquaresInBoardFrame()) {

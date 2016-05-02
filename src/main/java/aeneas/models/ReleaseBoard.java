@@ -63,4 +63,12 @@ public class ReleaseBoard extends Board implements java.io.Serializable, Level.L
 
   @Override
   public int decMoves() { return this.movesLeft; }
+
+  @Override
+  public boolean removePiece(PlacedPiece piece) {
+    if (this.isEditor) {
+      return super.removePiece(piece);
+    }
+    return false;
+  }
 }

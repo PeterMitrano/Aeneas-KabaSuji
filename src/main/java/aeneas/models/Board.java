@@ -18,6 +18,7 @@ public abstract class Board implements java.io.Serializable {
   boolean[][] squares = new boolean[SIZE][SIZE];
   ArrayList<PlacedPiece> pieces;
   ArrayList<PlacedPiece> hints;
+  protected transient boolean isEditor = false;
 
   public Board() {
     pieces = new ArrayList<>();
@@ -228,36 +229,7 @@ public abstract class Board implements java.io.Serializable {
     }
   }
 
-  public static class BoardLogic {
-    boolean canRemovePieces;
-    boolean peristentPieces;
-
-    public static BoardLogic editorLogic() {
-      BoardLogic b = new BoardLogic();
-      b.canRemovePieces = true;
-      b.peristentPieces = true;
-      return b;
-    }
-
-    public static BoardLogic puzzleLogic() {
-      BoardLogic b = new BoardLogic();
-      b.canRemovePieces = true;
-      b.peristentPieces = true;
-      return b;
-    }
-
-    public static BoardLogic lightningLogic() {
-      BoardLogic b = new BoardLogic();
-      b.canRemovePieces = false;
-      b.peristentPieces = false;
-      return b;
-    }
-
-    public static BoardLogic releaseLogic() {
-      BoardLogic b = new BoardLogic();
-      b.canRemovePieces = false;
-      b.peristentPieces = true;
-      return b;
-    }
+  public void setIsEditor(boolean is) {
+    this.isEditor = is;
   }
 }

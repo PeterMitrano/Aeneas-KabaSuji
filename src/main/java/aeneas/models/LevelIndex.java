@@ -21,6 +21,8 @@ public class LevelIndex {
 
   public final Path defaultLevelPath;
 
+  private boolean get_opt_levels = true;
+
   LevelIndex() {
     levels = new HashMap<>();
     // TODO: Consider changing this path.
@@ -37,6 +39,8 @@ public class LevelIndex {
       l.levelNumber = i+1;
       levels.put(i+1, l);
     }
+
+    if (!get_opt_levels) return;
 
     if (!Files.exists(defaultLevelPath)) {
       try {
@@ -100,5 +104,9 @@ public class LevelIndex {
 
   Level getLevel(int i) {
     return levels.get(i);
+  }
+
+  public void set_get_opt_levels(boolean set) {
+    get_opt_levels = set;
   }
 }
