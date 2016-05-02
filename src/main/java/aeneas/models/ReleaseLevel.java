@@ -29,18 +29,9 @@ implements java.io.Serializable, Level.LevelWithMoves {
    * @param bullpen The bullpen to use for this level
    * @param board The Board to use for this level
    */
-  public ReleaseLevel(Bullpen bullpen, ReleaseBoard board, boolean prebuilt){
-    super(bullpen, prebuilt);
-    this.board = board;
-  }
-
-  /**
-   * Constructor
-   * @param bullpen The bullpen to use for this level
-   * @param board The Board to use for this level
-   */
   public ReleaseLevel(Bullpen bullpen, ReleaseBoard board){
-    this(bullpen, board, true);
+    super(bullpen);
+    this.board = board;
   }
 
   /**
@@ -48,7 +39,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
    * @param bullpen The bullpen to use for this level
    */
   public ReleaseLevel(Bullpen bullpen) {
-    this(bullpen, new ReleaseBoard(), true);
+    this(bullpen, new ReleaseBoard());
   }
 
   private boolean numberSetIsCovered(Color color) {
@@ -131,7 +122,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public Object clone() {
     ReleaseLevel newLevel =
       new ReleaseLevel((Bullpen)this.bullpen.clone(),
-                         (ReleaseBoard)this.board.clone(), this.prebuilt);
+                         (ReleaseBoard)this.board.clone());
     super.copy(this, newLevel);
     newLevel.movesAllowed = this.movesAllowed;
     return newLevel;

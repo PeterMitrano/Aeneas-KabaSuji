@@ -29,7 +29,6 @@ public abstract class Level implements java.io.Serializable {
 
   transient int levelNumber;
   transient boolean active = false;
-  boolean prebuilt;
 
   public int getLevelNumber() {
     return levelNumber;
@@ -59,9 +58,8 @@ public abstract class Level implements java.io.Serializable {
     public int decMoves();
   }
 
-  public Level(Bullpen bullpen, boolean prebuilt) {
+  public Level(Bullpen bullpen) {
     this.bullpen = bullpen;
-    this.prebuilt = prebuilt;
   }
 
   /**
@@ -73,7 +71,6 @@ public abstract class Level implements java.io.Serializable {
   public Level(Level src) {
     this.bullpen = src.bullpen;
     this.levelNumber = src.levelNumber;
-    this.prebuilt = src.prebuilt;
   }
 
   /**
@@ -101,7 +98,7 @@ public abstract class Level implements java.io.Serializable {
    * @return the prebuilt
    */
   public boolean isPrebuilt() {
-    return prebuilt;
+    return levelNumber <= 15;
   }
 
   public void reset() {
@@ -187,7 +184,6 @@ public abstract class Level implements java.io.Serializable {
 
   public void copy(Level src, Level dst) {
     dst.bullpen = (Bullpen)src.bullpen.clone();
-    dst.prebuilt = src.prebuilt;
     dst.active = src.active;
     dst.levelNumber = src.levelNumber;
   }
