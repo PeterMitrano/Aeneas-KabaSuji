@@ -2,6 +2,8 @@ package aeneas.models;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
@@ -43,6 +45,14 @@ implements java.io.Serializable, Level.LevelWithMoves {
     this(bullpen, new ReleaseBoard());
   }
 
+  private Set<Color> getNumberColors() {
+    Set<Color> set = new HashSet<Color>();
+    for(ReleaseNumber n : board.getNumbers()) {
+      set.add(n.getColor());
+    }
+    return set;
+  }
+
   private boolean numberSetIsCovered(Color color) {
     for(ReleaseNumber n : board.getNumbers()) {
       if(n.getColor().equals(color) && board.getPieceAtLocation(n.row, n.col) == null) {
@@ -53,11 +63,12 @@ implements java.io.Serializable, Level.LevelWithMoves {
     return true;
   }
 
-  int numCoveredNumberSets() {
-    int count = 0;
-    count += numberSetIsCovered(ReleaseNumber.color1) ? 1 : 0;
-    count += numberSetIsCovered(ReleaseNumber.color2) ? 1 : 0;
-    count += numberSetIsCovered(ReleaseNumber.color3) ? 1 : 0;
+  int numUncoveredNumberSets() {
+    Set<Color> colors = getNumberColors();
+    int count = colors.size();
+    for (Color c : colors) {
+      count -= numberSetIsCovered(c) ? 1 : 0;
+    }
 
     return count;
   }
@@ -65,16 +76,16 @@ implements java.io.Serializable, Level.LevelWithMoves {
   @Override
   public int getStarsEarned() {
     // This would have to change if we added more than 3 sets of numbers
-    return numCoveredNumberSets();
+    return 3 - numUncoveredNumberSets();
   }
 
   public ReleaseLevel(Level src) {
     super(src);
-    
+
     if(src instanceof LevelWithMoves) {
       this.movesAllowed = ((LevelWithMoves) src).getAllowedMoves();
     }
-    
+
     this.board = new ReleaseBoard(src.getBoard());
     if (src.bullpen.logic.equals(BullpenLogic.editorLogic()))
       this.bullpen.logic = BullpenLogic.editorLogic();
