@@ -28,7 +28,8 @@ public abstract class LevelWidgetView {
   }
 
   /**
-   * @return levelModel If levelModel is already of the correct type, then
+   * @param levelModel the level to reset to
+   * @return If levelModel is already of the correct type, then
    *   levelModel will be returned.
    */
   public abstract Level resetLevelModel(Level levelModel);
