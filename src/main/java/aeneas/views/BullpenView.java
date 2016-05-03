@@ -36,6 +36,12 @@ public class BullpenView implements ChildDraggedListener, DragSource {
 
   private PieceView pieceBeingDragged = null;
 
+  /**
+   * Constructor
+   * @param model the current model
+   * @param bullpenBox the display box
+   * @param levelView the level display
+   */
   public BullpenView(Model model, VBox bullpenBox, Pane levelView) {
     this.model = model;
     this.levelView = levelView;
@@ -112,6 +118,9 @@ public class BullpenView implements ChildDraggedListener, DragSource {
     });
   }
 
+  /**
+   * refreshes the bullpen view
+   */
   public void refresh() {
 
     bullpenBox.getChildren().clear();

@@ -288,6 +288,10 @@ public class PieceFactory {
     }),
   };
 
+  /**
+   * gets all possible pieces
+   * @return array of all the possible piece types
+   */
   public static Piece[] getPieces() {
     Piece[] clones = new Piece[pieces.length];
 

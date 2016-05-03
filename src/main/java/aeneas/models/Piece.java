@@ -29,10 +29,19 @@ public class Piece implements java.io.Serializable {
   private String color;
 
 
+  /**
+   * Constructor
+   * @param squares squares to make the piece from
+   */
   public Piece(Square[]squares){
     this(squares, Color.BLUE);
   }
 
+  /**
+   * Constructor
+   * @param squares
+   * @param color
+   */
   public Piece(Square[] squares, Color color) {
     this.squares = squares;
     this.color = color.toString();
@@ -51,6 +60,10 @@ public class Piece implements java.io.Serializable {
     inBullpen = true;
   }
 
+  /**
+   * flips the piece over the specified axis
+   * @param axis axis to flip over
+   */
   public void flip(Axis axis) {
     for(Square s : squares) {
       switch(axis) {
@@ -64,6 +77,10 @@ public class Piece implements java.io.Serializable {
     }
   }
 
+  /**
+   * rotates in  the given direction
+   * @param direction direction to rotate
+   */
   public void rotate(Dir direction) {
     for(Square s : squares) {
       int row = s.getRow();

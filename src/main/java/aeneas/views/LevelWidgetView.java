@@ -17,6 +17,10 @@ public abstract class LevelWidgetView {
   protected VBox panel;
   private Level levelModel;
 
+  /**
+   * Constructor
+   * @param levelModel
+   */
   public LevelWidgetView(Level levelModel){
     this.levelModel = levelModel;
     panel = new VBox();
@@ -45,6 +49,9 @@ public abstract class LevelWidgetView {
 
   public abstract RadioButton getButton();
 
+  /**
+   * updates all values in the widget to correspond to the correct values
+   */
   public abstract void updateValues();
 
 }

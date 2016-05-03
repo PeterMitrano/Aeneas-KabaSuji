@@ -22,6 +22,9 @@ public abstract class Board implements java.io.Serializable {
   ArrayList<PlacedPiece> pieces;
   protected transient boolean isEditor = false;
 
+  /**
+   * Constructor
+   */
   public Board() {
     pieces = new ArrayList<>();
     for (int i=0;i<MAX_SIZE;i++){
@@ -31,6 +34,10 @@ public abstract class Board implements java.io.Serializable {
     }
   }
 
+  /**
+   * Constructor
+   * @param board to use data from
+   */
   public Board(Board board) {
     this.squares = board.squares;
     this.pieces = board.pieces;
@@ -186,6 +193,10 @@ public abstract class Board implements java.io.Serializable {
     return squares;
   }
 
+  /**
+   * gets the number of squares that are not covered and valid
+   * @return the number of squares that are not covered and valid
+   */
   public int numSquaresRemaining() {
     int count = 0;
     for(int j = 0; j < MAX_SIZE; j++) {
@@ -196,6 +207,7 @@ public abstract class Board implements java.io.Serializable {
 
     return count;
   }
+
 
   public boolean[][] getSquares() {
     return squares;

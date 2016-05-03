@@ -12,6 +12,11 @@ public class ChangeLevelTypeMove implements IMove {
   Level oldLevel;
   Model model;
 
+  /**
+   * Constructor
+   * @param model the current model
+   * @param newLevel the level to change the model to
+   */
   public ChangeLevelTypeMove(Model model, Level newLevel) {
     this.newLevel = newLevel;
     this.model = model;

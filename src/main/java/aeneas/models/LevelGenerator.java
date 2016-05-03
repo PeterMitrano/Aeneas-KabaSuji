@@ -8,6 +8,11 @@ import aeneas.models.Bullpen.BullpenLogic;
 
 import javafx.scene.paint.Color;
 
+/**
+ * generates the initial levels
+ * @author Logan
+ *
+ */
 public class LevelGenerator {
 
   private static int levelNumber = 1;
@@ -21,6 +26,10 @@ public class LevelGenerator {
     }
   }
 
+  /**
+   * generates the default levels
+   * @return array of created levels
+   */
   public static ArrayList<Level> generateDefaultLevels() {
     ArrayList<Level> levels = new ArrayList<Level>();
 

@@ -12,11 +12,18 @@ public class LightningBoard extends Board implements java.io.Serializable {
   // when the level is created.
   boolean coveredSquares[][];
 
+  /**
+   * Constructor
+   */
   public LightningBoard() {
     super();
     coveredSquares = new boolean[MAX_SIZE][MAX_SIZE];
   }
 
+  /**
+   * Constructor
+   * @param board board to use for data
+   */
   public LightningBoard(Board board) {
     super(board);
     coveredSquares = new boolean[MAX_SIZE][MAX_SIZE];
@@ -40,6 +47,10 @@ public class LightningBoard extends Board implements java.io.Serializable {
     }
   }
 
+  /**
+   * gets all squares that are covered
+   * @return array of all covered squares
+   */
   public boolean[][] getCoveredSquares() {
     // This seems to be necessary because of serialization?
     if(coveredSquares == null) {
@@ -53,6 +64,10 @@ public class LightningBoard extends Board implements java.io.Serializable {
     return coveredSquares;
   }
 
+  /**
+   * gets how many squares have not been covered
+   * @return number of covered squares
+   */
   public int numCoveredSquares() {
     int count = 0;
     for(int j = 0; j < MAX_SIZE; j++) {

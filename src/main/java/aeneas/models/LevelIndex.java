@@ -33,6 +33,9 @@ public class LevelIndex {
     reindex();
   }
 
+  /**
+   * reindexes the level based on the other existing levels
+   */
   public void reindex() {
     levels.clear();
 

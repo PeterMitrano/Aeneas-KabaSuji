@@ -18,6 +18,10 @@ public class BoardSizeController implements ChangeListener<Integer> {
 
   private BuildLevelView view;
 
+  /**
+   * Constructor 
+   * @param view the level view
+   */
   public BoardSizeController( BuildLevelView view) {
     this.view = view;
   }

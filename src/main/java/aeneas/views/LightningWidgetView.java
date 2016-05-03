@@ -25,6 +25,10 @@ public class LightningWidgetView extends LevelWidgetView {
   private boolean isUserInput = true;
 
 
+  /**
+   * Constructor
+   * @param levelModel
+   */
   public LightningWidgetView(LightningLevel levelModel){
     super(levelModel);
 
