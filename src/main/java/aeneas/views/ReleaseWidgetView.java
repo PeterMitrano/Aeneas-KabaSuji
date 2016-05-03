@@ -27,7 +27,7 @@ public class ReleaseWidgetView extends LevelWidgetView {
   public ReleaseWidgetView(ReleaseLevel levelModel){
     super(levelModel);
     level = levelModel;
-    movesSelect = new Spinner<Integer>(1, 20, 10);
+    movesSelect = new Spinner<Integer>(1, 999, 10);
     Label movesLabel = new Label("Moves");
     movesSelect.setPrefWidth(70);
     movesSelect.setEditable(true);
