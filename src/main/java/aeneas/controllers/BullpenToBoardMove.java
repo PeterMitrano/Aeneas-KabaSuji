@@ -38,7 +38,7 @@ public class BullpenToBoardMove implements IMove {
   public boolean execute() {
     if (!isValid()) return false;
     if (model.getActiveLevel() instanceof LevelWithMoves && model.getActiveLevel().isActive()) {
-      ((LevelWithMoves)model).decMoves();
+      ((LevelWithMoves)model.getActiveLevel()).decMoves();
     }
 
     model.getActiveLevel().getBullpen().removePiece(placedPiece.getPiece());
