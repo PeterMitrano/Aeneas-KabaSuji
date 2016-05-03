@@ -97,9 +97,10 @@ public class BoardView extends GridPane implements DragSource {
         Piece pieceModel = draggedPiece.getPiece();
 
         // remove the piece from the board
-        if ((!pieceModel.isHint() || gameModel.getActiveLevel().getBoard().getIsEditor()) &&
-            this.gameModel.getActiveLevel().getBoard()
-            .removePiece(draggedPiece)) {
+        if ((!pieceModel.isHint()
+            || gameModel.getActiveLevel().getBoard().getIsEditor())
+            && this.gameModel.getActiveLevel().getBoard()
+                .removePiece(draggedPiece)) {
           this.pieceBeingDragged = draggedPiece;
           model.setLatestDragSource(this);
 
@@ -292,6 +293,7 @@ public class BoardView extends GridPane implements DragSource {
 
             event.consume();
           }
+
         });
 
         this.add(grid[row][col], col, row);
