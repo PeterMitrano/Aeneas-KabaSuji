@@ -49,8 +49,8 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public PuzzleLevel(Level src) {
     super(src);
     
-    if(src instanceof PuzzleLevel) {
-      this.movesAllowed = ((PuzzleLevel) src).movesAllowed;
+    if(src instanceof LevelWithMoves) {
+      this.movesAllowed = ((LevelWithMoves) src).getAllowedMoves();
     }
     
     if (src.bullpen.logic.equals(BullpenLogic.editorLogic()))

@@ -71,8 +71,8 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public ReleaseLevel(Level src) {
     super(src);
     
-    if(src instanceof ReleaseLevel) {
-      this.movesAllowed = ((ReleaseLevel) src).movesAllowed;
+    if(src instanceof LevelWithMoves) {
+      this.movesAllowed = ((LevelWithMoves) src).getAllowedMoves();
     }
     
     this.board = new ReleaseBoard(src.getBoard());
