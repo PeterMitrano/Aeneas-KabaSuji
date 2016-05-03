@@ -13,13 +13,11 @@ import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.AddPieceMove;
 import aeneas.controllers.BoardSizeController;
-import aeneas.controllers.BullpenToBoardMove;
 import aeneas.controllers.ChangeLevelTypeMove;
 import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.DeleteBoardPieceMove;
 import aeneas.controllers.DeleteBullpenPieceMove;
 import aeneas.controllers.IMove;
-import aeneas.controllers.UndoRedoController;
 import aeneas.controllers.ToggleTileMove;
 import aeneas.controllers.UndoRedoController;
 import aeneas.models.Level;
@@ -27,7 +25,7 @@ import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
 import aeneas.models.Square;
-import aeneas.views.PieceView.PieceSource;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import javafx.beans.value.ObservableValue;
@@ -248,7 +246,7 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
       // use this to draw the piece on the board
       Piece piece = (Piece) db.getContent(Piece.dataFormat);
 
-      PieceSource source = model.getLatestDragSource();
+      DragSource source = model.getLatestDragSource();
 
       IMove move = null;
 
@@ -262,7 +260,7 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
       }
       if (move != null) {
         if (!move.execute()){
-          model.getLatestDragSource().returnPiece();
+          model.getLatestDragSource().returnDraggableNode();
         } else {
           model.getLatestDragSource().dragSuccess();
           model.getActiveLevel().addNewMove(move);
