@@ -110,7 +110,6 @@ public class BoardView extends GridPane implements DragSource {
               model.getActiveLevel(), BoardView.SQUARE_SIZE);
 
           Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
-          System.out.println(System.getProperty("os.name"));
           if(Main.isRunningOnMac()) {
             db.setDragViewOffsetX(snapshotImage.getWidth()/2);
             db.setDragViewOffsetY(-snapshotImage.getHeight()/2);
