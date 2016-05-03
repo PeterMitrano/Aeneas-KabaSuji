@@ -50,7 +50,7 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
     this.model = model;
     this.level = levelModel;
 
-    movesSelect = new Spinner<Integer>(1, 20, 10);
+    movesSelect = new Spinner<Integer>(1, 999, 10);
     Label movesLabel = new Label("Moves");
 
     releaseNumLabel = new Label("5");
