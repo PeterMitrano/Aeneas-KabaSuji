@@ -1,7 +1,5 @@
 package aeneas.models;
 
-import java.util.ArrayList;
-
 import javafx.scene.paint.Color;
 
 /**

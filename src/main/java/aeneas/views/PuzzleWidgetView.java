@@ -3,7 +3,6 @@ package aeneas.views;
 import aeneas.controllers.IMove;
 import aeneas.controllers.SetMovesMove;
 import aeneas.models.Level;
-import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

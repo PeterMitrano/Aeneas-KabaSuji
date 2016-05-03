@@ -1,7 +1,6 @@
 package aeneas.controllers;
 import aeneas.models.Level;
 import aeneas.models.Piece;
-import aeneas.models.PlacedPiece;
 
 /**
  * Move action to create a new hint

@@ -3,13 +3,10 @@ package aeneas.views;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.jfoenix.controls.JFXButton;
 
 import aeneas.models.Level;
-import aeneas.models.LightningLevel;
 import aeneas.models.Model;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;

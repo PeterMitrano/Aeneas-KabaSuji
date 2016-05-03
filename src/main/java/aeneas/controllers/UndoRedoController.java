@@ -1,11 +1,6 @@
 package aeneas.controllers;
 import aeneas.models.Model;
 import aeneas.views.BuildLevelView;
-import aeneas.views.MainView;
-
-import aeneas.models.Level;
-import aeneas.models.Model;
-import aeneas.views.BuildLevelView;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
