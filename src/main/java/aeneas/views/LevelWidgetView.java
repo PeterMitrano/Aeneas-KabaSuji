@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 
 /**
  *
+ * @author Logan Tutt
  * @author Joseph Martin
  */
 public abstract class LevelWidgetView {

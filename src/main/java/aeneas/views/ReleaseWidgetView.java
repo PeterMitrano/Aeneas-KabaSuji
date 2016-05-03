@@ -34,7 +34,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
 /**
- *
+ * @author Logan Tutt
  * @author Joseph Martin
  */
 public class ReleaseWidgetView extends LevelWidgetView implements DragSource {

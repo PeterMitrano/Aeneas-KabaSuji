@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 
 /**
  *
+ * @author Logan Tutt
  * @author Joseph Martin
  */
 public class LightningWidgetView extends LevelWidgetView {

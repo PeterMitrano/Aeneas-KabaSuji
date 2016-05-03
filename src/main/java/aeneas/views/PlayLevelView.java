@@ -21,7 +21,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * @author Logan Tutt
  * @author Joseph Martin
  */
 public class PlayLevelView extends BorderPane implements Initializable, RefreshListener {

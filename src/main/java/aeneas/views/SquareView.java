@@ -15,7 +15,7 @@ import javafx.scene.text.Font;
 /**
  * View class to display a single square
  *
- * @author Logan
+ * @author Logan Tutt
  * @author Joseph Martin
  */
 public class SquareView extends StackPane {

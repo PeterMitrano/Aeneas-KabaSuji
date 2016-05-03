@@ -6,6 +6,7 @@ import javafx.scene.input.DataFormat;
 /**
  *
  * @author Joseph Martin, Garrison
+ * @author Logan
  */
 public class Piece implements java.io.Serializable {
   public enum Axis {

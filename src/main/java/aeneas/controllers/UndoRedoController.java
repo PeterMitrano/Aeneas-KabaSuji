@@ -5,7 +5,11 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-// TODO: Figure out correct type of Event.
+/**
+ * Controller for handling all undoing and redoing
+ * @author Logan
+ *
+ */
 public class UndoRedoController implements EventHandler<KeyEvent> {
 
   Model model;

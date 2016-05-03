@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 /**
  *
  * @author Joseph Martin
+ * @author Logan
  */
 public class ReleaseNumber implements java.io.Serializable {
 

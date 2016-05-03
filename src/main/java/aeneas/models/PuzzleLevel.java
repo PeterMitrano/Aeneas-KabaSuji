@@ -12,6 +12,7 @@ import javafx.scene.control.RadioButton;
 /**
  *
  * @author Joseph Martin
+ * @author Logan
  */
 public class PuzzleLevel extends Level
 implements java.io.Serializable, Level.LevelWithMoves {

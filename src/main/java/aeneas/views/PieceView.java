@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 /**
  * View class for displaying a Piece
  *
+ * @author Logan Tutt
  * @author Joseph Martin
  */
 public class PieceView extends GridPane {

@@ -11,7 +11,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
 
 /**
- *
+ * @author Logan Tutt
  * @author Joseph Martin
  */
 public class PuzzleWidgetView extends LevelWidgetView {
