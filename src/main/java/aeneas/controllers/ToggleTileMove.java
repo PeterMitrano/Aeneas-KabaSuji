@@ -1,6 +1,5 @@
 package aeneas.controllers;
 import aeneas.models.Board;
-import aeneas.models.Level;
 import aeneas.models.Model;
 
 /**

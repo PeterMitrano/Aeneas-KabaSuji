@@ -2,7 +2,6 @@ package aeneas.controllers;
 import aeneas.models.Board;
 import aeneas.models.Level;
 import aeneas.models.Model;
-import aeneas.views.BuildLevelView;
 
 /**
  * Set the number of rows/columns for the board.

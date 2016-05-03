@@ -1,6 +1,5 @@
 package aeneas.controllers;
 import aeneas.models.Level;
-import aeneas.models.Piece;
 import aeneas.models.PlacedPiece;
 import aeneas.models.Level.LevelWithMoves;
 
@@ -8,7 +7,7 @@ import aeneas.models.Level.LevelWithMoves;
  * Move action  to move a piece from the board to the bullpen
  *
  * @author Logan
- *
+ * @author Joseph Martin
  */
 public class BoardToBullpenMove implements IMove {
   Level level;

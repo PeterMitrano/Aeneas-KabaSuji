@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import aeneas.models.Level.Metadata;
@@ -50,12 +49,10 @@ public class Model {
   LevelIndex index;
 
   Level activeLevel;
-  ArrayList<Achievement> achievements;
 
 
   public Model() {
     levelMetadata = new HashMap<>();
-    achievements = new ArrayList<>();
     index = new LevelIndex();
     levelMetadata.put(1, new Level.Metadata(0, false));
   }
@@ -96,13 +93,6 @@ public class Model {
    * etc. can be checked and updated.
    */
   public void updateStats() {
-    // Check each achievement for completion
-    for (Achievement a : achievements) {
-      if (a.checkUnlocked(this)) {
-        // Update achievements screen here
-      }
-    }
-
     if (activeLevel != null) {
       int stars = activeLevel.getStarsEarned();
       if (getMetadata(activeLevel).getStarsEarned() < stars) {

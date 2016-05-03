@@ -1,7 +1,6 @@
 package aeneas.controllers;
 
 import aeneas.models.Level;
-import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.Piece.Axis;
 import aeneas.models.Piece.Dir;

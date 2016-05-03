@@ -1,8 +1,5 @@
 package aeneas.controllers;
-import aeneas.models.Level;
-import aeneas.models.Level.LevelWithMoves;
 import aeneas.models.Model;
-import aeneas.models.Piece;
 import aeneas.models.PlacedPiece;
 
 /**
