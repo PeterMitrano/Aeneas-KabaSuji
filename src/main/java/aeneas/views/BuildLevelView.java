@@ -13,8 +13,11 @@ import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.AddPieceMove;
 import aeneas.controllers.BoardSizeController;
+import aeneas.controllers.BullpenToBoardMove;
 import aeneas.controllers.ChangeLevelTypeMove;
 import aeneas.controllers.ChildDraggedListener;
+import aeneas.controllers.DeleteBoardPieceMove;
+import aeneas.controllers.DeleteBullpenPieceMove;
 import aeneas.controllers.IMove;
 import aeneas.controllers.UndoRedoController;
 import aeneas.controllers.ToggleTileMove;
@@ -24,7 +27,7 @@ import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
 import aeneas.models.Square;
-
+import aeneas.views.PieceView.PieceSource;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import javafx.beans.value.ObservableValue;
@@ -38,6 +41,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -102,6 +108,9 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
 
   @FXML
   private Spinner<Integer> columnSpinner;
+
+  @FXML
+  private FontAwesomeIconView deletePiece;
 
   private BoardView boardView;
   private MainView mainView;
@@ -233,7 +242,48 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
       undoController.redoMove();
     });
 
+    deletePiece.setOnDragDropped((DragEvent event) -> {
+      Dragboard db = event.getDragboard();
+
+      // use this to draw the piece on the board
+      Piece piece = (Piece) db.getContent(Piece.dataFormat);
+
+      PieceSource source = model.getLatestDragSource();
+
+      IMove move = null;
+
+      if (source instanceof BoardView) {
+        BoardView v = (BoardView)source;
+        move = new DeleteBoardPieceMove(model, v.getLastDraggedPiece());
+      }
+      else if (source instanceof BullpenView){
+        BullpenView v = (BullpenView)source;
+        move = new DeleteBullpenPieceMove(model, piece);
+      }
+      if (move != null) {
+        if (!move.execute()){
+          model.getLatestDragSource().returnPiece();
+        } else {
+          model.getLatestDragSource().dragSuccess();
+          model.getActiveLevel().addNewMove(move);
+        }
+      }
+      refresh();
+
+      // this might change we we actually implement it,
+      // such as if they drop it on a square that doesn't exist
+      event.setDropCompleted(true);
+      event.consume();
+
+    });
+
+    // this is absolutely nessecary
+    deletePiece.setOnDragOver((DragEvent event) -> {
+      event.acceptTransferModes(TransferMode.MOVE);
+      event.consume();
+    });
   }
+
 
   public void refresh() {
     isRefreshing = true;
