@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.BorderPane?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
 
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
     xmlns="http://javafx.com/javafx/2.2">
@@ -49,4 +51,19 @@
       </HBox>
     </VBox>
   </center>
+  
+  <JFXDialog fx:id="dialog">
+    <JFXDialogLayout fx:id="dialogLayout">
+      <heading>
+      	<Label>Select a Level</Label>
+      </heading>
+      <body>
+      	<Label>Please select a level to edit.</Label>
+      </body>
+      <actions>
+        <JFXButton fx:id="accept" styleClass="dialog-accept">OK
+        </JFXButton>
+      </actions>
+    </JFXDialogLayout>
+  </JFXDialog>
 </fx:root>
