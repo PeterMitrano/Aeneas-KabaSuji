@@ -1,5 +1,6 @@
 package aeneas.views;
 
+import aeneas.Main;
 import aeneas.controllers.BullpenToBoardMove;
 import aeneas.controllers.IMove;
 import aeneas.controllers.OnBoardMove;
@@ -96,8 +97,11 @@ public class BoardView extends GridPane implements PieceSource {
           new PieceView(levelPane, pieceModel, model.getActiveLevel(), BoardView.SQUARE_SIZE);
 
           Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
-          db.setDragViewOffsetX(snapshotImage.getWidth());
-          db.setDragViewOffsetY(-snapshotImage.getHeight());
+          System.out.println(System.getProperty("os.name"));
+          if(Main.isRunningOnMac()) {
+            db.setDragViewOffsetX(snapshotImage.getWidth()/2);
+            db.setDragViewOffsetY(-snapshotImage.getHeight()/2);
+          }
           db.setDragView(snapshotImage);
         }
 
