@@ -2,6 +2,7 @@ package aeneas.views;
 
 import com.jfoenix.controls.JFXPopup;
 
+import aeneas.Main;
 import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.ManipulatePieceController;
 import aeneas.models.DragType;
@@ -74,6 +75,10 @@ public class PieceView extends GridPane {
       PieceView fullSizedPieceView = new PieceView(levelPane, pieceModel, level, BoardView.SQUARE_SIZE);
 
       Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
+      if(Main.isRunningOnMac()) {
+        db.setDragViewOffsetX(snapshotImage.getWidth()/2);
+        db.setDragViewOffsetY(-snapshotImage.getHeight()/2);
+      }
       db.setDragView(snapshotImage);
 
       event.consume();
