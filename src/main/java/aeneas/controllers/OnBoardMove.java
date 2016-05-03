@@ -29,6 +29,7 @@ public class OnBoardMove implements IMove {
 
   @Override
   public boolean execute() {
+    if (!isValid()) {return false;}
     if (level instanceof LevelWithMoves && level.isActive()) {
       ((LevelWithMoves)level).decMoves();
     }
@@ -44,8 +45,7 @@ public class OnBoardMove implements IMove {
 
   @Override
   public boolean isValid() {
-    // TODO Auto-generated method stub
-    return false;
+    return true;
   }
 
 }
