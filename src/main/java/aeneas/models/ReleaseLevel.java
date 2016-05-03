@@ -32,6 +32,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public ReleaseLevel(Bullpen bullpen, ReleaseBoard board){
     super(bullpen);
     this.board = board;
+    movesAllowed = 1;
   }
 
   /**
@@ -69,6 +70,11 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   public ReleaseLevel(Level src) {
     super(src);
+    
+    if(src instanceof ReleaseLevel) {
+      this.movesAllowed = ((ReleaseLevel) src).movesAllowed;
+    }
+    
     this.board = new ReleaseBoard(src.getBoard());
     if (src.bullpen.logic.equals(BullpenLogic.editorLogic()))
       this.bullpen.logic = BullpenLogic.editorLogic();
