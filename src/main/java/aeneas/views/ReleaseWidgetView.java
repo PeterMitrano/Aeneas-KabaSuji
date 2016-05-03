@@ -48,6 +48,7 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
   public ReleaseWidgetView(ReleaseLevel levelModel, Model model) {
     super(levelModel);
     this.model = model;
+    this.level = levelModel;
 
     movesSelect = new Spinner<Integer>(1, 20, 10);
     Label movesLabel = new Label("Moves");
@@ -56,41 +57,54 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
     releaseNumLabel.setPadding(new Insets(8, 8, 8, 8));
     releaseNumLabel.setTextAlignment(TextAlignment.CENTER);
     releaseNumLabel.setPrefSize(W,W);
-    releaseNumLabel.setBackground(new Background(new BackgroundFill(Color.WHITE,
+    releaseNumLabel.setTextFill(Color.WHITE);
+    releaseNumLabel.setBackground(new Background(new BackgroundFill(Color.GRAY,
         new CornerRadii(2, false), new Insets(0, 0, 0, 0))));
     JFXDepthManager.setDepth(releaseNumLabel, 1);
 
     FontAwesomeIconView upArrowGlyph = new FontAwesomeIconView();
-    upArrowGlyph.setGlyphName("ARROW_UP");
-    upArrowGlyph.setGlyphSize(8);
+    upArrowGlyph.setGlyphName("ARROW_RIGHT");
+    upArrowGlyph.setGlyphSize(14);
 
     FontAwesomeIconView downArrowGlyph = new FontAwesomeIconView();
-    downArrowGlyph.setGlyphName("ARROW_DOWN");
-    downArrowGlyph.setGlyphSize(8);
+    downArrowGlyph.setGlyphName("ARROW_LEFT");
+    downArrowGlyph.setGlyphSize(14);
 
     Button upReleaseNumButton = new Button();
-    upReleaseNumButton.setPrefSize(15, 5);
+    upReleaseNumButton.setPrefSize(25, 25);
     upReleaseNumButton.setGraphic(upArrowGlyph);
     upReleaseNumButton.setPadding(new Insets(0, 0, 0, 0));
-    upReleaseNumButton.setStyle("-fx-background-color:WHITE");
+    upReleaseNumButton.setStyle("-fx-background-color:#9b59b6");
     JFXDepthManager.setDepth(upReleaseNumButton, 1);
+
+    Button downReleaseNumButton = new Button();
+    downReleaseNumButton.setPrefSize(25, 25);
+    downReleaseNumButton.setGraphic(downArrowGlyph);
+    downReleaseNumButton.setPadding(new Insets(0, 0, 0, 0));
+    downReleaseNumButton.setStyle("-fx-background-color:#9b59b6");
+    JFXDepthManager.setDepth(downReleaseNumButton, 1);
+
     upReleaseNumButton.setOnMouseClicked((e) -> {
       Integer i = Integer.parseInt(releaseNumLabel.getText());
       if (i < 6) {
         releaseNumLabel.setText(String.valueOf(i + 1));
+        upReleaseNumButton.disableProperty().set(false);
+        downReleaseNumButton.disableProperty().set(false);
+      }
+      else {
+        upReleaseNumButton.disableProperty().set(true);
       }
     });
 
-    Button downReleaseNumButton = new Button();
-    downReleaseNumButton.setPrefSize(15, 5);
-    downReleaseNumButton.setGraphic(downArrowGlyph);
-    downReleaseNumButton.setPadding(new Insets(0, 0, 0, 0));
-    downReleaseNumButton.setStyle("-fx-background-color:WHITE");
-    JFXDepthManager.setDepth(downReleaseNumButton, 1);
     downReleaseNumButton.setOnMouseClicked((e) -> {
       Integer i = Integer.parseInt(releaseNumLabel.getText());
       if (i > 1) {
         releaseNumLabel.setText(String.valueOf(i - 1));
+        downReleaseNumButton.disableProperty().set(false);
+        upReleaseNumButton.disableProperty().set(false);
+      }
+      else {
+        downReleaseNumButton.disableProperty().set(true);
       }
     });
 
@@ -119,16 +133,13 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
     JFXColorPicker colorSelect = new JFXColorPicker();
     colorSelect.prefWidth(100);
 
-    VBox arrowBox = new VBox();
-    arrowBox.setSpacing(2);
-    arrowBox.setAlignment(Pos.CENTER_LEFT);
-    arrowBox.getChildren().addAll(upReleaseNumButton, downReleaseNumButton);
 
     HBox releaseNumBox = new HBox();
     releaseNumBox.setAlignment(Pos.CENTER_LEFT);
     releaseNumBox.setSpacing(6);
+    releaseNumBox.getChildren().add(downReleaseNumButton);
     releaseNumBox.getChildren().add(releaseNumLabel);
-    releaseNumBox.getChildren().add(arrowBox);
+    releaseNumBox.getChildren().add(upReleaseNumButton);
 
     box.getChildren().add(movesBox);
     box.getChildren().add(colorSelect);
