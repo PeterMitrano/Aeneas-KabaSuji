@@ -192,21 +192,6 @@ public class BoardView extends GridPane implements PieceSource {
           }
         });
 
-        /*grid[row][col].setOnDragOver((e) -> {
-          e.acceptTransferModes(TransferMode.MOVE);
-          e.consume();
-        });*/
-
-        /*
-        grid[row][col].setOnDragDropped((e) -> {
-          this.dragDropCol = c;
-          this.dragDropRow = r;
-          if (dropListener != null) {
-            dropListener.squareDropped(r, c);
-          }
-        });
-        */
-
         this.add(grid[row][col], col, row);
       }
     }
