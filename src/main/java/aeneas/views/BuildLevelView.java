@@ -176,6 +176,7 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
         if (move.execute()) model.getActiveLevel().addNewMove(move);
         this.settingsBox.getChildren().set(1, view.getPanel());
         this.levelView = view;
+        this.boardView.refresh();
       }
     });
 
@@ -263,7 +264,7 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
   public void setLevelModel(Level level) {
     model.setActiveLevel(level);
   }
-  
+
   public Model getModel(){
     return model;
   }

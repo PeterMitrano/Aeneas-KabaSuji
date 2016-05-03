@@ -78,8 +78,8 @@ public class BoardView extends GridPane implements DragSource {
     initializeSquares();
 
     this.setOnDragDetected((event) -> {
-      PlacedPiece draggedPiece = this.gameModel.getActiveLevel().getBoard()
-          .getPieceAtLocation(dragDropRow, dragDropCol);
+      Board tempBoard = this.gameModel.getActiveLevel().getBoard();
+      PlacedPiece draggedPiece = tempBoard.getPieceAtLocation(dragDropRow, dragDropCol);
 
       // check there's a piece at the location
       if (draggedPiece != null) {
@@ -96,6 +96,7 @@ public class BoardView extends GridPane implements DragSource {
           Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
           ClipboardContent content = new ClipboardContent();
           content.put(Piece.dataFormat, pieceModel);
+          content.put(DragType.dataFormat, DragType.Type.Piece);
           db.setContent(content);
 
           SnapshotParameters snapshotParameters = new SnapshotParameters();
@@ -205,6 +206,7 @@ public class BoardView extends GridPane implements DragSource {
         grid[row][col].setOnDragDetected((e) -> {
           this.dragDropCol = c;
           this.dragDropRow = r;
+
           if (dropListener != null) {
             dragListener.squareDragged(r, c);
           }

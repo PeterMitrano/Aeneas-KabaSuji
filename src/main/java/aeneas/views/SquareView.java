@@ -22,6 +22,7 @@ public class SquareView extends StackPane {
 
   public int size = 16;// in pixels
   private Rectangle square;
+  private Label l;
 
   // Square squareModel;
 
@@ -47,12 +48,17 @@ public class SquareView extends StackPane {
   public void setNumber(ReleaseNumber num) {
     // this.getChildren().clear();
     if (num != null) {
-      Label l = new Label(Integer.toString(num.getValue()));
+      l = new Label(Integer.toString(num.getValue()));
       l.setTextFill(num.getColor());
       l.setFont(new Font(20));
       l.setBackground(new Background(new BackgroundFill(Color.web("#ffffff00"),
           new CornerRadii(2, false), new Insets(0, 0, 0, 0))));
       this.getChildren().add(l);
+    }
+    else {
+      //TODO: Hax on hax on hax
+      this.getChildren().clear();
+      this.getChildren().add(square);
     }
   }
 
