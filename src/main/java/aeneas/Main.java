@@ -10,6 +10,10 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class Main extends Application {
   public void start(Stage stage) {
     MainView mainView = new MainView(stage);

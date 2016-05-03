@@ -8,6 +8,7 @@ import aeneas.models.PlacedPiece;
  * Move action to move a piece from the bullpen to the board
  * @author Logan
  * @author jbkuszmaul
+ * @author Joseph Martin
  */
 public class BullpenToBoardMove implements IMove {
   Level level;

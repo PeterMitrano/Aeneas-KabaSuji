@@ -9,6 +9,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class ViewAchievementsView extends BorderPane implements Initializable, RefreshListener {
 
   ViewAchievementsView(Model model) {

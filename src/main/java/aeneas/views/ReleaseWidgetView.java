@@ -34,6 +34,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
 
   public static final RadioButton button = new RadioButton("Release");

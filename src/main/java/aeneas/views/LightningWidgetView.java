@@ -17,6 +17,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class LightningWidgetView extends LevelWidgetView {
 
   public static final RadioButton button = new RadioButton("Lightning");

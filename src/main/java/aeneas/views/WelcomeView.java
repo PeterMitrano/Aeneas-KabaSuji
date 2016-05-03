@@ -13,6 +13,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author Joseph martin
+ */
 public class WelcomeView extends VBox implements Initializable, RefreshListener {
 
 	@FXML
