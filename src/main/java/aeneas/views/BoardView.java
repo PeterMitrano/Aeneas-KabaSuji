@@ -80,7 +80,8 @@ public class BoardView extends GridPane implements DragSource {
 
     this.setOnDragDetected((event) -> {
       Board tempBoard = this.gameModel.getActiveLevel().getBoard();
-      PlacedPiece draggedPiece = tempBoard.getPieceAtLocation(dragDropRow, dragDropCol);
+      PlacedPiece draggedPiece = tempBoard.getPieceAtLocation(dragDropRow,
+          dragDropCol);
 
       // check there's a piece at the location
       if (draggedPiece != null) {
@@ -109,10 +110,11 @@ public class BoardView extends GridPane implements DragSource {
           PieceView fullSizedPieceView = new PieceView(levelPane, pieceModel,
               model.getActiveLevel(), BoardView.SQUARE_SIZE);
 
-          Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
-          if(Main.isRunningOnMac()) {
-            db.setDragViewOffsetX(snapshotImage.getWidth()/2);
-            db.setDragViewOffsetY(-snapshotImage.getHeight()/2);
+          Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters,
+              null);
+          if (Main.isRunningOnMac()) {
+            db.setDragViewOffsetX(snapshotImage.getWidth() / 2);
+            db.setDragViewOffsetY(-snapshotImage.getHeight() / 2);
           }
           db.setDragView(snapshotImage);
         }
@@ -124,17 +126,18 @@ public class BoardView extends GridPane implements DragSource {
     // This handle the drop of a piece on the board
     this.setOnDragDropped((DragEvent event) -> {
       Dragboard db = event.getDragboard();
-      
+
       int closestCol = -1;
       int closestRow = -1;
       double closestNodeDist2 = Double.MAX_VALUE;
 
-      for(Node n : this.getChildren()) {
+      for (Node n : this.getChildren()) {
         Integer row = GridPane.getRowIndex(n);
         Integer col = GridPane.getColumnIndex(n);
-        if(row != null && col != null) {
-          double dist2 = Math.pow(event.getX()-n.getLayoutX(), 2)+Math.pow(event.getY()-n.getLayoutY(), 2);
-          if(dist2 < closestNodeDist2) {
+        if (row != null && col != null) {
+          double dist2 = Math.pow(event.getX() - n.getLayoutX(), 2)
+              + Math.pow(event.getY() - n.getLayoutY(), 2);
+          if (dist2 < closestNodeDist2) {
             closestNodeDist2 = dist2;
             closestCol = col;
             closestRow = row;
