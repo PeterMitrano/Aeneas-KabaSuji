@@ -13,13 +13,11 @@ import com.jfoenix.controls.JFXListView;
 
 import aeneas.controllers.AddPieceMove;
 import aeneas.controllers.BoardSizeController;
-import aeneas.controllers.BullpenToBoardMove;
 import aeneas.controllers.ChangeLevelTypeMove;
 import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.DeleteBoardPieceMove;
 import aeneas.controllers.DeleteBullpenPieceMove;
 import aeneas.controllers.IMove;
-import aeneas.controllers.UndoRedoController;
 import aeneas.controllers.ToggleTileMove;
 import aeneas.controllers.UndoRedoController;
 import aeneas.models.Level;
@@ -27,6 +25,7 @@ import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
 import aeneas.models.Square;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import javafx.beans.value.ObservableValue;
