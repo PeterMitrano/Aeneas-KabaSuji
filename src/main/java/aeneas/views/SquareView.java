@@ -14,7 +14,7 @@ import javafx.scene.text.Font;
 
 /**
  * View class to display a single square
- * 
+ *
  * @author Logan
  * @author Joseph Martin
  */
@@ -53,6 +53,8 @@ public class SquareView extends StackPane {
       l.setFont(new Font(20));
       l.setBackground(new Background(new BackgroundFill(Color.web("#ffffff00"),
           new CornerRadii(2, false), new Insets(0, 0, 0, 0))));
+      this.getChildren().clear();
+      this.getChildren().add(square);
       this.getChildren().add(l);
     }
     else {
