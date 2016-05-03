@@ -143,52 +143,54 @@ public class BoardView extends GridPane implements DragSource {
       Type type = (Type) db.getContent(DragType.dataFormat);
       IMove move;
 
-      switch (type) {
-      default:
-      case Piece:
-        // use this to draw the piece on the board
-        Piece piece = (Piece) db.getContent(Piece.dataFormat);
-
-        DragSource source = model.getLatestDragSource();
-        if (source instanceof BoardView) {
-          BoardView v = (BoardView) source;
-          IMove m = new OnBoardMove(gameModel.getActiveLevel(),
-              v.getLastDraggedPiece(), closestRow, closestCol);
-          if (!m.execute()) {
+      if(type != null) {
+        switch (type) {
+        default:
+        case Piece:
+          // use this to draw the piece on the board
+          Piece piece = (Piece) db.getContent(Piece.dataFormat);
+  
+          DragSource source = model.getLatestDragSource();
+          if (source instanceof BoardView) {
+            BoardView v = (BoardView) source;
+            IMove m = new OnBoardMove(gameModel.getActiveLevel(),
+                v.getLastDraggedPiece(), closestRow, closestCol);
+            if (!m.execute()) {
+              model.returnDraggableNode();
+            } else {
+              model.dragSuccess();
+              model.getActiveLevel().addNewMove(m);
+            }
+          } else if (source instanceof BullpenView) {
+            BullpenView v = (BullpenView) source;
+            IMove m = new BullpenToBoardMove(gameModel, v.getRemovedPiece(),
+                closestRow, closestCol);
+            if (!m.execute()) {
+              model.returnDraggableNode();
+            } else {
+              model.dragSuccess();
+              model.getActiveLevel().addNewMove(m);
+            }
+          }
+          break;
+  
+        case ReleaseNum:
+          // use this to draw the piece on the board
+          ReleaseNumber releaseNum = (ReleaseNumber) db
+              .getContent(ReleaseNumber.dataFormat);
+          releaseNum.setRow(closestRow);
+          releaseNum.setCol(closestCol);
+  
+          move = new AddNumMove((ReleaseLevel) gameModel.getActiveLevel(),
+              releaseNum, closestRow, closestCol);
+          if (!move.execute()) {
             model.returnDraggableNode();
           } else {
             model.dragSuccess();
-            model.getActiveLevel().addNewMove(m);
+            model.getActiveLevel().addNewMove(move);
           }
-        } else if (source instanceof BullpenView) {
-          BullpenView v = (BullpenView) source;
-          IMove m = new BullpenToBoardMove(gameModel, v.getRemovedPiece(),
-              closestRow, closestCol);
-          if (!m.execute()) {
-            model.returnDraggableNode();
-          } else {
-            model.dragSuccess();
-            model.getActiveLevel().addNewMove(m);
-          }
+          break;
         }
-        break;
-
-      case ReleaseNum:
-        // use this to draw the piece on the board
-        ReleaseNumber releaseNum = (ReleaseNumber) db
-            .getContent(ReleaseNumber.dataFormat);
-        releaseNum.setRow(closestRow);
-        releaseNum.setCol(closestCol);
-
-        move = new AddNumMove((ReleaseLevel) gameModel.getActiveLevel(),
-            releaseNum, closestRow, closestCol);
-        if (!move.execute()) {
-          model.returnDraggableNode();
-        } else {
-          model.dragSuccess();
-          model.getActiveLevel().addNewMove(move);
-        }
-        break;
       }
 
       refresh();

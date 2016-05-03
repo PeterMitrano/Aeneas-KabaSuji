@@ -54,34 +54,36 @@ public class BullpenView implements ChildDraggedListener, DragSource {
 
       Type type = (Type) db.getContent(DragType.dataFormat);
 
-      switch (type) {
-      default:
-      case Piece:
-        Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
-        DragSource source = model.getLatestDragSource();
-        if(source instanceof BoardView) {
-          BoardView b = (BoardView)source;
-          IMove m = new BoardToBullpenMove(model, b.getLastDraggedPiece());
-          if(m.execute()) {
-            model.dragSuccess();
-            model.getActiveLevel().addNewMove(m);
-          } else {
+      if(type != null) {
+        switch (type) {
+        default:
+        case Piece:
+          Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
+          DragSource source = model.getLatestDragSource();
+          if(source instanceof BoardView) {
+            BoardView b = (BoardView)source;
+            IMove m = new BoardToBullpenMove(model, b.getLastDraggedPiece());
+            if(m.execute()) {
+              model.dragSuccess();
+              model.getActiveLevel().addNewMove(m);
+            } else {
+              model.returnDraggableNode();
+            }
+          } else if(source instanceof BullpenView) {
             model.returnDraggableNode();
-          }
-        } else if(source instanceof BullpenView) {
-          model.returnDraggableNode();
-        } else {
-          IMove m = new AddPieceMove(model.getActiveLevel().getBullpen(), pieceModel);
-          if(m.execute()) {
-            model.dragSuccess();
-            model.getActiveLevel().addNewMove(m);
           } else {
-            model.returnDraggableNode();
+            IMove m = new AddPieceMove(model.getActiveLevel().getBullpen(), pieceModel);
+            if(m.execute()) {
+              model.dragSuccess();
+              model.getActiveLevel().addNewMove(m);
+            } else {
+              model.returnDraggableNode();
+            }
           }
+          break;
+        case ReleaseNum:
+          break;
         }
-        break;
-      case ReleaseNum:
-        break;
       }
 
 
