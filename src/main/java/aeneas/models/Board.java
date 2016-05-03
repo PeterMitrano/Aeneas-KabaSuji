@@ -20,12 +20,10 @@ public abstract class Board implements java.io.Serializable {
 
   boolean[][] squares = new boolean[MAX_SIZE][MAX_SIZE];
   ArrayList<PlacedPiece> pieces;
-  ArrayList<PlacedPiece> hints;
   protected transient boolean isEditor = false;
 
   public Board() {
     pieces = new ArrayList<>();
-    hints = new ArrayList<>();
     for (int i=0;i<MAX_SIZE;i++){
       for (int j=0;j<MAX_SIZE;j++){
         squares[i][j] = true;
@@ -35,7 +33,6 @@ public abstract class Board implements java.io.Serializable {
 
   public Board(Board board) {
     this.squares = board.squares;
-    this.hints = board.hints;
     this.pieces = board.pieces;
     this.isEditor = board.isEditor;
   }
@@ -81,8 +78,7 @@ public abstract class Board implements java.io.Serializable {
    */
   public boolean addPiece(PlacedPiece piece) {
     if (!canAddPiece(piece)) return false;
-    // Otherwise placement is valid
-    if (piece.getPiece().isHint()) hints.add(piece);
+    if (piece.getPiece().isHint()) pieces.add(0, piece);
     else pieces.add(piece);
     return true;
   }
@@ -129,9 +125,9 @@ public abstract class Board implements java.io.Serializable {
    * @return The piece at the given position if there is one, null otherwise
    */
   public PlacedPiece getPieceAtLocation(int row, int col) {
-    for (PlacedPiece p : pieces) {
-      if (p.intersects(row, col)) {
-        return p;
+    for (int i = pieces.size()-1; i >= 0; i--) {
+      if (pieces.get(i).intersects(row, col)) {
+        return pieces.get(i);
       }
     }
 
@@ -148,6 +144,8 @@ public abstract class Board implements java.io.Serializable {
    */
   public boolean intersects(PlacedPiece piece) {
     for (PlacedPiece p : pieces) {
+      // We don't care about intersections with hints.
+      if (p.getPiece().isHint()) continue;
       if (piece.intersects(p)) {
         return true;
       }
@@ -166,15 +164,6 @@ public abstract class Board implements java.io.Serializable {
   }
 
   /**
-   * Gets the list of hints currently on the board
-   *
-   * @return The list of hints on the board.
-   */
-  public ArrayList<PlacedPiece> getHints() {
-    return hints;
-  }
-
-  /**
    * Gets the state of all squares in the board. A square will be null if no
    * square is there
    *
@@ -182,10 +171,6 @@ public abstract class Board implements java.io.Serializable {
    */
   public Square[][] assembleSquares(){
     Square[][] squares = new Square[MAX_SIZE][MAX_SIZE];
-    for (PlacedPiece piece : hints){
-      for(Square s : piece.getSquaresInBoardFrame())
-        squares[s.getRow()][s.getCol()] = s;
-    }
     // Run normal pieces after hint in order to avoid hint displaying
     // over the normal pieces.
     for (PlacedPiece piece : pieces){
@@ -224,9 +209,6 @@ public abstract class Board implements java.io.Serializable {
   protected void copy(Board src, Board dest) {
     for (PlacedPiece piece : src.pieces) {
       dest.pieces.add(new PlacedPiece(piece.piece, piece.row, piece.col));
-    }
-    for (PlacedPiece hint : src.hints) {
-      dest.hints.add(new PlacedPiece(hint.piece, hint.row, hint.col));
     }
     for (int i = 0; i < MAX_SIZE; ++i) {
       for (int j = 0; j < MAX_SIZE; ++j) {
@@ -270,5 +252,9 @@ public abstract class Board implements java.io.Serializable {
 
   public void setIsEditor(boolean is) {
     this.isEditor = is;
+  }
+
+  public boolean getIsEditor() {
+    return isEditor;
   }
 }

@@ -107,9 +107,11 @@ public abstract class Level implements java.io.Serializable {
     Board board = getBoard();
     Bullpen bullpen = getBullpen();
     for (PlacedPiece piece : board.getPieces()) {
-      bullpen.addPiece(piece.piece);
+      if(!piece.getPiece().isHint()) {
+        bullpen.addPiece(piece.piece);
+      }
     }
-    board.getPieces().clear();
+    board.getPieces().removeIf((p) -> !p.getPiece().isHint());
   }
 
   /**
