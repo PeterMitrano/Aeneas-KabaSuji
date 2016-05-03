@@ -16,7 +16,7 @@ public class BoardToBullpenMove implements IMove {
 
   /**
    * Constructor
-   * @param level the level that is being played
+   * @param model the model that is being played
    * @param boardPiece the piece to move
    */
   public BoardToBullpenMove(Model model, PlacedPiece boardPiece) {

@@ -22,7 +22,7 @@ public class BullpenToBoardMove implements IMove {
   /**
    * Constructor
    *
-   * @param level The level that is currently being played
+   * @param model The model that is currently being played
    * @param piece The piece that is being moved
    * @param row The row to place the piece in
    * @param col The column to place the piece in
