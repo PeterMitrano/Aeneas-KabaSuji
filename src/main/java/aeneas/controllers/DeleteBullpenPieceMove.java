@@ -10,14 +10,14 @@ import aeneas.models.PlacedPiece;
  * @author Garrison
  * 
  */
-public class DeleteBoardPieceMove implements IMove {
+public class DeleteBullpenPieceMove implements IMove {
   Model model;
-  PlacedPiece piece;
+  Piece piece;
 
   /**
    * Constructor
    */
-  public DeleteBoardPieceMove(Model model, PlacedPiece piece) {
+  public DeleteBullpenPieceMove(Model model, Piece piece) {
     this.model=model;
     this.piece=piece;
   }
@@ -25,14 +25,14 @@ public class DeleteBoardPieceMove implements IMove {
   @Override
   public boolean execute() {
     if (!isValid()) return false;
-    model.getActiveLevel().getBoard().removePiece(piece);
+    model.getActiveLevel().getBullpen().removePiece(piece);
     return true;
     
   }
 
   @Override
   public boolean undo() {
-    model.getActiveLevel().getBoard().addPiece(piece);
+    model.getActiveLevel().getBullpen().addPiece(piece);
     return true;
   }
 

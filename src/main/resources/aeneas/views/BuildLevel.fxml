@@ -102,13 +102,8 @@
                 styleClass="normal-button" />
             </VBox>
             <VBox alignment="BOTTOM_RIGHT">
-              <JFXButton fx:id="deletePiece" minWidth="50"
-                minHeight="50" styleClass="action-button">
-                <graphic>
-                  <FontAwesomeIconView glyphName="TRASH"
-                    size="2em" />
-                </graphic>
-              </JFXButton>
+              <FontAwesomeIconView fx:id="deletePiece" glyphName="TRASH"
+                size="2em" />
             </VBox>
           </HBox>
         </VBox>
