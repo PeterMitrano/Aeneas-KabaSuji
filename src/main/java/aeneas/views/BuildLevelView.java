@@ -108,7 +108,7 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
 
   @FXML
   private Spinner<Integer> columnSpinner;
-  
+
   @FXML
   private FontAwesomeIconView deletePiece;
 
@@ -246,12 +246,20 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
 
       // use this to draw the piece on the board
       Piece piece = (Piece) db.getContent(Piece.dataFormat);
-      
+
       PieceSource source = model.getLatestDragSource();
+
+      IMove move = null;
 
       if (source instanceof BoardView) {
         BoardView v = (BoardView)source;
-        IMove move = new DeleteBoardPieceMove(model, v.getLastDraggedPiece());
+        move = new DeleteBoardPieceMove(model, v.getLastDraggedPiece());
+      }
+      else if (source instanceof BullpenView){
+        BullpenView v = (BullpenView)source;
+        move = new DeleteBullpenPieceMove(model, piece);
+      }
+      if (move != null) {
         if (!move.execute()){
           model.getLatestDragSource().returnPiece();
         } else {
@@ -259,16 +267,6 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
           model.getActiveLevel().addNewMove(move);
         }
       }
-      else if (source instanceof BullpenView){
-        BullpenView v = (BullpenView)source;
-        IMove move = new DeleteBullpenPieceMove(model, piece);
-        if (!move.execute()){
-          model.getLatestDragSource().returnPiece();
-        } else {
-          model.getLatestDragSource().dragSuccess();
-          model.getActiveLevel().addNewMove(move);
-        }
-        }
       refresh();
 
       // this might change we we actually implement it,
@@ -284,7 +282,7 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
       event.consume();
     });
   }
-  
+
 
   public void refresh() {
     isRefreshing = true;
@@ -315,7 +313,7 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
   public void setLevelModel(Level level) {
     model.setActiveLevel(level);
   }
-  
+
   public Model getModel(){
     return model;
   }
