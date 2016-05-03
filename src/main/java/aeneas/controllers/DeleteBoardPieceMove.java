@@ -8,7 +8,7 @@ import aeneas.models.PlacedPiece;
 /**
  * Move action to move a piece from the bullpen to the board
  * @author Garrison
- * 
+ *
  */
 public class DeleteBoardPieceMove implements IMove {
   Model model;
@@ -16,6 +16,8 @@ public class DeleteBoardPieceMove implements IMove {
 
   /**
    * Constructor
+   * @param model model
+   * @param piece the piece you are deleting
    */
   public DeleteBoardPieceMove(Model model, PlacedPiece piece) {
     this.model=model;
@@ -27,7 +29,7 @@ public class DeleteBoardPieceMove implements IMove {
     if (!isValid()) return false;
     model.getActiveLevel().getBoard().removePiece(piece);
     return true;
-    
+
   }
 
   @Override
