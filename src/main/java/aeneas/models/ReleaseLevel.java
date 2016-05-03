@@ -76,7 +76,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
   @Override
   public int getStarsEarned() {
     // This would have to change if we added more than 3 sets of numbers
-    return 3 - numUncoveredNumberSets();
+    return Math.max(3 - numUncoveredNumberSets(), 0);
   }
 
   public ReleaseLevel(Level src) {
