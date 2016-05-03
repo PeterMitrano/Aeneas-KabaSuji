@@ -21,7 +21,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   ReleaseBoard board;
 
-  private int movesAllowed;
+  private int movesAllowed = 1;
   private transient int movesLeft;
 
   /**
@@ -32,7 +32,6 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public ReleaseLevel(Bullpen bullpen, ReleaseBoard board){
     super(bullpen);
     this.board = board;
-    movesAllowed = 1;
   }
 
   /**
@@ -73,6 +72,8 @@ implements java.io.Serializable, Level.LevelWithMoves {
     
     if(src instanceof LevelWithMoves) {
       this.movesAllowed = ((LevelWithMoves) src).getAllowedMoves();
+    } else {
+      this.movesAllowed = 1;
     }
     
     this.board = new ReleaseBoard(src.getBoard());

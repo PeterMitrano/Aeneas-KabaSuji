@@ -19,7 +19,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
 
   PuzzleBoard board;
 
-  private int movesAllowed;
+  private int movesAllowed = 1;
   private transient int movesLeft;
 
   /**
@@ -43,7 +43,6 @@ implements java.io.Serializable, Level.LevelWithMoves {
   public PuzzleLevel(Bullpen bullpen, boolean prebuilt) {
     super(bullpen);
     board = new PuzzleBoard();
-    movesAllowed = 1;
   }
 
   public PuzzleLevel(Level src) {
@@ -51,6 +50,8 @@ implements java.io.Serializable, Level.LevelWithMoves {
     
     if(src instanceof LevelWithMoves) {
       this.movesAllowed = ((LevelWithMoves) src).getAllowedMoves();
+    } else {
+      this.movesAllowed = 1;
     }
     
     if (src.bullpen.logic.equals(BullpenLogic.editorLogic()))
