@@ -10,6 +10,7 @@ import aeneas.models.Piece;
 import aeneas.models.PlacedPiece;
 import aeneas.models.Square;
 import aeneas.views.PieceView.PieceSource;
+import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
@@ -95,6 +96,8 @@ public class BoardView extends GridPane implements PieceSource {
           new PieceView(levelPane, pieceModel, model.getActiveLevel(), BoardView.SQUARE_SIZE);
 
           Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
+          db.setDragViewOffsetX(snapshotImage.getWidth());
+          db.setDragViewOffsetY(-snapshotImage.getHeight());
           db.setDragView(snapshotImage);
         }
 
@@ -105,6 +108,23 @@ public class BoardView extends GridPane implements PieceSource {
     // This handle the drop of a piece on the board
     this.setOnDragDropped((DragEvent event) -> {
       Dragboard db = event.getDragboard();
+      
+      int closestCol = -1;
+      int closestRow = -1;
+      double closestNodeDist2 = Double.MAX_VALUE;
+
+      for(Node n : this.getChildren()) {
+        Integer row = GridPane.getRowIndex(n);
+        Integer col = GridPane.getColumnIndex(n);
+        if(row != null && col != null) {
+          double dist2 = Math.pow(event.getX()-n.getLayoutX(), 2)+Math.pow(event.getY()-n.getLayoutY(), 2);
+          if(dist2 < closestNodeDist2) {
+            closestNodeDist2 = dist2;
+            closestCol = col;
+            closestRow = row;
+          }
+        }
+      }
 
       // use this to draw the piece on the board
       Piece piece = (Piece) db.getContent(Piece.dataFormat);
@@ -112,7 +132,7 @@ public class BoardView extends GridPane implements PieceSource {
       PieceSource source = model.getLatestDragSource();
       if(source instanceof BoardView) {
         BoardView v = (BoardView)source;
-        IMove m = new OnBoardMove(gameModel.getActiveLevel(), v.getLastDraggedPiece(), dragDropRow, dragDropCol);
+        IMove m = new OnBoardMove(gameModel.getActiveLevel(), v.getLastDraggedPiece(), closestRow, closestCol);
         if (!m.execute()){
           model.returnPiece();
         } else {
@@ -120,7 +140,7 @@ public class BoardView extends GridPane implements PieceSource {
           model.getActiveLevel().addNewMove(m);
         }
       } else if(source instanceof BullpenView) {
-        IMove m = new BullpenToBoardMove(gameModel.getActiveLevel(), piece, dragDropRow, dragDropCol);
+        IMove m = new BullpenToBoardMove(gameModel.getActiveLevel(), piece, closestRow, closestCol);
         if (!m.execute()){
           model.returnPiece();
         } else {
@@ -167,16 +187,17 @@ public class BoardView extends GridPane implements PieceSource {
         grid[row][col].setOnDragDetected((e) -> {
           this.dragDropCol = c;
           this.dragDropRow = r;
-          if (dropListener != null) {
+          if (dragListener != null) {
             dragListener.squareDragged(r, c);
           }
         });
 
-        grid[row][col].setOnDragOver((e) -> {
+        /*grid[row][col].setOnDragOver((e) -> {
           e.acceptTransferModes(TransferMode.MOVE);
           e.consume();
-        });
+        });*/
 
+        /*
         grid[row][col].setOnDragDropped((e) -> {
           this.dragDropCol = c;
           this.dragDropRow = r;
@@ -184,6 +205,7 @@ public class BoardView extends GridPane implements PieceSource {
             dropListener.squareDropped(r, c);
           }
         });
+        */
 
         this.add(grid[row][col], col, row);
       }

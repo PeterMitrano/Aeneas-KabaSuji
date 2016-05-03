@@ -79,6 +79,8 @@ public class PieceView extends GridPane {
       PieceView fullSizedPieceView = new PieceView(levelPane, pieceModel, level, BoardView.SQUARE_SIZE);
 
       Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters, null);
+      db.setDragViewOffsetX(snapshotImage.getWidth());
+      db.setDragViewOffsetY(-snapshotImage.getHeight());
       db.setDragView(snapshotImage);
 
       event.consume();
