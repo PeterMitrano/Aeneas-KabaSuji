@@ -10,7 +10,6 @@ import aeneas.models.DragType.Type;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
-import aeneas.models.PlacedPiece;
 import aeneas.models.Square;
 
 import javafx.geometry.Pos;
@@ -90,6 +89,7 @@ public class BullpenView implements ChildDraggedListener, DragSource {
           }
           break;
         case ReleaseNum:
+          model.returnDraggableNode();
           break;
         }
       }
@@ -180,7 +180,7 @@ public class BullpenView implements ChildDraggedListener, DragSource {
   public void setRefreshListener(RefreshListener listener) {
     this.listener = listener;
   }
-  
+
   public Piece getRemovedPiece() {
     return removedPiece;
   }
