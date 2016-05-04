@@ -281,10 +281,8 @@ public class BoardView extends GridPane implements DragSource {
             SnapshotParameters snapshotParameters = new SnapshotParameters();
             snapshotParameters.setFill(Color.TRANSPARENT);
 
-            ReleaseNumView tempReleaseView = new ReleaseNumView(
-                tempSquare.getNum());
-            Image snapshotImage = tempReleaseView.getNode()
-                .snapshot(snapshotParameters, null);
+            draggedSquareView.setColor(Board.DEFAULT_COLOR);
+            Image snapshotImage = draggedSquareView.snapshot(snapshotParameters, null);
             db.setDragView(snapshotImage);
 
             // actually remove the release num
