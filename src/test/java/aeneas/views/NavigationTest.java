@@ -79,7 +79,7 @@ public class NavigationTest extends ApplicationTest {
     for (; bullpenBox.getChildren().size() > 0;) {
       Pane piecePane = (Pane) bullpenBox.getChildren().get(0);
       FontAwesomeIconView trash =
-          (FontAwesomeIconView)lookup("#deletePiece").query();
+          (FontAwesomeIconView)lookup("#trash").query();
       drag(piecePane.getChildren().get(0)).dropTo(trash);
       assertEquals(bullpenBox.getChildren().size(), --expectedPieces);
     }
