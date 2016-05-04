@@ -23,3 +23,21 @@ If you just want to use it as a java project
 
  - file > import > existing project
  - Run as Java Application
+
+===========
+HOW TO PLAY
+===========
+-Stars are earned on your performance, and you must earn one or more star to proceed to the next level.
+-Pieces can be dragged on to and around the board, depending on the level type.
+-You can rotate and flip pieces by right clicking on a piece.
+-You can also use the following key-bindings:
+	-click:rotate clockwise
+	-shift + click: rotate counter-clockwise
+	-ctrl + click: flip horizontally
+	-ctrl + shift+ click: flip vertically
+
+==================
+FOR A PUZZLE LEVEL
+==================
+-You begin the level with a set of pieces and a number of moves
+-
