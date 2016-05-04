@@ -6,6 +6,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public abstract class LevelWidgetView {
 
 

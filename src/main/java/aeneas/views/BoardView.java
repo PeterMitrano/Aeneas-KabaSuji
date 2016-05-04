@@ -42,20 +42,10 @@ public class BoardView extends GridPane implements DragSource {
     public void squareClicked(int row, int col);
   }
 
-  public interface SquareDragListener {
-    public void squareDragged(int row, int col);
-  }
-
-  public interface SquareDropListener {
-    public void squareDropped(int row, int col);
-  }
-
   SquareView[][] grid = new SquareView[Board.MAX_SIZE][Board.MAX_SIZE];
   Model gameModel;
   private int dragDropRow = 0, dragDropCol = 0;
   private SquareClickListener clickListener;
-  private SquareDragListener dragListener;
-  private SquareDropListener dropListener;
   private RefreshListener refreshListener;
   private PlacedPiece pieceBeingDragged = null;
 
@@ -67,7 +57,7 @@ public class BoardView extends GridPane implements DragSource {
    * Initialized the board with grey squares
    *
    * @param levelPane
-   *          a passthrew for the pane you want the pieceview to render it's
+   *          a passthrough for the pane you want the PieceView to render it's
    *          right-click menu in
    * @param model
    *          the model object for the game
@@ -88,7 +78,8 @@ public class BoardView extends GridPane implements DragSource {
         Piece pieceModel = draggedPiece.getPiece();
 
         // remove the piece from the board
-        if (this.gameModel.getActiveLevel().getBoard()
+        if ((!pieceModel.isHint() || gameModel.getActiveLevel().getBoard().getIsEditor()) &&
+            this.gameModel.getActiveLevel().getBoard()
             .removePiece(draggedPiece)) {
           this.pieceBeingDragged = draggedPiece;
           model.setLatestDragSource(this);
@@ -112,6 +103,10 @@ public class BoardView extends GridPane implements DragSource {
 
           Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters,
               null);
+          
+          // For some reason the piece shows up in a different place for
+          // Macs when dragging, so we need to offset the view if we're
+          // running on a Mac.
           if (Main.isRunningOnMac()) {
             db.setDragViewOffsetX(snapshotImage.getWidth() / 2);
             db.setDragViewOffsetY(-snapshotImage.getHeight() / 2);
@@ -148,51 +143,54 @@ public class BoardView extends GridPane implements DragSource {
       Type type = (Type) db.getContent(DragType.dataFormat);
       IMove move;
 
-      switch (type) {
-      default:
-      case Piece:
-        // use this to draw the piece on the board
-        Piece piece = (Piece) db.getContent(Piece.dataFormat);
-
-        DragSource source = model.getLatestDragSource();
-        if (source instanceof BoardView) {
-          BoardView v = (BoardView) source;
-          IMove m = new OnBoardMove(gameModel.getActiveLevel(),
-              v.getLastDraggedPiece(), closestRow, closestCol);
-          if (!m.execute()) {
+      if(type != null) {
+        switch (type) {
+        default:
+        case Piece:
+          // use this to draw the piece on the board
+          Piece piece = (Piece) db.getContent(Piece.dataFormat);
+  
+          DragSource source = model.getLatestDragSource();
+          if (source instanceof BoardView) {
+            BoardView v = (BoardView) source;
+            IMove m = new OnBoardMove(gameModel.getActiveLevel(),
+                v.getLastDraggedPiece(), closestRow, closestCol);
+            if (!m.execute()) {
+              model.returnDraggableNode();
+            } else {
+              model.dragSuccess();
+              model.getActiveLevel().addNewMove(m);
+            }
+          } else if (source instanceof BullpenView) {
+            BullpenView v = (BullpenView) source;
+            IMove m = new BullpenToBoardMove(gameModel, v.getRemovedPiece(),
+                closestRow, closestCol);
+            if (!m.execute()) {
+              model.returnDraggableNode();
+            } else {
+              model.dragSuccess();
+              model.getActiveLevel().addNewMove(m);
+            }
+          }
+          break;
+  
+        case ReleaseNum:
+          // use this to draw the piece on the board
+          ReleaseNumber releaseNum = (ReleaseNumber) db
+              .getContent(ReleaseNumber.dataFormat);
+          releaseNum.setRow(closestRow);
+          releaseNum.setCol(closestCol);
+  
+          move = new AddNumMove((ReleaseLevel) gameModel.getActiveLevel(),
+              releaseNum, closestRow, closestCol);
+          if (!move.execute()) {
             model.returnDraggableNode();
           } else {
             model.dragSuccess();
-            model.getActiveLevel().addNewMove(m);
+            model.getActiveLevel().addNewMove(move);
           }
-        } else if (source instanceof BullpenView) {
-          IMove m = new BullpenToBoardMove(gameModel.getActiveLevel(), piece,
-              closestRow, closestCol);
-          if (!m.execute()) {
-            model.returnDraggableNode();
-          } else {
-            model.dragSuccess();
-            model.getActiveLevel().addNewMove(m);
-          }
+          break;
         }
-        break;
-
-      case ReleaseNum:
-        // use this to draw the piece on the board
-        ReleaseNumber releaseNum = (ReleaseNumber) db
-            .getContent(ReleaseNumber.dataFormat);
-        releaseNum.setRow(closestRow);
-        releaseNum.setCol(closestCol);
-
-        move = new AddNumMove((ReleaseLevel) gameModel.getActiveLevel(),
-            releaseNum, closestRow, closestCol);
-        if (!move.execute()) {
-          model.returnDraggableNode();
-        } else {
-          model.dragSuccess();
-          model.getActiveLevel().addNewMove(move);
-        }
-        break;
       }
 
       refresh();
@@ -230,9 +228,6 @@ public class BoardView extends GridPane implements DragSource {
         grid[row][col].setOnDragDetected((e) -> {
           this.dragDropCol = c;
           this.dragDropRow = r;
-          if (dragListener != null) {
-            dragListener.squareDragged(r, c);
-          }
         });
 
         this.add(grid[row][col], col, row);
@@ -243,14 +238,6 @@ public class BoardView extends GridPane implements DragSource {
 
   public void setSquareClickListener(SquareClickListener listener) {
     this.clickListener = listener;
-  }
-
-  public void setSquareDraggedListener(SquareDragListener listener) {
-    this.dragListener = listener;
-  }
-
-  public void setSquareDroppedListener(SquareDropListener listener) {
-    this.dropListener = listener;
   }
 
   /**

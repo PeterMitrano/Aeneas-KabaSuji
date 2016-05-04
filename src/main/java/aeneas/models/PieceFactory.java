@@ -1,7 +1,5 @@
 package aeneas.models;
 
-import javafx.scene.paint.Color;
-
 /**
  * A factory to get the hexonimoes based on their number from 0-35.
  * @author Joseph Martin

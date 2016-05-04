@@ -10,7 +10,6 @@ import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.ReleaseLevel;
 import aeneas.models.ReleaseNumber;
-import aeneas.models.Square;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
@@ -34,6 +33,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
 
   public static final RadioButton button = new RadioButton("Release");
@@ -41,13 +44,11 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
   Spinner<Integer> movesSelect;
   private ReleaseLevel level;
   private boolean isUserInput = true;
-  private Model model;
   private Label releaseNumLabel;
   private final int W = 30;
 
   public ReleaseWidgetView(ReleaseLevel levelModel, Model model) {
     super(levelModel);
-    this.model = model;
     this.level = levelModel;
 
     movesSelect = new Spinner<Integer>(1, 999, 10);
@@ -169,9 +170,6 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
 
       // allows the drop to check where this came from
       model.setLatestDragSource(this);
-
-      Square square = new Square(-1, -1, releaseNum, Color.WHITE);
-      SquareView releaseNumView = new SquareView(BoardView.SQUARE_SIZE, square);
 
       SnapshotParameters snapshotParameters = new SnapshotParameters();
       snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle this

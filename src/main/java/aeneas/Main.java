@@ -10,6 +10,10 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class Main extends Application {
   public void start(Stage stage) {
     MainView mainView = new MainView(stage);
@@ -44,6 +48,6 @@ public class Main extends Application {
 
   public static boolean isRunningOnMac() {
     String os = System.getProperty("os.name").toLowerCase();
-    return os.contains("mac")  || os.contains("darwin");
+    return os.contains("darwin")  || os.contains("mac");
   }
 }

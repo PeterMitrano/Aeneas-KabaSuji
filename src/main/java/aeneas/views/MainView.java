@@ -33,7 +33,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
@@ -172,7 +171,6 @@ public class MainView extends StackPane implements Initializable {
       dialog.close();
     });
 
-    // we need to add these back eventually
     help.setOnMouseClicked((e) -> {
       dialogLayout.getHeading().clear();
       dialogLayout.getBody().clear();

@@ -1,26 +1,21 @@
 package aeneas.views;
 
 import aeneas.controllers.IMove;
-import aeneas.controllers.SetMovesMove;
 import aeneas.controllers.SetTimeMove;
 import aeneas.models.LightningLevel;
-import aeneas.models.ReleaseLevel;
-import aeneas.controllers.SetTimeMove;
 import aeneas.models.Level;
-import aeneas.models.LightningLevel;
-import aeneas.models.Model;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class LightningWidgetView extends LevelWidgetView {
 
   public static final RadioButton button = new RadioButton("Lightning");
-  private Model model;
   private LightningLevel level;
 
 

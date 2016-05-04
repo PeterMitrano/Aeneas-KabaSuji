@@ -3,7 +3,6 @@ package aeneas.views;
 import aeneas.controllers.IMove;
 import aeneas.controllers.SetMovesMove;
 import aeneas.models.Level;
-import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -11,6 +10,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
 
+/**
+ *
+ * @author Joseph Martin
+ */
 public class PuzzleWidgetView extends LevelWidgetView {
 
   static public final RadioButton button = new RadioButton("Puzzle");

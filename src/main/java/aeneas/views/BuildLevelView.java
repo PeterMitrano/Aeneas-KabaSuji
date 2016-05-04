@@ -190,11 +190,13 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
 
     boardView.setSquareClickListener((row, col) -> {
-      IMove m = new ToggleTileMove(model, row, col);
-      if (m.isValid()) {
-        m.execute();
-        model.getActiveLevel().addNewMove(m);
-        boardView.refresh();
+      if(model.getActiveLevel().getBoard().getPieceAtLocation(row, col) == null) {
+        IMove m = new ToggleTileMove(model, row, col);
+        if (m.isValid()) {
+          m.execute();
+          model.getActiveLevel().addNewMove(m);
+          boardView.refresh();
+        }
       }
     });
 
@@ -256,7 +258,7 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
       }
       else if (source instanceof BullpenView){
         BullpenView v = (BullpenView)source;
-        move = new DeleteBullpenPieceMove(model, piece);
+        move = new DeleteBullpenPieceMove(model, v.getRemovedPiece());
       }
       if (move != null) {
         if (!move.execute()){

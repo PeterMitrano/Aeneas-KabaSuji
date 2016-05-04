@@ -8,8 +8,10 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import com.jfoenix.controls.JFXDecorator;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -65,11 +67,21 @@ public class NavigationTest extends ApplicationTest {
 
     FlowPane piecesPane = (FlowPane) lookup("#piecesPane").query();
 
-    for (int i = 0; i < piecesPane.getChildren().size(); i++) {
+    int expectedPieces = 0;
+    for (int i = 0; i < 10; i++) {
       PieceView aPiece = (PieceView) piecesPane.getChildren().get(i);
       clickOn(aPiece);
-      assertEquals(bullpenBox.getChildren().size(), i + 1);
+      assertEquals(bullpenBox.getChildren().size(), ++expectedPieces);
+    }
 
+    clickOn(bullpenBox); // Clear out the piecePane dialog.
+
+    for (; bullpenBox.getChildren().size() > 0;) {
+      Pane piecePane = (Pane) bullpenBox.getChildren().get(0);
+      FontAwesomeIconView trash =
+          (FontAwesomeIconView)lookup("#deletePiece").query();
+      drag(piecePane.getChildren().get(0)).dropTo(trash);
+      assertEquals(bullpenBox.getChildren().size(), --expectedPieces);
     }
   }
 }

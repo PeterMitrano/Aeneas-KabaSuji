@@ -7,7 +7,7 @@ import aeneas.models.Level.LevelWithMoves;
  * Move action to move a piece from one location to another on the board
  *
  * @author Logan
- *
+ * @author Joseph Martin
  */
 public class OnBoardMove implements IMove {
   Level level;

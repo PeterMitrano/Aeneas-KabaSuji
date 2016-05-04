@@ -1,9 +1,6 @@
 package aeneas.controllers;
 import aeneas.models.Level;
 import aeneas.models.Model;
-import aeneas.views.BuildLevelView;
-
-import javafx.scene.control.RadioButton;
 
 /**
  * Move action to change the type of a level
