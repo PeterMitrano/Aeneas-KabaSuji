@@ -5,6 +5,7 @@ import aeneas.models.PlacedPiece;
 /**
  * Move action to delete an existing hint
  * @author Logan
+ * @author Peter Mitrano
  *
  */
 public class DeleteHintMove implements IMove {

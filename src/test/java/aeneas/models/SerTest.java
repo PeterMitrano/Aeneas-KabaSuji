@@ -14,6 +14,9 @@ import org.junit.Test;
 
 import aeneas.models.Bullpen.BullpenLogic;
 
+/**
+ * @author Peter Mitrano
+ */
 public class SerTest {
 
   @Before

@@ -8,6 +8,7 @@ import aeneas.models.Level.LevelWithMoves;
  *
  * @author Logan
  * @author Joseph Martin
+ * @author Peter Mitrano
  */
 public class OnBoardMove implements IMove {
   Level level;

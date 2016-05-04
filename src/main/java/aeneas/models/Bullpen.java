@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * A bullpen is a list of pieces available to the player.
  *
  * @author Logan
+ * @author Peter Mitrano
  * @author Joseph Martin
  * @author jbkuszmaul
  */
@@ -42,7 +43,7 @@ public class Bullpen implements java.io.Serializable {
       b.isRandom = false;
       return b;
     }
-    
+
     /**
      * Create a new BullpenLogic for playing a puzzle level
      * @return A BullpenLogic to be used when playing a puzzle level

@@ -14,6 +14,7 @@ import javafx.scene.control.RadioButton;
  *
  * @author Joseph Martin
  * @author jbkuszmaul
+ * @author Peter Mitrano
  * @author Logan
  */
 public class PuzzleLevel extends Level
@@ -47,13 +48,13 @@ implements java.io.Serializable, Level.LevelWithMoves {
    */
   public PuzzleLevel(Level src) {
     super(src);
-    
+
     if(src instanceof LevelWithMoves) {
       this.movesAllowed = ((LevelWithMoves) src).getAllowedMoves();
     } else {
       this.movesAllowed = 1;
     }
-    
+
     if (src.bullpen.logic.equals(BullpenLogic.editorLogic()))
       this.bullpen.logic = BullpenLogic.editorLogic();
     else

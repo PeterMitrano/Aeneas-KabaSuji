@@ -15,7 +15,8 @@ import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseLevel;
 
 /**
-* @author jbkuszmaul
+ * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public class TestSetMovesMove {
 

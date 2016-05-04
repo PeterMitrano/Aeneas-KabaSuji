@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
  *
  * @author Joseph Martin
  * @author Logan Tutt
+ * @author Peter Mitrano
  */
 public class Square implements java.io.Serializable {
   int dRow, dCol;

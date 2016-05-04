@@ -10,6 +10,7 @@ import aeneas.models.Model;
  * @author Logan
  * @author Joseph Martin
  * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public class BoardToBullpenMove implements IMove {
   Model model;

@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 /**
- * Represents a board for a KabaSuji level 
+ * Represents a board for a KabaSuji level
  * A board keeps track of its pieces, hints, and the shape of
  * the board.
- * 
+ *
  * @author Logan Tutt
  * @author Joseph Martin
  * @author Logan Tutt
+ * @author Peter Mitrano
  * @author jbkuszmaul
  */
 public abstract class Board implements java.io.Serializable {
@@ -131,7 +132,7 @@ public abstract class Board implements java.io.Serializable {
   public boolean removePiece(PlacedPiece piece) {
     return pieces.remove(piece);
   }
-  
+
 
   /**
    * Gets the piece at the specified position (if there is one)

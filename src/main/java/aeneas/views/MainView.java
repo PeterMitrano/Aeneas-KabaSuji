@@ -40,6 +40,7 @@ import javafx.stage.Stage;
  *
  * @author Joseph Martin
  * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public class MainView extends StackPane implements Initializable {
 

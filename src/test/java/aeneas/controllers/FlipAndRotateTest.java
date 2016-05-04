@@ -9,6 +9,9 @@ import aeneas.models.Square;
 import aeneas.models.Piece.Axis;
 import aeneas.models.Piece.Dir;
 
+/**
+ * @author Peter Mitrano
+ */
 public class FlipAndRotateTest {
 
   @Test

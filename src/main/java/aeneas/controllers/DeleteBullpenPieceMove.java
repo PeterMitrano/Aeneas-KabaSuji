@@ -5,6 +5,7 @@ import aeneas.models.Piece;
 /**
  * Move action to move a piece from the bullpen to the board
  * @author Garrison
+ * @author Peter Mitrano
  *
  */
 public class DeleteBullpenPieceMove implements IMove {

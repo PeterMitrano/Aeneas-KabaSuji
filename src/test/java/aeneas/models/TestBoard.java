@@ -13,6 +13,9 @@ import aeneas.controllers.ToggleTileMove;
 import aeneas.models.Bullpen.BullpenLogic;
 import javafx.scene.paint.Color;
 
+/**
+ * @author Peter Mitrano
+ */
 public class TestBoard {
   @Before
   public void setUp() throws Exception {

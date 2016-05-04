@@ -18,6 +18,7 @@ import java.util.stream.Stream;
  * checks ~/.aeneas-kabasuji for user saved levels.
  * @author Joseph Martin
  * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public class LevelIndex {
   HashMap<Integer, Level> levels;

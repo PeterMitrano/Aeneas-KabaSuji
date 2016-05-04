@@ -7,6 +7,7 @@ import aeneas.models.Level.LevelWithMoves;
  *
  * @author Logan
  * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public class SetMovesMove implements IMove {
 

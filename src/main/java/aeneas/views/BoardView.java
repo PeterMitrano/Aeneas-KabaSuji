@@ -33,6 +33,7 @@ import javafx.scene.paint.Color;
  *
  * @author Logan Tutt
  * @author Joseph Martin
+ * @author Peter Mitrano
  * @author Garrison
  * @author jbkuszmaul
  */
@@ -67,7 +68,7 @@ public class BoardView extends GridPane implements DragSource {
   /**
    * Sets a listener to be notified of events that may cause the board
    * to need to be redrawn.
-   * 
+   *
    * @param listener The listener to be notified.
    */
   public void setRefreshListener(RefreshListener listener) {

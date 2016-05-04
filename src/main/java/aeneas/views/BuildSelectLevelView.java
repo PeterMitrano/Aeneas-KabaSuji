@@ -26,6 +26,7 @@ import javafx.scene.layout.BorderPane;
  * View for the selecting a level to edit
  *
  * @author Joseph Martin
+ * @author Peter Mitrano
  * @author Garrison
  * @author jbkuszmaul
  */
@@ -94,7 +95,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable, R
         }
       }
     });
-    
+
     dialog.setTransitionType(DialogTransition.CENTER);
 
     accept.setOnMouseClicked((e) -> {

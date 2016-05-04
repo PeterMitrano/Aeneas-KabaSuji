@@ -12,7 +12,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * @author Peter Mitrano
+ */
 public class ReleaseNumView {
+
   private Label releaseNumLabel;
   private ReleaseNumber num;
   public static final int W = 30;

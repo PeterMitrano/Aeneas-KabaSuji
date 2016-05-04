@@ -7,6 +7,7 @@ import aeneas.models.Piece.Dir;
  *
  * @author Logan
  * @author Joseph Martin
+ * @author Peter Mitrano
  */
 public class RotateMove implements IMove {
 

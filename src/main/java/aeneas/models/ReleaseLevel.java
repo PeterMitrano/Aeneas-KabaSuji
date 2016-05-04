@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
  *
  * @author Joseph Martin
  * @author Logan Tutt
+ * @author Peter Mitrano
  * @author jbkuszmaul
  */
 public class ReleaseLevel extends Level
@@ -78,7 +79,7 @@ implements java.io.Serializable, Level.LevelWithMoves {
     // This would have to change if we added more than 3 sets of numbers
     return Math.max(3 - numUncoveredNumberSets(), 0);
   }
-  
+
   /**
    * Copy constructor. Constructs a new release level from an existing level.
    * @param src

@@ -14,10 +14,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 
 /**
- * Starting view of the application, used to navigate to the build 
+ * Starting view of the application, used to navigate to the build
  * select level, play select level screen, or achievements screen.
- * 
+ *
  * @author Joseph martin
+ * @author Peter Mitrano
  */
 public class WelcomeView extends VBox implements Initializable, RefreshListener {
 

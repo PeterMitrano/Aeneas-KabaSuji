@@ -16,6 +16,7 @@ import aeneas.views.DragSource;
  *
  * @author Joseph Martin
  * @author jbkuszmaul
+ * @author Peter Mitrano
  * @author Logan
  */
 public class Model {

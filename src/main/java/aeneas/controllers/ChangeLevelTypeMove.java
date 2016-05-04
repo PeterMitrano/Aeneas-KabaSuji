@@ -5,6 +5,7 @@ import aeneas.models.Model;
 /**
  * Move action to change the type of a level
  * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public class ChangeLevelTypeMove implements IMove {
 

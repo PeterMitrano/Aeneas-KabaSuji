@@ -26,6 +26,7 @@ import javafx.scene.layout.HBox;
 /**
  * View to show the list of levels that can be played.
  *
+ * @author Peter Mitrano
  * @author Joseph Martin
  */
 public class PlaySelectLevelView extends BorderPane implements Initializable, RefreshListener {

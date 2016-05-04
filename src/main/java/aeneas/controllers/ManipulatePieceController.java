@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
  * ctrl-click flips across vertical axis, shift-ctrl-click flips across horizontal axis
  * @author Garrison
  * @author Logan
+ * @author Peter Mitrano
  */
 public class ManipulatePieceController implements EventHandler<MouseEvent> {
 
