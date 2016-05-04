@@ -8,6 +8,7 @@ import aeneas.models.Model;
  *
  * @author Logan
  * @author Joseph Martin
+ * @author Peter Mitrano
  */
 public class ToggleTileMove implements IMove {
   Model model;

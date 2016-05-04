@@ -16,10 +16,11 @@ import javafx.scene.control.RadioButton;
 
 /**
  * Abstract base class representing a level of KabaSuji.
- * 
+ *
  * @author Logan
  * @author Joseph Martin
  * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public abstract class Level implements java.io.Serializable {
 
@@ -84,7 +85,7 @@ public abstract class Level implements java.io.Serializable {
   public interface LevelWithMoves {
     public int getAllowedMoves();
     public void setAllowedMoves(int moves);
-    
+
     /**
      * Decrement the number of remaining moves for the level
      * @return the number of moves remaining.
@@ -168,7 +169,7 @@ public abstract class Level implements java.io.Serializable {
     }
     getBullpen().setLogic(oldLogic);
   }
-  
+
   /**
    * Saves a level to a file.
    * @param file The file to save to
@@ -277,7 +278,7 @@ public abstract class Level implements java.io.Serializable {
    * starts the level
    */
   public void start() { active = true; }
-  
+
   /**
    * stops the level
    */

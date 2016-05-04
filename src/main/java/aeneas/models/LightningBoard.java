@@ -4,10 +4,11 @@ import javafx.scene.paint.Color;
 
 /**
  * A Subclass of board with functionality specific to lightning mode.
- * 
+ *
  * @author Joseph Martin
  * @author jbkuszmaul
  * @author Logan
+ * @author Peter Mitrano
  */
 public class LightningBoard extends Board implements java.io.Serializable {
   // TODO: Figure out some way to make this transient but still initialize

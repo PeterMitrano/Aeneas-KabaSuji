@@ -55,9 +55,9 @@ import javafx.scene.layout.VBox;
  * Display the level builder.
  *
  * @author Logan
- * @author pmitrano
  * @author jbkuszmaul
  * @author Joseph Martin
+ * @author Peter Mitrano
  * @author Garrison
  */
 public class BuildLevelView extends StackPane

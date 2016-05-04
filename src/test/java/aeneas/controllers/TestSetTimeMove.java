@@ -13,6 +13,9 @@ import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.models.LightningLevel;
 import aeneas.models.PuzzleLevel;
 
+/**
+ * @author Peter Mitrano
+ */
 public class TestSetTimeMove {
 
   @Before

@@ -4,5 +4,7 @@
  * It includes things like drawing the moves that can be done/undone
  * spinners, checkboxes, ect...
  * It also contains the high-level MainView, which controls the toolbar on the top of every window.
+ *
+ * @author Peter Mitrano
  */
 package aeneas.controllers;

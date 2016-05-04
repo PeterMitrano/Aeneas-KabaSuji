@@ -11,8 +11,9 @@ import javafx.scene.layout.BorderPane;
 
 /**
  * View used to display achievements page
- * 
+ *
  * @author Joseph Martin
+ * @author Peter Mitrano
  */
 public class ViewAchievementsView extends BorderPane implements Initializable, RefreshListener {
 

@@ -4,6 +4,7 @@ import javafx.scene.input.DataFormat;
 
 /**
  * Used to specify the type of a dragged object for drag and drop
+ * @author Peter Mitrano
  */
 public abstract class DragType {
   /**

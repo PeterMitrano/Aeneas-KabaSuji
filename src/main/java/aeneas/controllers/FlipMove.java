@@ -7,6 +7,7 @@ import aeneas.models.Piece.Axis;
  *
  * @author Logan
  * @author Joseph Martin
+ * @author Peter Mitrano
  */
 public class FlipMove implements IMove {
 

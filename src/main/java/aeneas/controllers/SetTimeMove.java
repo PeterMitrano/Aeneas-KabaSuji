@@ -7,6 +7,7 @@ import aeneas.models.LightningLevel;
  *
  * @author Logan
  * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public class SetTimeMove implements IMove {
 

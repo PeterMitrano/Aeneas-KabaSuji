@@ -4,6 +4,7 @@ import aeneas.models.PlacedPiece;
 
 /**
  * Move action to move a piece from the bullpen to the board
+ * @author Peter Mitrano
  * @author Garrison
  *
  */

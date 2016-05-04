@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
  * Widget view for lightning levels.
  *
  * @author Logan Tutt
+ * @author Peter Mitrano
  * @author Joseph Martin
  */
 public class LightningWidgetView extends LevelWidgetView {

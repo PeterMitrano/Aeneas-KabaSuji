@@ -8,6 +8,7 @@ import aeneas.models.ReleaseNumber;
  * For use in the builder
  *
  * @author Logan
+ * @author Peter
  *
  */
 public class AddNumMove implements IMove {

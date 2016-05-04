@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
  *
  * @author Logan Tutt
  * @author Joseph Martin
+ * @author Peter Mitrano
  */
 public class SquareView extends StackPane {
   /**

@@ -7,6 +7,7 @@ import javafx.scene.input.DataFormat;
  * A hexonimo or piece used to play KabaSuji.
  * @author Joseph Martin, Garrison
  * @author Logan
+ * @author Peter Mitrano
  */
 public class Piece implements java.io.Serializable {
   /**

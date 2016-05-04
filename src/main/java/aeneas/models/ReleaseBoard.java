@@ -6,9 +6,10 @@ import javafx.scene.paint.Color;
 
 /**
  * Concrete board class for release mode
- * 
+ *
  * @author Joseph Martin
  * @author Logan Tutt
+ * @author Peter Mitrano
  * @author jbkuszmaul
  */
 public class ReleaseBoard extends Board

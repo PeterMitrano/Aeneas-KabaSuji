@@ -3,5 +3,7 @@
  * It includes things like drawing the pieces, board, and setting up listeners for all the buttons,
  * spinners, checkboxes, ect...
  * It also contains the high-level MainView, which controls the toolbar on the top of every window.
+ *
+ * @author Peter Mitrano
  */
 package aeneas.views;

@@ -8,6 +8,9 @@ import org.junit.Test;
 
 import aeneas.models.Bullpen.BullpenLogic;
 
+/**
+ * @author Peter Mitrano
+ */
 public class ModelTest {
 
   @Before

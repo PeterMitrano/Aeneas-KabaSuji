@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 /**
  * generates the initial levels
  * @author Logan
+ * @author Peter Mitrano
  */
 public class LevelGenerator {
 

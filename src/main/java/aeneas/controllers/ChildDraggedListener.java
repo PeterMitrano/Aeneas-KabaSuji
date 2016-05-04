@@ -6,6 +6,7 @@ import aeneas.views.PieceView;
 /**
  * listener for dragging
  * @author Logan
+ * @author Peter Mitrano
  *
  */
 public interface ChildDraggedListener {

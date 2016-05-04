@@ -29,8 +29,9 @@ import javafx.scene.paint.Color;
 
 /**
  * Widget for editing parameters of release levels
- * 
+ *
  * @author Logan Tutt
+ * @author Peter Mitrano
  * @author Joseph Martin
  */
 public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
@@ -46,7 +47,7 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
 
   /**
    * Create a new release widget with a model to initialize state with.
-   * 
+   *
    * @param levelModel The level to use to track state of and update
    * @param model The top level model
    */

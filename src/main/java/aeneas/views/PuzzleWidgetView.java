@@ -12,9 +12,10 @@ import javafx.scene.layout.HBox;
 
 /**
  * Widget for editing parameters of a puzzle level
- * 
+ *
  * @author Logan Tutt
  * @author Joseph Martin
+ * @author Peter Mitrano
  */
 public class PuzzleWidgetView extends LevelWidgetView {
   /**

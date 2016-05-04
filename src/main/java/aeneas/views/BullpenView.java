@@ -21,8 +21,9 @@ import javafx.scene.layout.VBox;
 
 /**
  * View class to draw a Bullpen.
- * 
+ *
  * @author Logan Tutt
+ * @author Peter Mitrano
  * @author Joseph Martin
  * @author jbkuszmaul
  */
