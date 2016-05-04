@@ -16,14 +16,22 @@ import aeneas.views.DragSource;
  *
  * @author Joseph Martin
  * @author jbkuszmaul
+ * @author Logan
  */
 public class Model {
 
+  /**
+   * Text for the about menu item.
+   */
   public static final String aboutText = "KabaSuji is a brilliant new puzzle game. "
       + "It is the visionary work of Dr. George T Heineman, "
       + "and has been judiciously implemented by Peter Mitrano, "
       + "James Kuszmaul, Joseph Martin, Logan Tutt, and Garrison Hefter.";
 
+  /**
+   * Text for the help menu item.
+   * This describes how to play the game.
+   */
   public static final String helpText = "The editor allows you to build you're own levels."
     + " You can save your levels, and play them back later.\n"
     + "\n"
@@ -52,6 +60,9 @@ public class Model {
   Level activeLevel;
 
 
+  /**
+   * Constructor
+   */
   public Model() {
     levelMetadata = new HashMap<>();
     index = new LevelIndex();
@@ -81,6 +92,11 @@ public class Model {
     return m;
   }
 
+  /**
+   * gets level at index
+   * @param idx index
+   * @return the level at the index
+   */
   public Level getLevel(int idx) {
     return index.getLevel(idx);
   }
@@ -111,6 +127,11 @@ public class Model {
     }
   }
 
+  /**
+   * saves the level's metadata to the specified file
+   * @param file file to save to
+   * @throws IOException
+   */
   public void saveLevelMetadata(File file) throws IOException {
     try (FileOutputStream saveFile = new FileOutputStream(file);
         ObjectOutputStream out = new ObjectOutputStream(saveFile);) {
@@ -120,6 +141,11 @@ public class Model {
     }
   }
 
+  /**
+   * loads a level's metadata from a given file
+   * @param file file to load
+   * @throws IOException
+   */
   public void loadLevelMetadata(File file) throws IOException {
     try (FileInputStream loadFile = new FileInputStream(file);
         ObjectInputStream in = new ObjectInputStream(loadFile);) {
@@ -142,12 +168,18 @@ public class Model {
     return latestDragSource;
   }
 
+  /**
+   * gets a draggable node
+   */
   public void returnDraggableNode() {
     if(latestDragSource != null) {
       latestDragSource.returnDraggableNode();
     }
   }
 
+  /**
+   * called during a drag sucess
+   */
   public void dragSuccess() {
     if(latestDragSource != null) {
       latestDragSource.dragSuccess();
@@ -169,6 +201,9 @@ public class Model {
     return index;
   }
 
+  /**
+   * reindexes the levels
+   */
   public void refreshLevelIndex() {
     index.reindex();
   }

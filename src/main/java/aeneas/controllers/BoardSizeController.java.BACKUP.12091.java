@@ -8,11 +8,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Spinner;
 
 /**
+<<<<<<< HEAD
+ * @author jbkuszmaul
+=======
  * Controller for handling changing the size of the board
  * 
- * @author jbkuszmaul
  * @author Logan
  *
+>>>>>>> origin/master
  */
 public class BoardSizeController implements ChangeListener<Integer> {
 

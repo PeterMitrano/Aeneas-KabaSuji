@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Concrete board class for release mode
+ * 
  * @author Joseph Martin
  * @author Logan Tutt
  * @author jbkuszmaul
@@ -16,14 +17,25 @@ public class ReleaseBoard extends Board
   private int movesAllowed;
   private transient int movesLeft;
 
+  /**
+   * Constructs a new release board with an empty array of release numbers.
+   */
   public ReleaseBoard() {
     this.numbers = new ArrayList<ReleaseNumber>();
   }
 
+  /**
+   * Constructs a new release board with the provided array of release numbers
+   * @param numbers The array of release numbers to use for this board.
+   */
   public ReleaseBoard(ArrayList<ReleaseNumber> numbers) {
     this.numbers = numbers;
   }
 
+  /**
+   * Constructs a new release board from an existing board.
+   * @param board
+   */
   public ReleaseBoard(Board board) {
     super(board);
     this.numbers = new ArrayList<>();
@@ -52,14 +64,26 @@ public class ReleaseBoard extends Board
     return squares;
   }
 
+  /**
+   * Adds a release number to the board.
+   * @param num The release number to add.
+   */
   public void addNumber(ReleaseNumber num) {
     numbers.add(num);
   }
 
+  /**
+   * Removes a release number from the board, if it is on the board.
+   * @param num The release number to remove
+   */
   public void removeNumber(ReleaseNumber num) {
     numbers.remove(num);
   }
 
+  /**
+   * Gets the release numbers on this board.
+   * @return the array of numbers on the board.
+   */
   public ArrayList<ReleaseNumber> getNumbers() {
     return numbers;
   }

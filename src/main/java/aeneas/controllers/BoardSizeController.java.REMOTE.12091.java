@@ -10,7 +10,6 @@ import javafx.scene.control.Spinner;
 /**
  * Controller for handling changing the size of the board
  * 
- * @author jbkuszmaul
  * @author Logan
  *
  */

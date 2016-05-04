@@ -4,34 +4,68 @@ import javafx.scene.paint.Color;
 import javafx.scene.input.DataFormat;
 
 /**
- *
+ * A hexonimo or piece used to play KabaSuji.
  * @author Joseph Martin, Garrison
+ * @author Logan
  */
 public class Piece implements java.io.Serializable {
+  /**
+   * An axis to flip a piece around.
+   */
   public enum Axis {
+    /**
+     * Flip across vertical axis.
+     */
     VERTICAL,
+    /**
+     * Flip across horizontal axis.
+     */
     HORIZONTAL,
   }
 
+  /**
+   * A direction to rotate.
+   */
   public enum Dir {
+    /**
+     * Indicates a clockwise rotation.
+     */
     CLOCKWISE,
+    /**
+     * Indicates a counterclockwise rotation.
+     */
     COUNTERCLOCKWISE,
   }
 
+  /**
+   * Data format instance used for serializing pieces for drag and drop
+   */
   public static final DataFormat dataFormat = new DataFormat("aeneas.Piece");
 
   Square squares[];
   private int width;
   private int height;
+  /**
+   * Indicates if this piece is in a bullpen.
+   */
   public boolean inBullpen;
   private boolean hint;
   private String color;
 
 
+  /**
+   * Constructor
+   * @param squares squares to make the piece from
+   */
   public Piece(Square[]squares){
     this(squares, Color.BLUE);
   }
 
+  /**
+   * Constructor
+   * @param squares
+   * @param color
+   */
   public Piece(Square[] squares, Color color) {
     this.squares = squares;
     this.color = color.toString();
@@ -50,6 +84,10 @@ public class Piece implements java.io.Serializable {
     inBullpen = true;
   }
 
+  /**
+   * flips the piece over the specified axis
+   * @param axis axis to flip over
+   */
   public void flip(Axis axis) {
     for(Square s : squares) {
       switch(axis) {
@@ -63,6 +101,10 @@ public class Piece implements java.io.Serializable {
     }
   }
 
+  /**
+   * rotates in  the given direction
+   * @param direction direction to rotate
+   */
   public void rotate(Dir direction) {
     for(Square s : squares) {
       int row = s.getRow();
@@ -92,6 +134,10 @@ public class Piece implements java.io.Serializable {
     return str + "]";
   }
 
+  /**
+   * Get all the squares in this piece
+   * @return an array of squares in this piece
+   */
   public Square[] getSquares() {
     return squares;
   }
@@ -104,9 +150,12 @@ public class Piece implements java.io.Serializable {
     return height;
   }
 
+  public Color getColor(){ return Color.web(color); }
 
-  public Color getColor(){ return Color.web(color);}
-
+  /**
+   * Set the color of this piece
+   * @param c The color to set this piece to.
+   */
   public void setColor(Color c) {
     for (Square s : squares){
       s.setColor(c);
@@ -133,10 +182,17 @@ public class Piece implements java.io.Serializable {
     return clone;
   }
 
+  /**
+   * @return True if this piece is a hint, false otherwise
+   */
   public boolean isHint() {
     return hint;
   }
 
+  /**
+   * Sets whether or not this piece is a hint.
+   * @param hint True to set this piece to be a hint, false otherwise.
+   */
   public void setHint(boolean hint) {
     this.hint = hint;
     this.setColor(Color.CORNSILK);

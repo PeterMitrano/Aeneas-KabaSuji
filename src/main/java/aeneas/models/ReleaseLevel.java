@@ -13,6 +13,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.paint.Color;
 
 /**
+ * Concrete level class for release mode
  *
  * @author Joseph Martin
  * @author Logan Tutt
@@ -20,7 +21,6 @@ import javafx.scene.paint.Color;
  */
 public class ReleaseLevel extends Level
 implements java.io.Serializable, Level.LevelWithMoves {
-  public static final String helpText = "";
 
   ReleaseBoard board;
 
@@ -78,7 +78,11 @@ implements java.io.Serializable, Level.LevelWithMoves {
     // This would have to change if we added more than 3 sets of numbers
     return Math.max(3 - numUncoveredNumberSets(), 0);
   }
-
+  
+  /**
+   * Copy constructor. Constructs a new release level from an existing level.
+   * @param src
+   */
   public ReleaseLevel(Level src) {
     super(src);
 

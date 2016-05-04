@@ -6,6 +6,7 @@ import aeneas.models.Model;
 /**
  * Set the number of rows/columns for the board.
  *
+ * @author Logan
  * @author jbkuszmaul
  */
 public class SetSizeMove implements IMove {

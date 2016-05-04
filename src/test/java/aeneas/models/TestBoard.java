@@ -11,6 +11,7 @@ import org.junit.Test;
 import aeneas.controllers.IMove;
 import aeneas.controllers.ToggleTileMove;
 import aeneas.models.Bullpen.BullpenLogic;
+import javafx.scene.paint.Color;
 
 public class TestBoard {
   @Before
@@ -53,9 +54,9 @@ public class TestBoard {
 
 
     ReleaseLevel l = new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()));
-    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(0, 0, ReleaseNumber.color1, 1));
-    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(1, 0, ReleaseNumber.color2, 1));
-    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(2, 0, ReleaseNumber.color3, 1));
+    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(0, 0, Color.RED, 1));
+    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(1, 0, Color.BLUE, 1));
+    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(2, 0, Color.GREEN, 1));
 
     Piece p = new Piece(new Square[] { new Square(0,0) });
     PlacedPiece pp = new PlacedPiece(p, 0, 0);

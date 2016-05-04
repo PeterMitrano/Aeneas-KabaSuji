@@ -11,11 +11,15 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
 
 /**
- *
+ * Widget for editing parameters of a puzzle level
+ * 
+ * @author Logan Tutt
  * @author Joseph Martin
  */
 public class PuzzleWidgetView extends LevelWidgetView {
-
+  /**
+   * The button used to select the puzzle level type
+   */
   static public final RadioButton button = new RadioButton("Puzzle");
 
   private Spinner<Integer> movesSelect;
@@ -23,6 +27,10 @@ public class PuzzleWidgetView extends LevelWidgetView {
   private PuzzleLevel level;
   private boolean isUserInput = true;
 
+  /**
+   * Create a new widget that represents the current state of the given model.
+   * @param levelModel The model to initialize the state of the widget to, and to track.
+   */
   public PuzzleWidgetView(PuzzleLevel levelModel) {
     super(levelModel);
     this.level = levelModel;
