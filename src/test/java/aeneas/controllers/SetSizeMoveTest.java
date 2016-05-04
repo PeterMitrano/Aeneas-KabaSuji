@@ -16,6 +16,9 @@ import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseLevel;
 
+/**
+ * @author jbkuszmaul
+ */
 public class SetSizeMoveTest {
 
   Model model;

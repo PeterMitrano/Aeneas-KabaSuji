@@ -15,6 +15,7 @@ import aeneas.views.DragSource;
  * Top level entity class for KabaSuji.
  *
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class Model {
 

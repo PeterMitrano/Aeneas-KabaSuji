@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * A bullpen is a list of pieces available to the player.
  *
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class Bullpen implements java.io.Serializable {
   /**

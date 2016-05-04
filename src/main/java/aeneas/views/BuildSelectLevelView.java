@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 /**
  *
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class BuildSelectLevelView extends BorderPane implements Initializable, RefreshListener {
 

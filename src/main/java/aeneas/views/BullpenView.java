@@ -23,6 +23,7 @@ import javafx.scene.layout.VBox;
 /**
  *
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class BullpenView implements ChildDraggedListener, DragSource {
 

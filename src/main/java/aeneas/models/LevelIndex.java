@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 /**
  *
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class LevelIndex {
   HashMap<Integer, Level> levels;
