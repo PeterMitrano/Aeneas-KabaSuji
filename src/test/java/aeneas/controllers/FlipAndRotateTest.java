@@ -37,7 +37,7 @@ public class FlipAndRotateTest {
 
 
     //test horizontal flip
-    IMove move = new FlipMove(piece, Axis.HORIZONTAL);
+    IMove move = new FlipMove(piece, Axis.VERTICAL);
     move.execute();
 
     Square[] result = piece.getSquares();
@@ -82,7 +82,7 @@ public class FlipAndRotateTest {
 
 
     //test vertical flip
-    move = new FlipMove(piece, Axis.VERTICAL);
+    move = new FlipMove(piece, Axis.HORIZONTAL);
     move.execute();
 
     result = piece.getSquares();

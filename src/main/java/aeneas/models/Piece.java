@@ -92,10 +92,10 @@ public class Piece implements java.io.Serializable {
     for(Square s : squares) {
       switch(axis) {
       case VERTICAL:
-        s.setCol(-s.getCol()+getWidth()-1);
+        s.setRow(-s.getRow()+getHeight()-1);
         break;
       case HORIZONTAL:
-        s.setRow(-s.getRow()+getHeight()-1);
+        s.setCol(-s.getCol()+getWidth()-1);
         break;
       }
     }
