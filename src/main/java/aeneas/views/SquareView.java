@@ -19,17 +19,21 @@ import javafx.scene.text.Font;
  * @author Joseph Martin
  */
 public class SquareView extends StackPane {
-
-  public int size = 16;// in pixels
+  /**
+   * The size to draw this square at, in pixels.
+   */
+  public int size = 16;
   private Rectangle square;
   private Label l;
 
-  // Square squareModel;
-
+  /**
+   * Create a new square view with with the given size, representing the given square model.
+   * @param size The size to draw the square at.
+   * @param s The square model to use.
+   */
   public SquareView(int size, Square s) {
     this.size = size;
     square = new Rectangle();
-    // this.squareModel = squareModel;
     square.setWidth(size);
     square.setHeight(size);
 
@@ -45,8 +49,11 @@ public class SquareView extends StackPane {
     }
   }
 
+  /**
+   * Set a number to be drawn.
+   * @param num The release number to be drawn in this view.
+   */
   public void setNumber(ReleaseNumber num) {
-    // this.getChildren().clear();
     if (num != null) {
       l = new Label(Integer.toString(num.getValue()));
       l.setTextFill(num.getColor());
@@ -64,10 +71,18 @@ public class SquareView extends StackPane {
     }
   }
 
+  /**
+   * Set the background color of this view.
+   * @param color The color to set.
+   */
   public void setColor(Color color) {
     square.setFill(color);
   }
 
+  /**
+   * Refresh this square view with the given square model.
+   * @param square The square model to update with.
+   */
   public void refresh(Square square) {
     if (square != null) {
       setColor(square.getColor());

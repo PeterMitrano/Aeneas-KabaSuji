@@ -7,6 +7,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.layout.VBox;
 
 /**
+ * Abstract base class for widgets that edit parameters for levels
  *
  * @author Logan Tutt
  * @author Joseph Martin
@@ -43,10 +44,18 @@ public abstract class LevelWidgetView {
    */
   public abstract Level resetLevelModel(Level levelModel);
 
+  /**
+   * Gets the default level model for this type of level.
+   * @return the default level model for this type of level.
+   */
   public Level getDefaultLevelModel() {
     return this.levelModel;
   }
 
+  /**
+   * Gets the button to be used for selecting this level type.
+   * @return the button.
+   */
   public abstract RadioButton getButton();
 
   /**

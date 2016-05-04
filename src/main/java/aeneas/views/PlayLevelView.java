@@ -21,6 +21,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
+ * View used to display a level while playing it.
+ * 
  * @author Logan Tutt
  * @author Joseph Martin
  */

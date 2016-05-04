@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
+ * View for the selecting a level to edit
  *
  * @author Joseph Martin
  */

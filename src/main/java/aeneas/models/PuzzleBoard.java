@@ -1,6 +1,7 @@
 package aeneas.models;
 
 /**
+ * Concrete board class for puzzle mode
  *
  * @author Joseph Martin
  */

@@ -34,11 +34,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
 /**
+ * Widget for editing parameters of release levels
+ * 
  * @author Logan Tutt
  * @author Joseph Martin
  */
 public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
-
+  /**
+   * Button used to select release level type
+   */
   public static final RadioButton button = new RadioButton("Release");
 
   Spinner<Integer> movesSelect;
@@ -47,6 +51,12 @@ public class ReleaseWidgetView extends LevelWidgetView implements DragSource {
   private Label releaseNumLabel;
   private final int W = 30;
 
+  /**
+   * Create a new release widget with a model to initialize state with.
+   * 
+   * @param levelModel The level to use to track state of and update
+   * @param model The top level model
+   */
   public ReleaseWidgetView(ReleaseLevel levelModel, Model model) {
     super(levelModel);
     this.level = levelModel;

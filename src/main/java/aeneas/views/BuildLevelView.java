@@ -298,7 +298,10 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
     isRefreshing = false;
   }
 
-  public boolean isRefreshing(){return isRefreshing;}
+  /**
+   * @return True if the view is currently in the process of refreshing.
+   */
+  public boolean isRefreshing(){ return isRefreshing; }
 
   public Spinner<Integer> getRowSpinner() {
     return rowSpinner;

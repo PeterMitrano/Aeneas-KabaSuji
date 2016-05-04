@@ -1,9 +1,8 @@
 package aeneas.views;
 
 /**
- * INterface for things that can be dragged from
+ * Interface for things that can be dragged from
  * @author Logan
- *
  */
 public interface DragSource {
   /**

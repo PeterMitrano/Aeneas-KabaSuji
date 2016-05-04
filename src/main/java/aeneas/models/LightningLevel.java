@@ -14,12 +14,11 @@ import javafx.scene.control.RadioButton;
 
 /**
  * A subclass of level with functionality specific to lightning mode.
+ * 
  * @author Joseph Martin
  * @author Logan
  */
 public class LightningLevel extends Level implements java.io.Serializable {
-  public static final String helpText = "";
-
   LightningBoard board;
   int allowedTime;
   private transient int elapsedTime = 0;

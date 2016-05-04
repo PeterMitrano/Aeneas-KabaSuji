@@ -58,6 +58,12 @@ public class BoardView extends GridPane implements DragSource {
   private RefreshListener refreshListener;
   private PlacedPiece pieceBeingDragged = null;
 
+  /**
+   * Sets a listener to be notified of events that may cause the board
+   * to need to be redrawn.
+   * 
+   * @param listener The listener to be notified.
+   */
   public void setRefreshListener(RefreshListener listener) {
     this.refreshListener = listener;
   }
@@ -242,6 +248,10 @@ public class BoardView extends GridPane implements DragSource {
 
   }
 
+  /**
+   * Sets a listener to be notified of clicks to a squares on this board.
+   * @param listener The listener to be notified.
+   */
   public void setSquareClickListener(SquareClickListener listener) {
     this.clickListener = listener;
   }
@@ -259,6 +269,10 @@ public class BoardView extends GridPane implements DragSource {
     }
   }
 
+  /**
+   * Gets the last piece dragged from this view.
+   * @return the last piece dragged from this view.
+   */
   public PlacedPiece getLastDraggedPiece() {
     return pieceBeingDragged;
   }

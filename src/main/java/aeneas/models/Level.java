@@ -15,6 +15,8 @@ import aeneas.views.RefreshListener;
 import javafx.scene.control.RadioButton;
 
 /**
+ * Abstract base class representing a level of KabaSuji.
+ * 
  * @author Logan
  * @author Joseph Martin
  */
@@ -22,6 +24,12 @@ public abstract class Level implements java.io.Serializable {
 
   RefreshListener listener;
 
+  /**
+   * Sets the refresh listener.
+   * This listener will be notified when the level is changed
+   * in such a way that the view must be refreshed.
+   * @param listener
+   */
   public void setRefreshListener(RefreshListener listener) {
     this.listener = listener;
   }
@@ -75,6 +83,11 @@ public abstract class Level implements java.io.Serializable {
   public interface LevelWithMoves {
     public int getAllowedMoves();
     public void setAllowedMoves(int moves);
+    
+    /**
+     * Decrement the number of remaining moves for the level
+     * @return the number of moves remaining.
+     */
     public int decMoves();
   }
 
@@ -154,6 +167,12 @@ public abstract class Level implements java.io.Serializable {
     }
     getBullpen().setLogic(oldLogic);
   }
+  
+  /**
+   * Saves a level to a file.
+   * @param file The file to save to
+   * @throws IOException
+   */
   public void save(File file) throws IOException {
     save(file, getBullpen().getLogic());
   }
@@ -178,10 +197,6 @@ public abstract class Level implements java.io.Serializable {
     }
 
     return level;
-  }
-
-  public ArrayList<Piece> getPieces() {
-    return bullpen.pieces;
   }
 
   /**
@@ -245,8 +260,16 @@ public abstract class Level implements java.io.Serializable {
    */
   public abstract LevelWidgetView makeCorrespondingView(Model model);
 
+  /**
+   * Gets the button to display for switching between level types
+   * @return the button to display for switching between level types
+   */
   public abstract RadioButton getButton();
 
+  /**
+   * Gets the name of the icon to use to represent this level.
+   * @return the name of the icon to use to represent this level.
+   */
   public abstract String getIconName();
 
   /**
@@ -259,6 +282,10 @@ public abstract class Level implements java.io.Serializable {
    */
   public void stop() { active = false; }
 
+  /**
+   * Check if the level is currently active
+   * @return True if the level is active, false otherwise.
+   */
   public boolean isActive() {
     return active;
   }

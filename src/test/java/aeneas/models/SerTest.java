@@ -92,7 +92,7 @@ public class SerTest {
     assertEquals(ll.allowedTime, 10);
     assertEquals(1, ll.getBullpen().getPieces().size());
 
-    Piece p = ll.getPieces().get(0);
+    Piece p = ll.getBullpen().getPieces().get(0);
     for(int i = 0; i < 6; i++) {
       assertEquals(0, p.getSquares()[i].getCol());
       assertEquals(i, p.getSquares()[i].getRow());

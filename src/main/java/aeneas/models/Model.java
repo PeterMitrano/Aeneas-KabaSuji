@@ -19,11 +19,18 @@ import aeneas.views.DragSource;
  */
 public class Model {
 
+  /**
+   * Text for the about menu item.
+   */
   public static final String aboutText = "KabaSuji is a brilliant new puzzle game. "
       + "It is the visionary work of Dr. George T Heineman, "
       + "and has been judiciously implemented by Peter Mitrano, "
       + "James Kuszmaul, Joseph Martin, Logan Tutt, and Garrison Hefter.";
 
+  /**
+   * Text for the help menu item.
+   * This describes how to play the game.
+   */
   public static final String helpText = "The editor allows you to build you're own levels."
     + " You can save your levels, and play them back later.\n"
     + "\n"

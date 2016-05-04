@@ -20,6 +20,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
+ * View class to draw a Bullpen.
+ * 
  * @author Logan Tutt
  * @author Joseph Martin
  */
@@ -166,6 +168,10 @@ public class BullpenView implements ChildDraggedListener, DragSource {
     pieceBeingDragged = null;
   }
 
+  /**
+   * Sets a listener to be notified of that might cause other views to be refreshed.
+   * @param listener The listener to be notified.
+   */
   public void setRefreshListener(RefreshListener listener) {
     this.listener = listener;
   }

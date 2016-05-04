@@ -10,12 +10,15 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.VBox;
 
 /**
+ * Widget view for lightning levels.
  *
  * @author Logan Tutt
  * @author Joseph Martin
  */
 public class LightningWidgetView extends LevelWidgetView {
-
+  /**
+   * A button used for selecting the lightning level type.
+   */
   public static final RadioButton button = new RadioButton("Lightning");
   private LightningLevel level;
 

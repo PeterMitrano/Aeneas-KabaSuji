@@ -11,12 +11,15 @@ import javafx.scene.paint.Color;
 /**
  * generates the initial levels
  * @author Logan
- *
  */
 public class LevelGenerator {
 
   private static int levelNumber = 1;
 
+  /**
+   * Saves to files the default generated levels.
+   * @param args Command line arguments (not used).
+   */
   public static void main(String[] args) {
     File file = new File("build/levels/default/");
     file.mkdirs();
@@ -27,7 +30,7 @@ public class LevelGenerator {
   }
 
   /**
-   * generates the default levels
+   * Generates the default levels
    * @return array of created levels
    */
   public static ArrayList<Level> generateDefaultLevels() {

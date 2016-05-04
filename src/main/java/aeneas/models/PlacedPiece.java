@@ -8,6 +8,11 @@ package aeneas.models;
  */
 public class PlacedPiece implements java.io.Serializable {
   Piece piece;
+  
+  /**
+   * Gets the underlying piece.
+   * @return The underlying piece.
+   */
   public Piece getPiece() {
     return piece;
   }

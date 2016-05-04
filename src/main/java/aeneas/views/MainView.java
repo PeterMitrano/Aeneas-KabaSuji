@@ -36,11 +36,15 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
+ * The top level view class.
  *
  * @author Joseph Martin
  */
 public class MainView extends StackPane implements Initializable {
 
+  /**
+   * The root pane of this view.
+   */
   @FXML
   public StackPane root;
 
@@ -173,7 +177,7 @@ public class MainView extends StackPane implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     model = new Model();
 
-    welcomeView = new WelcomeView(this, model);
+    welcomeView = new WelcomeView(this);
     playSelectLevelView = new PlaySelectLevelView(this, model);
     viewAchievementsView = new ViewAchievementsView(model);
     buildSelectLevelView = new BuildSelectLevelView(this, model);
@@ -266,6 +270,10 @@ public class MainView extends StackPane implements Initializable {
     }
   }
 
+  /**
+   * Gets the model used by this view.
+   * @return the model used by this view.
+   */
   public Model getModel() { return model; }
 
 }

@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 
 /**
  * A Subclass of board with functionality specific to lightning mode.
+ * 
  * @author Joseph Martin
  * @author Logan
  */
