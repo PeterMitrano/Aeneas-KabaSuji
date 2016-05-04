@@ -36,11 +36,17 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
+ * The top level view class.
  *
  * @author Joseph Martin
+ * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public class MainView extends StackPane implements Initializable {
 
+  /**
+   * The root pane of this view.
+   */
   @FXML
   public StackPane root;
 
@@ -81,13 +87,17 @@ public class MainView extends StackPane implements Initializable {
   private Model model;
   private ArrayList<LevelWidgetView> levelViews = new ArrayList<LevelWidgetView>();
 
-  private Stack<Node> paneStack;
+  private Stack<RefreshListener> paneStack;
 
   Stage stage;
 
+  /**
+   * constructor
+   * @param stage
+   */
   public MainView(Stage stage) {
     this.stage = stage;
-    paneStack = new Stack<Node>();
+    paneStack = new Stack<RefreshListener>();
 
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
@@ -98,46 +108,68 @@ public class MainView extends StackPane implements Initializable {
       e.printStackTrace();
     }
 
-    // create the different types of levels
+    //create the different types of levels
     levelViews.add(new PuzzleWidgetView(new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()))));
     levelViews.add(new LightningWidgetView(new LightningLevel(new Bullpen(BullpenLogic.lightningLogic()), 0)));
-    levelViews.add(new ReleaseWidgetView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard(null))));
+    levelViews.add(new ReleaseWidgetView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard()), model));
   }
 
+  /**
+   * Switches to the welcome screen
+   */
   public void switchToWelcomeView() {
     paneStack.push(welcomeView);
     content.getChildren().clear();
     content.getChildren().add(welcomeView);
   }
 
+  /**
+   * switches to the achievments screen
+   */
   public void switchToViewAchievementsView() {
     paneStack.push(viewAchievementsView);
     content.getChildren().clear();
     content.getChildren().add(viewAchievementsView);
   }
 
+  /**
+   * switches to the select build level screen
+   */
   public void switchToBuildSelectLevelView() {
+    buildSelectLevelView.refresh();
     paneStack.push(buildSelectLevelView);
     content.getChildren().clear();
     content.getChildren().add(buildSelectLevelView);
   }
 
-  public void switchToBuildLevelView(LevelWidgetView levelView) {
-    BuildLevelView buildLevelView = new BuildLevelView(this, levelViews, levelView, model);
+  /**
+   * switches to the editor screen
+   * @param level
+   */
+  public void switchToBuildLevelView(Level level) {
+    BuildLevelView buildLevelView = new BuildLevelView(this, levelViews, level, model);
     paneStack.push(buildLevelView);
     content.getChildren().clear();
     content.getChildren().add(buildLevelView);
 
   }
 
+  /**
+   * switches to the playing screen
+   * @param level
+   */
   public void switchToPlayLevelView(Level level) {
-    PlayLevelView playLevelView = new PlayLevelView(level, model);
+    PlayLevelView playLevelView = new PlayLevelView(level, model, this);
     paneStack.push(playLevelView);
     content.getChildren().clear();
     content.getChildren().add(playLevelView);
   }
 
+  /**
+   * switches to level select screen
+   */
   public void switchToPlaySelectLevelView() {
+    playSelectLevelView.refresh();
     paneStack.push(playSelectLevelView);
     content.getChildren().clear();
     content.getChildren().add(playSelectLevelView);
@@ -147,10 +179,10 @@ public class MainView extends StackPane implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     model = new Model();
 
-    welcomeView = new WelcomeView(this, model);
+    welcomeView = new WelcomeView(this);
     playSelectLevelView = new PlaySelectLevelView(this, model);
     viewAchievementsView = new ViewAchievementsView(model);
-    buildSelectLevelView = new BuildSelectLevelView(this);
+    buildSelectLevelView = new BuildSelectLevelView(this, model);
 
     // init Popup
     toolbarPopup.setPopupContainer(root);
@@ -169,7 +201,6 @@ public class MainView extends StackPane implements Initializable {
       dialog.close();
     });
 
-    // we need to add these back eventually
     help.setOnMouseClicked((e) -> {
       dialogLayout.getHeading().clear();
       dialogLayout.getBody().clear();
@@ -185,13 +216,10 @@ public class MainView extends StackPane implements Initializable {
       dialog.show(this);
     });
 
-    content.setOnDragExited((e) -> {
-      // eventually return a piece to where it came
-      // this case is tough because this also fires on valid drops
-    });
-
     this.setOnDragDropped((e) -> {
-        model.getLatestDragSource().returnPiece();
+      model.getLatestDragSource().returnDraggableNode();
+    });
+    this.setOnDragExited((e) -> {
     });
 
     // yes, we need this
@@ -203,14 +231,28 @@ public class MainView extends StackPane implements Initializable {
     switchToWelcomeView();
   }
 
-  public File showSaveDialog() {
+  /**
+   * launches the save dialog
+   * @param levelNumber level number to use for saving
+   * @return the file location selected
+   */
+  public File showSaveDialog(int levelNumber) {
     FileChooser fileChooser = new FileChooser();
+    if(levelNumber > 0) {
+      fileChooser.setInitialFileName(levelNumber+".kbs");
+    }
+    fileChooser.setInitialDirectory(model.getLevelIndex().defaultLevelPath.toFile());
     fileChooser.setTitle("Save Level");
     return fileChooser.showSaveDialog(stage);
   }
 
+  /**
+   * launches the open file dialog
+   * @return the file location selected
+   */
   public File showOpenDialog() {
     FileChooser fileChooser = new FileChooser();
+    fileChooser.setInitialDirectory(model.getLevelIndex().defaultLevelPath.toFile());
     fileChooser.setTitle("Open Existing Level");
     return fileChooser.showOpenDialog(stage);
   }
@@ -219,11 +261,20 @@ public class MainView extends StackPane implements Initializable {
     // unless we're out of places to go back, go at the last pane we
     // the current node should always be in the stack,
     // so only remove and go back if there's multiple things on the stack
+    model.setActiveLevel(null);
     if (paneStack.size() > 1) {
       paneStack.pop();
+      RefreshListener pane = paneStack.peek();
+      pane.refresh();
       content.getChildren().clear();
-      content.getChildren().add(paneStack.peek());
+      content.getChildren().add((Node)pane);
     }
   }
+
+  /**
+   * Gets the model used by this view.
+   * @return the model used by this view.
+   */
+  public Model getModel() { return model; }
 
 }

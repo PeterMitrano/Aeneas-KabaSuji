@@ -8,14 +8,19 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import com.jfoenix.controls.JFXDecorator;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * @author Peter Mitrano
+ */
 public class NavigationTest extends ApplicationTest {
 
-	Stage stage;
+  Stage stage;
   MainView mainView;
 
   @Override
@@ -26,7 +31,7 @@ public class NavigationTest extends ApplicationTest {
   @Override
   public void start(Stage stage) {
     this.stage = stage;
-		mainView = new MainView(stage);
+    mainView = new MainView(stage);
     Scene scene = new Scene(new JFXDecorator(stage, mainView.root), 800, 800);
     stage.setScene(scene);
     stage.show();
@@ -51,10 +56,10 @@ public class NavigationTest extends ApplicationTest {
 
     // hit back again to see if it breaks something
     clickOn("#back");
-	}
+  }
 
-	@Test
-	public void testAddPiecesInEditor() {
+  @Test
+  public void testAddPiecesInEditor() {
     // check adding pieces to bullpen
     clickOn("#buildSelectLevelButton");
     clickOn("#createNewLevelLabel");
@@ -65,11 +70,21 @@ public class NavigationTest extends ApplicationTest {
 
     FlowPane piecesPane = (FlowPane) lookup("#piecesPane").query();
 
-    for (int i = 0; i < piecesPane.getChildren().size(); i++) {
+    int expectedPieces = 0;
+    for (int i = 0; i < 10; i++) {
       PieceView aPiece = (PieceView) piecesPane.getChildren().get(i);
       clickOn(aPiece);
-      assertEquals(bullpenBox.getChildren().size(), i + 1);
+      assertEquals(bullpenBox.getChildren().size(), ++expectedPieces);
+    }
 
+    clickOn(bullpenBox); // Clear out the piecePane dialog.
+
+    for (; bullpenBox.getChildren().size() > 0;) {
+      Pane piecePane = (Pane) bullpenBox.getChildren().get(0);
+      FontAwesomeIconView trash =
+          (FontAwesomeIconView)lookup("#trash").query();
+      drag(piecePane.getChildren().get(0)).dropTo(trash);
+      assertEquals(bullpenBox.getChildren().size(), --expectedPieces);
     }
   }
 }

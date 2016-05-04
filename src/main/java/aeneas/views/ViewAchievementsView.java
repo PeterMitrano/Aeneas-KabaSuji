@@ -9,7 +9,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
-public class ViewAchievementsView extends BorderPane implements Initializable {
+/**
+ * View used to display achievements page
+ *
+ * @author Joseph Martin
+ * @author Peter Mitrano
+ */
+public class ViewAchievementsView extends BorderPane implements Initializable, RefreshListener {
 
   ViewAchievementsView(Model model) {
     try {
@@ -26,6 +32,10 @@ public class ViewAchievementsView extends BorderPane implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
+  }
+
+  @Override
+  public void refresh() {
   }
 
 }

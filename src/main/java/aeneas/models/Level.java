@@ -7,29 +7,65 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
+import java.util.Stack;
+import aeneas.controllers.IMove;
+import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.views.LevelWidgetView;
+import aeneas.views.RefreshListener;
+import javafx.scene.control.RadioButton;
 
 /**
+ * Abstract base class representing a level of KabaSuji.
  *
+ * @author Logan
  * @author Joseph Martin
+ * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public abstract class Level implements java.io.Serializable {
+
+  RefreshListener listener;
+
+  /**
+   * Sets the refresh listener.
+   * This listener will be notified when the level is changed
+   * in such a way that the view must be refreshed.
+   * @param listener
+   */
+  public void setRefreshListener(RefreshListener listener) {
+    this.listener = listener;
+  }
+
   Bullpen bullpen;
 
   transient int levelNumber;
-  boolean prebuilt;
+  transient boolean active = false;
+
+  transient Stack<IMove> undoStack;
+  transient Stack<IMove> redoStack;
 
   public int getLevelNumber() {
     return levelNumber;
   }
 
+  /**
+   * stored metadata for the level, used to load the levels
+   *
+   */
   public static class Metadata implements java.io.Serializable {
     int starsEarned;
     boolean locked;
 
+    /**
+     * constructor
+     */
     public Metadata() { this.starsEarned = 0; this.locked = true; }
 
+    /**
+     * Constuctor
+     * @param starsEarned
+     * @param locked
+     */
     public Metadata(int starsEarned, boolean locked) {
       this.starsEarned = starsEarned;
       this.locked = locked;
@@ -38,18 +74,33 @@ public abstract class Level implements java.io.Serializable {
     public int getStarsEarned() { return starsEarned; }
     public boolean isLocked() { return locked; }
 
-    void setStarsEarned(int stars) { starsEarned = stars; }
-    void setLocked(boolean locked) { this.locked = locked; }
+    public void setStarsEarned(int stars) { starsEarned = stars; }
+    public void setLocked(boolean locked) { this.locked = locked; }
   }
 
+  /**
+   * A level that has a maximum number of moves
+   *
+   */
   public interface LevelWithMoves {
     public int getAllowedMoves();
     public void setAllowedMoves(int moves);
+
+    /**
+     * Decrement the number of remaining moves for the level
+     * @return the number of moves remaining.
+     */
+    public int decMoves();
   }
 
-  public Level(Bullpen bullpen, boolean prebuilt) {
+  /**
+   * constructor
+   * @param bullpen
+   */
+  public Level(Bullpen bullpen) {
     this.bullpen = bullpen;
-    this.prebuilt = prebuilt;
+    undoStack = new Stack<IMove>();
+    redoStack = new Stack<IMove>();
   }
 
   /**
@@ -61,14 +112,9 @@ public abstract class Level implements java.io.Serializable {
   public Level(Level src) {
     this.bullpen = src.bullpen;
     this.levelNumber = src.levelNumber;
-    this.prebuilt = src.prebuilt;
+    undoStack = src.undoStack;
+    redoStack = src.redoStack;
   }
-
-  /**
-   * Check if the level is done
-   * @return true if the level is complete, false otherwise.
-   */
-  public abstract boolean isComplete();
 
   /**
    * Get the board for this level
@@ -89,24 +135,48 @@ public abstract class Level implements java.io.Serializable {
    * @return the prebuilt
    */
   public boolean isPrebuilt() {
-    return prebuilt;
+    return levelNumber <= 15;
   }
 
+  /**
+   * resets the board to its original state
+   */
   public void reset() {
+    Board board = getBoard();
+    Bullpen bullpen = getBullpen();
+    for (PlacedPiece piece : board.getPieces()) {
+      if(!piece.getPiece().isHint()) {
+        bullpen.addPiece(piece.piece);
+      }
+    }
+    board.getPieces().removeIf((p) -> !p.getPiece().isHint());
   }
 
   /**
    * Saves the level to a file.
    * @param file The file to save to. Should not be null
+   * @param saveLogic The BullpenLogic to save with.
    * @throws IOException could fail to load file
    */
-  public void save(File file) throws IOException {
+  public void save(File file, BullpenLogic saveLogic) throws IOException {
+    BullpenLogic oldLogic = getBullpen().getLogic();
+    getBullpen().setLogic(saveLogic);
     try (FileOutputStream saveFile = new FileOutputStream(file);
          ObjectOutputStream out = new ObjectOutputStream(saveFile);) {
       out.writeObject(this);
     } catch (IOException i) {
       throw i;
     }
+    getBullpen().setLogic(oldLogic);
+  }
+
+  /**
+   * Saves a level to a file.
+   * @param file The file to save to
+   * @throws IOException
+   */
+  public void save(File file) throws IOException {
+    save(file, getBullpen().getLogic());
   }
 
   /**
@@ -131,9 +201,123 @@ public abstract class Level implements java.io.Serializable {
     return level;
   }
 
-  public ArrayList<Piece> getPieces() {
-    return bullpen.pieces;
+  /**
+   * Undoes the most recently made move, if possible
+   * @return true if undo was successful, false otherwise
+   */
+  public boolean undoLastMove() {
+    if(undoStack != null && undoStack.size() > 0) {
+      IMove m = undoStack.peek();
+      boolean success = m.undo();
+      if(success) {
+        undoStack.pop();
+        redoStack.add(m);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
-  public abstract LevelWidgetView makeCorrespondingView();
+  /**
+   * Redoes the most recently undone move, if possible
+   * @return true if redo was successful, false otherwise
+   */
+  public boolean redoLastMove() {
+    if(redoStack != null && redoStack.size() > 0) {
+      IMove m = redoStack.peek();
+      boolean success = m.execute();
+      if(success) {
+        redoStack.pop();
+        undoStack.add(m);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Adds a new move to the undo stack.
+   * This will clear all moves in the redo stack
+   * @param move The move to be added
+   */
+  public void addNewMove(IMove move){
+    if(redoStack==null){
+      redoStack = new Stack<IMove>();
+      undoStack = new Stack<IMove>();
+    }
+    redoStack.clear();
+    undoStack.add(move);
+  }
+
+  /**
+   * gets the build view widgets to match the level type
+   * @param model The model of the level
+   * @return the wiget for this level type
+   */
+  public abstract LevelWidgetView makeCorrespondingView(Model model);
+
+  /**
+   * Gets the button to display for switching between level types
+   * @return the button to display for switching between level types
+   */
+  public abstract RadioButton getButton();
+
+  /**
+   * Gets the name of the icon to use to represent this level.
+   * @return the name of the icon to use to represent this level.
+   */
+  public abstract String getIconName();
+
+  /**
+   * starts the level
+   */
+  public void start() { active = true; }
+
+  /**
+   * stops the level
+   */
+  public void stop() { active = false; }
+
+  /**
+   * Check if the level is currently active
+   * @return True if the level is active, false otherwise.
+   */
+  public boolean isActive() {
+    return active;
+  }
+
+  /**
+   * Get the text for counting down the user to finished.
+   * @return The text to be displayed to the user, eg "Time Remaining: 50"
+   */
+  public abstract String getCountdownText();
+
+  /**
+   * Get whether the level is finished and should exit.
+   * @return true if we should exit the level.
+   */
+  public abstract boolean isFinished();
+
+  /**
+   * Copies the data from level src to level dst
+   * @param src source level
+   * @param dst destination level
+   */
+  public void copy(Level src, Level dst) {
+    dst.bullpen = (Bullpen)src.bullpen.clone();
+    dst.active = src.active;
+    dst.levelNumber = src.levelNumber;
+    dst.undoStack = src.undoStack;
+    dst.redoStack = src.redoStack;
+  }
+
+  @Override
+  public abstract Object clone();
+
 }

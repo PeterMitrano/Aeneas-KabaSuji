@@ -1,50 +1,75 @@
 package aeneas.models;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 /**
- *
+ * Class responsible for loading levels.
+ * This gets the default generated levels, and also
+ * checks ~/.aeneas-kabasuji for user saved levels.
  * @author Joseph Martin
+ * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public class LevelIndex {
   HashMap<Integer, Level> levels;
 
+  /**
+   * The default directory that is searched to find level files.
+   */
+  public final Path defaultLevelPath;
+
+  // Whether or not we should load the levels from the ~/.aeneas-kabasuji
+  // directory. This is used for testing, when we don't want whatever weird
+  // things are in the user's computer affecting the tests.
+  private boolean loadUserLevels = true;
+
   LevelIndex() {
     levels = new HashMap<>();
+    // TODO: Consider changing this path.
+    defaultLevelPath = Paths.get(System.getProperty("user.home"), ".aeneas-kabasuji");
     reindex();
   }
 
+  /**
+   * reindexes the level based on the other existing levels
+   */
   public void reindex() {
     levels.clear();
 
     ArrayList<Level> defaultLevels = LevelGenerator.generateDefaultLevels();
     for (int i = 0; i < defaultLevels.size(); i++) {
       Level l = defaultLevels.get(i);
-      l.levelNumber = i + 1;
-      levels.put(i, l);
+      l.levelNumber = i+1;
+      levels.put(i+1, l);
     }
 
-    // honestly we need to change this path.
-    String homeDir = System.getenv("HOME");
-    String defaultLevelPath = homeDir + "/.aeneas-kabasuji";
-    Path defaultDirectory = (new File(defaultLevelPath)).toPath();
+    if (!loadUserLevels) return;
 
-    if (!Files.exists(defaultDirectory)) {
-      System.err.println("Error loading levels. Directory '" + defaultDirectory + "' does not exist.");
+    if (!Files.exists(defaultLevelPath)) {
+      try {
+        Files.createDirectory(defaultLevelPath);
+      } catch(IOException e) {
+        System.err.println("Could not create default level directory '" + defaultLevelPath + "'");
+        return;
+      }
+
+      System.out.println("Directory '" + defaultLevelPath + "' does not exist; it will be created.");
       return;
     }
 
     try {
-      Files.list(defaultDirectory).filter(file -> file.getFileName().toString().endsWith(".kbs")).forEach((file) -> {
+      Stream<Path> files = Files.list(defaultLevelPath).filter(file -> file.getFileName().toString().endsWith(".kbs"));
+      files.forEach((file) -> {
         ObjectInputStream ois = null;
         try {
           ois = new ObjectInputStream(new FileInputStream(file.toFile()));
@@ -80,9 +105,9 @@ public class LevelIndex {
         }
       });
     } catch (NotDirectoryException e) {
-      System.err.println("Error loading levels. '" + defaultDirectory + "' is not a directory");
+      System.err.println("Error loading levels. '" + defaultLevelPath + "' is not a directory");
     } catch (IOException e) {
-      System.err.println("Error reading from directory '" + defaultDirectory + "'");
+      System.err.println("Error reading from directory '" + defaultLevelPath + "'");
     }
   }
 
@@ -92,5 +117,13 @@ public class LevelIndex {
 
   Level getLevel(int i) {
     return levels.get(i);
+  }
+
+  /**
+   * Sets whether or not to load levels from the default directory
+   * @param set
+   */
+  public void setLoadUserLevels(boolean set) {
+    this.loadUserLevels = set;
   }
 }

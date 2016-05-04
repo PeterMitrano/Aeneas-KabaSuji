@@ -13,7 +13,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 
-public class WelcomeView extends VBox implements Initializable{
+/**
+ * Starting view of the application, used to navigate to the build
+ * select level, play select level screen, or achievements screen.
+ *
+ * @author Joseph martin
+ * @author Peter Mitrano
+ */
+public class WelcomeView extends VBox implements Initializable, RefreshListener {
 
 	@FXML
 	private JFXButton playSelectLevelButton;
@@ -26,7 +33,11 @@ public class WelcomeView extends VBox implements Initializable{
 
   private MainView mainView;
 
-  public WelcomeView(MainView mainView, Model model){
+  /**
+   * Creates a new WelcomeView
+   * @param mainView The top level view.
+   */
+  public WelcomeView(MainView mainView){
 
     this.mainView = mainView;
 
@@ -58,4 +69,8 @@ public class WelcomeView extends VBox implements Initializable{
     });
 
 	}
+
+  @Override
+  public void refresh() {
+  }
 }

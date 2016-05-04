@@ -1,6 +1,6 @@
 package aeneas.controllers;
 
-import aeneas.models.Model;
+import aeneas.models.Level;
 import aeneas.models.Piece;
 import aeneas.models.Piece.Axis;
 import aeneas.models.Piece.Dir;
@@ -14,16 +14,25 @@ import javafx.scene.input.MouseEvent;
 /**
  * single click rotates CW, Shift-click rotates CCW
  * ctrl-click flips across vertical axis, shift-ctrl-click flips across horizontal axis
+ * @author Garrison
+ * @author Logan
+ * @author Peter Mitrano
  */
 public class ManipulatePieceController implements EventHandler<MouseEvent> {
 
   Piece pieceModel;
   PieceView pieceView;
-  Model model;
+  Level level;
 
-  public ManipulatePieceController(Model model, Piece pieceModel, PieceView pieceView) {
+  /**
+   * Constructor
+   * @param level
+   * @param pieceModel
+   * @param pieceView
+   */
+  public ManipulatePieceController(Level level, Piece pieceModel, PieceView pieceView) {
     this.pieceModel = pieceModel;
-    this.model = model;
+    this.level = level;
     this.pieceView = pieceView;
   }
 
@@ -54,26 +63,37 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
     }
   }
 
+  /**
+   * does a rotational move
+   * @param dir direction of rotation
+   */
   public void doMove(Dir dir) {
     IMove move = new RotateMove(pieceModel, dir);
     if (move != null && move.execute()) {
-      model.addNewMove(move);
+      level.addNewMove(move);
       pieceView.refresh();
     }
   }
 
+  /**
+   * does a flip move
+   * @param axis axis to rotate on
+   */
   public void doMove(Axis axis){
     IMove move = new FlipMove(pieceModel, axis);
     if (move != null && move.execute()) {
-      model.addNewMove(move);
+      level.addNewMove(move);
       pieceView.refresh();
     }
   }
 
+  /**
+   * adds a hint
+   */
   public void addHint(){
     IMove move = new MakeHintMove(pieceModel);
     if (move != null && move.execute()) {
-      model.addNewMove(move);
+      level.addNewMove(move);
       pieceView.refresh();
     }
   }

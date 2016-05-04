@@ -24,10 +24,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 /**
+ * View to show the list of levels that can be played.
  *
+ * @author Peter Mitrano
  * @author Joseph Martin
  */
-public class PlaySelectLevelView extends BorderPane implements Initializable {
+public class PlaySelectLevelView extends BorderPane implements Initializable, RefreshListener {
 
   @FXML
   private GridPane levelGrid;
@@ -46,6 +48,9 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
   @FXML
   private Label customLevelLabel;
 
+  /**
+   * The top level view.
+   */
   public MainView mainView;
 
   private final int numCols = 5;
@@ -70,27 +75,7 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
-    for (Level level : gameModel.getLevels()) {
-      int r = (level.getLevelNumber() - 1) / numCols;
-      int c = (level.getLevelNumber() - 1) % numCols;
-      JFXButton button = makeLevelButton(level.getLevelNumber(), gameModel.getMetadata(level).isLocked());
-      button.setOnMouseClicked((e)->{
-        if (!gameModel.getMetadata(level).isLocked()) {
-          mainView.switchToPlayLevelView(level);
-          level.reset();
-        }
-      });
-      HBox stars = makeStars(gameModel.getMetadata(level).getStarsEarned());
-
-      if (level.isPrebuilt()) {
-        levelGrid.add(button, c, r);
-        levelGrid.add(stars, c, r);
-      } else {
-        customLevelGrid.add(button, c, r);
-        customLevelGrid.add(stars, c, r);
-      }
-    }
+    refresh();
 
     scrollpane.setHbarPolicy(ScrollBarPolicy.NEVER);
     scrollpane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
@@ -134,5 +119,31 @@ public class PlaySelectLevelView extends BorderPane implements Initializable {
     }
 
     return stars;
+  }
+
+  public void refresh() {
+    gameModel.refreshLevelIndex();
+    customLevelGrid.getChildren().clear();
+    levelGrid.getChildren().clear();
+    for (Level level : gameModel.getLevels()) {
+      int r = (level.getLevelNumber() - 1) / numCols;
+      int c = (level.getLevelNumber() - 1) % numCols;
+      JFXButton button = makeLevelButton(level.getLevelNumber(), gameModel.getMetadata(level).isLocked());
+      button.setOnMouseClicked((e)->{
+        if (!gameModel.getMetadata(level).isLocked()) {
+          level.reset();
+          mainView.switchToPlayLevelView(level);
+        }
+      });
+      HBox stars = makeStars(gameModel.getMetadata(level).getStarsEarned());
+
+      if (level.isPrebuilt()) {
+        levelGrid.add(button, c, r);
+        levelGrid.add(stars, c, r);
+      } else {
+        customLevelGrid.add(button, c, r);
+        customLevelGrid.add(stars, c, r);
+      }
+    }
   }
 }

@@ -6,7 +6,8 @@ import aeneas.models.Piece.Axis;
  * Move action to flip a piece
  *
  * @author Logan
- *
+ * @author Joseph Martin
+ * @author Peter Mitrano
  */
 public class FlipMove implements IMove {
 

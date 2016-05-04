@@ -11,7 +11,11 @@ import org.junit.Test;
 import aeneas.controllers.IMove;
 import aeneas.controllers.ToggleTileMove;
 import aeneas.models.Bullpen.BullpenLogic;
+import javafx.scene.paint.Color;
 
+/**
+ * @author Peter Mitrano
+ */
 public class TestBoard {
   @Before
   public void setUp() throws Exception {
@@ -53,19 +57,19 @@ public class TestBoard {
 
 
     ReleaseLevel l = new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()));
-    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(0, 0, ReleaseNumber.color1, 1));
-    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(1, 0, ReleaseNumber.color2, 1));
-    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(2, 0, ReleaseNumber.color3, 1));
+    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(0, 0, Color.RED, 1));
+    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(1, 0, Color.BLUE, 1));
+    ((ReleaseBoard)l.getBoard()).getNumbers().add(new ReleaseNumber(2, 0, Color.GREEN, 1));
 
     Piece p = new Piece(new Square[] { new Square(0,0) });
     PlacedPiece pp = new PlacedPiece(p, 0, 0);
 
-    assertEquals(0, l.numCoveredNumberSets());
+    assertEquals(3, l.numUncoveredNumberSets());
     assertEquals(0, l.getStarsEarned());
 
     l.getBoard().addPiece(pp);
 
-    assertEquals(1, l.numCoveredNumberSets());
+    assertEquals(2, l.numUncoveredNumberSets());
     assertEquals(1, l.getStarsEarned());
 
 
@@ -73,13 +77,13 @@ public class TestBoard {
     Piece p2 = new Piece(new Square[] { new Square(0,0) });
     PlacedPiece pp2 = new PlacedPiece(p2, 1, 0);
     l.getBoard().addPiece(pp2);
-    assertEquals(2, l.numCoveredNumberSets());
+    assertEquals(1, l.numUncoveredNumberSets());
     assertEquals(2, l.getStarsEarned());
 
     Piece p3 = new Piece(new Square[] { new Square(0,0) });
     PlacedPiece pp3 = new PlacedPiece(p3, 2, 0);
     l.getBoard().addPiece(pp3);
-    assertEquals(3, l.numCoveredNumberSets());
+    assertEquals(0, l.numUncoveredNumberSets());
     assertEquals(3, l.getStarsEarned());
 
   }
@@ -87,8 +91,10 @@ public class TestBoard {
   @Test
   public void testToggleSquare() {
     Bullpen b = new Bullpen(BullpenLogic.editorLogic());
+    Model model = new Model();
     Level l = new PuzzleLevel(b);
-    IMove m = new ToggleTileMove(l, 0, 2);
+    model.setActiveLevel(l);
+    IMove m = new ToggleTileMove(model, 0, 2);
     boolean success = m.execute();
     assertTrue(success);
     assertFalse(l.getBoard().locationValid(new Square(0, 2)));

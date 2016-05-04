@@ -6,7 +6,8 @@ import aeneas.models.Piece.Dir;
  * Move action to rotate a piece
  *
  * @author Logan
- *
+ * @author Joseph Martin
+ * @author Peter Mitrano
  */
 public class RotateMove implements IMove {
 
@@ -39,7 +40,7 @@ public class RotateMove implements IMove {
       piece.rotate(Dir.COUNTERCLOCKWISE);
     else
       piece.rotate(Dir.CLOCKWISE);
-    return false;
+    return true;
   }
 
   @Override

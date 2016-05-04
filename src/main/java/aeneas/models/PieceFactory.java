@@ -3,6 +3,7 @@ package aeneas.models;
 /**
  * A factory to get the hexonimoes based on their number from 0-35.
  * @author Joseph Martin
+ * @author Peter Mitrano
  */
 public class PieceFactory {
   private static final Piece[] pieces = {
@@ -288,6 +289,10 @@ public class PieceFactory {
     }),
   };
 
+  /**
+   * gets all possible pieces
+   * @return array of all the possible piece types
+   */
   public static Piece[] getPieces() {
     Piece[] clones = new Piece[pieces.length];
 

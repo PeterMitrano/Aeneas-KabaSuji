@@ -7,7 +7,9 @@ import aeneas.models.Piece;
  * Move action to add a piece to a level For use in the builder
  *
  * @author Logan
- *
+ * @author Joseph Martin
+ * @author jbkuszmaul
+ * @author Peter
  */
 public class AddPieceMove implements IMove {
 

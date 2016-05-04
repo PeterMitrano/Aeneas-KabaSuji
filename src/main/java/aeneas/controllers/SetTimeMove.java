@@ -7,6 +7,7 @@ import aeneas.models.LightningLevel;
  *
  * @author Logan
  * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public class SetTimeMove implements IMove {
 
@@ -35,14 +36,13 @@ public class SetTimeMove implements IMove {
 
   @Override
   public boolean undo() {
-    if (!isValid()) return false;
     level.setAllowedTime(oldTime);
     return true;
   }
 
   @Override
   public boolean isValid() {
-    return level != null;
+    return level != null && newTime != level.getAllowedTime();
   }
 
 }

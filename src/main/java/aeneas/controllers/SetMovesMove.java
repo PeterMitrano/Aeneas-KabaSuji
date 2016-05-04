@@ -7,6 +7,7 @@ import aeneas.models.Level.LevelWithMoves;
  *
  * @author Logan
  * @author jbkuszmaul
+ * @author Peter Mitrano
  */
 public class SetMovesMove implements IMove {
 
@@ -36,14 +37,14 @@ public class SetMovesMove implements IMove {
 
   @Override
   public boolean undo() {
-    if (!isValid()) return false;
     level.setAllowedMoves(oldMoves);
     return true;
   }
 
   @Override
   public boolean isValid() {
-    return level != null && newMoves >= 0;
+    return level != null && newMoves >= 0 &&
+           newMoves != level.getAllowedMoves();
   }
 
 }

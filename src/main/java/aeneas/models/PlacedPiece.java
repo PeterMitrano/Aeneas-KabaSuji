@@ -4,9 +4,17 @@ package aeneas.models;
  * Contains a piece and a location.
  * This represents a piece that has been placed (or is going to be placed) on the board.
  * @author Joseph Martin
+ * @author Garrison
+ * @author Peter Mitrano
+ * @author Logan
  */
-public class PlacedPiece {
+public class PlacedPiece implements java.io.Serializable {
   Piece piece;
+
+  /**
+   * Gets the underlying piece.
+   * @return The underlying piece.
+   */
   public Piece getPiece() {
     return piece;
   }

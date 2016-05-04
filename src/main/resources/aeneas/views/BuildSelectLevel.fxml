@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.BorderPane?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
 
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1"
     xmlns="http://javafx.com/javafx/2.2">
@@ -19,14 +21,6 @@
       <JFXListView prefWidth="300" fx:id="fileList">
         <Label fx:id="createNewLevelLabel" styleClass="create_new_level_label">Create New Level</Label>
       </JFXListView>
-      <JFXButton fx:id="openFile" prefHeight="50" prefWidth="50" styleClass="action-button">
-        <graphic>
-          <FontAwesomeIconView glyphName="FOLDER_OPEN" size="2em"/>
-        </graphic>
-        <StackPane.margin>
-          <Insets left="10" bottom="10" />
-        </StackPane.margin>
-      </JFXButton>
     </StackPane>
   </left>
   <center>
@@ -57,4 +51,19 @@
       </HBox>
     </VBox>
   </center>
+  
+  <JFXDialog fx:id="dialog">
+    <JFXDialogLayout fx:id="dialogLayout">
+      <heading>
+      	<Label>Select a Level</Label>
+      </heading>
+      <body>
+      	<Label>Please select a level to edit.</Label>
+      </body>
+      <actions>
+        <JFXButton fx:id="accept" styleClass="dialog-accept">OK
+        </JFXButton>
+      </actions>
+    </JFXDialogLayout>
+  </JFXDialog>
 </fx:root>

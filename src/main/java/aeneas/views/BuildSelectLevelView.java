@@ -1,18 +1,19 @@
 package aeneas.views;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.effects.JFXDepthManager;
 
 import aeneas.models.Bullpen;
 import aeneas.models.Bullpen.BullpenLogic;
 import aeneas.models.Level;
+import aeneas.models.Model;
 import aeneas.models.PuzzleLevel;
 
 import javafx.fxml.FXML;
@@ -21,7 +22,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
-public class BuildSelectLevelView extends BorderPane implements Initializable {
+/**
+ * View for the selecting a level to edit
+ *
+ * @author Joseph Martin
+ * @author Peter Mitrano
+ * @author Garrison
+ * @author jbkuszmaul
+ */
+public class BuildSelectLevelView extends BorderPane implements Initializable, RefreshListener {
 
   @FXML
   private Label createNewLevelLabel;
@@ -30,17 +39,21 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
   private JFXListView<Label> fileList;
 
   @FXML
-  private JFXButton openFile;
-
-  @FXML
   private JFXButton editLevel;
 
-  private MainView mainView;
-  private LevelWidgetView levelViewToSwitchTo;
-  private HashMap<String, LevelWidgetView> levelMap = new HashMap<String, LevelWidgetView>();
+  @FXML
+  private JFXDialog dialog;
 
-  BuildSelectLevelView(MainView mainView) {
+  @FXML
+  private JFXButton accept;
+
+  private MainView mainView;
+  private Level levelToSwitchTo;
+  private Model model;
+
+  BuildSelectLevelView(MainView mainView, Model model) {
     this.mainView = mainView;
+    this.model = model;
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("BuildSelectLevel.fxml"));
       loader.setRoot(this);
@@ -52,7 +65,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
   }
 
   private LevelWidgetView createDefaultLevelView() {
-    Bullpen defaultBullpen  = new Bullpen(BullpenLogic.editorLogic());
+    Bullpen defaultBullpen  = new Bullpen(BullpenLogic.puzzleLogic());
     PuzzleLevel defaultLevel = new PuzzleLevel(defaultBullpen);
     return new PuzzleWidgetView(defaultLevel);
   }
@@ -64,42 +77,53 @@ public class BuildSelectLevelView extends BorderPane implements Initializable {
       Label l = fileList.getSelectionModel().getSelectedItem();
 
       if (l != null) {
-        String path = l.getText();
+        String text = l.getText();
 
-        if (path.equals(createNewLevelLabel.getText())) {
-          levelViewToSwitchTo = createDefaultLevelView();
-          mainView.switchToBuildLevelView(levelViewToSwitchTo);
+        if (text.equals(createNewLevelLabel.getText())) {
+          levelToSwitchTo = createDefaultLevelView().getDefaultLevelModel();
+          levelToSwitchTo.getBullpen().setLogic(BullpenLogic.editorLogic());
+          levelToSwitchTo.getBoard().setIsEditor(true);
+          mainView.switchToBuildLevelView(levelToSwitchTo);
         } else {
-          levelViewToSwitchTo = levelMap.get(path);
+          levelToSwitchTo = model.getLevel(Integer.parseInt(text));
+          levelToSwitchTo.getBullpen().setLogic(BullpenLogic.editorLogic());
+          levelToSwitchTo.getBoard().setIsEditor(true);
 
-          if (levelViewToSwitchTo == null) {
-            System.out.println("couldn't find file name " + path);
+          if (levelToSwitchTo == null) {
+            System.out.println("couldn't find file level " + text);
           }
         }
       }
     });
 
-    editLevel.setOnMouseClicked((e) -> {
-      mainView.switchToBuildLevelView(levelViewToSwitchTo);
+    dialog.setTransitionType(DialogTransition.CENTER);
+
+    accept.setOnMouseClicked((e) -> {
+      dialog.close();
     });
 
-    openFile.setOnMouseClicked((e) -> {
-      File loadFile = mainView.showOpenDialog();
-      if (loadFile == null)
-        return;
-      try {
-        Level newLevel = Level.loadLevel(loadFile);
-        this.levelViewToSwitchTo = newLevel.makeCorrespondingView();
-        String path = loadFile.getAbsolutePath();
-        levelMap.put(path, this.levelViewToSwitchTo);
-        this.fileList.getItems().add(new Label(path));
-      } catch (IOException i) {
-        System.out.println("Error occurred opening file.");
+    editLevel.setOnMouseClicked((e) -> {
+      if(levelToSwitchTo != null) {
+        mainView.switchToBuildLevelView(levelToSwitchTo);
+      } else {
+        dialog.show(mainView);
       }
     });
 
     JFXDepthManager.setDepth(fileList, 1);
 
+    refresh();
   }
 
+  public void refresh() {
+    levelToSwitchTo = null;
+    fileList.getItems().clear();
+    fileList.getItems().add(createNewLevelLabel);
+
+    model.getLevelIndex().reindex();
+
+    for(Level l : model.getLevels()) {
+      fileList.getItems().add(new Label(l.getLevelNumber()+""));
+    }
+  }
 }

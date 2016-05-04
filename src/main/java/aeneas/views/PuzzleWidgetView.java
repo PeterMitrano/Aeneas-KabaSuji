@@ -1,30 +1,53 @@
 package aeneas.views;
 
+import aeneas.controllers.IMove;
+import aeneas.controllers.SetMovesMove;
+import aeneas.models.Level;
 import aeneas.models.PuzzleLevel;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
 
+/**
+ * Widget for editing parameters of a puzzle level
+ *
+ * @author Logan Tutt
+ * @author Joseph Martin
+ * @author Peter Mitrano
+ */
 public class PuzzleWidgetView extends LevelWidgetView {
-
+  /**
+   * The button used to select the puzzle level type
+   */
   static public final RadioButton button = new RadioButton("Puzzle");
 
   private Spinner<Integer> movesSelect;
   private Label movesLabel;
+  private PuzzleLevel level;
+  private boolean isUserInput = true;
 
-  public PuzzleWidgetView(PuzzleLevel levelModel){
+  /**
+   * Create a new widget that represents the current state of the given model.
+   * @param levelModel The model to initialize the state of the widget to, and to track.
+   */
+  public PuzzleWidgetView(PuzzleLevel levelModel) {
     super(levelModel);
+    this.level = levelModel;
 
+    level = levelModel;
     movesLabel = new Label("Moves");
-    movesSelect = new Spinner<Integer>(1, 20, 10);
+    movesSelect = new Spinner<Integer>(1, 999, 10);
     movesSelect.setPrefWidth(70);
     movesSelect.setEditable(true);
     movesSelect.getValueFactory().setValue(levelModel.getAllowedMoves());
     movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
-      levelModel.setAllowedMoves(new_value);
+      if(!isUserInput) return;
+      IMove move = new SetMovesMove(level, new_value);
+      if(move.execute()){
+        level.addNewMove(move);
+      }
     });
 
     HBox hbox = new HBox();
@@ -41,6 +64,31 @@ public class PuzzleWidgetView extends LevelWidgetView {
   @Override
   public RadioButton getButton() {
     return PuzzleWidgetView.button;
+  }
+
+  @Override
+  public void updateValues(){
+    isUserInput = false;
+    getButton().setSelected(true);
+    movesSelect.getValueFactory().setValue(level.getAllowedMoves());
+    isUserInput = true;
+  }
+
+  public Level resetLevelModel(Level level) {
+    if (level instanceof PuzzleLevel) {
+      this.level = (PuzzleLevel)level;
+      return level;
+    }
+    this.level = new PuzzleLevel(level);
+    movesSelect.valueProperty().addListener((observer, old_value, new_value) -> {
+      if(!isUserInput) return;
+      IMove move = new SetMovesMove(this.level, new_value);
+      if(move.execute()){
+        level.addNewMove(move);
+      }
+    });
+    updateValues();
+    return this.level;
   }
 
 }
