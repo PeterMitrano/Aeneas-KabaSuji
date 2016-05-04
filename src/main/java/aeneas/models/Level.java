@@ -15,13 +15,21 @@ import aeneas.views.RefreshListener;
 import javafx.scene.control.RadioButton;
 
 /**
- *
+ * Abstract base class representing a level of KabaSuji.
+ * 
+ * @author Logan
  * @author Joseph Martin
  */
 public abstract class Level implements java.io.Serializable {
 
   RefreshListener listener;
 
+  /**
+   * Sets the refresh listener.
+   * This listener will be notified when the level is changed
+   * in such a way that the view must be refreshed.
+   * @param listener
+   */
   public void setRefreshListener(RefreshListener listener) {
     this.listener = listener;
   }
@@ -38,12 +46,24 @@ public abstract class Level implements java.io.Serializable {
     return levelNumber;
   }
 
+  /**
+   * stored metadata for the level, used to load the levels
+   *
+   */
   public static class Metadata implements java.io.Serializable {
     int starsEarned;
     boolean locked;
 
+    /**
+     * constructor
+     */
     public Metadata() { this.starsEarned = 0; this.locked = true; }
 
+    /**
+     * Constuctor
+     * @param starsEarned
+     * @param locked
+     */
     public Metadata(int starsEarned, boolean locked) {
       this.starsEarned = starsEarned;
       this.locked = locked;
@@ -56,12 +76,25 @@ public abstract class Level implements java.io.Serializable {
     public void setLocked(boolean locked) { this.locked = locked; }
   }
 
+  /**
+   * A level that has a maximum number of moves
+   *
+   */
   public interface LevelWithMoves {
     public int getAllowedMoves();
     public void setAllowedMoves(int moves);
+    
+    /**
+     * Decrement the number of remaining moves for the level
+     * @return the number of moves remaining.
+     */
     public int decMoves();
   }
 
+  /**
+   * constructor
+   * @param bullpen
+   */
   public Level(Bullpen bullpen) {
     this.bullpen = bullpen;
     undoStack = new Stack<IMove>();
@@ -103,6 +136,9 @@ public abstract class Level implements java.io.Serializable {
     return levelNumber <= 15;
   }
 
+  /**
+   * resets the board to its original state
+   */
   public void reset() {
     Board board = getBoard();
     Bullpen bullpen = getBullpen();
@@ -131,6 +167,12 @@ public abstract class Level implements java.io.Serializable {
     }
     getBullpen().setLogic(oldLogic);
   }
+  
+  /**
+   * Saves a level to a file.
+   * @param file The file to save to
+   * @throws IOException
+   */
   public void save(File file) throws IOException {
     save(file, getBullpen().getLogic());
   }
@@ -155,10 +197,6 @@ public abstract class Level implements java.io.Serializable {
     }
 
     return level;
-  }
-
-  public ArrayList<Piece> getPieces() {
-    return bullpen.pieces;
   }
 
   /**
@@ -215,15 +253,39 @@ public abstract class Level implements java.io.Serializable {
     undoStack.add(move);
   }
 
+  /**
+   * gets the build view widgets to match the level type
+   * @param model The model of the level
+   * @return the wiget for this level type
+   */
   public abstract LevelWidgetView makeCorrespondingView(Model model);
 
+  /**
+   * Gets the button to display for switching between level types
+   * @return the button to display for switching between level types
+   */
   public abstract RadioButton getButton();
 
+  /**
+   * Gets the name of the icon to use to represent this level.
+   * @return the name of the icon to use to represent this level.
+   */
   public abstract String getIconName();
 
+  /**
+   * starts the level
+   */
   public void start() { active = true; }
+  
+  /**
+   * stops the level
+   */
   public void stop() { active = false; }
 
+  /**
+   * Check if the level is currently active
+   * @return True if the level is active, false otherwise.
+   */
   public boolean isActive() {
     return active;
   }
@@ -240,6 +302,11 @@ public abstract class Level implements java.io.Serializable {
    */
   public abstract boolean isFinished();
 
+  /**
+   * Copies the data from level src to level dst
+   * @param src source level
+   * @param dst destination level
+   */
   public void copy(Level src, Level dst) {
     dst.bullpen = (Bullpen)src.bullpen.clone();
     dst.active = src.active;

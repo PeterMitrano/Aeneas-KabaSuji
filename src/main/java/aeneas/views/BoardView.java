@@ -38,7 +38,16 @@ public class BoardView extends GridPane implements DragSource {
    */
   static final int SQUARE_SIZE = 40;
 
+  /**
+   * listener for when squares are clicked
+   *
+   */
   public interface SquareClickListener {
+    /**
+     * Called when a square is clicked on
+     * @param row row of the square
+     * @param col column of the square
+     */
     public void squareClicked(int row, int col);
   }
 
@@ -49,6 +58,12 @@ public class BoardView extends GridPane implements DragSource {
   private RefreshListener refreshListener;
   private PlacedPiece pieceBeingDragged = null;
 
+  /**
+   * Sets a listener to be notified of events that may cause the board
+   * to need to be redrawn.
+   * 
+   * @param listener The listener to be notified.
+   */
   public void setRefreshListener(RefreshListener listener) {
     this.refreshListener = listener;
   }
@@ -94,7 +109,7 @@ public class BoardView extends GridPane implements DragSource {
 
           SnapshotParameters snapshotParameters = new SnapshotParameters();
           snapshotParameters.setFill(Color.TRANSPARENT); // i3 doesn't handle
-                                                         // this
+          // this
 
           // create a new piece view just for the dragging so it can have a
           // different size
@@ -103,7 +118,7 @@ public class BoardView extends GridPane implements DragSource {
 
           Image snapshotImage = fullSizedPieceView.snapshot(snapshotParameters,
               null);
-          
+
           // For some reason the piece shows up in a different place for
           // Macs when dragging, so we need to offset the view if we're
           // running on a Mac.
@@ -236,6 +251,10 @@ public class BoardView extends GridPane implements DragSource {
 
   }
 
+  /**
+   * Sets a listener to be notified of clicks to a squares on this board.
+   * @param listener The listener to be notified.
+   */
   public void setSquareClickListener(SquareClickListener listener) {
     this.clickListener = listener;
   }
@@ -253,6 +272,10 @@ public class BoardView extends GridPane implements DragSource {
     }
   }
 
+  /**
+   * Gets the last piece dragged from this view.
+   * @return the last piece dragged from this view.
+   */
   public PlacedPiece getLastDraggedPiece() {
     return pieceBeingDragged;
   }

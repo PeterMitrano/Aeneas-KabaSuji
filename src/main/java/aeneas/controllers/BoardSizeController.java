@@ -7,11 +7,21 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Spinner;
 
+/**
+ * Controller for handling changing the size of the board
+ * 
+ * @author Logan
+ *
+ */
 public class BoardSizeController implements ChangeListener<Integer> {
 
 
   private BuildLevelView view;
 
+  /**
+   * Constructor 
+   * @param view the level view
+   */
   public BoardSizeController( BuildLevelView view) {
     this.view = view;
   }

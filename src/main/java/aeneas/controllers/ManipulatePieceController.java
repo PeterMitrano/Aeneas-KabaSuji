@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 /**
  * single click rotates CW, Shift-click rotates CCW
  * ctrl-click flips across vertical axis, shift-ctrl-click flips across horizontal axis
+ * @author Logan
  */
 public class ManipulatePieceController implements EventHandler<MouseEvent> {
 
@@ -21,6 +22,12 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
   PieceView pieceView;
   Level level;
 
+  /**
+   * Constructor
+   * @param level
+   * @param pieceModel
+   * @param pieceView
+   */
   public ManipulatePieceController(Level level, Piece pieceModel, PieceView pieceView) {
     this.pieceModel = pieceModel;
     this.level = level;
@@ -54,6 +61,10 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
     }
   }
 
+  /**
+   * does a rotational move
+   * @param dir direction of rotation
+   */
   public void doMove(Dir dir) {
     IMove move = new RotateMove(pieceModel, dir);
     if (move != null && move.execute()) {
@@ -62,6 +73,10 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
     }
   }
 
+  /**
+   * does a flip move
+   * @param axis axis to rotate on
+   */
   public void doMove(Axis axis){
     IMove move = new FlipMove(pieceModel, axis);
     if (move != null && move.execute()) {
@@ -70,6 +85,9 @@ public class ManipulatePieceController implements EventHandler<MouseEvent> {
     }
   }
 
+  /**
+   * adds a hint
+   */
   public void addHint(){
     IMove move = new MakeHintMove(pieceModel);
     if (move != null && move.execute()) {
