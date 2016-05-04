@@ -7,12 +7,17 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Spinner;
 
+
+
 /**
+ * Move action to change the size of the board
+ * 
+ * 
  * Controller for handling changing the size of the board
  * 
  * @author jbkuszmaul
  * @author Logan
- *
+ * @author Garrison
  */
 public class BoardSizeController implements ChangeListener<Integer> {
 

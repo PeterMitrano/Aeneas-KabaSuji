@@ -33,6 +33,7 @@ import javafx.scene.paint.Color;
  *
  * @author Logan Tutt
  * @author Joseph Martin
+ * @author Garrison
  * @author jbkuszmaul
  */
 public class BoardView extends GridPane implements DragSource {

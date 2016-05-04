@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
  * A number on a release board
  *
  * @author Joseph Martin
+ * @author Garrison
  * @author Logan
  */
 public class ReleaseNumber implements java.io.Serializable {

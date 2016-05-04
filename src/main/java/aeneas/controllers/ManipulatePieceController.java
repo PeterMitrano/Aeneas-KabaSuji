@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 /**
  * single click rotates CW, Shift-click rotates CCW
  * ctrl-click flips across vertical axis, shift-ctrl-click flips across horizontal axis
+ * @author Garrison
  * @author Logan
  */
 public class ManipulatePieceController implements EventHandler<MouseEvent> {

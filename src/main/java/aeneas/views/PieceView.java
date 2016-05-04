@@ -30,6 +30,7 @@ import javafx.scene.paint.Color;
  *
  * @author Logan Tutt
  * @author Joseph Martin
+ * @author Garrison
  */
 public class PieceView extends GridPane {
 

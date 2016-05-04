@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 /**
  *
  * @author Joseph Martin
+ * @author Garrison
  */
 public class Main extends Application {
   public void start(Stage stage) {
