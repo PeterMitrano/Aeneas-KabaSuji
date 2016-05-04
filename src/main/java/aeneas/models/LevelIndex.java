@@ -17,6 +17,7 @@ import java.util.stream.Stream;
  * This gets the default generated levels, and also
  * checks ~/.aeneas-kabasuji for user saved levels.
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class LevelIndex {
   HashMap<Integer, Level> levels;

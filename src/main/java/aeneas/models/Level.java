@@ -19,6 +19,7 @@ import javafx.scene.control.RadioButton;
  * 
  * @author Logan
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public abstract class Level implements java.io.Serializable {
 

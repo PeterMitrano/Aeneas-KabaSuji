@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
  * @author Logan Tutt
  * @author Joseph Martin
  * @author Logan Tutt
+ * @author jbkuszmaul
  */
 public abstract class Board implements java.io.Serializable {
   /**

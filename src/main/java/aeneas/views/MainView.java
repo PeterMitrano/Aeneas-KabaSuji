@@ -39,6 +39,7 @@ import javafx.stage.Stage;
  * The top level view class.
  *
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class MainView extends StackPane implements Initializable {
 

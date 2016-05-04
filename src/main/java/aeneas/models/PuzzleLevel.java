@@ -13,6 +13,7 @@ import javafx.scene.control.RadioButton;
  * Concrete level class for puzzle mode
  *
  * @author Joseph Martin
+ * @author jbkuszmaul
  * @author Logan
  */
 public class PuzzleLevel extends Level

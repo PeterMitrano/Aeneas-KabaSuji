@@ -19,6 +19,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * @author jbkuszmaul
+ */
 public class BoardControlTest extends ApplicationTest {
 
   Stage stage;

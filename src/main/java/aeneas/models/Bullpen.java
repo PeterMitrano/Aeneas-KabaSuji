@@ -7,6 +7,7 @@ import java.util.ArrayList;
  *
  * @author Logan
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class Bullpen implements java.io.Serializable {
   /**

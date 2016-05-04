@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
  * A Subclass of board with functionality specific to lightning mode.
  * 
  * @author Joseph Martin
+ * @author jbkuszmaul
  * @author Logan
  */
 public class LightningBoard extends Board implements java.io.Serializable {

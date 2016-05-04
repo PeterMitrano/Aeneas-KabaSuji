@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
  *
  * @author Joseph Martin
  * @author Logan Tutt
+ * @author jbkuszmaul
  */
 public class ReleaseLevel extends Level
 implements java.io.Serializable, Level.LevelWithMoves {

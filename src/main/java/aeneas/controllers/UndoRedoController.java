@@ -8,6 +8,7 @@ import javafx.scene.input.KeyEvent;
 /**
  * Controller for handling all undoing and redoing
  * @author Logan
+ * @author Logan
  */
 public class UndoRedoController implements EventHandler<KeyEvent> {
 
