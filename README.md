@@ -27,7 +27,7 @@ If you just want to use it as a java project
 ===========
 HOW TO PLAY
 ===========
--Stars are earned on your performance, and you must earn one or more star to proceed to the next level.
+-Stars are earned based on your performance, and you must earn one or more star to proceed to the next level.
 -Pieces can be dragged on to and around the board, depending on the level type.
 -You can rotate and flip pieces by right clicking on a piece.
 -You can also use the following key-bindings:
