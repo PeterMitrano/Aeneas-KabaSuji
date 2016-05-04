@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Joseph Martin
+ * @author Joseph Martin, Garrison
  */
 public class Main extends Application {
   public void start(Stage stage) {
