@@ -40,4 +40,19 @@ HOW TO PLAY
 FOR A PUZZLE LEVEL
 ==================
 -You begin the level with a set of pieces and a number of moves
--
+-To earn three stars, you must cover all available spaces in the number of moves provided.
+-The level will end when you run out of moves.
+
+=====================
+FOR A LIGHTNING LEVEL
+=====================
+-You begin the level with a set of pieces and a time allowed
+-To earn three stars, you must cover all available spaces in the time provided.
+-The level will end when you run out of time.
+
+=====================
+FOR A RELEASE LEVEL
+=====================
+-You begin the level with a set of pieces and a number of moves
+-To earn three stars, you must cover all sets of numbers on the board in the number of moves provided.
+-The level will end when you run out of moves.
