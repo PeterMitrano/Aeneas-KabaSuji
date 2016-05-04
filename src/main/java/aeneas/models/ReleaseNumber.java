@@ -4,16 +4,16 @@ import javafx.scene.input.DataFormat;
 import javafx.scene.paint.Color;
 
 /**
+ * A number on a release board
  *
  * @author Joseph Martin
  * @author Garrison
+ * @author Logan
  */
 public class ReleaseNumber implements java.io.Serializable {
-
-  public static Color color1 = Color.RED;
-  public static Color color2 = Color.BLUEVIOLET;
-  public static Color color3 = Color.YELLOW;
-
+  /**
+   * Data format spec for release number
+   */
   public static final DataFormat dataFormat = new DataFormat("aeneas.models.ReleaseNumber");
 
   /** row coordinate */
@@ -25,6 +25,13 @@ public class ReleaseNumber implements java.io.Serializable {
   /** Value of this number */
   int val;
 
+  /**
+   * Construct a new release number.
+   * @param row The row where this release number is located.
+   * @param col The column where this release number is located.
+   * @param color The color of this release number.
+   * @param val The number to display
+   */
   public ReleaseNumber(int row, int col, Color color, int val){
     this.row = row;
     this.col = col;
@@ -44,7 +51,7 @@ public class ReleaseNumber implements java.io.Serializable {
   public void setValue(int val) { this.val = val; }
 
   @Override
-  public Object clone() {
+  public ReleaseNumber clone() {
     return new ReleaseNumber(this.row, this.col, Color.web(this.color), this.val);
   }
 }

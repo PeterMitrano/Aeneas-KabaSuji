@@ -10,13 +10,14 @@ import aeneas.views.PuzzleWidgetView;
 import javafx.scene.control.RadioButton;
 
 /**
+ * Concrete level class for puzzle mode
  *
  * @author Joseph Martin
+ * @author jbkuszmaul
+ * @author Logan
  */
 public class PuzzleLevel extends Level
 implements java.io.Serializable, Level.LevelWithMoves {
-  public static final String helpText = "";
-
   PuzzleBoard board;
 
   private int movesAllowed = 1;
@@ -40,11 +41,10 @@ implements java.io.Serializable, Level.LevelWithMoves {
     this(bullpen, new PuzzleBoard());
   }
 
-  public PuzzleLevel(Bullpen bullpen, boolean prebuilt) {
-    super(bullpen);
-    board = new PuzzleBoard();
-  }
-
+  /**
+   * Copy constructor. Constructs a new puzzle level from an existing level.
+   * @param src
+   */
   public PuzzleLevel(Level src) {
     super(src);
     

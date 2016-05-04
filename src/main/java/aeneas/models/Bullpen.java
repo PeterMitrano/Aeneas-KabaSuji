@@ -5,7 +5,9 @@ import java.util.ArrayList;
 /**
  * A bullpen is a list of pieces available to the player.
  *
+ * @author Logan
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class Bullpen implements java.io.Serializable {
   /**
@@ -21,57 +23,71 @@ public class Bullpen implements java.io.Serializable {
    */
   public void setLogic(BullpenLogic logic) { this.logic = logic; }
 
+  /**
+   * Represents the logic of a bullpen.
+   * This determines what kind of actions/behavior
+   * are valid for a particular Bullpen
+   */
   public static class BullpenLogic implements java.io.Serializable {
-    private boolean canReturnPiece;
     private boolean canAddNewPiece;
     private boolean isRandom;
 
+    /**
+     * Create a new BullpenLogic for editing a level
+     * @return A BullpenLogic to be used when editing a level
+     */
     public static BullpenLogic editorLogic() {
       BullpenLogic b = new BullpenLogic();
       b.canAddNewPiece = true;
-      b.canReturnPiece = true;
       b.isRandom = false;
       return b;
     }
-
+    
+    /**
+     * Create a new BullpenLogic for playing a puzzle level
+     * @return A BullpenLogic to be used when playing a puzzle level
+     */
     public static BullpenLogic puzzleLogic() {
       BullpenLogic b = new BullpenLogic();
       b.canAddNewPiece = false;
-      b.canReturnPiece = true;
       b.isRandom = false;
       return b;
     }
 
+    /**
+     * Create a new BullpenLogic for playing a lightning level
+     * @return A BullpenLogic to be used when playing a lightning level
+     */
     public static BullpenLogic lightningLogic() {
       BullpenLogic b = new BullpenLogic();
       b.canAddNewPiece = false;
-      b.canReturnPiece = false;
       b.isRandom = true;
       return b;
     }
 
+    /**
+     * Create a new BullpenLogic for playing a release level
+     * @return A BullpenLogic to be used when playing a release level
+     */
     public static BullpenLogic releaseLogic() {
       BullpenLogic b = new BullpenLogic();
       b.canAddNewPiece = false;
-      b.canReturnPiece = false;
       b.isRandom = false;
       return b;
     }
 
     /**
-     * @return the canReturnPiece
-     */
-    public boolean isCanReturnPiece() {
-      return canReturnPiece;
-    }
-
-    /**
-     * @return the canAddNewPiece
+     * Check if pieces can be added to a bullpen
+     * @return True if pieces can be added to the bullpen, false otherwise
      */
     public boolean isCanAddNewPiece() {
       return canAddNewPiece;
     }
 
+    /**
+     * Check if a piece removed from the bullpen should be replaced by a new, random piece
+     * @return True if removed pieces should be replaced, false otherwise.
+     */
     public boolean isRandom() {
       return isRandom;
     }
@@ -81,7 +97,6 @@ public class Bullpen implements java.io.Serializable {
       if (obj instanceof BullpenLogic) {
         BullpenLogic other = (BullpenLogic)obj;
         return this.canAddNewPiece == other.canAddNewPiece &&
-               this.canReturnPiece == other.canReturnPiece &&
                this.isRandom == other.isRandom;
       }
       return false;

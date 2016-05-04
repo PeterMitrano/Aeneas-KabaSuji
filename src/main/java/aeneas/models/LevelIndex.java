@@ -13,12 +13,18 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 /**
- *
+ * Class responsible for loading levels.
+ * This gets the default generated levels, and also
+ * checks ~/.aeneas-kabasuji for user saved levels.
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class LevelIndex {
   HashMap<Integer, Level> levels;
 
+  /**
+   * The default directory that is searched to find level files.
+   */
   public final Path defaultLevelPath;
 
   // Whether or not we should load the levels from the ~/.aeneas-kabasuji
@@ -33,6 +39,9 @@ public class LevelIndex {
     reindex();
   }
 
+  /**
+   * reindexes the level based on the other existing levels
+   */
   public void reindex() {
     levels.clear();
 
@@ -109,6 +118,10 @@ public class LevelIndex {
     return levels.get(i);
   }
 
+  /**
+   * Sets whether or not to load levels from the default directory
+   * @param set
+   */
   public void setLoadUserLevels(boolean set) {
     this.loadUserLevels = set;
   }

@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 /**
  * View class for displaying a Piece
  *
+ * @author Logan Tutt
  * @author Joseph Martin
  * @author Garrison
  */
@@ -141,6 +142,9 @@ public class PieceView extends GridPane {
 
   }
 
+  /**
+   * Shows the context menu for performing operations on pieces.
+   */
   public void showPopup() {
     piecePopup.setPopupContainer(levelPane);
     piecePopup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, squareSize * 1.5, squareSize * 1.5);
@@ -157,6 +161,10 @@ public class PieceView extends GridPane {
     }
   }
 
+  /**
+   * Sets a listener that will be notified when a child element receives a drag event.
+   * @param listener The listener to be notified
+   */
   public void setOnChildDraggedListener(ChildDraggedListener listener) {
     this.childDraggedListener = listener;
   }

@@ -3,6 +3,8 @@ package aeneas.models;
 import javafx.scene.paint.Color;
 
 /**
+ * Represents a square of a piece or board. A square
+ * has a row and column, and may have a number and color
  *
  * @author Joseph Martin
  * @author Logan Tutt
@@ -12,6 +14,13 @@ public class Square implements java.io.Serializable {
   ReleaseNumber num;
   private String color;
 
+  /**
+   * Create a new square
+   * @param dRow
+   * @param dCol
+   * @param num
+   * @param color
+   */
   public Square(int dRow,int dCol,ReleaseNumber num, Color color){
     this.dRow = dRow;
     this.dCol = dCol;

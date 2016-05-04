@@ -5,15 +5,24 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 /**
- * Represents a board (which keeps track of its pieces, hints, and the shape of
- * the board).
- *
+ * Represents a board for a KabaSuji level 
+ * A board keeps track of its pieces, hints, and the shape of
+ * the board.
+ * 
+ * @author Logan Tutt
  * @author Joseph Martin
  * @author Logan Tutt
+ * @author jbkuszmaul
  */
 public abstract class Board implements java.io.Serializable {
+  /**
+   * The maximum size of a board
+   */
   public static final int MAX_SIZE = 12;
 
+  /**
+   * Default color of board squares
+   */
   public static final Color DEFAULT_COLOR = Color.GRAY;
 
   int rows = MAX_SIZE;
@@ -23,6 +32,9 @@ public abstract class Board implements java.io.Serializable {
   ArrayList<PlacedPiece> pieces;
   protected transient boolean isEditor = false;
 
+  /**
+   * Constructor
+   */
   public Board() {
     pieces = new ArrayList<>();
     for (int i=0;i<MAX_SIZE;i++){
@@ -32,6 +44,10 @@ public abstract class Board implements java.io.Serializable {
     }
   }
 
+  /**
+   * Constructor
+   * @param board to use data from
+   */
   public Board(Board board) {
     this.squares = board.squares;
     this.pieces = board.pieces;
@@ -115,6 +131,7 @@ public abstract class Board implements java.io.Serializable {
   public boolean removePiece(PlacedPiece piece) {
     return pieces.remove(piece);
   }
+  
 
   /**
    * Gets the piece at the specified position (if there is one)
@@ -187,6 +204,10 @@ public abstract class Board implements java.io.Serializable {
     return squares;
   }
 
+  /**
+   * gets the number of squares that are not covered and valid
+   * @return the number of squares that are not covered and valid
+   */
   public int numSquaresRemaining() {
     int count = 0;
     for(int j = 0; j < MAX_SIZE; j++) {
@@ -198,6 +219,10 @@ public abstract class Board implements java.io.Serializable {
     return count;
   }
 
+  /**
+   * Gets the array representing which squares on the board are valid.
+   * @return The array representing which squares on the board are valid.
+   */
   public boolean[][] getSquares() {
     return squares;
   }
@@ -246,15 +271,24 @@ public abstract class Board implements java.io.Serializable {
     this.cols = cols;
   }
 
-  public int getRows(){return rows;}
+  public int getRows(){ return rows; }
 
-  public int getCols(){return cols;}
+  public int getCols(){ return cols; }
 
-
-  public void setIsEditor(boolean is) {
-    this.isEditor = is;
+  /**
+   * Set whether or not the board is in an editor context.
+   * This affects whether or not hints and release numbers
+   * can be dragged around.
+   * @param isEditor
+   */
+  public void setIsEditor(boolean isEditor) {
+    this.isEditor = isEditor;
   }
 
+  /**
+   * Check whether or not the board is in an editor context.
+   * @return True if the board is in an editor context.
+   */
   public boolean getIsEditor() {
     return isEditor;
   }

@@ -1,8 +1,10 @@
 package aeneas.models;
 
 /**
+ * Concrete board class for puzzle mode
  *
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class PuzzleBoard extends Board implements java.io.Serializable {
   PuzzleBoard() {

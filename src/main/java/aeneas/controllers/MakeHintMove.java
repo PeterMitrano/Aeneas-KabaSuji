@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 /**
  * Move action to create a new hint
  * @author Logan, Garrison
- *
+ * @author jbkuszmaul
  */
 public class MakeHintMove implements IMove {
 

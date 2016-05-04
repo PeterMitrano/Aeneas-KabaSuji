@@ -24,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 /**
+ * View to show the list of levels that can be played.
  *
  * @author Joseph Martin
  */
@@ -46,6 +47,9 @@ public class PlaySelectLevelView extends BorderPane implements Initializable, Re
   @FXML
   private Label customLevelLabel;
 
+  /**
+   * The top level view.
+   */
   public MainView mainView;
 
   private final int numCols = 5;

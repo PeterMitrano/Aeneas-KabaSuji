@@ -3,7 +3,7 @@ package aeneas.controllers;
 /**
  * Interface representing a single move action to be completed
  * @author Logan
- *
+ * @author jbkuszmaul
  */
 public interface IMove {
 

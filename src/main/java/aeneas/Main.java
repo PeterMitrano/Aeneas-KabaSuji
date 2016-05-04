@@ -47,6 +47,10 @@ public class Main extends Application {
     launch(args);
   }
 
+  /**
+   * checks if the program is on a mac to prevent weird drag behavior
+   * @return true if is on mac
+   */
   public static boolean isRunningOnMac() {
     String os = System.getProperty("os.name").toLowerCase();
     return os.contains("darwin")  || os.contains("mac");

@@ -10,7 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
 /**
- *
+ * View used to display achievements page
+ * 
  * @author Joseph Martin
  */
 public class ViewAchievementsView extends BorderPane implements Initializable, RefreshListener {

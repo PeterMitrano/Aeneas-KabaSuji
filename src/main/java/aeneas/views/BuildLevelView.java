@@ -17,9 +17,12 @@ import aeneas.controllers.ChangeLevelTypeMove;
 import aeneas.controllers.ChildDraggedListener;
 import aeneas.controllers.DeleteBoardPieceMove;
 import aeneas.controllers.DeleteBullpenPieceMove;
+import aeneas.controllers.DeleteReleaseNumberMove;
 import aeneas.controllers.IMove;
 import aeneas.controllers.ToggleTileMove;
 import aeneas.controllers.UndoRedoController;
+import aeneas.models.DragType;
+import aeneas.models.DragType.Type;
 import aeneas.models.Level;
 import aeneas.models.Model;
 import aeneas.models.Piece;
@@ -51,12 +54,14 @@ import javafx.scene.layout.VBox;
 /**
  * Display the level builder.
  *
+ * @author Logan
  * @author pmitrano
  * @author jbkuszmaul
  * @author Joseph Martin
  * @author Garrison
  */
-public class BuildLevelView extends StackPane implements Initializable, RefreshListener {
+public class BuildLevelView extends StackPane
+    implements Initializable, RefreshListener {
 
   private static final int PIECE_PICKER_SQUARE_SIZE = 12;
 
@@ -109,7 +114,7 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
   private Spinner<Integer> columnSpinner;
 
   @FXML
-  private FontAwesomeIconView deletePiece;
+  private FontAwesomeIconView trash;
 
   private BoardView boardView;
   private MainView mainView;
@@ -120,14 +125,16 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
   private UndoRedoController undoController;
   private boolean isRefreshing = false;
 
-  BuildLevelView(MainView mainView, ArrayList<LevelWidgetView> levelViews, Level level, Model model) {
+  BuildLevelView(MainView mainView, ArrayList<LevelWidgetView> levelViews,
+      Level level, Model model) {
     this.levelView = level.makeCorrespondingView(model);
     this.levelViews = levelViews;
     this.model = model;
     model.setActiveLevel(level);
     this.mainView = mainView;
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("BuildLevel.fxml"));
+      FXMLLoader loader = new FXMLLoader(
+          getClass().getResource("BuildLevel.fxml"));
       loader.setRoot(this);
       loader.setController(this);
       loader.load();
@@ -136,10 +143,9 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
     }
   }
 
-
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.boardView = new BoardView((Pane)this, model);
+    this.boardView = new BoardView((Pane) this, model);
     this.bullpenView = new BullpenView(model, bullpenBox, (Pane) this);
     bullpenView.refresh();
     undoController = new UndoRedoController(this, model);
@@ -152,7 +158,8 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
     columnSpinner.valueProperty().addListener(new BoardSizeController(this));
 
     saveButton.setOnMouseClicked((e) -> {
-      File saveFile = mainView.showSaveDialog(this.model.getActiveLevel().getLevelNumber());
+      File saveFile = mainView
+          .showSaveDialog(this.model.getActiveLevel().getLevelNumber());
       if (saveFile == null)
         return;
       try {
@@ -176,17 +183,20 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
     // Handle changes in the level type.
     // TODO: Consider moving this to a separate class.
     levelType.selectedToggleProperty()
-    .addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
-      if (new_toggle != null && !toggle.equals(new_toggle)) {
-        LevelWidgetView view = (LevelWidgetView) ((RadioButton) new_toggle).getUserData();
-        Level newLevel = view.resetLevelModel(this.model.getActiveLevel());
-        IMove move = new ChangeLevelTypeMove(this.model, newLevel);
-        if (move.execute()) model.getActiveLevel().addNewMove(move);
-        this.settingsBox.getChildren().set(1, view.getPanel());
-        this.levelView = view;
-        this.boardView.refresh();
-      }
-    });
+        .addListener((ObservableValue<? extends Toggle> ov, Toggle toggle,
+            Toggle new_toggle) -> {
+          if (new_toggle != null && !toggle.equals(new_toggle)) {
+            LevelWidgetView view = (LevelWidgetView) ((RadioButton) new_toggle)
+                .getUserData();
+            Level newLevel = view.resetLevelModel(this.model.getActiveLevel());
+            IMove move = new ChangeLevelTypeMove(this.model, newLevel);
+            if (move.execute())
+              model.getActiveLevel().addNewMove(move);
+            this.settingsBox.getChildren().set(1, view.getPanel());
+            this.levelView = view;
+            this.boardView.refresh();
+          }
+        });
 
     piecePickerDialog.setTransitionType(DialogTransition.CENTER);
 
@@ -201,7 +211,8 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
       }
     });
 
-    //if the user commits to dragging a piece out of the dialog then we close the dialog
+    // if the user commits to dragging a piece out of the dialog then we close
+    // the dialog
     piecesPane.setOnDragExited((e) -> {
       piecePickerDialog.close();
     });
@@ -211,7 +222,8 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
       piecesPane.getChildren().clear();
 
       for (Piece pieceModel : PieceFactory.getPieces()) {
-        PieceView pView = new PieceView((Pane) this, pieceModel, model.getActiveLevel(), PIECE_PICKER_SQUARE_SIZE);
+        PieceView pView = new PieceView((Pane) this, pieceModel,
+            model.getActiveLevel(), PIECE_PICKER_SQUARE_SIZE);
         piecesPane.getChildren().add(pView);
 
         pView.setOnChildDraggedListener(new ChildDraggedListener() {
@@ -226,8 +238,9 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
         });
 
         pView.setOnMouseClicked((click) -> {
-          IMove move = new AddPieceMove(model.getActiveLevel().getBullpen(), pieceModel.clone());
-          if (move.execute()){
+          IMove move = new AddPieceMove(model.getActiveLevel().getBullpen(),
+              pieceModel.clone());
+          if (move.execute()) {
             model.getActiveLevel().addNewMove(move);
             bullpenView.refresh();
           }
@@ -235,34 +248,45 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
       }
     });
 
-    mainView.setOnKeyPressed(undoController );
-    undoButton.setOnMouseClicked((e)-> {
+    mainView.setOnKeyPressed(undoController);
+    undoButton.setOnMouseClicked((e) -> {
       undoController.undoMove();
     });
-    redoButton.setOnMouseClicked((e)-> {
+    redoButton.setOnMouseClicked((e) -> {
       undoController.redoMove();
     });
 
-    deletePiece.setOnDragDropped((DragEvent event) -> {
+    trash.setOnDragDropped((DragEvent event) -> {
       Dragboard db = event.getDragboard();
 
-      // use this to draw the piece on the board
-      Piece piece = (Piece) db.getContent(Piece.dataFormat);
-
+      Type type = (Type) db.getContent(DragType.dataFormat);
       DragSource source = model.getLatestDragSource();
-
       IMove move = null;
 
-      if (source instanceof BoardView) {
-        BoardView v = (BoardView)source;
-        move = new DeleteBoardPieceMove(model, v.getLastDraggedPiece());
+      switch (type) {
+      default:
+      case Piece:
+        if (source instanceof BoardView) {
+          BoardView v = (BoardView) source;
+          move = new DeleteBoardPieceMove(model, v.getLastDraggedPiece());
+        } else if (source instanceof BullpenView) {
+          BullpenView v = (BullpenView) source;
+          move = new DeleteBullpenPieceMove(model, v.getRemovedPiece());
+        }
+        break;
+
+      case ReleaseNum:
+
+        if (source instanceof BoardView) {
+          BoardView v = (BoardView) source;
+          move = new DeleteReleaseNumberMove(model,
+              v.getLastDraggedReleaseNum());
+        }
+        break;
       }
-      else if (source instanceof BullpenView){
-        BullpenView v = (BullpenView)source;
-        move = new DeleteBullpenPieceMove(model, v.getRemovedPiece());
-      }
+
       if (move != null) {
-        if (!move.execute()){
+        if (!move.execute()) {
           model.getLatestDragSource().returnDraggableNode();
         } else {
           model.getLatestDragSource().dragSuccess();
@@ -279,26 +303,33 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
     });
 
     // this is absolutely nessecary
-    deletePiece.setOnDragOver((DragEvent event) -> {
+    trash.setOnDragOver((DragEvent event) -> {
       event.acceptTransferModes(TransferMode.MOVE);
       event.consume();
     });
   }
-
 
   public void refresh() {
     isRefreshing = true;
     boardView.refresh();
     bullpenView.refresh();
     this.levelType.selectToggle(model.getActiveLevel().getButton());
-    this.levelView = (LevelWidgetView)levelType.getSelectedToggle().getUserData();
+    this.levelView = (LevelWidgetView) levelType.getSelectedToggle()
+        .getUserData();
     this.levelView.updateValues();
-    this.rowSpinner.getValueFactory().setValue(model.getActiveLevel().getBoard().getRows());
-    this.columnSpinner.getValueFactory().setValue(model.getActiveLevel().getBoard().getCols());
+    this.rowSpinner.getValueFactory()
+        .setValue(model.getActiveLevel().getBoard().getRows());
+    this.columnSpinner.getValueFactory()
+        .setValue(model.getActiveLevel().getBoard().getCols());
     isRefreshing = false;
   }
 
-  public boolean isRefreshing(){return isRefreshing;}
+  /**
+   * @return True if the view is currently in the process of refreshing.
+   */
+  public boolean isRefreshing() {
+    return isRefreshing;
+  }
 
   public Spinner<Integer> getRowSpinner() {
     return rowSpinner;
@@ -316,7 +347,7 @@ public class BuildLevelView extends StackPane implements Initializable, RefreshL
     model.setActiveLevel(level);
   }
 
-  public Model getModel(){
+  public Model getModel() {
     return model;
   }
 }

@@ -36,11 +36,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
+ * The top level view class.
  *
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class MainView extends StackPane implements Initializable {
 
+  /**
+   * The root pane of this view.
+   */
   @FXML
   public StackPane root;
 
@@ -85,6 +90,10 @@ public class MainView extends StackPane implements Initializable {
 
   Stage stage;
 
+  /**
+   * constructor
+   * @param stage
+   */
   public MainView(Stage stage) {
     this.stage = stage;
     paneStack = new Stack<RefreshListener>();
@@ -104,18 +113,27 @@ public class MainView extends StackPane implements Initializable {
     levelViews.add(new ReleaseWidgetView(new ReleaseLevel(new Bullpen(BullpenLogic.releaseLogic()), new ReleaseBoard()), model));
   }
 
+  /**
+   * Switches to the welcome screen
+   */
   public void switchToWelcomeView() {
     paneStack.push(welcomeView);
     content.getChildren().clear();
     content.getChildren().add(welcomeView);
   }
 
+  /**
+   * switches to the achievments screen
+   */
   public void switchToViewAchievementsView() {
     paneStack.push(viewAchievementsView);
     content.getChildren().clear();
     content.getChildren().add(viewAchievementsView);
   }
 
+  /**
+   * switches to the select build level screen
+   */
   public void switchToBuildSelectLevelView() {
     buildSelectLevelView.refresh();
     paneStack.push(buildSelectLevelView);
@@ -123,6 +141,10 @@ public class MainView extends StackPane implements Initializable {
     content.getChildren().add(buildSelectLevelView);
   }
 
+  /**
+   * switches to the editor screen
+   * @param level
+   */
   public void switchToBuildLevelView(Level level) {
     BuildLevelView buildLevelView = new BuildLevelView(this, levelViews, level, model);
     paneStack.push(buildLevelView);
@@ -131,6 +153,10 @@ public class MainView extends StackPane implements Initializable {
 
   }
 
+  /**
+   * switches to the playing screen
+   * @param level
+   */
   public void switchToPlayLevelView(Level level) {
     PlayLevelView playLevelView = new PlayLevelView(level, model, this);
     paneStack.push(playLevelView);
@@ -138,6 +164,9 @@ public class MainView extends StackPane implements Initializable {
     content.getChildren().add(playLevelView);
   }
 
+  /**
+   * switches to level select screen
+   */
   public void switchToPlaySelectLevelView() {
     playSelectLevelView.refresh();
     paneStack.push(playSelectLevelView);
@@ -149,7 +178,7 @@ public class MainView extends StackPane implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     model = new Model();
 
-    welcomeView = new WelcomeView(this, model);
+    welcomeView = new WelcomeView(this);
     playSelectLevelView = new PlaySelectLevelView(this, model);
     viewAchievementsView = new ViewAchievementsView(model);
     buildSelectLevelView = new BuildSelectLevelView(this, model);
@@ -201,6 +230,11 @@ public class MainView extends StackPane implements Initializable {
     switchToWelcomeView();
   }
 
+  /**
+   * launches the save dialog
+   * @param levelNumber level number to use for saving
+   * @return the file location selected
+   */
   public File showSaveDialog(int levelNumber) {
     FileChooser fileChooser = new FileChooser();
     if(levelNumber > 0) {
@@ -211,6 +245,10 @@ public class MainView extends StackPane implements Initializable {
     return fileChooser.showSaveDialog(stage);
   }
 
+  /**
+   * launches the open file dialog
+   * @return the file location selected
+   */
   public File showOpenDialog() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setInitialDirectory(model.getLevelIndex().defaultLevelPath.toFile());
@@ -232,6 +270,10 @@ public class MainView extends StackPane implements Initializable {
     }
   }
 
+  /**
+   * Gets the model used by this view.
+   * @return the model used by this view.
+   */
   public Model getModel() { return model; }
 
 }

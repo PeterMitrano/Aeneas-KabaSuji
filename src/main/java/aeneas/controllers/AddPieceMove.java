@@ -8,6 +8,7 @@ import aeneas.models.Piece;
  *
  * @author Logan
  * @author Joseph Martin
+ * @author jbkuszmaul
  */
 public class AddPieceMove implements IMove {
 

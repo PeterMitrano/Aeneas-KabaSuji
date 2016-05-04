@@ -14,6 +14,9 @@ import aeneas.models.LightningLevel;
 import aeneas.models.PuzzleLevel;
 import aeneas.models.ReleaseLevel;
 
+/**
+* @author jbkuszmaul
+ */
 public class TestSetMovesMove {
 
   @Before
