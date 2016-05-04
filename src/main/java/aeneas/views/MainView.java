@@ -199,7 +199,6 @@ public class MainView extends StackPane implements Initializable {
       dialog.close();
     });
 
-    // we need to add these back eventually
     help.setOnMouseClicked((e) -> {
       dialogLayout.getHeading().clear();
       dialogLayout.getBody().clear();

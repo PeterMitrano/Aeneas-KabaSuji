@@ -10,6 +10,7 @@ import aeneas.models.DragType.Type;
 import aeneas.models.Model;
 import aeneas.models.Piece;
 import aeneas.models.PieceFactory;
+import aeneas.models.PlacedPiece;
 import aeneas.models.Square;
 
 import javafx.geometry.Pos;
@@ -32,6 +33,7 @@ public class BullpenView implements ChildDraggedListener, DragSource {
   private Model model;
   Bullpen bullpen;
   RefreshListener listener;
+  private Piece removedPiece;
 
   static final int SQUARE_SIZE = 14;
   private String baseStyle = "-fx-padding:10px;";
@@ -60,34 +62,36 @@ public class BullpenView implements ChildDraggedListener, DragSource {
 
       Type type = (Type) db.getContent(DragType.dataFormat);
 
-      switch (type) {
-      default:
-      case Piece:
-        Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
-        DragSource source = model.getLatestDragSource();
-        if(source instanceof BoardView) {
-          BoardView b = (BoardView)source;
-          IMove m = new BoardToBullpenMove(model.getActiveLevel(), b.getLastDraggedPiece());
-          if(m.execute()) {
-            model.dragSuccess();
-            model.getActiveLevel().addNewMove(m);
-          } else {
+      if(type != null) {
+        switch (type) {
+        default:
+        case Piece:
+          Piece pieceModel = (Piece) db.getContent(Piece.dataFormat);
+          DragSource source = model.getLatestDragSource();
+          if(source instanceof BoardView) {
+            BoardView b = (BoardView)source;
+            IMove m = new BoardToBullpenMove(model, b.getLastDraggedPiece());
+            if(m.execute()) {
+              model.dragSuccess();
+              model.getActiveLevel().addNewMove(m);
+            } else {
+              model.returnDraggableNode();
+            }
+          } else if(source instanceof BullpenView) {
             model.returnDraggableNode();
-          }
-        } else if(source instanceof BullpenView) {
-          model.returnDraggableNode();
-        } else {
-          IMove m = new AddPieceMove(model.getActiveLevel().getBullpen(), pieceModel);
-          if(m.execute()) {
-            model.dragSuccess();
-            model.getActiveLevel().addNewMove(m);
           } else {
-            model.returnDraggableNode();
+            IMove m = new AddPieceMove(model.getActiveLevel().getBullpen(), pieceModel);
+            if(m.execute()) {
+              model.dragSuccess();
+              model.getActiveLevel().addNewMove(m);
+            } else {
+              model.returnDraggableNode();
+            }
           }
+          break;
+        case ReleaseNum:
+          break;
         }
-        break;
-      case ReleaseNum:
-        break;
       }
 
 
@@ -140,6 +144,7 @@ public class BullpenView implements ChildDraggedListener, DragSource {
   @Override
   public void onPieceDragged(PieceView pieceView) {
     pieceBeingDragged = pieceView;
+    removedPiece = pieceView.pieceModel;
     model.getActiveLevel().getBullpen().removePiece(pieceView.pieceModel);
     refresh();
     model.setLatestDragSource(this);
@@ -174,5 +179,9 @@ public class BullpenView implements ChildDraggedListener, DragSource {
    */
   public void setRefreshListener(RefreshListener listener) {
     this.listener = listener;
+  }
+  
+  public Piece getRemovedPiece() {
+    return removedPiece;
   }
 }

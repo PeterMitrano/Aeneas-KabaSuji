@@ -5,7 +5,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.effects.JFXDepthManager;
 
 import aeneas.models.Bullpen;
@@ -35,6 +37,12 @@ public class BuildSelectLevelView extends BorderPane implements Initializable, R
 
   @FXML
   private JFXButton editLevel;
+
+  @FXML
+  private JFXDialog dialog;
+
+  @FXML
+  private JFXButton accept;
 
   private MainView mainView;
   private Level levelToSwitchTo;
@@ -84,9 +92,19 @@ public class BuildSelectLevelView extends BorderPane implements Initializable, R
         }
       }
     });
+    
+    dialog.setTransitionType(DialogTransition.CENTER);
+
+    accept.setOnMouseClicked((e) -> {
+      dialog.close();
+    });
 
     editLevel.setOnMouseClicked((e) -> {
-      mainView.switchToBuildLevelView(levelToSwitchTo);
+      if(levelToSwitchTo != null) {
+        mainView.switchToBuildLevelView(levelToSwitchTo);
+      } else {
+        dialog.show(mainView);
+      }
     });
 
     JFXDepthManager.setDepth(fileList, 1);
@@ -95,6 +113,7 @@ public class BuildSelectLevelView extends BorderPane implements Initializable, R
   }
 
   public void refresh() {
+    levelToSwitchTo = null;
     fileList.getItems().clear();
     fileList.getItems().add(createNewLevelLabel);
 

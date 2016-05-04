@@ -26,7 +26,7 @@ public class SerTest {
 
   @Test
   public void testPuzzleLevelSerialize() {
-    PuzzleLevel s = new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()), false);
+    PuzzleLevel s = new PuzzleLevel(new Bullpen(BullpenLogic.puzzleLogic()));
     s.setAllowedMoves(10);
     File file = new File("build/puzzle.ksb");
 
