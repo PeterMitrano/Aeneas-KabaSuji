@@ -3,7 +3,8 @@ package aeneas.models;
 /**
  * Contains a piece and a location.
  * This represents a piece that has been placed (or is going to be placed) on the board.
- * @author Joseph Martin, Garrison
+ * @author Joseph Martin
+ * @author Garrison
  */
 public class PlacedPiece implements java.io.Serializable {
   Piece piece;
