@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/Cheddarpuffs/Aeneas-KabaSuji/branch/master/graph/badge.svg)](https://codecov.io/gh/Cheddarpuffs/Aeneas-KabaSuji)
 
 
-# Aeneas-KabaSuji
+# Aeneas KabaSuji
 Aeneas KabaSuji
 
 
